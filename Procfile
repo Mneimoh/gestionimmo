@@ -1,0 +1,1 @@
+web gunicorn gestionimmo.wgsi:application --log-file - --log-level debug
