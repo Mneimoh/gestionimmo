@@ -1,1 +1,1 @@
-web gunicorn gestionimmo.wgsi:application --log-file - --log-level debug
+web gunicorn gestionimmo.wsgi.application --log-file - --log-level debug
