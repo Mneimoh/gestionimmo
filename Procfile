@@ -1,1 +1,1 @@
-web gunicorn gestionimmo.wsgi.application --log-file - --log-level debug
+web gunicorn gestionimmo.wgsi:application --timeout 10 --log-file - --log-level debug
