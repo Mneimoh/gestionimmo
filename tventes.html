@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+
+<!-- Mirrored from log.kwedytotohwei.com/tventes.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 20 Jul 2021 05:51:43 GMT -->
+<head>
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <title>Espace Transac - Vente - Thomas Kaboré</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width">        
+  <link rel="stylesheet" href="css/templatemo_main.css">
+
+  <style type="text/css">
+    .red{color: red;}
+  </style>
+<!-- 
+Dashboard Template 
+http://www.templatemo.com/preview/templatemo_415_dashboard
+-->
+</head>
+<body>
+  <div class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <div class="logo"><h1>Tableau de bord - Thomas Kaboré - Transac</h1></div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button> 
+      </div>   
+    </div>
+    <div class="template-page-wrapper">
+      <div class="navbar-collapse collapse templatemo-sidebar">
+        <ul class="templatemo-sidebar-menu">     
+          <li><a href="tcompte.html"><i class="fa fa-folder-open"></i>Compte</a></li>
+          <li class="active"><a href="tventes.html"><i class="fa fa-shopping-cart"></i>Vente</a></li>
+          <li><a href="tpenalites.html"><i class="fa fa-clock-o"></i>Pénalités</a></li>
+          <li ><a href="tpaiements.html"><i class="fa fa-money"></i>Paiements mensuels</a></li>
+          <li><a href="tmutations.html"><i class="fa fa-step-forward"></i>Mutations</a></li>
+          <li><a href="trestructurations.html"><i class="fa fa-cubes"></i>Restructurations</a></li>
+          <li><a href="tpml.html"><i class="fa fa-map-marker"></i>Plan de masse</a></li>
+          <li><a href="tdcpt.html"><i class="fa fa-file-image-o"></i>Dossiers crédits prop. terriens</a></li>
+          <li><a href="tdc.html"><i class="fa fa-file-image-o"></i>Dossiers crédits</a></li>
+          <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+        </ul>
+      </div><!--/.navbar-collapse -->
+
+      <div class="templatemo-content-wrapper">
+        <div class="templatemo-content">
+          <ol class="breadcrumb">
+            <li><a href="aappel.html">ACCUEIL</a></li>
+            <li><a href="caisse.html">CAISSE</a></li>
+            <li class="active"><a style="color:black;" href="tcompte.html">TRANSAC</a></li>
+            <li><a href="recouvrement-2.html">RECOUVREMENT</a></li>
+            <li><a href="sign-in.html">DIRECTION</a></li>
+          </ol>
+          <h1>Espace vente</h1>          
+          <br><br>          
+          <div class="margin-bottom-30">
+            <div class="row">
+              <div class="col-md-12">
+                <form class="navbar-form">
+                  <ul class="nav nav-pills">
+                    <!--<li class="active"><a href="#">Compte ouvert<span class="badge">42</span></a></li>
+                    <li class="active"><a href="#">Non finalisé <span class="badge">26</span></a></li>
+                    <li class="active"><a href="#">Abandonné <span class="badge">14</span></a></li> -->
+                    <li>
+                        <select class="form-control margin-bottom-15" id="typeArticle">
+                          <option value="" selected>Type d'article</option>
+                          <option>Immobilier</option>
+                          <option>Moto</option>
+                          <option>Electroménager</option>
+                        </select>
+                      </form>
+                    </li> 
+                    <li>
+                        &nbsp;&nbsp;<input type="text" class="form-control" id="templatemo_search_box" placeholder="N° de dossier">
+                        <span class="btn btn-default">Rechercher</span>
+                    </li> 
+                  </ul>    
+                </form>      
+              </div>
+            </div>
+          </div>      
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="templatemo-alerts">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+                      <strong>Succès !</strong> Ce dossier a bien été trouvé.
+                    </div>
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                      Tout est en ordre vous pouvez consulter.
+                    </div>
+                  </div>  
+                </div>            
+              </div>              
+            </div>
+            <div class="col-md-6">
+              <div class="templatemo-alerts">
+                <div class="row">
+                  <div class="col-md-12">                    
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+                      Vous avez reçu un message de la direction.
+                    </div>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                      Nous n'avons pas trouvé de dossier correspondant à ce numéro.
+                    </div>            
+                  </div>  
+                </div>            
+              </div>              
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th>N° client</th>
+                      <th>Téléphone</th>
+                      <th>Nom</th>
+                      <th>Prénom</th>
+                      <th>N°dossier</th>
+                      <th>Statut</th>
+                      <th>Dernier Paiement</th>
+                      <th>Coeff recouvr</th>
+                      <th>Appelé & récouvré</th>
+                      <th>Dernier appel</th>
+                      <th>hr</th>
+                      <th>Consulter</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>35975975</td>
+                      <td>887786455</td>
+                      <td>Wade</td>
+                      <td>Abdou</td>
+                      <td>484084058</td>
+                      <td>R1</td>
+                      <td>15/03/2014</td>
+                      <td>1</td>
+                      <td>non</td>
+                      <td>15/01/2014</td>
+                      <td>12:35</td>                      
+                      <td><a href="#" class="btn btn-link">Consulter</a></td>
+                    </tr>                                             
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                          <span class="badge">1</span>&nbsp; Information produit cédé
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvArticle" class="control-label">Article</label>
+                            <input type="text" class="form-control" id="tvArticle" value="Terrain nu" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvSite" class="control-label">Site</label>
+                            <input type="text" class="form-control" id="tvSite" value="Komsilga" disabled>   
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvDimension" class="control-label">Dimension</label>
+                            <input type="text" class="form-control" id="tvDimension" value="350m&sup2;" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvSituation" class="control-label">Situation</label>
+                            <input type="text" class="form-control" id="tvSituation" value="" disabled>   
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvTypeDocs" class="control-label">Type DOCS</label>
+                            <input type="text" class="form-control" id="tvTypeDocs" value="Attestation villageoise" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvNstock" class="control-label">N° de stock</label>
+                            <input type="text" class="form-control" id="tvNstock" value="KINT10001" disabled>   
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvNomCite" class="control-label">Nom de la cité</label>
+                            <input type="text" class="form-control" id="tvNomCite" value="Cité Emergence 2025" disabled>
+                          </div>
+                        </div>
+
+                        <!-- Si article = produit subventionné -->
+                        <!--<div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvArticle" class="control-label">Article</label>
+                            <input type="text" class="form-control" id="tvArticle" value="Moto" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvMarque" class="control-label">Marque</label>
+                            <input type="text" class="form-control" id="tvMarque" value="Yamaha" disabled>   
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvModel" class="control-label">Modèle</label>
+                            <input type="text" class="form-control" id="tvModel" value="SIRIUS" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvCode" class="control-label">Code</label>
+                            <input type="text" class="form-control" id="tvCode" value="YMHSS" disabled>   
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvNserie" class="control-label">N° de serie</label>
+                            <input type="text" class="form-control" id="tvNserie" value="" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvColor" class="control-label">Couleur</label>
+                            <input type="text" class="form-control" id="tvColor" value="Blanche" disabled>   
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvNstock" class="control-label">N° de stock</label>
+                            <input type="text" class="form-control" id="tvNstock" value="" disabled>
+                          </div>
+                        </div>-->
+
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                          <span class="badge">2</span>&nbsp; Information vendeur
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        
+                        <div class="row">
+                          <div class="col-md-8 margin-bottom-15">
+                            <label for="tvNomVendeur" class="control-label">Nom</label>
+                            <input type="text" class="form-control" id="tvNomVendeur" value="Wend Puire Distribution" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvTelephone" class="control-label">Téléphone</label>
+                            <input type="text" class="form-control" id="tvTelephone" value="+226 64 45 89 98" disabled>   
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 margin-bottom-15">
+                            <label for="tvAdresse" class="control-label">Adresse</label>
+                            <input type="text" class="form-control" id="tvAdresse" value="Secteur 54, parcelle 14, lot 33, section 283, Ouaga 2000" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvCp" class="control-label">Code postal</label>
+                            <input type="text" class="form-control" id="tvCp" value="01 BP 5414" disabled>   
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvVille" class="control-label">Ville</label>
+                            <input type="text" class="form-control" id="tvVille" value="Ouagadougou 01" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvPays" class="control-label">Pays</label>
+                            <input type="text" class="form-control" id="tvPays" value="Burkina Faso" disabled>   
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                          <span class="badge">3</span>&nbsp; Information institution garante
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-md-8 margin-bottom-15">
+                            <label for="tvNomIg" class="control-label">Nom</label>
+                            <input type="text" class="form-control" id="tvNomIg" value="Wend Puire Distribution" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvTelephoneIg" class="control-label">Téléphone</label>
+                            <input type="text" class="form-control" id="tvTelephoneIg" value="+226 64 45 89 98" disabled>   
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 margin-bottom-15">
+                            <label for="tvAdresseIg" class="control-label">Adresse</label>
+                            <input type="text" class="form-control" id="tvAdresseIg" value="Secteur 54, parcelle 14, lot 33, section 283, Ouaga 2000" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvCpIg" class="control-label">Code postal</label>
+                            <input type="text" class="form-control" id="tvCpIg" value="01 BP 5414" disabled>   
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvVilleIg" class="control-label">Ville</label>
+                            <input type="text" class="form-control" id="tvVilleIg" value="Ouagadougou 01" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvAgentIg" class="control-label">Agent</label>
+                            <input type="text" class="form-control" id="tvAgentIg" value="" disabled>   
+                          </div>
+                        </div>
+
+                        <strong>Autre institution garante</strong><br>
+                        <div class="row">
+                          <div class="col-md-8 margin-bottom-15">
+                            <label for="tvNomIgScd" class="control-label">Nom</label>
+                            <input type="text" class="form-control" id="tvNomIgScd" value="Bank of Bermudes" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvTelephoneIgScd" class="control-label">Téléphone</label>
+                            <input type="text" class="form-control" id="tvTelephoneIgScd" value="+226 64 45 89 98" disabled>   
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 margin-bottom-15">
+                            <label for="tvAdresseIgScd" class="control-label">Adresse</label>
+                            <input type="text" class="form-control" id="tvAdresseIgScd" value="Secteur 24, parcelle 11, lot 31, section 143, Ouaga 3000" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvCpIgScd" class="control-label">Code postal</label>
+                            <input type="text" class="form-control" id="tvCpIgScd" value="01 BP 5414" disabled>   
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvVilleIgScd" class="control-label">Ville</label>
+                            <input type="text" class="form-control" id="tvVilleIgScd" value="Ouagadougou 01" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label for="tvAgentIgScd" class="control-label">Agent</label>
+                            <input type="text" class="form-control" id="tvAgentIgScd" value="" disabled>   
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                          <span class="badge">4</span>&nbsp; Information assurance ou protection
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <strong>Vie et invalidité</strong><br>
+                        <div class="row">
+                          <div class="col-md-6 margin-bottom-15">
+                            <label for="tvNomIap" class="control-label">Nom</label>
+                            <input type="text" class="form-control" id="tvNomIap" value="Wend Puire Distribution" disabled>
+                          </div>
+                          <div class="col-md-6 margin-bottom-15">
+                            <label for="tvAdresseIap" class="control-label">Adresse</label>
+                            <input type="text" class="form-control" id="tvAdresseIap" value="Secteur 24, parcelle 11, lot 31, section 143, Ouaga 3000" disabled>   
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvVilleIap" class="control-label">Ville</label>
+                            <input type="text" class="form-control" id="tvVilleIap" value="Ouagadougou" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvPaysIap" class="control-label">Pays</label>
+                            <input type="text" class="form-control" id="tvPaysIap" value="Burkina Faso" disabled>   
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvTelIap" class="control-label">Téléphone</label>
+                            <input type="text" class="form-control" id="tvTelIap" value="+226 64 45 89 98" disabled>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvNumIap" class="control-label">N° police</label>
+                            <input type="text" class="form-control" id="tvNumIap" value="" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvAgentIap" class="control-label">Agent</label>
+                            <input type="text" class="form-control" id="tvAgentIap" value="" disabled>   
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvDateExpIap" class="control-label">Date d'expiration</label><br>
+                            <a href='#'>voir contrat</a>
+                          </div>
+                        </div>
+
+                        <strong>Perte d'emploi ou de revenu</strong><br>
+                        <div class="row">
+                          <div class="col-md-6 margin-bottom-15">
+                            <label for="tvNomIapScd" class="control-label">Nom</label>
+                            <input type="text" class="form-control" id="tvNomIapScd" value="Wend Puire Distribution" disabled>
+                          </div>
+                          <div class="col-md-6 margin-bottom-15">
+                            <label for="tvAdresseIapScd" class="control-label">Adresse</label>
+                            <input type="text" class="form-control" id="tvAdresseIapScd" value="Secteur 24, parcelle 11, lot 31, section 143, Ouaga 3000" disabled>   
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvVilleIapScd" class="control-label">Ville</label>
+                            <input type="text" class="form-control" id="tvVilleIapScd" value="Ouagadougou" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvPaysIapScd" class="control-label">Pays</label>
+                            <input type="text" class="form-control" id="tvPaysIapScd" value="Burkina Faso" disabled>   
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvTelIapScd" class="control-label">Téléphone</label>
+                            <input type="text" class="form-control" id="tvTelIapScd" value="+226 64 45 89 98" disabled>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvNumIapScd" class="control-label">N° police</label>
+                            <input type="text" class="form-control" id="tvNumIapScd" value="" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvAgentIapScd" class="control-label">Agent</label>
+                            <input type="text" class="form-control" id="tvAgentIapScd" value="" disabled>   
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvDateExpIapScd" class="control-label">Date d'expiration</label><br>
+                            <a href='#'>voir contrat</a>
+                          </div>
+                        </div>
+
+                        <strong>SOS Réparation</strong><br>
+                        <div class="row">
+                          <div class="col-md-6 margin-bottom-15">
+                            <label for="tvNomIapThd" class="control-label">Nom</label>
+                            <input type="text" class="form-control" id="tvNomIapThd" value="Wend Puire Distribution" disabled>
+                          </div>
+                          <div class="col-md-6 margin-bottom-15">
+                            <label for="tvAdresseIapThd" class="control-label">Adresse</label>
+                            <input type="text" class="form-control" id="tvAdresseIapThd" value="Secteur 24, parcelle 11, lot 31, section 143, Ouaga 3000" disabled>   
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvVilleIapThd" class="control-label">Ville</label>
+                            <input type="text" class="form-control" id="tvVilleIapThd" value="Ouagadougou" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvPaysIapThd" class="control-label">Pays</label>
+                            <input type="text" class="form-control" id="tvPaysIapThd" value="Burkina Faso" disabled>   
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvTelIapThd" class="control-label">Téléphone</label>
+                            <input type="text" class="form-control" id="tvTelIapThd" value="+226 64 45 89 98" disabled>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvNumIapThd" class="control-label">N° police</label>
+                            <input type="text" class="form-control" id="tvNumIapThd" value="" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvAgentIapThd" class="control-label">Agent</label>
+                            <input type="text" class="form-control" id="tvAgentIapThd" value="" disabled>   
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label for="tvDateExpIapThd" class="control-label">Date d'expiration</label><br>
+                            <a href='#'>voir contrat</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                          <span class="badge">5</span>&nbsp; Loan Structure R
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <h2>Structure prêt</h2>
+                        <div class="row">
+                          <div class="col-md-6 margin-bottom-15">
+                            <label for="tvNomIap" class="control-label" style="color:#99ccff;">TYPE D'ARTICLE</label>
+                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" id="tvNomIap" value="Immobilier" disabled>
+                          </div>
+                          <div class="col-md-6 margin-bottom-15">
+                            <label class="control-label" style="color:#99ccff;">NUMERO DE STOCK</label>
+                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="KINT10001" disabled>   
+                          </div>
+                        </div>
+
+                        <strong style="color:#99ccff;">Information transaction</strong><br>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">Valeur article</label>
+                            <input type="text" class="form-control" value="100%" disabled>
+                            <input type="text" class="form-control" value="3 600 000" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">TAUX</label>
+                            <table>
+                              <tr>
+                                <td class="col-md-8">
+                                  <input type="text" class="form-control" value="0%" disabled>
+                                </td>
+                                <td class="col-md-4">
+                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <input type="text" class="form-control" value="six millions" disabled>
+                            <input type="text" class="form-control" value="cinq cent" disabled>
+                            <input type="text" class="form-control" value="zéro milles" disabled>
+                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">Prise en charge</label>
+                            <input type="text" class="form-control" value="100%" disabled>
+                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">DATE</label>
+                            <input type="text" class="form-control" value="09/08/18" disabled>   
+                          </div>                          
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">Prix de l'article financé</label>
+                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
+                          </div>                       
+                        </div>
+                        <div class="row">
+                          <div class="col-md-2 margin-bottom-15">
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">Valeur reprise</label>
+                            <input type="text" class="form-control" value="0" disabled>
+                            <label class="control-label">Subvention</label>
+                            <input type="text" class="form-control" value="0" disabled>
+                          </div>
+                        </div>    
+                        <div class="row">
+                          <div class="col-md-2 margin-bottom-15">
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">Accompte frais</label>  
+                            <table>
+                              <tr>
+                                <td class="col-md-8">
+                                  <input type="text" class="form-control" value="20 000" disabled>  
+                                </td>
+                                <td class="col-md-4">
+                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                </td>
+                              </tr>
+                            </table> 
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <input type="text" class="form-control" value="six millions" disabled>
+                            <input type="text" class="form-control" value="cinq cent" disabled>
+                            <input type="text" class="form-control" value="zéro milles" disabled>
+                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">TVA (incluse)</label>
+                            <input type="text" class="form-control" value="0" disabled>
+                            <label class="control-label">Commission (si applicable)</label>
+                            <input type="text" class="form-control" value="0" disabled>
+                            <label class="control-label">Immatriculation (si applicable)</label>
+                            <input type="text" class="form-control" value="0" disabled>
+                            <label class="control-label">Transfert titre (si applicable)</label>
+                            <input type="text" class="form-control" value="0" disabled>
+                            <label class="control-label">Autres taxes (si applicable)</label>
+                            <input type="text" class="form-control" value="0" disabled>
+                            <label class="control-label">Frais de dossier</label>
+                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="7 500" disabled>
+                          </div>  
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                          </div>  
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">DATE FIN</label>
+                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="0" disabled>
+                          </div>  
+                        </div>
+                        <strong style="color:#99ccff;">FRAIS SECONDAIRES</strong><br>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">Estimation durée de paiement</label>
+                            <input type="text" class="form-control" value="32" disabled>
+                            <label class="control-label">Frais de montage de dossier</label>
+                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="12 500" disabled>
+                            <label class="control-label">Livraison (si applicable)</label>
+                            <input type="text" class="form-control" value="" disabled>
+                            <label class="control-label">Protection perte emploi ou revenu</label>
+                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="80 000" disabled>
+                          </div>  
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">    
+                            <table>
+                              <tr>
+                                <td class="col-md-8">
+                                  <label class="control-label">Protection vie ou invalidité</label>
+                                  <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="80 000" disabled>  
+                                </td>
+                                <td class="col-md-4">
+                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                </td>
+                              </tr>
+                            </table> 
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <input type="text" class="form-control" value="zéro millions" disabled>
+                            <input type="text" class="form-control" value="six cent" disabled>
+                            <input type="text" class="form-control" value="vingt milles" disabled>
+                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                          </div>
+
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">    
+                            <label class="control-label">Protection SOS réparation</label>
+                            <input type="text" class="form-control" value="0" disabled>
+                            <label for="tvAgentIap" class="control-label">Paiement banque pour reprise (S.A)</label>
+                            <input type="text" class="form-control" value="" disabled>
+                            <label for="tvAgentIap" class="control-label">Autres frais</label>
+                            <input type="text" class="form-control" value="" disabled>
+                          </div> 
+                        </div> 
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">    
+                            <table>
+                              <tr>
+                                <td class="col-md-8">
+                                  <label for="tvAgentIap" class="control-label" style="color:#99ccff;">MONTANT A FINANCER</label>
+                                  <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="3 760 000" disabled>  
+                                </td>
+                                <td class="col-md-4">
+                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                </td>
+                              </tr>
+                            </table> 
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <input type="text" class="form-control" value="trois millions" disabled>
+                            <input type="text" class="form-control" value="quatre cent" disabled>
+                            <input type="text" class="form-control" value="quatre vingt milles" disabled>
+                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">    
+                            <label class="control-label" style="color:#99ccff;">NOMBRE DE MOIS</label>
+                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="32" disabled>
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">    
+                            <table>
+                              <tr>
+                                <td class="col-md-8">
+                                  <label class="control-label" style="color:#99ccff;">PAIEMENT MENSUEL</label>
+                                  <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="117 500" disabled>  
+                                </td>
+                                <td class="col-md-4">
+                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                </td>
+                              </tr>
+                            </table> 
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <input type="text" class="form-control" value="zéro millions" disabled>
+                            <input type="text" class="form-control" value="zéro cent" disabled>
+                            <input type="text" class="form-control" value="vingt neuf milles" disabled>
+                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">    
+                            <table>
+                              <tr>
+                                <td class="col-md-8">
+                                  <label for="tvAgentIap" class="control-label" style="color:#99ccff;">TOTAL</label>
+                                  <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="3 780 000" disabled>  
+                                </td>
+                                <td class="col-md-4">
+                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                </td>
+                              </tr>
+                            </table> 
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <input type="text" class="form-control" value="zéro millions" disabled>
+                            <input type="text" class="form-control" value="zéro cent" disabled>
+                            <input type="text" class="form-control" value="vingt neuf milles" disabled>
+                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                          </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+                          <span class="badge">6</span>&nbsp; Facture IMP
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseSix" class="panel-collapse collapse">
+                      <div class="panel-body">                       
+                        <button type="button" id="loading-example-btn" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
+                          Editer facture <b class="red">PDF</b>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+                          <span class="badge">7</span>&nbsp; Engagement IMP
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseSeven" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <h2>Lettre d'engagement irrévocable</h2>
+
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="templatemo-progress">
+                              <div class="list-group">
+                                <a href="#" class="list-group-item">
+                                  <p class="list-group-item-text">Je soussigné(e) <b>include info</b> Né(e) le <b>include info</b> à <b>include info</b><br>
+                                    titulaire de la pièce d'identité ou du passeport numéro <b>include info</b> domicilié à <b>include info</b><br>
+                                    Ville <b>include info</b> Code postal <b>include info</b> Pays <b>include info</b> m'engage de manière irrévocable par la présente, à payer à la société <b>include info</b> la somme de :<br>
+                                    <b>include info</b> millions <b>include info</b> cent <b>include info</b> mille Francs CFA <b>include info</b> F CFA,<br>
+                                    soit (<b>include info</b>) <b>include info</b> mensualités de :<br>
+                                    <b>include info</b> millions <b>include info</b> cent <b>include info</b> mille <b>include info</b> Francs CFA <b>include info</b> F CFA,<br>
+                                    et cela de la période du <b>include info</b> jusqu'au <b>include info</b> représentant les engagements libellés dans le contrat ou protocole d'accord nous liant.<br>
+                                    Je m'engage par ailleurs à respecter tous les termes du contrat qui me lient à <b>include info</b><br>
+                                    et à respecter les paiements en temps et en heure au bureau local, régional, ou à l'(aux) institution(s) désignée(s) par cette dernière.<br>
+                                    En foi de quoi je délivre cette présente lettre d'engagement irrévocable pour servir et valoir ce que de droit.
+                                  </p>
+                                </a>
+                                <br>
+
+                                <button type="button" id="loading-example-btn2" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
+                                  Editer engagement <b class="red">PDF</b>
+                                </button>
+
+                                <br>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+                          <span class="badge">8</span>&nbsp; PPE IMP
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseEight" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <button type="button" id="loading-example-btn3" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
+                          Editer protection perte d'emploi terrain <b class="red">PDF</b>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseNine">
+                          <span class="badge">9</span>&nbsp; PPR IMP
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseNine" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <button type="button" id="loading-example-btn4" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
+                          Editer protection perte de revenus terrain <b class="red">PDF</b>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
+                          <span class="badge">10</span>&nbsp; PVI IMP
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseTen" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <button type="button" id="loading-example-btn5" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
+                          Editer protection vie et invalidité terrain <b class="red">PDF</b>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">
+                          <span class="badge">11</span>&nbsp; Contrat terrain IMP
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseEleven" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <button type="button" id="loading-example-btn6" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
+                          Editer contrat de location - cession de terrain à usage d'habitation <b class="red">PDF</b>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve">
+                          <span class="badge">12</span>&nbsp; BAL IMP
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseTwelve" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <strong style="color:#99ccff;">Information gérant</strong><br>
+                        <div class="row">
+                          <div class="col-md-8 margin-bottom-15">
+                            <label class="control-label">Nom</label>
+                            <input type="text" class="form-control" value="Albert Sangaré" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">Téléphone</label>
+                            <input type="text" class="form-control" value="+226 64 45 89 98" disabled>   
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 margin-bottom-15">
+                            <label class="control-label">Adresse</label>
+                            <input type="text" class="form-control" value="Secteur 54, parcelle 14, lot 33, section 283, Ouaga 2000" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label class="control-label">Code postal</label>
+                            <input type="text" class="form-control" value="01 BP 5414" disabled>   
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label class="control-label">Ville</label>
+                            <input type="text" class="form-control" value="Ouagadougou 01" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label class="control-label">Agent</label>
+                            <input type="text" class="form-control" value="" disabled>   
+                          </div>
+                        </div>
+
+                        <strong style="color:#99ccff;">Information concessionnaire</strong><br>
+                        <div class="row">
+                          <div class="col-md-8 margin-bottom-15">
+                            <label class="control-label">Nom</label>
+                            <input type="text" class="form-control" value="Motorsport Ouaga" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">Téléphone</label>
+                            <input type="text" class="form-control" value="+226 64 45 89 98" disabled>   
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 margin-bottom-15">
+                            <label class="control-label">Adresse</label>
+                            <input type="text" class="form-control" value="Secteur 24, parcelle 11, lot 31, section 143, Ouaga 3000" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label class="control-label">Code postal</label>
+                            <input type="text" class="form-control" value="01 BP 5414" disabled>   
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label class="control-label">Ville</label>
+                            <input type="text" class="form-control" value="Ouagadougou 01" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label class="control-label">Pays</label>
+                            <input type="text" class="form-control" value="Burkina Faso" disabled>   
+                          </div>
+                        </div>
+
+                        <strong style="color:#99ccff;">Information article à livrer</strong><br>
+                        <div class="row">
+                          <div class="col-md-3 margin-bottom-15">
+                            <label class="control-label">Article</label>
+                            <input type="text" class="form-control" value="Moto" disabled>
+                          </div>
+                          <div class="col-md-3 margin-bottom-15">
+                            <label class="control-label">Marque</label>
+                            <input type="text" class="form-control" value="Yamaha" disabled>   
+                          </div>
+                          <div class="col-md-3 margin-bottom-15">
+                            <label class="control-label">Modèle</label>
+                            <input type="text" class="form-control" value="SIRIUS" disabled>
+                          </div>
+                          <div class="col-md-3 margin-bottom-15">
+                            <label class="control-label">Code</label>
+                            <input type="text" class="form-control" value="YMHSS" disabled>   
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-3 margin-bottom-15">
+                            <label class="control-label">Couleur</label>
+                            <input type="text" class="form-control" value="Blanche" disabled>
+                          </div>
+                          <div class="col-md-3 margin-bottom-15">
+                            <label class="control-label">N° de stock</label>
+                            <input type="text" class="form-control" value="0" disabled>
+                          </div>
+                          <div class="col-md-3 margin-bottom-15">
+                            <label class="control-label">N° de série</label>
+                            <input type="text" class="form-control" value="0" disabled>   
+                          </div>
+                        </div>
+
+                        <strong style="color:#99ccff;">Information client</strong><br>
+                        <div class="row">
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">Nom</label>
+                            <input type="text" class="form-control" value="Mahmoud SERI" disabled>
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">Téléphone</label>
+                            <input type="text" class="form-control" value="+226 64 45 89 98" disabled>   
+                          </div>
+                          <div class="col-md-4 margin-bottom-15">
+                            <label class="control-label">CNI</label>
+                            <input type="text" class="form-control" value="" disabled>   
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 margin-bottom-15">
+                            <label class="control-label">Adresse</label>
+                            <input type="text" class="form-control" value="Secteur 24, parcelle 11, lot 31, section 143, Ouaga 3000" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label class="control-label">Code postal</label>
+                            <input type="text" class="form-control" value="01 BP 5414" disabled>   
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label class="control-label">Ville</label>
+                            <input type="text" class="form-control" value="Ouagadougou 01" disabled>
+                          </div>
+                          <div class="col-md-2 margin-bottom-15">
+                            <label class="control-label">Pays</label>
+                            <input type="text" class="form-control" value="" disabled>   
+                          </div>
+                        </div>
+
+                        <button type="button" id="loading-example-btn7" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
+                          Editer Bon à livre <b class="red">PDF</b>
+                        </button>
+                      
+                      </div>
+                    </div>
+                  </div>                  
+                </div>
+
+            </div>
+              
+          </div>  
+          
+          </div>    
+        </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="confirmOpen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+              <h4 class="modal-title" id="myModalLabel">Voulez vous vraiment ouvrir ce dossier</h4>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn btn-primary">Oui</a>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+              <h4 class="modal-title" id="myModalLabel">Voulez vous vraiment vous déconnecter ?</h4>
+            </div>
+            <div class="modal-footer">
+              <a href="sign-in.html" class="btn btn-primary">Oui</a>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="templatemo-footer" style="position:fixed;  bottom:0; opacity:0.4; height: 21px;font-size:8px;">
+        <div class="templatemo-copyright">
+          <span> &nbsp;&copy; Wend Puire Distribution&nbsp;</span>
+        </div>
+      </footer>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/templatemo_script.js"></script>
+    <script type="text/javascript">
+    // Line chart
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+    var lineChartData = {
+      labels : ["January","February","March","April","May","June","July"],
+      datasets : [
+      {
+        label: "My First dataset",
+        fillColor : "rgba(220,220,220,0.2)",
+        strokeColor : "rgba(220,220,220,1)",
+        pointColor : "rgba(220,220,220,1)",
+        pointStrokeColor : "#fff",
+        pointHighlightFill : "#fff",
+        pointHighlightStroke : "rgba(220,220,220,1)",
+        data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+      },
+      {
+        label: "My Second dataset",
+        fillColor : "rgba(151,187,205,0.2)",
+        strokeColor : "rgba(151,187,205,1)",
+        pointColor : "rgba(151,187,205,1)",
+        pointStrokeColor : "#fff",
+        pointHighlightFill : "#fff",
+        pointHighlightStroke : "rgba(151,187,205,1)",
+        data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+      }
+      ]
+
+    }
+
+    window.onload = function(){
+      var ctx_line = document.getElementById("templatemo-line-chart").getContext("2d");
+      window.myLine = new Chart(ctx_line).Line(lineChartData, {
+        responsive: true
+      });
+    };
+
+    $('#myTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+
+    $('#loading-example-btn').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn2').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn3').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn4').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn5').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn6').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn7').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+  </script>
+</body>
+
+<!-- Mirrored from log.kwedytotohwei.com/tventes.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 20 Jul 2021 05:51:44 GMT -->
+</html>
