@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <title>Espace Transac - Compte - ThomasKaboré </title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width">        
+  <link rel="stylesheet" href="{% static 'css/templatemo_main.css' %}">
+  {% block styles %}{% endblock %}
+<!-- 
+Dashboard Template 
+http://www.templatemo.com/preview/templatemo_415_dashboard
+-->
+</head>
+<body>
+  <div class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <div class="logo"><h1>Tableau de bord - Victor Bamba - Transac</h1></div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button> 
+      </div>   
+    </div>
+    <div class="template-page-wrapper">
+      <div class="navbar-collapse collapse templatemo-sidebar">
+        <ul class="templatemo-sidebar-menu">          
+          <li class="active"><a href="{% url 'accueuil' %}"><i class="fa fa-phone-square"></i>Appel</a></li>
+          <li><a href="{% url 'accueuil-rdv' %}"><i class="fa fa-clock-o"></i>Rendez-vous</a></li>   
+          <li><a href="tventes.html"><i class="fa fa-shopping-cart"></i>Vente</a></li>
+          <li><a href="tpenalites.html"><i class="fa fa-clock-o"></i>Pénalités</a></li>
+          <li><a href="tpaiements.html"><i class="fa fa-money"></i>Paiements mensuels</a></li>
+          <li><a href="tmutations.html"><i class="fa fa-step-forward"></i>Mutations</a></li>
+          <li><a href="trestructurations.html"><i class="fa fa-cubes"></i>Restructurations</a></li>
+          <li><a href="tpml.html"><i class="fa fa-map-marker"></i>Plan de masse</a></li>
+          <li><a href="tdcpt.html"><i class="fa fa-file-image-o"></i>Dossiers crédits prop. terriens</a></li>
+          <li><a href="tdc.html"><i class="fa fa-file-image-o"></i>Dossiers crédits</a></li>       
+          <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+        </ul>
+      </div><!--/.navbar-collapse -->
+
+      <div class="templatemo-content-wrapper">
+        <div class="templatemo-content">
+
+          <h1>{{ title }}</h1>          
+          <br><br>          
+          {% block  content %}{% endblock %}
+          
+          </div>    
+        </div>
+      </div>
+
+      {% block  modal %}{% endblock %}
+
+      <footer class="templatemo-footer" style="position:fixed;  bottom:0; opacity:0.4; height: 21px;font-size:8px;">
+        <div class="templatemo-copyright">
+          <span> &nbsp;&copy; Wend Puire Distribution&nbsp;</span>
+        </div>
+      </footer>
+    </div>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %} "></script>
+    <script src="{% static 'js/Chart.min.js' %} "></script>
+    <script src="{% static 'js/templatemo_script.js' %} "></script>
+
+    {% block  scripts %}{% endblock %}
+
+</body>
+</html>
