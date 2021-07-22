@@ -9,6 +9,7 @@ urlpatterns = [
     path('payments', views.payments, name='payments'),
     path('mutations', views.mutations, name='mutations'),
     path('restructure', views.restructure, name='restructure'),
+    path('plan', views.plan, name='plan'),
 
 
 ]

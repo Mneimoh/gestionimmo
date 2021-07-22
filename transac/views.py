@@ -18,3 +18,6 @@ def mutations(request):
 
 def restructure(request):
       return render(request, 'transac/trestructurations.html', { 'title': 'Restructurations'})
+
+def plan(request):
+      return render(request, 'transac/tpml.html', { 'title': 'Plan de masse local'})
