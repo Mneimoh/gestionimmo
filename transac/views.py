@@ -12,3 +12,6 @@ def penalties(request):
 
 def payments(request):
       return render(request, 'transac/tpaiement.html', { 'title': 'Paiements'})
+
+def mutations(request):
+      return render(request, 'transac/tmutations.html', { 'title': 'Mutations'})
