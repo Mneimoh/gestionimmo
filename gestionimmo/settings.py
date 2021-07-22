@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'accueuil',
-    'caisse'
+    'caisse',
+    'recouvrement'
 ]
 
 MIDDLEWARE = [

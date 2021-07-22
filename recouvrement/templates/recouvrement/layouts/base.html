@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <title>Espace Recouvrement - Victor Bamba</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width">        
+  <link rel="stylesheet" href="{% static 'css/templatemo_main.css' %}">
+  {% block styles %}{% endblock %}
+<!-- 
+Dashboard Template 
+http://www.templatemo.com/preview/templatemo_415_dashboard
+-->
+</head>
+<body>
+  <div class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <div class="logo"><h1>Tableau de bord - Pierre Sylla - Recouvrement</h1></div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button> 
+      </div>   
+    </div>
+    <div class="template-page-wrapper">
+      <div class="navbar-collapse collapse templatemo-sidebar">
+
+        {% include "recouvrement/includes/sidebar.html" %}
+
+      </div><!--/.navbar-collapse -->
+
+      <div class="templatemo-content-wrapper">
+        <div class="templatemo-content">
+
+          <h1>{{ title }}</h1>          
+          <br><br>          
+          {% block  content %}{% endblock %}
+          
+          </div>    
+        </div>
+      </div>
+
+      {% block  modal %}{% endblock %}
+
+      <footer class="templatemo-footer" style="position:fixed;  bottom:0; opacity:0.4; height: 21px;font-size:8px;">
+        <div class="templatemo-copyright">
+          <span> &nbsp;&copy; Wend Puire Distribution&nbsp;</span>
+        </div>
+      </footer>
+    </div>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %} "></script>
+    <script src="{% static 'js/Chart.min.js' %} "></script>
+    <script src="{% static 'js/templatemo_script.js' %} "></script>
+
+    {% block  scripts %}{% endblock %}
+
+</body>
+</html>
