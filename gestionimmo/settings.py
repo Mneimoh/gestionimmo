@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'accueuil',
     'transac',
     'caisse',
-    'recouvrement'
+    'recouvrement',
+    'authentication'
 ]
 
 MIDDLEWARE = [
