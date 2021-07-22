@@ -6,3 +6,6 @@ def index(request):
 
 def vente(request):
       return render(request, 'transac/tvente.html', { 'title': 'Espace vente'})
+
+def penalties(request):
+      return render(request, 'transac/tpenalties.html', { 'title': 'Pénalités'})
