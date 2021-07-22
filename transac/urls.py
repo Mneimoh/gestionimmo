@@ -10,6 +10,7 @@ urlpatterns = [
     path('mutations', views.mutations, name='mutations'),
     path('restructure', views.restructure, name='restructure'),
     path('plan', views.plan, name='plan'),
+    path('dossiers', views.dossiers, name='dossiers'),
 
 
 ]
