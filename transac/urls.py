@@ -11,6 +11,7 @@ urlpatterns = [
     path('restructure', views.restructure, name='restructure'),
     path('plan', views.plan, name='plan'),
     path('dossiers', views.dossiers, name='dossiers'),
+    path('dossiers_credit', views.dossiers_credit, name='dossiers_credit'),
 
 
 ]

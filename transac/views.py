@@ -21,7 +21,11 @@ def restructure(request):
 
 def plan(request):
       return render(request, 'transac/tpml.html', { 'title': 'Plan de masse local'})
+  
+def dossiers_credit(request):
+      return render(request, 'transac/tdc.html', { 'title': 'Dossiers crédits (DC)'})
 
 def dossiers(request):
       return render(request, 'transac/tdcpt.html', { 'title': 'Dossiers crédits propriétaires terriens (DCPT)'})
+
 
