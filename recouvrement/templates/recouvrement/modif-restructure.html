@@ -1,0 +1,340 @@
+{% extends 'recouvrement/layouts/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="margin-bottom-30">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills">
+          <li class="active"><a href="#">Dossier au recouvrement <span class="badge">42</span></a></li>
+          <li>
+            <form class="navbar-form">
+              <input type="text" class="form-control" id="templatemo_search_box" placeholder="...">
+              <span class="btn btn-default">Rechercher</span>
+            </form>
+          </li>  
+        </ul>          
+      </div>
+    </div>
+  </div>      
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="templatemo-alerts">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+              <strong>Succès !</strong> Votre dossier a bien été ouvert.
+            </div>
+            <div class="alert alert-info alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              Vous avez 5 dossiers en attente d'ouverture aujourd'hui.
+            </div>
+          </div>  
+        </div>            
+      </div>              
+    </div>
+    <div class="col-md-6">
+      <div class="templatemo-alerts">
+        <div class="row">
+          <div class="col-md-12">                    
+            <div class="alert alert-warning alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+              Vous avez reçu un message du Transac.
+            </div>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              Vous ne pouvez pas consulter ce dossier, il a été bloqué.
+            </div>            
+          </div>  
+        </div>            
+      </div>              
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group pull-right" id="templatemo_sort_btn">
+        <button type="button" class="btn btn-default">Trier par</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">N° client</a></li>
+          <li><a href="#">Téléphone</a></li>
+          <li><a href="#">Nom</a></li>
+          <li><a href="#">Prénom</a></li>
+          <li><a href="#">N°dossier</a></li>
+          <li><a href="#">Statut</a></li>
+          <li><a href="#">Dernier Paiement</a></li>
+          <li><a href="#">Coeff recouvr</a></li>
+          <li><a href="#">Appelé & récouvré</a></li>
+        </ul>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>N° client</th>
+              <th>Téléphone</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>N°dossier</th>
+              <th>Statut</th>
+              <th>Dernier Paiement</th>
+              <th>Coeff recouvr</th>
+              <th>Appelé & récouvré</th>
+              <th>Dernier appel</th>
+              <th>hr</th>
+              <th>Modifier</th>
+              <th></th>
+              <th>Consulter</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>35975975</td>
+              <td>887786455</td>
+              <td>Wade</td>
+              <td>Abdou</td>
+              <td>484084058</td>
+              <td>R1</td>
+              <td>15/03/2014</td>
+              <td>1</td>
+              <td>non</td>
+              <td>15/01/2014</td>
+              <td>12:35</td>
+              <td><a href="#" class="btn btn-default">Modifier</a></td>                    
+              <td>
+                <!-- Split button -->
+                <div classbtn-group">
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmOpen">Annoter</button>
+              </td>
+              <td><a href="#" class="btn btn-link">Consulter</a></td>
+            </tr>
+            <tr>
+              <td>35975975</td>
+              <td>887786455</td>
+              <td>Wade</td>
+              <td>Abdou</td>
+              <td>484084058</td>
+              <td>R1</td>
+              <td>15/03/2014</td>
+              <td>1</td>
+              <td>non</td>
+              <td>15/01/2014</td>
+              <td>12:35</td>
+              <td><a href="#" class="btn btn-default">Modifier</a></td>                    
+              <td>
+                <!-- Split button -->
+                <div classbtn-group">
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmOpen">Annoter</button>
+              </td>
+              <td><a href="#" class="btn btn-link">Consulter</a></td>
+            </tr>
+            <tr class="danger">
+              <td>35975975</td>
+              <td>887786455</td>
+              <td>Wade</td>
+              <td>Abdou</td>
+              <td>484084058</td>
+              <td>R1</td>
+              <td>15/03/2014</td>
+              <td>1</td>
+              <td>non</td>
+              <td>15/01/2014</td>
+              <td>12:35</td>
+              <td><a href="#" class="btn btn-default">Modifier</a></td>                    
+              <td>
+                <!-- Split button -->
+                <div classbtn-group">
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmOpen">Annoter</button>
+              </td>
+              <td><a href="#" class="btn btn-link">Consulter</a></td>
+            </tr>
+            <tr>
+              <td>35975975</td>
+              <td>887786455</td>
+              <td>Wade</td>
+              <td>Abdou</td>
+              <td>484084058</td>
+              <td>R1</td>
+              <td>15/03/2014</td>
+              <td>1</td>
+              <td>non</td>
+              <td>15/01/2014</td>
+              <td>12:35</td>
+              <td><a href="#" class="btn btn-default">Modifier</a></td>                    
+              <td>
+                <!-- Split button -->
+                <div classbtn-group">
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmOpen">Annoter</button>
+              </td>
+              <td><a href="#" class="btn btn-link">Consulter</a></td>
+            </tr>
+            <tr>
+              <td>35975975</td>
+              <td>887786455</td>
+              <td>Wade</td>
+              <td>Abdou</td>
+              <td>484084058</td>
+              <td>R1</td>
+              <td>15/03/2014</td>
+              <td>1</td>
+              <td>non</td>
+              <td>15/01/2014</td>
+              <td>12:35</td>
+              <td><a href="#" class="btn btn-default">Modifier</a></td>                    
+              <td>
+                <!-- Split button -->
+                <div classbtn-group">
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmOpen">Annoter</button>
+              </td>
+              <td><a href="#" class="btn btn-link">Consulter</a></td>
+            </tr>
+            <tr class="success">
+              <td>35975975</td>
+              <td>887786455</td>
+              <td>Wade</td>
+              <td>Abdou</td>
+              <td>484084058</td>
+              <td>R1</td>
+              <td>15/03/2014</td>
+              <td>1</td>
+              <td>non</td>
+              <td>15/01/2014</td>
+              <td>12:35</td>
+              <td><a href="#" class="btn btn-default">Modifier</a></td>                    
+              <td>
+                <!-- Split button -->
+                <div classbtn-group">
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmOpen">Annoter</button>
+              </td>
+              <td><a href="#" class="btn btn-link">Consulter</a></td>
+            </tr>
+            <tr>
+              <td>35975975</td>
+              <td>887786455</td>
+              <td>Wade</td>
+              <td>Abdou</td>
+              <td>484084058</td>
+              <td>R1</td>
+              <td>15/03/2014</td>
+              <td>1</td>
+              <td>non</td>
+              <td>15/01/2014</td>
+              <td>12:35</td>
+              <td><a href="#" class="btn btn-default">Modifier</a></td>                    
+              <td>
+                <!-- Split button -->
+                <div classbtn-group">
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmOpen">Annoter</button>
+              </td>
+              <td><a href="#" class="btn btn-link">Consulter</a></td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ul class="pagination pull-right">
+      <li class="disabled"><a href="#">&laquo;</a></li>
+      <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+      <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
+      <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
+      <li><a href="#">4 <span class="sr-only">(current)</span></a></li>
+      <li><a href="#">5 <span class="sr-only">(current)</span></a></li>
+      <li><a href="#">&raquo;</a></li>
+    </ul>  
+  </div> 
+{% endblock %}
+
+
+
+{% block modal %}
+<div class="modal fade" id="confirmOpen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+          <h4 class="modal-title" id="myModalLabel">Voulez vous vraiment annoter ce dossier</h4>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-primary">Oui</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+          <h4 class="modal-title" id="myModalLabel">Voulez vous vraiment vous déconnecter ?</h4>
+        </div>
+        <div class="modal-footer">
+          <a href="sign-in.html" class="btn btn-primary">Oui</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+
+{% block scripts %}
+<script type="text/javascript">
+    // Line chart
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+    var lineChartData = {
+      labels : ["January","February","March","April","May","June","July"],
+      datasets : [
+      {
+        label: "My First dataset",
+        fillColor : "rgba(220,220,220,0.2)",
+        strokeColor : "rgba(220,220,220,1)",
+        pointColor : "rgba(220,220,220,1)",
+        pointStrokeColor : "#fff",
+        pointHighlightFill : "#fff",
+        pointHighlightStroke : "rgba(220,220,220,1)",
+        data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+      },
+      {
+        label: "My Second dataset",
+        fillColor : "rgba(151,187,205,0.2)",
+        strokeColor : "rgba(151,187,205,1)",
+        pointColor : "rgba(151,187,205,1)",
+        pointStrokeColor : "#fff",
+        pointHighlightFill : "#fff",
+        pointHighlightStroke : "rgba(151,187,205,1)",
+        data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+      }
+      ]
+
+    }
+
+    window.onload = function(){
+      var ctx_line = document.getElementById("templatemo-line-chart").getContext("2d");
+      window.myLine = new Chart(ctx_line).Line(lineChartData, {
+        responsive: true
+      });
+    };
+
+    $('#myTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+
+    $('#loading-example-btn').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+  });
+  </script>
+{% endblock %}

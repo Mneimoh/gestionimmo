@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accueuil',
     'transac'
+    'caisse',
+    'recouvrement'
 ]
 
 MIDDLEWARE = [
