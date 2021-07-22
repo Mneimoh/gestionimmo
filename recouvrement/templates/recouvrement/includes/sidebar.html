@@ -28,46 +28,51 @@
         <i class="fa fa-book"></i> Contacts <div class="pull-right"><span class="caret"></span></div>
       </a>
       <ul class="templatemo-submenu">
-        <li><a href="rappels.html">Appels manuels</a></li>
-        <li><a href="rsms.html">SMS manuels</a></li>             
-        <li><a href="rautosms.html">Auto SMS</a></li>
-        <li><a href="remails.html">Emails manuels</a></li>
-        <li><a href="rautoemails.html">Auto emails</a></li>             
-        <li><a href="rannotation.html">Annotation</a></li>
+        <li><a href="{% url 'contacts-rappel' %}">Appels manuels</a></li>
+        <li><a href="{% url 'contacts-sms' %}">SMS manuels</a></li>             
+        <li><a href="{% url 'contacts-autosms' %}">Auto SMS</a></li>
+        <li><a href="{% url 'contacts-emails' %}">Emails manuels</a></li>
+        <li><a href="{% url 'contacts-autoemails' %}">Auto emails</a></li>             
+        <li><a href="{% url 'contacts-annotation' %}">Annotation</a></li>
       </ul>
     </li>
+
     <li class="sub">
       <a href="javascript:;">
         <i class="fa fa-check-square"></i> Gestion finalisation <div class="pull-right"><span class="caret"></span></div>
       </a>
       <ul class="templatemo-submenu">
-        <li><a href="rverifications.html">Vérifications</a></li>
-        <li><a href="rattestations.html">Attestations</a></li>             
-        <li><a href="rpml.html">Plan de masse local</a></li>
-        <li><a href="rfelicitations.html">Certif. félicitations</a></li>
-        <li><a href="rattributions.html">Certif. attributions</a></li>             
+        <li><a href="{% url 'gestion-verification-paiement' %}">Vérifications</a></li>
+        <li><a href="{% url 'gestion-attestation' %}">Attestations</a></li>             
+        <li><a href="{% url 'gestion-pml' %}">Plan de masse local</a></li>
+        <li><a href="{% url 'gestion-felicitations' %}">Certif. félicitations</a></li>
+        <li><a href="{% url 'gestion-attributions' %}">Certif. attributions</a></li>             
       </ul>
     </li>
-    <li><a href="rdcpt.html"><i class="fa fa-folder-open"></i>Dossiers crédits prop. terriens</a></li>
-    <li><a href="rmodifrestructure.html"><i class="fa fa-cubes"></i>Modif & restructure</a></li>
+
+    <li><a href="{% url 'prop-terriens' %}"><i class="fa fa-folder-open"></i>Dossiers crédits prop. terriens</a></li>
+    <li><a href="{% url 'modif-restructure' %}"><i class="fa fa-cubes"></i>Modif & restructure</a></li>
+
     <li class="sub">
       <a href="javascript:;">
         <i class="fa fa-eraser"></i> Annulation <div class="pull-right"><span class="caret"></span></div>
       </a>
       <ul class="templatemo-submenu">
-        <li><a href="rannulations.html">Annulation automatique</a></li>
-        <li><a href="rannulationcourrier.html">Annulation par courrier</a></li>             
-        <li><a href="rannulationfinalisation.html">Annulation finalisation</a></li>
+        <li><a href="{% url 'annulation-auto' %}">Annulation automatique</a></li>
+        <li><a href="{% url 'annulation-courrier' %}">Annulation par courrier</a></li>             
+        <li><a href="{% url 'annulation-finalisation' %}">Annulation finalisation</a></li>
       </ul>
     </li>  
+
+
     <li class="sub">
       <a href="javascript:;">
         <i class="fa fa-fighter-jet"></i> Délocalisation <div class="pull-right"><span class="caret"></span></div>
       </a>
       <ul class="templatemo-submenu">
-        <li><a href="rdelocalisations.html">Délocalisation automatique</a></li>
-        <li><a href="rdelocalisationcourrier.html">Délocalisation par courrier</a></li>             
-        <li><a href="rdelocalisationfinalisation.html">Délocalisation finalisation</a></li>
+        <li><a href="{% url 'delocalisation-auto' %}">Délocalisation automatique</a></li>
+        <li><a href="{% url 'delocalisation-courrier' %}">Délocalisation par courrier</a></li>             
+        <li><a href="{% url 'delocalisation-finalisation' %}">Délocalisation finalisation</a></li>
       </ul>
     </li> 
     <li class="sub">
@@ -75,21 +80,23 @@
         <i class="fa fa-exclamation-triangle"></i> Sinistre <div class="pull-right"><span class="caret"></span></div>
       </a>
       <ul class="templatemo-submenu">
-        <li><a href="rgestionpr.html">1 Gestion PR</a></li>
-        <li><a href="rgestionpr2.html">2 Gestion PR</a></li>             
-        <li><a href="rgestionvi.html">1 Gestion VI</a></li>
-        <li><a href="rgestionvi2.html">2 Gestion VI</a></li>
-        <li><a href="rgestionrejets.html">Gestion rejets</a></li>
+        <li><a href="{% url 'gestionpr-1' %}">1 Gestion PR</a></li>
+        <li><a href="{% url 'gestionpr-2' %}">2 Gestion PR</a></li>             
+        <li><a href="{% url 'gestion-vi-1' %}">1 Gestion VI</a></li>
+        <li><a href="{% url 'gestion-vi-2' %}">2 Gestion VI</a></li>
+        <li><a href="{% url 'gestion-rejets' %}">Gestion rejets</a></li>
       </ul>
-    </li>    
+    </li>  
+
     <li class="sub">
       <a href="javascript:;">
         <i class="fa fa-magnet"></i> Repêchage<div class="pull-right"><span class="caret"></span></div>
       </a>
       <ul class="templatemo-submenu">
-        <li><a href="rrepechage.html">Repêchage automatique</a></li>
-        <li><a href="rrepechage2.html">Repêchage 2</a></li>
+        <li><a href="{% url 'repechage-auto' %}">Repêchage automatique</a></li>
+        <li><a href="{% url 'repechage-2' %}">Repêchage 2</a></li>
       </ul>
-    </li>         
+    </li>  
+
     <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
   </ul>

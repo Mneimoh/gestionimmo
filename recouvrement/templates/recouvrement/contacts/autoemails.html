@@ -1,0 +1,477 @@
+{% extends 'recouvrement/layouts/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="margin-bottom-30">
+    <div class="row">              
+      <div class="col-md-3">
+          <label for="firstNamecosig" class="control-label">Préiodicité</label>
+          <select class="form-control margin-bottom-15" id="typeArticle">
+          <option value="" selected>Périodicité</option>
+          <option>tous les jours à l'heure programmée</option>
+          <option>Toutes les semaines</option>
+          <option>Tous les mois</option>
+          <option>Fêtes de Noel</option>
+          <option>Jour De L'an</option>
+          <option>Saint Valentin</option>
+          <option>Journée De La Femme</option>
+          <option>Pâques</option>
+          <option>Fête Du Travail</option>
+          <option>Acensions</option>
+          <option>Ramadan</option>
+          <option>Korité</option>
+          <option>Fête de l'Indépendance</option>
+          <option>Assomption</option>
+          <option>Tabaski</option>
+          <option>Toussaint</option>
+          <option>Mouloud</option>
+          <option>Fête Nationale</option>
+          <option>Joyeux anniversaire</option>
+          <option>Anniversaire de souscription</option>
+          <option>Autre périodicité</option>
+          </select>
+      </div>
+      <div class="col-md-9">
+        <label for="firstNamecosig" class="control-label">Objet</label>
+        <input type="text" class="form-control" id="firstNamecosig">   
+      </div>
+      
+    </div> 
+    <div class="row">              
+      <div class="col-md-3">
+        <label for="firstNamecosig" class="control-label">Date</label>
+        <input type="date" class="form-control" id="firstNamecosig" value="John">  
+      </div>
+      <div class="col-md-3">
+        <label for="firstNamecosig" class="control-label">Heure</label>
+        <input type="text" class="form-control" id="firstNamecosig">   
+      </div>
+       <div class="col-md-3">
+        <form class="navbar-form">
+          <label for="firstNamecosig" class="control-label">Cible</label>
+          <ul class="nav nav-pills">
+            <!--<li class="active"><a href="#">Compte ouvert<span class="badge">42</span></a></li>
+            <li class="active"><a href="#">Non finalisé <span class="badge">26</span></a></li>
+            <li class="active"><a href="#">Abandonné <span class="badge">14</span></a></li> -->
+            <li>
+                <select class="form-control margin-bottom-15" id="typeArticle">
+                  <option value="" selected>Cibles</option>
+                  <option>AJ  </option>
+                  <option>I </option>
+                  <option>CD</option>
+                  <option>DAP</option>
+                  <option>RX</option>
+                  <option>R1</option>
+                  <option>R2</option>
+                  <option>R3</option>
+                  <option>R4</option>
+                  <option>R5</option>
+                  <option>AX</option>
+                  <option>A1</option>
+                  <option>A2</option>
+                  <option>A3</option>
+                  <option>A4</option>
+                  <option>A5</option>
+                  <option>A6</option>
+                  <option>A7</option>
+                  <option>A8</option>
+                  <option>A9</option>
+                  <option>A10</option>
+                  <option>A+</option>
+                  <option>S  </option>
+                  <option>V  </option>
+                  <option>AFP</option>
+                  <option>PML </option>
+                  <option>FEL</option>
+                  <option>L</option>
+                  <option>CONT</option>
+                  <option>O</option>
+                  <option>RATT  </option>
+                  <option>ARCH </option>
+                  <option>ECL</option>
+                </select>
+              </form>
+            </li>
+          </ul>    
+        </form>      
+      </div>
+      
+    </div>      
+
+
+    <div class="row">
+
+      <div class="col-md-6 margin-bottom-15">
+        <label for="firstNamecosig" class="control-label">Composez le message adressé</label>
+        <textarea class="form-control" rows="3" id="notes"></textarea>                  
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-3 margin-bottom-15">
+         <span class="btn btn-default">Envoyer</span>
+      </div>
+    </div>
+
+    <div class="row">
+    <div class="col-md-12">
+
+      <div class="panel-group" id="accordion">
+
+        <!-- <form class="" role="form" id="templatemo-preferences-form"> -->
+          
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                  <span class="badge">1</span>&nbsp; Messages envoyés
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <div class="row">
+
+                  <div class="col-md-12">
+                 
+                     <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                          
+                          <tbody>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele"></td>
+                              <td>15/11/19</td>
+                              <td>11:25</td>
+                              <td>Visite de site 18/01/20</td>
+                              <td>ECL</td>
+                              <td>Tatiana Nandnaba</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele"></td>
+                              <td>16/11/19</td>
+                              <td>13:25</td>
+                              <td>Bonne année et bonne santé </td>
+                              <td>ECL</td>
+                              <td>VP Kaboré</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele" checked></td>
+                              <td>17/11/19</td>
+                              <td>14:52</td>
+                              <td>Démarrage des travaux</td>
+                              <td>ECL</td>
+                              <td>Tatiana Nandnaba</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                                                
+                          </tbody>
+                        </table>
+                      </div>                          
+
+                </div>
+
+                <div class="row">
+    
+                  <div class="col-md-12">
+
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Annuler</a>               
+                    </div>
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Mise à jour</a>               
+                    </div>
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Imprimer la liste</a>               
+                    </div>
+
+                  </div>
+                </div> 
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                  <span class="badge">2</span>&nbsp; Messages reçus
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="panel-body">
+                <div class="row">
+
+                  <div class="col-md-12">
+                 
+                     <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                          
+                          <tbody>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele"></td>
+                              <td>15/11/19</td>
+                              <td>11:25</td>
+                              <td>Visite de site 18/01/20</td>
+                              <td>ECL</td>
+                              <td>Tatiana Nandnaba</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele"></td>
+                              <td>16/11/19</td>
+                              <td>13:25</td>
+                              <td>Bonne année et bonne santé </td>
+                              <td>ECL</td>
+                              <td>VP Kaboré</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele" checked></td>
+                              <td>17/11/19</td>
+                              <td>14:52</td>
+                              <td>Démarrage des travaux</td>
+                              <td>ECL</td>
+                              <td>Tatiana Nandnaba</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                                                
+                          </tbody>
+                        </table>
+                      </div>                          
+
+                </div>
+
+                <div class="row">
+    
+                  <div class="col-md-12">
+
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Annuler</a>               
+                    </div>
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Mise à jour</a>               
+                    </div>
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Imprimer la liste</a>               
+                    </div>
+
+                  </div>
+                </div> 
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                  <span class="badge">3</span>&nbsp; Messages programmés
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+              <div class="panel-body">
+                 <div class="row">
+
+                  <div class="col-md-12">
+                 
+                     <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                          
+                          <tbody>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele"></td>
+                              <td>15/11/19</td>
+                              <td>11:25</td>
+                              <td>Visite de site 18/01/20</td>
+                              <td>ECL</td>
+                              <td>Tatiana Nandnaba</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele"></td>
+                              <td>16/11/19</td>
+                              <td>13:25</td>
+                              <td>Bonne année et bonne santé </td>
+                              <td>ECL</td>
+                              <td>VP Kaboré</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele" checked></td>
+                              <td>17/11/19</td>
+                              <td>14:52</td>
+                              <td>Démarrage des travaux</td>
+                              <td>ECL</td>
+                              <td>Tatiana Nandnaba</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                                                
+                          </tbody>
+                        </table>
+                      </div>                          
+
+                </div>
+
+                <div class="row">
+    
+                  <div class="col-md-12">
+
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Annuler</a>               
+                    </div>
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Mise à jour</a>               
+                    </div>
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Imprimer la liste</a>               
+                    </div>
+
+                  </div>
+                </div> 
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                  <span class="badge">4</span>&nbsp; Messages archivés
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="panel-body">
+                <div class="row">
+
+                  <div class="col-md-12">
+                 
+                     <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                          
+                          <tbody>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele"></td>
+                              <td>15/11/19</td>
+                              <td>11:25</td>
+                              <td>Visite de site 18/01/20</td>
+                              <td>ECL</td>
+                              <td>Tatiana Nandnaba</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele"></td>
+                              <td>16/11/19</td>
+                              <td>13:25</td>
+                              <td>Bonne année et bonne santé </td>
+                              <td>ECL</td>
+                              <td>VP Kaboré</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele" checked></td>
+                              <td>17/11/19</td>
+                              <td>14:52</td>
+                              <td>Démarrage des travaux</td>
+                              <td>ECL</td>
+                              <td>Tatiana Nandnaba</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                                                
+                          </tbody>
+                        </table>
+                      </div>                          
+
+                </div>
+
+                <div class="row">
+    
+                  <div class="col-md-12">
+
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Annuler</a>               
+                    </div>
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Mise à jour</a>               
+                    </div>
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Imprimer la liste</a>               
+                    </div>
+
+                  </div>
+                </div> 
+              </div>
+              </div>
+            </div>
+          </div>
+
+      </div>
+
+    </div>
+    
+  </div>
+  </div>  
+{% endblock %}
+    
+
+{% block scripts %}
+<script type="text/javascript">
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+    var lineChartData = {
+      labels : ["January","February","March","April","May","June","July"],
+      datasets : [
+      {
+        label: "My First dataset",
+        fillColor : "rgba(220,220,220,0.2)",
+        strokeColor : "rgba(220,220,220,1)",
+        pointColor : "rgba(220,220,220,1)",
+        pointStrokeColor : "#fff",
+        pointHighlightFill : "#fff",
+        pointHighlightStroke : "rgba(220,220,220,1)",
+        data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+      },
+      {
+        label: "My Second dataset",
+        fillColor : "rgba(151,187,205,0.2)",
+        strokeColor : "rgba(151,187,205,1)",
+        pointColor : "rgba(151,187,205,1)",
+        pointStrokeColor : "#fff",
+        pointHighlightFill : "#fff",
+        pointHighlightStroke : "rgba(151,187,205,1)",
+        data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+      }
+      ]
+
+    }
+
+    window.onload = function(){
+      var ctx_line = document.getElementById("templatemo-line-chart").getContext("2d");
+      window.myLine = new Chart(ctx_line).Line(lineChartData, {
+        responsive: true
+      });
+    };
+
+    $('#myTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+
+    $('#loading-example-btn').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+  });
+</script>
+{% endblock %}
