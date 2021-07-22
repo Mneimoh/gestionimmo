@@ -1,0 +1,398 @@
+{% extends 'recouvrement/layouts/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="margin-bottom-30">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills">
+          <li class="active"><a href="#">Dossiers en recouvrement<span class="badge">42</span></a></li>
+          <li>
+            <form class="navbar-form">
+              <input type="text" class="form-control" id="templatemo_search_box" placeholder="...">
+              <span class="btn btn-default">Rechercher</span>
+            </form>
+          </li>   
+        </ul>          
+      </div>
+    </div>
+  </div>  
+
+   <div class="row">
+    
+    <div class="col-md-6">
+      <div class="templatemo-alerts">
+        <div class="row">
+          <div class="col-md-12">                    
+            <div class="alert alert-info alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+              L'annulation peut aussi se faire par une simple demande par écrit.<br>
+              Etape 1 : Réception, lecture et traitement de la demande de remboursement ou d'annulation<br>
+              Etape 2 : Convoi et signature de la lettre d’acceptation dudit remboursement, accompagné de l’acte.
+            </div>
+          </div>  
+        </div>            
+      </div>              
+    </div>
+  </div>
+
+  
+
+   <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group pull-right" id="templatemo_sort_btn">
+        <button type="button" class="btn btn-default">Trier par</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">N° client</a></li>
+          <li><a href="#">Téléphone</a></li>
+          <li><a href="#">Nom</a></li>
+          <li><a href="#">Prénom</a></li>
+          <li><a href="#">N°dossier</a></li>
+          <li><a href="#">Statut</a></li>
+          <li><a href="#">Dernier Paiement</a></li>
+          <li><a href="#">Coeff recouvr</a></li>
+          <li><a href="#">Appelé & récouvré</a></li>
+        </ul>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>Annnuler</th>
+              <th>N° client</th>
+              <th>Téléphone</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>N°dossier</th>
+              <th>Statut</th>
+              <th>Dernier Paiement</th>
+              <th>Coeff recouvr</th>
+              <th>Appelé & récouvré</th>
+              <th>Dernier appel</th>
+              <th>hr</th>
+              <th>Ouvrir</th> 
+              <th></th>
+              <th></th>  
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" id="inlineCheckbox1" value="annule"></td>
+              <td>35975975</td>
+              <td>887786455</td>
+              <td>Wade</td>
+              <td>Abdou</td>
+              <td>484084058</td>
+              <td>R1</td>
+              <td>15/03/2014</td>
+              <td>1</td>
+              <td>non</td>
+              <td>15/01/2014</td>
+              <td>12:35</td>
+              <td>
+                <!-- Split button -->
+                  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPaiement">Annoter</button>
+              </td> 
+              <td>
+                <!-- Split button -->
+                  <a href="#" class="btn btn-default">Mise à jour</a>  
+              </td> 
+              <td>
+                <!-- Split button -->
+                  <a href="#" class="btn btn-default">Imprimer le profil</a>  
+              </td> 
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+    <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                  <span class="badge">1</span>&nbsp; Numéro de courrier
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12 margin-bottom-15">
+                    <span>Dès le moment que le client est trouvé et selectionné, ajouter le numéro de courier de désistement du client avant de passer à la</span>
+                 </div>
+               </div>
+               <br>
+               <div class="row">
+                  <div class="col-md-3 margin-bottom-15">
+                    <input type="text" class="form-control" id="epdAdresse" placeholder="Numéro de courrier" value="" required>
+                  </div>
+                  <div class="col-md-3 margin-bottom-15">
+                    <a href="#" class="btn btn-default">Mise à jour</a> 
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                  <span class="badge">2</span>&nbsp; Imprimer les réponses et les actes  de désistement 
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="panel-body">
+                
+                <div class="row">
+                  <div class="col-md-12 margin-bottom-15">
+                    <p>Et finalement, Imprimer les réponses et les actes  de désistement </p>
+                 </div>
+               </div>
+               <div class="row">
+                
+                  <div class="col-md-3 margin-bottom-15">
+                    <a href="#" class="btn btn-default">Imprimer</a> 
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-12 margin-bottom-15">
+                    <p>Aucun document ne pourra être imprimé si le courrier de demande n'est pas enregistré et soumis au système.<br>
+                    Seule sa réponse accompagnée de son acte de désistement pourront être imprimés.<br>
+                    Si plusieurs cases sont cochés, leurs réponses et actes seront imprimés dans le même ordre, après que leur numéro de courier ait été enregistré et soumis. </p>
+                 </div>
+               </div>
+
+              </div>
+            </div>
+          </div>
+          
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                  <span class="badge">3</span>&nbsp; Liste des instances en annulation
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+              <div class="panel-body">
+                
+
+                <div class="col-md-12">
+                  
+                  <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                          
+                          <tbody>
+                            <tr>
+                              <th>Annuler</th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele"></td>
+                              <td>15/11/19</td>
+                              <td>11:25</td>
+                              <td>Visite de site 18/01/20</td>
+                              <td>R1</td>
+                              <td>Tatiana Nandnaba</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele"></td>
+                              <td>16/11/19</td>
+                              <td>13:25</td>
+                              <td>Bonne année et bonne santé </td>
+                              <td>R1</td>
+                              <td>VP Kaboré</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" id="inlineCheckbox1" value="appele" checked></td>
+                              <td>17/11/19</td>
+                              <td>14:52</td>
+                              <td>Démarrage des travaux</td>
+                              <td>R1</td>
+                              <td>Tatiana Nandnaba</td>
+                              <td><a href="#" class="btn btn-default">Annoter</a></td>                                          
+                            </tr>
+                                                
+                          </tbody>
+                        </table>
+                      </div>       
+                 </div> 
+
+                 <div class="col-md-12">
+
+                    <div class="col-md-3 margin-bottom-15">
+                              
+                    </div>
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Mise à jour</a>               
+                    </div>
+                    <div class="col-md-3 margin-bottom-15">
+                      <a href="#" class="btn btn-default">Imprimer la liste</a>               
+                    </div>
+
+                  </div>
+
+
+              </div>
+            </div>
+          </div>
+         </div> 
+      
+  </div>  
+  
+  </div>    
+</div>
+{% endblock %}
+
+
+
+{% block modal %}
+<div class="modal fade" id="confirmOpen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+          <h4 class="modal-title" id="myModalLabel">Voulez vous vraiment ouvrir ce dossier</h4>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-primary">Oui</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+          <h4 class="modal-title" id="myModalLabel">Voulez vous vraiment vous déconnecter ?</h4>
+        </div>
+        <div class="modal-footer">
+          <a href="sign-in.html" class="btn btn-primary">Oui</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+
+{% block scripts %}
+<script type="text/javascript">
+    // Line chart
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+    var lineChartData = {
+      labels : ["January","February","March","April","May","June","July"],
+      datasets : [
+      {
+        label: "My First dataset",
+        fillColor : "rgba(220,220,220,0.2)",
+        strokeColor : "rgba(220,220,220,1)",
+        pointColor : "rgba(220,220,220,1)",
+        pointStrokeColor : "#fff",
+        pointHighlightFill : "#fff",
+        pointHighlightStroke : "rgba(220,220,220,1)",
+        data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+      },
+      {
+        label: "My Second dataset",
+        fillColor : "rgba(151,187,205,0.2)",
+        strokeColor : "rgba(151,187,205,1)",
+        pointColor : "rgba(151,187,205,1)",
+        pointStrokeColor : "#fff",
+        pointHighlightFill : "#fff",
+        pointHighlightStroke : "rgba(151,187,205,1)",
+        data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+      }
+      ]
+
+    }
+
+    window.onload = function(){
+      var ctx_line = document.getElementById("templatemo-line-chart").getContext("2d");
+      window.myLine = new Chart(ctx_line).Line(lineChartData, {
+        responsive: true
+      });
+    };
+
+    $('#myTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+
+    $('#loading-example-btn').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn2').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn3').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn4').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn5').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn6').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+    $('#loading-example-btn7').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+    });
+
+  </script>
+{% endblock %}
