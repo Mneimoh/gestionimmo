@@ -9,3 +9,6 @@ def vente(request):
 
 def penalties(request):
       return render(request, 'transac/tpenalties.html', { 'title': 'Pénalités'})
+
+def payments(request):
+      return render(request, 'transac/tpaiement.html', { 'title': 'Paiements'})
