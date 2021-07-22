@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'accueuil'
+    'accueuil',
+    'transac'
 ]
 
 MIDDLEWARE = [
