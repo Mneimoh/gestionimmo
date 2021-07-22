@@ -8,6 +8,7 @@ urlpatterns = [
     path('penalties', views.penalties, name='penalties'),
     path('payments', views.payments, name='payments'),
     path('mutations', views.mutations, name='mutations'),
+    path('restructure', views.restructure, name='restructure'),
 
 
 ]

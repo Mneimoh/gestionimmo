@@ -15,3 +15,6 @@ def payments(request):
 
 def mutations(request):
       return render(request, 'transac/tmutations.html', { 'title': 'Mutations'})
+
+def restructure(request):
+      return render(request, 'transac/trestructurations.html', { 'title': 'Restructurations'})
