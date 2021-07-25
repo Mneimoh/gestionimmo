@@ -53,7 +53,8 @@
       <div class="form-group">
         <div class="col-md-12">
           <div class="col-sm-offset-2 col-sm-10">
-            <input type="submit" value="Sign in" class="btn btn-default" />
+            {% comment %} <input type="submit" value="Sign in" class="btn btn-default" /> {% endcomment %}
+            <a href="{% url 'caisse' %}">Sign In </a>
           </div>
         </div>
       </div>
