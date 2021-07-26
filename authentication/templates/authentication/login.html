@@ -6,7 +6,7 @@
   <div class="navbar navbar-inverse" role="navigation">
     <div class="navbar-header">
       <div class="logo"><h1>Login</h1></div>
-    </div>
+    </div>/
   </div>
   <div class="template-page-wrapper">
     <form
@@ -54,7 +54,12 @@
         <div class="col-md-12">
           <div class="col-sm-offset-2 col-sm-10">
             {% comment %} <input type="submit" value="Sign in" class="btn btn-default" /> {% endcomment %}
-            <a href="{% url 'caisse' %}">Sign In </a>
+            <button type="button" class="">
+               <a href="{% url 'caisse' %}">
+               Sign in
+               </a>
+            </button>
+           
           </div>
         </div>
       </div>

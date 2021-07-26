@@ -2,8 +2,8 @@ from django.shortcuts import render
 from .decorators import unauthenticated_user, allowed_users
 # Create your views here.
 
-@unauthenticated_user
-@allowed_users(allowed_roles=["caisse"])
+# @unauthenticated_user
+# @allowed_users(allowed_roles=["caisse"])
 def index(request):
     #return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels'})
     return render(request, 'caisse/caisse.html', {'title': 'Ouverture et montage de dossier'})
