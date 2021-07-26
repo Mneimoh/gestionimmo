@@ -7,7 +7,6 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 def index(request):
-      print(request.user.groups.filter(user=request.user)[0])
       return render(request, 'authentication/login.html',{})
 
 def login_request(request):
