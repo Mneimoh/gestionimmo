@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponseRedirect
 from .forms import UserLoginForm
 from django.contrib import messages
 
@@ -6,6 +7,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 def index(request):
+      print(request.user.groups.filter(user=request.user)[0])
       return render(request, 'authentication/login.html',{})
 
 def login_request(request):
@@ -19,11 +21,11 @@ def login_request(request):
                   if user is not None:
                         group = None
                         if request.user.groups.exists():
-                              group = request.user.groups.all()[0].name
+                              group = request.user.groups.filter(user=request.user)[0]
                               login(request,user)
                               messages.info(request, f"You are logged in as {username}")
+                              url = f'/{group.name}'
                               print(group, "From login handler")
-                              url = f'/{group}'
                               return redirect(url)
                   else: 
                         print(error)
