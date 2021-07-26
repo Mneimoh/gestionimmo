@@ -1,0 +1,16 @@
+{% extends 'authentication/layouts/base.html' %} 
+{% load static %} 
+{% block content %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+
+<div class="container py-5">
+<div id="main-wrapper">
+  <h1>Login</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ login_form }}
+    <button class="btn btn-primary" type="submit">Login</button>
+  </form>
+</div>
+</div>
+{% endblock %}
