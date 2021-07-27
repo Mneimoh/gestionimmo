@@ -5,7 +5,6 @@ from .decorators import unauthenticated_user, allowed_users
 # @unauthenticated_user
 # @allowed_users(allowed_roles=["caisse"])
 def index(request):
-    #return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels'})
     return render(request, 'caisse/caisse.html', {'title': 'Ouverture et montage de dossier'})
 
 
