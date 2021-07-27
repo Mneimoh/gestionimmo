@@ -19,7 +19,7 @@ def allowed_users(allowed_roles=[]):
                         group = request.user.groups.all()[0].name
                         print(group, "Group", prince, "User")
                   if group in allowed_roles:
-                        return_func(request,*args,**kwargs)
+                        return view_func(request,*args,**kwargs)
                   else:
                         return HttpResponse("Not Authorized")
             return wrapper_func

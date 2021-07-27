@@ -37,7 +37,9 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
           <li><a href="{% url 'plan' %}"><i class="fa fa-map-marker"></i>Plan de masse</a></li>
           <li><a href="{% url 'dossiers' %}"><i class="fa fa-file-image-o"></i>Dossiers crédits prop. terriens</a></li>
           <li><a href="{% url 'dossiers_credit' %}"><i class="fa fa-file-image-o"></i>Dossiers crédits</a></li>       
-          <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+          {% comment %} <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li> {% endcomment %}
+          <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+
         </ul>
       </div><!--/.navbar-collapse -->
 
