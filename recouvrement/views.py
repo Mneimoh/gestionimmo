@@ -5,6 +5,7 @@ from .decorators import unauthenticated_user, allowed_users
 @allowed_users(allowed_roles=['recouvrement'])
 def index(request):
     return render(request,'recouvrement/recouvrement.html', { 'title': 'Recouvrement'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def etat_recouvrements(request): 
@@ -19,10 +20,12 @@ def contacts(request):
 @allowed_users(allowed_roles=['recouvrement'])
 def litiges(request): 
     return render(request, 'recouvrement/direction/gestion-litige.html', { 'title': ' Gestion des litiges'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def finalisations(request): 
     return render(request, 'recouvrement/direction/finalisations.html', { 'title': ' Finalisation'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def rapports(request): 
@@ -41,6 +44,7 @@ def etat_dossiers_statistique (request):
 
 def etat_profil_dossiers (request): 
     return render(request, 'recouvrement/etats-dossiers/profil-dossiers.html', { 'title': 'Profil dossiers'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def etat_dossiers_recouvrement_complets (request): 
@@ -51,6 +55,7 @@ def etat_dossiers_recouvrement_complets (request):
 # Contact routes
 def contact_rappel(request): 
     return render(request, 'recouvrement/contacts/rappel.html', { 'title': ' Appel Manuels'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def contact_sms(request): 
@@ -58,10 +63,12 @@ def contact_sms(request):
 
 def contact_autosms(request): 
     return render(request, 'recouvrement/contacts/autosms.html', { 'title': 'Auto SMS'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def contact_emails(request): 
     return render(request, 'recouvrement/contacts/emails.html', { 'title': ' Email Manuels'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def contact_autoemails(request): 
@@ -77,18 +84,22 @@ def contact_annotation(request):
 # Gestion finalisation routes
 def gestion_verification_paiement(request): 
     return render(request, 'recouvrement/gestion-finalisation/verification-paiement.html', { 'title': 'Verification de fin de paiement'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def gestion_attestation(request): 
     return render(request, 'recouvrement/gestion-finalisation/attestation.html', { 'title': ' Attestion de fin de paiement'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def gestion_pml(request): 
     return render(request, 'recouvrement/gestion-finalisation/pml.html', { 'title': 'Emissions plans de masses locaux'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def gestion_felicitations(request): 
     return render(request, 'recouvrement/gestion-finalisation/felicitations.html', { 'title': 'Certificats de félicitations'})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def gestion_attributions(request): 
@@ -99,6 +110,7 @@ def gestion_attributions(request):
 # (proprieraires terriens, modif restructure) routes
 def prop_terriens(request): 
     return render(request, 'recouvrement/credit-prop-terriens.html', { 'title': "Dossiers crédits prop. terriens"})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def modif_restructure(request): 
@@ -109,10 +121,12 @@ def modif_restructure(request):
 # annulation routes
 def annulation_auto(request): 
     return render(request, 'recouvrement/annulation/automatique.html', { 'title': "Annulation automatique"})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def annulation_courrier(request): 
     return render(request, 'recouvrement/annulation/courrier.html', { 'title': "Annulation par courrier"})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def annulation_finalisation(request): 
@@ -123,32 +137,39 @@ def annulation_finalisation(request):
 # delocalisation routes
 def delocalisation_auto(request): 
     return render(request, 'recouvrement/delocalisation/automatique.html', { 'title': "Delocalisation automatique"})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def delocalisation_courrier(request): 
     return render(request, 'recouvrement/delocalisation/courrier.html', { 'title': "Delocalisation par courrier"})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def delocalisation_finalisation(request): 
     return render(request, 'recouvrement/delocalisation/finalisation.html', { 'title': "Delocalisation finalisation"})
+
 
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 # sinistre routes
 def gestionpr_1(request): 
     return render(request, 'recouvrement/sinistre/gestionpr-1.html', { 'title': "Gestion sinistre phase 1 (Reception sinistre et recherche)"})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def gestionpr_2(request): 
     return render(request, 'recouvrement/sinistre/gestionpr-2.html', { 'title': "Gestion sinistre phase 2 (acceptée)"})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def gestion_vi_1(request): 
     return render(request, 'recouvrement/sinistre/gestion-vi-1.html', { 'title': "Gestion sinistre phase 1 (Reception sinistre et recherche)"})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def gestion_vi_2(request): 
     return render(request, 'recouvrement/sinistre/gestion-vi-1.html', { 'title': "Gestion sinistre phase 2 (acceptée)"})
+
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def gestion_rejets(request): 
@@ -159,6 +180,7 @@ def gestion_rejets(request):
 # repechage routes
 def repechage_auto(request): 
     return render(request, 'recouvrement/repechage/automatique.html', { 'title': "Repêchage 1"})
+    
 @unauthenticated_user
 @allowed_users(allowed_roles=['recouvrement'])
 def repechage_2(request): 
