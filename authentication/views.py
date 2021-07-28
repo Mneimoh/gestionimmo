@@ -22,7 +22,7 @@ def login_request(request):
                         login(request,user)
                         messages.info(request,f"You are now logged in as {username}")
                         group = user.groups.all()[0]
-                        url = f"{group.name}"
+                        url = f"{group.name}/"
 
                         return redirect(url)
                   else:

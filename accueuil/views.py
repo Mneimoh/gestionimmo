@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .decorators import unauthenticated_user, allowed_users
 
+
 # Create your views here.
 @unauthenticated_user
 @allowed_users(allowed_roles=["acceuil"])
