@@ -6,7 +6,7 @@ from django.contrib import messages
 def unauthenticated_user(view_func):
       def wrapper_func(request,*args,**kwargs):
             if not request.user.is_authenticated:
-                  messages.error(request,"You need to Login, to acces this page")
+                  messages.error(request,"You need to Login, to access this page")
                   return redirect('/')
             else:
                   return view_func(request, *args,**kwargs)

@@ -15,9 +15,9 @@
       
       <div class="panel-group" id="accordion">
 
-        <!-- <form class="" role="form" id="templatemo-preferences-form"> -->
-          
-          <div class="panel panel-default">
+        <!-- <form class="" role="form" id="templatemo-preferences-form">
+                  
+           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -104,8 +104,24 @@
               </div>
             </div>
           </div>
-                  
-        </div> 
+                
+
+  
+        </form>  -->
+
+        <form method = 'POST' enctype="multipart/form-data"  class="" role="form" id="templatemo-preferences-form">
+          {% csrf_token %}
+          {{ upload_form.as_p }}
+          <div class="row">                                                    
+            <div class="col-md-6 margin-bottom-15">
+              <button type="submit" id="loading-example-btn3" data-loading-text="impression en cours" class="btn btn-primary">
+                Valider
+              </button>
+            </div>
+          </div>    
+        </form>
+
+
 
       </div>
     
