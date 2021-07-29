@@ -3,6 +3,6 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('', views.index, name='acceuil'),
+    path('', views.upload, name='acceuil'),
     path('rdv/', views.rdv, name='acceuil-rdv')
 ]

@@ -6,3 +6,5 @@ class AcceuilCreate(forms.ModelForm):
     class Meta:
         model = ClientAppel
         fields = '__all__'
+
+        

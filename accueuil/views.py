@@ -33,7 +33,7 @@ def upload(request):
             upload.save()
             return redirect('accueuil/rdv.html')
         else:
-            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
+            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'appel.html'}}">reload</a>""")
     else:
         return render(request=request,template_name= 'accueuil/appel.html', context={'upload_form': upload})
 
