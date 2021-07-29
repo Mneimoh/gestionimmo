@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'transac',
     'caisse',
     'recouvrement',
-    'authentication'
+    'authentication',
+    'societe'
 ]
 
 MIDDLEWARE = [
@@ -113,6 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "authentication.User"
+
+LOGIN_URL = '/login'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

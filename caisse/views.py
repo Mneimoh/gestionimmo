@@ -1,57 +1,87 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .decorators import unauthenticated_user, allowed_users
 # Create your views here.
 
-# @unauthenticated_user
-# @allowed_users(allowed_roles=["caisse"])
+
+section = 'caisse'
+
+@login_required
 def index(request):
-    #return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels'})
-    return render(request, 'caisse/caisse.html', {'title': 'Ouverture et montage de dossier'})
+    if(request.user.poste == section):
+        return render(request, 'caisse/caisse.html', {'title': 'Ouverture et montage de dossier'})
+    else:
+        return redirect(f"/login?next=/{section}/")
 
 
-@unauthenticated_user
-@allowed_users(allowed_roles=["caisse"])
+
+@login_required
 def cpaiement(request):
-    return render(request,'caisse/cpaiements.html', { 'title': 'Paiements mensuels'})
+    if(request.user.poste == section):
+        return render(request,'caisse/cpaiements.html', { 'title': 'Paiements mensuels'})
+    else:
+        return redirect(f"/login?next=/{section}/")
 
 
-@unauthenticated_user
-@allowed_users(allowed_roles=["caisse"])
+
+@login_required
 def cpenalites(request):
-    return render(request,'caisse/cpenalites.html', { 'title': 'Pénalités'})
+    if(request.user.poste == section):
+        return render(request,'caisse/cpenalites.html', { 'title': 'Pénalités'})
+    else:
+        return redirect(f"/login?next=/{section}/")
 
 
-@unauthenticated_user
-@allowed_users(allowed_roles=["caisse"])
+
+@login_required
 def crestructurations(request):
-    return render(request,'caisse/crestructurations.html', { 'title': 'Restructurations'})
+    if(request.user.poste == section):
+        return render(request,'caisse/crestructurations.html', { 'title': 'Restructurations'})
+    else:
+        return redirect(f"/login?next=/{section}/")
 
 
-@unauthenticated_user
-@allowed_users(allowed_roles=["caisse"])
+
+@login_required
 def cdelocalisations(request):
-    return render(request,'caisse/cdelocalisations.html', { 'title': 'Délocalisations'})
+    if(request.user.poste == section):
+        return render(request,'caisse/cdelocalisations.html', { 'title': 'Délocalisations'})
+    else:
+        return redirect(f"/login?next=/{section}/")
 
 
-@unauthenticated_user
-@allowed_users(allowed_roles=["caisse"])
+
+@login_required
 def cmutations(request):
-    return render(request,'caisse/cmutations.html', { 'title': 'Mutations'})
+    if(request.user.poste == section):
+        return render(request,'caisse/cmutations.html', { 'title': 'Mutations'})
+    else:
+        return redirect(f"/login?next=/{section}/")
 
 
-@unauthenticated_user
-@allowed_users(allowed_roles=["caisse"])
+
+@login_required
 def cpml(request):
-    return render(request,'caisse/cpml.html', { 'title': 'Plan de masse local'})
+    if(request.user.poste == section):
+        return render(request,'caisse/cpml.html', { 'title': 'Plan de masse local'})
+    else:
+        return redirect(f"/login?next=/{section}/")
 
 
-@unauthenticated_user
-@allowed_users(allowed_roles=["caisse"])
+
+@login_required
 def cdcpt(request):
-    return render(request,'caisse/cdcpt.html', { 'title': 'Dossiers crédits propriétaires terriens (DCPT)'})
+    if(request.user.poste == section):
+        return render(request,'caisse/cdcpt.html', { 'title': 'Dossiers crédits propriétaires terriens (DCPT)'})
+    else:
+        return redirect(f"/login?next=/{section}/")
 
 
-@unauthenticated_user
-@allowed_users(allowed_roles=["caisse"])
+
+@login_required
 def cdc(request):
-    return render(request,'caisse/cdc.html', { 'title': 'Dossiers crédits (DC)'})
+    if(request.user.poste == section):
+        return render(request,'caisse/cdc.html', { 'title': 'Dossiers crédits (DC)'})
+    else:
+        return redirect(f"/login?next=/{section}/")

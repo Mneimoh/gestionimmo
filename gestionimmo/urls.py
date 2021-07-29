@@ -15,9 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from societe.admin import societe_site
+
+# Django admin header customization
+admin.site.site_header = "GestionImmo Dashboard"
+admin.site.site_title = " Welcome to Dashabord"
+admin.site.index_title = "Site Information"
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('societe-admin/',societe_site.urls),
     path('accueuil/', include('accueuil.urls')),
     path('transac/', include('transac.urls')),
     path('caisse/', include('caisse.urls')),

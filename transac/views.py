@@ -1,51 +1,97 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user,allowed_users
 
 # Create your views here.
+section = 'transac'
 
-@unauthenticated_user
-@allowed_users(allowed_roles=['transac'])
+
+@login_required
 def index(request):
-      return render(request, 'transac/tcompte.html', { 'title': 'Espace ouverture compte'})
+      if(request.user.poste == section):
+            return render(request, 'transac/tcompte.html', { 'title': 'Espace ouverture compte'})
+      else:
+            return redirect(f"/login?next=/{section}/")
 
-@unauthenticated_user
-@allowed_users(allowed_roles=['transac'])
+
+
+
+@login_required
 def vente(request):
-      return render(request, 'transac/tvente.html', { 'title': 'Espace vente'})
+      if(request.user.poste == section):
+            return render(request, 'transac/tvente.html', { 'title': 'Espace vente'})
+      else:
+            return redirect(f"/login?next=/{section}/")
 
-@unauthenticated_user
-@allowed_users(allowed_roles=['transac'])
+
+
+
+@login_required
 def penalties(request):
-      return render(request, 'transac/tpenalties.html', { 'title': 'Pénalités'})
+      if(request.user.poste == section):
+            return render(request, 'transac/tpenalties.html', { 'title': 'Pénalités'})
+      else:
+            return redirect(f"/login?next=/{section}/")
 
-@unauthenticated_user
-@allowed_users(allowed_roles=['transac'])
+
+
+
+@login_required
 def payments(request):
-      return render(request, 'transac/tpaiement.html', { 'title': 'Paiements'})
+      if(request.user.poste == section):
+            return render(request, 'transac/tpaiement.html', { 'title': 'Paiements'})
+      else:
+            return redirect(f"/login?next=/{section}/")
 
-@unauthenticated_user
-@allowed_users(allowed_roles=['transac'])
+
+
+
+@login_required
 def mutations(request):
-      return render(request, 'transac/tmutations.html', { 'title': 'Mutations'})
+      if(request.user.poste == section):
+            return render(request, 'transac/tmutations.html', { 'title': 'Mutations'})
+      else:
+            return redirect(f"/login?next=/{section}/")
 
-@unauthenticated_user
-@allowed_users(allowed_roles=['transac'])
+
+
+
+@login_required
 def restructure(request):
-      return render(request, 'transac/trestructurations.html', { 'title': 'Restructurations'})
+      if(request.user.poste == section):
+            return render(request, 'transac/trestructurations.html', { 'title': 'Restructurations'})
+      else:
+            return redirect(f"/login?next=/{section}/")
 
-@unauthenticated_user
-@allowed_users(allowed_roles=['transac'])
+
+
+
+@login_required
 def plan(request):
-      return render(request, 'transac/tpml.html', { 'title': 'Plan de masse local'})
+      if(request.user.poste == section):
+            return render(request, 'transac/tpml.html', { 'title': 'Plan de masse local'})
+      else:
+            return redirect(f"/login?next=/{section}/")
 
-@unauthenticated_user
-@allowed_users(allowed_roles=['transac']) 
+
+
+
+# @login_required 
 def dossiers_credit(request):
-      return render(request, 'transac/tdc.html', { 'title': 'Dossiers crédits (DC)'})
+      if(request.user.poste == section):
+            return render(request, 'transac/tdc.html', { 'title': 'Dossiers crédits (DC)'})
+      else:
+            return redirect(f"/login?next=/{section}/")
 
-@unauthenticated_user
-@allowed_users(allowed_roles=['transac'])
+
+
+
+@login_required
 def dossiers(request):
-      return render(request, 'transac/tdcpt.html', { 'title': 'Dossiers crédits propriétaires terriens (DCPT)'})
+      if(request.user.poste == section):
+            return render(request, 'transac/tdcpt.html', { 'title': 'Dossiers crédits propriétaires terriens (DCPT)'})
+      else:
+            return redirect(f"/login?next=/{section}/")
+
 
 

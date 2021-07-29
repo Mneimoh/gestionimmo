@@ -11,23 +11,41 @@
   <div class="template-page-wrapper">
     <form
       class="form-horizontal templatemo-signin-form"
-      role="form"
-      action="index.html"
-      method="get"
+      action="login_request"
+      method="POST"
     >
-      <div class="form-group">
+      {% csrf_token %}
+
+      <!-- <div class="form-group">
         <div class="col-md-12">
-          <label for="username" class="col-sm-2 control-label">Username</label>
+          <label for="username" class="col-sm-2 control-label">username</label>
           <div class="col-sm-10">
             <input
               type="text"
               class="form-control"
               id="username"
-              placeholder="Username"
+              name="username"
+              placeholder="username"
+            />
+          </div>
+        </div>
+      </div> -->
+      <alert class="text-bold alert-warning px-5 py-3">{{ error_message}}</alert>
+      <div class="form-group">
+        <div class="col-md-12">
+          <label for="email" class="col-sm-2 control-label">Email</label>
+          <div class="col-sm-10">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="email"
             />
           </div>
         </div>
       </div>
+
       <div class="form-group">
         <div class="col-md-12">
           <label for="password" class="col-sm-2 control-label">Password</label>
@@ -36,11 +54,13 @@
               type="password"
               class="form-control"
               id="password"
+              name="password"
               placeholder="Password"
             />
           </div>
         </div>
       </div>
+
       <div class="form-group">
         <div class="col-md-12">
           <div class="col-sm-offset-2 col-sm-10">
@@ -53,13 +73,12 @@
       <div class="form-group">
         <div class="col-md-12">
           <div class="col-sm-offset-2 col-sm-10">
-            {% comment %} <input type="submit" value="Sign in" class="btn btn-default" /> {% endcomment %}
-            <button type="button" class="">
+           <input type="submit" value="Login" class="btn btn-default" />
+            <!-- <button type="button" class="">
                <a href="{% url 'caisse' %}">
                Sign in
                </a>
-            </button>
-           
+            </button> -->       
           </div>
         </div>
       </div>
