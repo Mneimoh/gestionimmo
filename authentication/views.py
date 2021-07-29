@@ -23,24 +23,11 @@ def login_request(request):
                         login(request,user)
                         messages.info(request,f"You are now logged in as {username}")
                         group = user.groups.all()[0]
-                        url = f"{group.name}"
+                        url = f"{group.name}/"
 
                         return redirect(url)
                   else:
-                        messages.error(request,"An error occured")
-                  #       group = None
-                  #       if user.groups.exists():
-                  #             group = user.groups.filter(user=request.user)[0]
-                  #             login(request,user)
-                  #             url = f'/{group.name}'
-                  #             print(group, "From login handler")
-                  #             messages.info(request, f"You are logged in as {username}")
-                  #             return redirect(url)
-                  #       elif not user.groups.exists():
-                  #             return HttpResponse("No Role Found")
-                  # else: 
-                  #       print(error)
-                  #       messages.error(request,error)
+                        messages.error(request,error)
             else:
                   print(error)
                   messages.error(request,error)
