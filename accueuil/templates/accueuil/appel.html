@@ -17,7 +17,7 @@
 
         <!-- <form class="" role="form" id="templatemo-preferences-form"> -->
           
-          <div class="panel panel-default">
+           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -27,10 +27,14 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
               <div class="panel-body">
+                <form method="POST">
+                 {% csrf_token %} 
                 <div class="row">
                   <div class="col-md-6 margin-bottom-15">
-                    <label for="firstName" class="control-label">Numéro client</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="ex: 959766784" required>                  
+                     <label for="firstName" class="control-label">Numéro client</label> <br> {% comment%}
+                    <input type="text" class="form-control" id="firstName" placeholder="ex: 959766784" required>  
+                                     {% endcomment %}
+                                     {{ client_form.phone_1}}
                   </div>
                 </div>
                 <div class="row">
@@ -46,40 +50,44 @@
                 <div class="row">
                   <div class="col-md-6 margin-bottom-15">
                     <label for="email" class="control-label">Nom</label>
-                    <input type="text" class="form-control" id="email" placeholder="DOSSO" required>                 
+                     {{ client_form.nom}}                 
                   </div> 
                   <div class="col-md-6 margin-bottom-15">
                     <label for="phoneA" class="control-label">Prénom</label>
-                    <input type="text" class="form-control" id="phoneA" placeholder="Hubert" required>                  
+                        {{ client_form.prenom}}                 
+                  
                   </div>                                               
                 </div>
                 <div class="row">
                   <div class="col-md-6 margin-bottom-15">
                     <label for="phoneA" class="control-label">Téléphone</label>
-                    <input type="text" class="form-control" id="phoneA" placeholder="986876869" required>                  
+                                        {{ client_form.phone_2}}                 
+                  
                   </div>
                   <div class="col-md-6 margin-bottom-15">
                     <label for="articleI" class="control-label">Article d'intérêt</label>                            
-                    <select class="form-control margin-bottom-15" id="articleI">
+                     <select class="form-control margin-bottom-15" id="articleI">
                       <option>Maison 1</option>
                       <option>Maison 2</option>
                       <option>Terrain 1</option>
                       <option>Terrain 2</option>
                       <option>Logement 1</option>
                       <option>Logement 2</option>
-                    </select>              
+                    </select>               
+                   
                   </div>
                 </div>                        
                 <div class="row">                          
                   <div class="col-md-6 margin-bottom-15">
                     <label for="connuA" class="control-label">Comment nous a t-il connu ?</label>
-                    <select class="form-control margin-bottom-15" id="connuA">
+                    {% comment %} <select class="form-control margin-bottom-15" id="connuA">
                       <option>Presse</option>
                       <option>Télé</option>
                       <option>Radio</option>
                       <option>Connaissance</option>
                       <option>Autre</option>
-                    </select>                 
+                    </select>      {% endcomment %}
+                     {{ client_form.how_connu}}            
                   </div>                          
                 </div>
                 <div class="row" style="background:#D1E5FE; padding-top:15px;">
@@ -93,17 +101,26 @@
                   </div>
                 </div>
                 <br>
-                <div class="row">                                                    
+                <div class="row">     
+                </div>                                               
                   <div class="col-md-6 margin-bottom-15">
                     <button type="button" id="loading-example-btn3" data-loading-text="impression en cours" class="btn btn-primary">
                       Valider
                     </button>
                   </div>
-                </div>                        
-
+                </div>  
+                </form> 
               </div>
             </div>
-          </div>
+          </div> 
+{% comment %} 
+           <form method="POST">
+                  {% csrf_token%}
+                  {{ client_form.as_p}}
+                  <button type="button" id="loading-example-btn3" data-loading-text="impression en cours" class="btn btn-primary">
+                      Valider
+                    </button>
+                </form>   {% endcomment %}
                   
         </div> 
 
