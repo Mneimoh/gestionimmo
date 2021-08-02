@@ -75,27 +75,27 @@ class ClientRdv(forms.ModelForm):
         }
         
 # from client appel, I will tke date dappel and date
-class ClientAppelForm(forms.ModelForm):
-    date_ap = forms.DateField(
-        label = "Date d'appel",
-        required = True,
-        widget = forms.TextInput(
-            attrs = {'class': 'form-control'}
-        )
-    )  
+# class ClientAppelForm(forms.ModelForm):
+#     date_ap = forms.DateField(
+#         label = "Date d'appel",
+#         required = True,
+#         widget = forms.TextInput(
+#             attrs = {'class': 'form-control'}
+#         )
+#     )  
 
-    date = forms.CHarField(
-        label = "date",
-        required = True,
-        widget = forms.TextInput(
-            attrs = {'class': 'form-control'}
-        )
-    )  
+#     date = forms.CharField(
+#         label = "date",
+#         required = True,
+#         widget = forms.TextInput(
+#             attrs = {'class': 'form-control'}
+#         )
+#     )  
 
-    class Meta:
-        model = ClientAppel,
-        fields = ('date_ap','date')
-        labels={
-            'date_ap':"Date d'appel",
-            'date': "Heur d'appel"
-        }
+#     class Meta:
+#         model = ClientAppel,
+#         fields = ('date_ap','date')
+#         labels={
+#             'date_ap':"Date d'appel",
+#             'date': "Heur d'appel"
+#         }
