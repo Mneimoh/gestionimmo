@@ -2,6 +2,51 @@ from django import forms
 from django.forms import fields
 from main.models import Client, ClientAppel
 
+
+
+class ClientCreate(forms.ModelForm):
+    date_ap = forms.DateTimeField(
+        label= "Date d'appel",
+        required=True,
+        widget=forms.DateTimeInput(
+            attrs={'type': 'date', 'class': 'form-control'}
+        )
+    )
+
+    
+
+    
+
+    ARTICLE_INTERET_CHOICES = (
+        ('MAISON 1','Maison 1'),
+        ('MAISON 2', 'Maison 2'),
+        ('TERRAIN 1','Terrain 1'),
+        ('TERRAIN 2','Terrain 2'),
+        ('LOGEMENT 1','Logement 1'),
+        ('LOGEMENT 2','Logement 2'),
+    )
+
+    article_interet = forms.ChoiceField(
+        label= "Article d'interet",
+        choices= ARTICLE_INTERET_CHOICES,
+        required= True,
+        widget= forms.Select(
+            attrs={'class': 'form-control'}
+        )
+    )
+
+    date_rendezvous = forms.DateTimeField(
+        label='Date de rendez-vous',
+        required=True,
+        widget=forms.DateTimeInput(
+            attrs={'type': 'date', 'class': 'form-control'}
+        )
+    )
+    class Meta:
+        model = ClientAppel
+        fields = [ 'date_ap', 'article_interet', 'date_rendezvous']
+        
+
 class ClientRdv(forms.ModelForm):
 
     phone_1 = forms.CharField(

@@ -15,7 +15,7 @@
       
       <div class="panel-group" id="accordion">
 
-        <!-- <form class="" role="form" id="templatemo-preferences-form"> -->
+        <form class="" method="POST" enctype="multipart/form-data" role="form" id="templatemo-preferences-form">
           
            <div class="panel panel-default">
             <div class="panel-heading">
@@ -39,12 +39,15 @@
                 </div>
                 <div class="row">
                   <div class="col-md-6 margin-bottom-15">
-                    <label for="dateNaiss" class="control-label">Date d'appel</label>
-                    <input type="date" class="form-control" id="dateNaiss" required>                  
+                    <label for="dateNaiss" class="control-label">Date d'appel</label> {% comment %}
+                    <input type="date" class="form-control" id="dateNaiss" required> {% endcomment %}
+                    {{client_form1.date_ap}}
+                    
                   </div>
                   <div class="col-md-6 margin-bottom-15">
-                    <label for="lieuNaiss" class="control-label">Heure d'appel</label>
-                    <input type="text" class="form-control" id="lieuNaiss" required>                 
+                    <label for="lieuNaiss" class="control-label">Heure d'appel</label> {% comment %}
+                    <input type="text" class="form-control" id="lieuNaiss" required>  {% endcomment %}
+                    {{client_form1.date_ap}}               
                   </div>
                 </div>
                 <div class="row">
@@ -66,15 +69,15 @@
                   </div>
                   <div class="col-md-6 margin-bottom-15">
                     <label for="articleI" class="control-label">Article d'intérêt</label>                            
-                     <select class="form-control margin-bottom-15" id="articleI">
+                     {% comment %}<select class="form-control margin-bottom-15" id="articleI">
                       <option>Maison 1</option>
                       <option>Maison 2</option>
                       <option>Terrain 1</option>
                       <option>Terrain 2</option>
                       <option>Logement 1</option>
                       <option>Logement 2</option>
-                    </select>               
-                   
+                    </select>{% endcomment %}              
+                      {{ client_form1.article_interet}}
                   </div>
                 </div>                        
                 <div class="row">                          
@@ -92,12 +95,14 @@
                 </div>
                 <div class="row" style="background:#D1E5FE; padding-top:15px;">
                   <div class="col-md-6 margin-bottom-15">
-                    <label for="dateNaiss" class="control-label">Date de rendez-vous</label>
-                    <input type="date" class="form-control" id="dateNaiss" required>                  
+                    <label for="dateNaiss" class="control-label">Date de rendez-vous</label> {% comment %}
+                    <input type="date" class="form-control" id="dateNaiss" required> {% endcomment %}
+                    {{ client_form1.date_rendezvous }}                 
                   </div>
                   <div class="col-md-6 margin-bottom-15">
-                    <label for="lieuNaiss" class="control-label">Heure de rendez-vous</label>
-                    <input type="text" class="form-control" id="lieuNaiss" required>                 
+                    <label for="lieuNaiss" class="control-label">Heure de rendez-vous</label> {% comment %}
+                    <input type="text" class="form-control" id="lieuNaiss" required> {% endcomment %}
+                    {{ client_form1.date_rendezvous }}                
                   </div>
                 </div>
                 <br>
@@ -113,7 +118,7 @@
               </div>
             </div>
           </div> 
-{% comment %} 
+            {% comment %} 
            <form method="POST">
                   {% csrf_token%}
                   {{ client_form.as_p}}
@@ -122,7 +127,7 @@
                     </button>
                 </form>   {% endcomment %}
                   
-        </div> 
+              </form> 
 
       </div>
     

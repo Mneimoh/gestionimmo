@@ -364,6 +364,8 @@ class ClientAppel(models.Model):
     agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     date_ap = models.DateTimeField()
+    article_interet = models.CharField(max_length=60, default='maison')
+    date_rendezvous = models.DateField( default= None)
     obtention = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
 
