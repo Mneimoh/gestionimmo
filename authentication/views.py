@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .forms import UserLoginForm
 from django.contrib import messages
 
@@ -7,6 +7,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 def index(request):
+      print(request.user,"From base route")
       return render(request, 'authentication/login.html',{})
 
 def login_request(request):

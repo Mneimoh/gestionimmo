@@ -159,3 +159,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 WHITENOISE_USE_FINDERS = True
 
 django_heroku.settings(locals())
+
+# Base url to serve media files
+MEDIA_URL = '/media/'
+
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

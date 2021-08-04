@@ -1,9 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.contrib import messages
+
 
 def unauthenticated_user(view_func):
       def wrapper_func(request,*args,**kwargs):
-            if not request.user.is_authenticated: 
+            if not request.user.is_authenticated:
+                  messages.error(request,"You need to Login, to acces this page")
                   return redirect('/')
             else:
                   return view_func(request, *args,**kwargs)
@@ -17,8 +20,9 @@ def allowed_users(allowed_roles=[]):
                   if request.user.groups.exists():
                         group = request.user.groups.all()[0].name
                   if group in allowed_roles:
-                        return_func(request,*args,**kwargs)
+                        return view_func(request,*args,**kwargs)
                   else:
+                        messages.error(request,"Not Authorized")
                         return HttpResponse("Not Authorized")
             return wrapper_func
       return decorator

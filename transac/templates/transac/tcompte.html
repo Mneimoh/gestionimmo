@@ -1,4 +1,9 @@
 {% extends 'transac/layouts/base.html' %} {% load static %} {% block content %}
+{% if messages %}
+        {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+{% endif %}
 <div class="margin-bottom-30">
   <div class="row">
     <div class="col-md-12">
@@ -2336,7 +2341,7 @@
         </h4>
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-primary">Oui</a>
+        <a href="../logout" class="btn btn-primary">Oui</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">
           Non
         </button>
