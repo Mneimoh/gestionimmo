@@ -1,7 +1,5 @@
 from django.db import models
-from django.http import request
 from main.models import Article, Client, CompteEndettement, Dossier, Emploi, Endettement, PretEndettement
-import societe
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
