@@ -3,14 +3,13 @@ from django.http import HttpResponseRedirect
 from .forms import UserLoginForm
 from django.contrib import messages
 
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 def index(request):
       return render(request, 'authentication/login.html',{})
 
 def login_request(request):
-      print('Login request just hit me now')
       error = "Invalid username or password"
 
       if request.method == "POST":
@@ -20,9 +19,7 @@ def login_request(request):
                   email = form.cleaned_data.get('email')
                   password = form.cleaned_data.get('password')
                   user = authenticate(email=email,password=password)
-                  print(email)
-                  print(password)
-                  print(user)
+
                   if user is not None:
 
                         if user.poste:
@@ -37,7 +34,6 @@ def login_request(request):
                               login(request, user) #the user is now logged in
                               return redirect(f"/{user.poste}")
                               # return render(request=request,template_name=f"{user.poste}/{user.poste}.html",context={"user":user})
-
                         else:
                               error = "You are not identifired to any poste"
                   else: 
@@ -50,6 +46,6 @@ def login_request(request):
       form = UserLoginForm()
       return render(request=request,template_name='authentication/login.html',context={"login_form":form,"error_message":error})
 
-def logout(request):
+def logout_here(request):
       logout(request)
       return redirect("/login")

@@ -31,6 +31,14 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
+AUTH_USER_MODEL = "main.User"
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+    'main.backend.CaseInsensitiveModelBackend', 
+    )
+
+LOGIN_URL = '/login'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,7 +54,8 @@ INSTALLED_APPS = [
     'caisse',
     'recouvrement',
     'authentication',
-    'societe'
+    'societe',
+    'main'
 ]
 
 MIDDLEWARE = [
@@ -65,7 +74,7 @@ ROOT_URLCONF = 'gestionimmo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,9 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "authentication.User"
-
-LOGIN_URL = '/login'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
