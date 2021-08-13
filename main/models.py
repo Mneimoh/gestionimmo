@@ -1,7 +1,8 @@
+# from transac.views import payments
+from uuid import UUID
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
-from django.db.models.fields import PositiveIntegerField
-from django.db.models.query import QuerySet
+from django.db.models.deletion import CASCADE
 # Create your models here.
 
 USER_POSTES = (
@@ -19,16 +20,17 @@ class Societe(models.Model):
     localisation    = models.CharField(max_length=200,null=True)
     active          = models.BooleanField(default=False)
     date_created    = models.DateTimeField(verbose_name="Date Created",auto_now_add=True)
-
+    address         = models.CharField(max_length=20,null=True)
+    code_postal     = models.CharField(max_length=20, null=True)
+    pays            = models.CharField(max_length=20, null=True)
+    ville           = models.CharField(max_length=20, null=True)
+    telephone      = models.CharField(max_length=20, null=True)
     def __str__(self):
         return self.nom
 
 
 class UserManager(BaseUserManager):
     def create_user(self,email,username,password = None):
-        print('------------------------------------')
-        print('creating new user here')
-        print('------------------------------------')
 
         if not email:
             raise ValueError('Email is required')
@@ -109,31 +111,47 @@ class User(AbstractBaseUser):
 
 
 class Place(models.Model):
-    adresse = models.CharField(max_length=60)
-    ville = models.CharField(max_length=30)
-    code_postal = models.CharField(max_length=15)
-    pays = models.CharField(max_length=20)
-    anciennete = models.IntegerField()
-    loyer = models.FloatField()
-    residence = models.TextField()
-    residence_actu = models.BooleanField(default=False)
-
+    adresse                 = models.CharField(max_length=60,null=True)
+    ville                   = models.CharField(max_length=30,null=True)
+    code_postal             = models.CharField(max_length=15,null=True)
+    pays                    = models.CharField(max_length=20,null=True)
+    anciennete              = models.IntegerField(null=True)
+    loyer                   = models.FloatField(null=True)
+    residence               = models.TextField(null=True)
+    residence_actu          = models.BooleanField(default=False,null=True)
+    ancienne_address        = models.BooleanField(default=False,null=True)
+    ancienne_ville          = models.CharField(max_length=30,null=True)
+    ancienne_code_postal    = models.CharField(max_length=15,null=True)
+    ancienne_pays           = models.CharField(max_length=20,null=True)
+    ancienne_anciennete     = models.IntegerField(null=True)
+    ancienne_loyer          = models.FloatField(null=True)
+    ancienne_residence      = models.TextField(null=True)
+    ancienne_residence_actu = models.BooleanField(default=False,null=True)
     def __str__(self):
-        return self.adresse
+        return self.ville
 
 
 class Emploi(models.Model):
-    denomination = models.CharField(max_length=60)
-    nom_societe = models.CharField(max_length=60)
-    adresse = models.CharField(max_length=60)
-    ville = models.CharField(max_length=30)
-    code_postal = models.CharField(max_length=15)
-    pays = models.CharField(max_length=20)
-    salaire_m = models.FloatField()
-    anciennete = models.IntegerField()
-    poste_actu = models.TextField()
-    autre_revenu = models.BooleanField(default=False)
-    autre_rev_sum = models.FloatField()
+    denomination             = models.CharField(max_length=60, null=True)
+    nom_societe              = models.CharField(max_length=60, null=True)
+    adresse                  = models.CharField(max_length=60, null=True)
+    ville                    = models.CharField(max_length=30, null=True)
+    code_postal              = models.CharField(max_length=15, null=True)
+    pays                     = models.CharField(max_length=20, null=True)
+    salaire_m                = models.FloatField(null=True)
+    anciennete               = models.IntegerField(null=True)
+    poste_actu               = models.TextField(null=True)
+    autre_revenu             = models.BooleanField(default=False, null=True)
+    autre_rev_sum            = models.FloatField(null=True)
+    ancien_denomination      = models.CharField(max_length=60, null=True)
+    ancien_nom_societe       = models.CharField(max_length=60, null=True)
+    ancien_adresse           = models.CharField(max_length=60, null=True)
+    ancien_ville             = models.CharField(max_length=30, null=True)
+    ancien_code_postal       = models.CharField(max_length=15, null=True)
+    ancien_pays              = models.CharField(max_length=20, null=True)
+    ancien_salaire_m         = models.FloatField( null=True)
+    ancien_anciennete        = models.IntegerField( null=True)
+
 
     def __str__(self):
         return self.denomination
@@ -141,60 +159,71 @@ class Emploi(models.Model):
 
 
 class Endettement(models.Model):
-    phone_emploi = models.CharField(max_length=15)
-    nom_responsable = models.CharField(max_length=30)
-    saisi = models.BooleanField(default=False)
-    faillite = models.BooleanField(default=False)
-    charge = models.BooleanField(default=False)
-    charge_sum = models.FloatField()
+    phone_emploi        = models.CharField(max_length=15)
+    nom_responsable     = models.CharField(max_length=30)
+    saisi               = models.BooleanField(default=False)
+    faillite            = models.BooleanField(default=False)
+    charge              = models.BooleanField(default=False)
+    charge_sum          = models.FloatField()
 
     def __str__(self):
-        return self.charge_sum
+        return self.nom_responsable
 
 
 class CompteEndettement(models.Model):
-    endettement = models.ForeignKey(Endettement, on_delete=models.CASCADE)
-    nom_banque = models.CharField(max_length=60)
-    type_compte = models.CharField(max_length=30)
-    carte = models.BooleanField(default=False)
-    nom_carte = models.CharField(max_length=40)
+    endettement         = models.ForeignKey(Endettement, on_delete=models.CASCADE)
+    nom_banque          = models.CharField(max_length=60)
+    type_compte         = models.CharField(max_length=30)
+    compte              = models.BooleanField(default=False)
+    nom_compte          = models.CharField(max_length=40, null=True)
 
     def __str__(self):
         return self.nom_banque
 
 
 class PretEndettement(models.Model):
-    endettement = models.ForeignKey(Endettement, on_delete=models.CASCADE)
-    nom_banque = models.CharField(max_length=60)
-    type_pret = models.CharField(max_length=60)
-    reste = models.FloatField()
-    mensualite = models.FloatField()
-    date = models.DateField()
+    endettement             = models.ForeignKey(Endettement, on_delete=models.CASCADE)
+    nom_banque              = models.CharField(max_length=60)
+    type_pret               = models.CharField(max_length=60)
+    reste                   = models.FloatField()
+    mensualite              = models.FloatField()
+    nom_banque_1            = models.CharField(max_length=60, null=True)
+    type_pret_1             = models.CharField(max_length=60, null=True)
+    reste_1                 = models.FloatField(null=True)
+    mensualite_1            = models.FloatField(null=True)
+    nom_banque_2            = models.CharField(max_length=60, null=True)
+    type_pret_2             = models.CharField(max_length=60, null=True)
+    reste_2                 = models.FloatField(null=True)
+    mensualite_2            = models.FloatField(null=True)
+    date                    = models.DateField(null=True)
 
     def __str__(self):
         return self.nom_banque
 
 
-class Client(models.Model):
-    societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
-    num_client = models.CharField(max_length=10)
-    statut = models.CharField(max_length=20)
-    phone_1 = models.CharField(max_length=15)
-    phone_2 = models.CharField(max_length=15)
-    nom = models.CharField(max_length=30)
-    prenom = models.CharField(max_length=30)
-    date_naissance = models.DateField()
-    ville_naissance = models.CharField(max_length=20)
-    pays_naissance = models.CharField(max_length=20)
-    type_piece_id = models.CharField(max_length=30)
-    numero_piece_id = models.CharField(max_length=10)
-    date_delivrance_id = models.DateField()
-    num_client_2 = models.CharField(max_length=10)
-    proprietaire = models.BooleanField(default=False)
-    how_connu = models.TextField()
-    nom_boutique = models.CharField(max_length=40)
-    num_ref = models.CharField(max_length=10)
+class Cosignataire(models.Model):
+    societe                  = models.ForeignKey(Societe, on_delete=models.CASCADE)
+    User                     = models.ForeignKey(User, on_delete=models.CASCADE)
+    email                    = models.EmailField(verbose_name="Email Address",max_length=60, null=True,blank=True)
+    phone_1                  = models.CharField(max_length=15, null=True,blank=True)
+    phone_2                  = models.CharField(max_length=15, null=True,blank=True)
+    nom                      = models.CharField(max_length=30, null=True,blank=True)
+    prenom                   = models.CharField(max_length=30, null=True,blank=True)
+    date_naissance           = models.DateField(null=True)
+    ville_naissance          = models.CharField(max_length=20, null=True,blank=True)
+    pays_naissance           = models.CharField(max_length=20, null=True,blank=True)
+    type_piece_id            = models.CharField(max_length=30, null=True,blank=True)
+    numero_piece_id          = models.CharField(max_length=10, null=True,blank=True)
+    proprietaire             = models.BooleanField(default=False)
+    parents                  = models.BooleanField(default=False)
+    how_connu                = models.TextField()
+    # nom_boutique           = models.CharField(max_length=40,null=True)
+    # num_client             = models.CharField(max_length=10,null=True)
+    # num_client_2           = models.CharField(max_length=10,null=True)
+    # statut                 = models.CharField(max_length=20,null=True)
+    # num_ref                = models.CharField(max_length=10,null=True)
+    # date_delivrance_id     = models.DateField(null=True)
+
     place = models.OneToOneField(
         Place,
         on_delete=models.CASCADE,
@@ -212,111 +241,160 @@ class Client(models.Model):
     )
 
     def __str__(self):
-        return self.nom
+        return self.nom or ''
 
 
-class Dossier(models.Model):
-    societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    statut = models.CharField(max_length=20)
-    article_interet = models.CharField(max_length=40)
-    frais_dossier = models.FloatField()
-    frais_montage = models.FloatField()
-    frais_immat = models.FloatField()
-    autres_tax = models.FloatField()
-    frais_livraison = models.FloatField()
-    frais_desendet = models.FloatField()
-    frais_autres = models.FloatField()
-    coeff_recouv = models.FloatField()
-    appele_recouvre = models.BooleanField(default=False)
-    pin = models.IntegerField()
-    dernier_appel = models.DateTimeField()
-    verifie = models.BooleanField(default=False)
+
+class Client(models.Model):
+    societe                  = models.ForeignKey(Societe, on_delete=models.CASCADE)
+    User                     = models.ForeignKey(User, on_delete=models.CASCADE)
+    email                    = models.EmailField(verbose_name="Email Address",max_length=60, null=True,blank=True)
+    phone_1                  = models.CharField(max_length=15, null=True,blank=True)
+    phone_2                  = models.CharField(max_length=15, null=True,blank=True)
+    nom                      = models.CharField(max_length=30, null=True,blank=True)
+    prenom                   = models.CharField(max_length=30, null=True,blank=True)
+    date_naissance           = models.DateField(null=True)
+    ville_naissance          = models.CharField(max_length=20, null=True,blank=True)
+    pays_naissance           = models.CharField(max_length=20, null=True,blank=True)
+    type_piece_id            = models.CharField(max_length=30, null=True,blank=True)
+    numero_piece_id          = models.CharField(max_length=10, null=True,blank=True)
+    proprietaire             = models.BooleanField(default=False)
+    parents                  = models.BooleanField(default=False)
+    how_connu                = models.TextField()
+    statut                   = models.CharField(max_length=20,default="P1")
+    uid                      = models.IntegerField(default=0,unique=True)    
+    cosigner                 = models.OneToOneField(
+        Cosignataire,
+        on_delete=models.CASCADE,
+        primary_key=False,
+        null=True,
+        blank=True
+    )
+
+    place = models.OneToOneField(
+        Place,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    emploi = models.OneToOneField(
+        Emploi,
+        on_delete=models.CASCADE,
+        primary_key=False,
+    )
+    endettement = models.OneToOneField(
+        Endettement,
+        on_delete=models.CASCADE,
+        primary_key=False,
+    )
 
     def __str__(self):
-        return self.pin
-
+        return self.nom or ''
 
 class Article(models.Model):
-    dossier = models.ForeignKey(Dossier, on_delete=models.CASCADE)
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
-    type_article = models.CharField(max_length=60)
-    num_type = models.IntegerField()
-    nom = models.CharField(max_length=60)
-    denomination = models.CharField(max_length=60)
-    num_stock = models.CharField(max_length=10)
-    valeur = models.FloatField()
-    date_achat = models.DateField()
-    date_dernier_paiement = models.DateField()
-    accompte = models.FloatField()
-    statut = models.CharField(max_length=20)
+    # dossier                  = models.ForeignKey(Dossier, on_delete=models.CASCADE)
+    # User                     = models.ForeignKey(User, on_delete=models.CASCADE)
+    type_article             = models.CharField(max_length=60,blank=True, null=True)
+    num_type                 = models.IntegerField(blank=True, null=True)
+    nom                      = models.CharField(max_length=60,blank=True, null=True)
+    denomination             = models.CharField(max_length=60,blank=True, null=True)
+    num_stock                = models.CharField(max_length=10)
+    valeur                   = models.FloatField(blank=True, null=True)
+    date_achat               = models.DateField(blank=True, null=True)
+    date_dernier_paiement    = models.DateField(blank=True, null=True)
+    accompte                 = models.FloatField(blank=True, null=True)
+    statut                   = models.CharField(max_length=20,null=True)
+    frais_dossier            = models.FloatField(blank=True, null=True)
+    frais_montage            = models.FloatField(blank=True, null=True)
+    frais_immat              = models.FloatField(blank=True, null=True)
+    autres_tax               = models.FloatField(blank=True, null=True)
+    frais_livraison          = models.FloatField(blank=True, null=True)
+    frais_desendet           = models.FloatField(blank=True, null=True)
+    frais_autres             = models.FloatField(blank=True, null=True)
     #statut_final = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.nom
+        return self.type_article+ '-' +self.nom
+
+
+
+class Dossier(models.Model):
+    societe             = models.ForeignKey(Societe, on_delete=models.CASCADE)
+    User                = models.ForeignKey(User, on_delete=models.CASCADE)
+    client              = models.ForeignKey(Client, on_delete=models.CASCADE)
+    article_interet     = models.ForeignKey(Article, on_delete=models.CASCADE)
+    statut              = models.CharField(max_length=20,default="A")
+    coeff_recouv        = models.FloatField(default=0)
+    appele_recouvre     = models.BooleanField(default=False)
+    pin                 = models.IntegerField(default=0)
+    dernier_appel       = models.DateTimeField(auto_now_add=True,null=True)
+    verifie             = models.BooleanField(default=False)
+    uid                 = models.IntegerField(null=True,unique = True)
+
+
+    def __str__(self):
+        return str(self.uid)
 
 class Facture(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    User_editeur = models.ForeignKey(User, on_delete=models.CASCADE)
-    statut = models.CharField(max_length=60)
-    num_facture = models.CharField(max_length=10)
-    date = models.DateTimeField(auto_now_add=True)
+    article             = models.ForeignKey(Article, on_delete=models.CASCADE)
+    User_editeur        = models.ForeignKey(User, on_delete=models.CASCADE)
+    statut              = models.CharField(max_length=60)
+    num_facture         = models.CharField(max_length=10)
+    date                = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.num_facture
 
 
 class Paiement(models.Model):
-    facture = models.ForeignKey(Facture, on_delete=models.CASCADE)
-    User_encaisseur = models.ForeignKey(User, on_delete=models.CASCADE)
-    somme = models.FloatField()
-    num_transaction = models.CharField(max_length=10)
-    date_paiement = models.DateField()
-    date = models.DateTimeField(auto_now_add=True)
+    facture             = models.ForeignKey(Facture, on_delete=models.CASCADE)
+    User_encaisseur     = models.ForeignKey(User, on_delete=models.CASCADE)
+    somme               = models.FloatField()
+    num_transaction     = models.CharField(max_length=10)
+    date_paiement       = models.DateField()
+    date                = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.num_transaction
 
 
 class TypeArticleImmobilier(models.Model):
-    societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
-    site = models.CharField(max_length=60)
-    dimension = models.IntegerField()
-    situation = models.TextField()
-    doc_1 = models.ImageField(upload_to="static/menu/images")
-    doc_2 = models.ImageField(upload_to="static/menu/images")
-    doc_3 = models.ImageField(upload_to="static/menu/images")
-    nom_cite = models.CharField(max_length=60)
-    batiment = models.CharField(max_length=60)
-    inexistant = models.BooleanField(default=False)
-    etage = models.IntegerField()
-    porte = models.CharField(max_length=5)
-    plan_masse_local = models.ImageField(upload_to="static/menu/images")
+    societe             = models.ForeignKey(Societe, on_delete=models.CASCADE)
+    site                = models.CharField(max_length=60)
+    dimension           = models.IntegerField()
+    situation           = models.TextField()
+    doc_1               = models.ImageField(upload_to="static/menu/images")
+    doc_2               = models.ImageField(upload_to="static/menu/images")
+    doc_3               = models.ImageField(upload_to="static/menu/images")
+    nom_cite            = models.CharField(max_length=60)
+    batiment            = models.CharField(max_length=60)
+    inexistant          = models.BooleanField(default=False)
+    etage               = models.IntegerField()
+    porte               = models.CharField(max_length=5)
+    plan_masse_local    = models.ImageField(upload_to="static/menu/images")
 
     def __str__(self):
         return self.site
 
 
 class TypeArticleMoto(models.Model):
-    societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
-    modele = models.CharField(max_length=60)
-    marque = models.CharField(max_length=60)
-    code = models.CharField(max_length=60)
-    couleur = models.CharField(max_length=60)
+    societe             = models.ForeignKey(Societe, on_delete=models.CASCADE)
+    modele              = models.CharField(max_length=60)
+    marque              = models.CharField(max_length=60)
+    code                = models.CharField(max_length=60)
+    couleur             = models.CharField(max_length=60)
 
     def __str__(self):
         return self.modele
 
 
 class Penalite(models.Model):
-    facture = models.ForeignKey(Facture, on_delete=models.CASCADE)
-    emetteur = models.ForeignKey(User, on_delete=models.CASCADE)
-    somme_attendue = models.FloatField()
-    num_penal = models.IntegerField()
-    User_encaisseur = models.CharField(max_length=10)
-    statut = models.BooleanField(default=False)
-    date = models.DateTimeField(auto_now_add=True)
+    facture             = models.ForeignKey(Facture, on_delete=models.CASCADE)
+    emetteur            = models.ForeignKey(User, on_delete=models.CASCADE)
+    somme_attendue      = models.FloatField()
+    num_penal           = models.IntegerField()
+    User_encaisseur     = models.CharField(max_length=10)
+    statut              = models.BooleanField(default=False)
+    date                = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.num_penal

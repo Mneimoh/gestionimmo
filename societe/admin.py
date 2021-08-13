@@ -1,5 +1,6 @@
 from django.db import models
-from main.models import Article, Client, CompteEndettement, Dossier, Emploi, Endettement, PretEndettement
+from django.http import request
+from main.models import Article, Client, CompteEndettement, Dossier, Emploi, Endettement, PretEndettement, Cosignataire
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
@@ -20,7 +21,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email','username')
+        fields = ('email','username',)
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -32,14 +33,12 @@ class UserCreationForm(forms.ModelForm):
 
     def save(self, commit=True):
         # Save the provided password in hashed format
-        user = super(UserCreationForm, self).save(commit=False)
-        # print('---------saving New User-----------------')
-        # print(user)
-        # print(user.societe)
-        
-        # print('-------------------------------------------')
+        user = super(UserCreationForm, self)
+        user.save(commit=False)
+
         user.set_password(self.cleaned_data["password1"])
         if commit:
+
             user.save()
         return user
 
@@ -134,7 +133,7 @@ class SetSocieteUserPermission(BaseUserAdmin):
         form = super().get_form(request, obj, **kwargs)
         is_superuser = request.user.is_superuser
         disabled_fields = set()  # type: Set[str]
-        form.base_fields['username'].initial = 'default'
+        form.base_fields['username'].initial = ''
  
         if not is_superuser:    
             if 'societe' in form.base_fields:
@@ -270,10 +269,21 @@ class PretEndettementAdmin(admin.ModelAdmin):
         return True
     def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
         return True
+
+class CosignataireAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return False
+    def has_view_permission(self, request: HttpRequest, obj=None) -> bool:
+        return True
+    def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+    def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
         
 # societe_site.register(User,Administrator)
 societe_site.register(User, SetSocieteUserPermission)
 societe_site.register(Client,ClientAdmin)
+societe_site.register(Cosignataire,CosignataireAdmin)
 societe_site.register(Dossier,DossierAdmin)
 societe_site.register(Article, ArticleAdmin)
 societe_site.register(Societe,SetSocietePermission)

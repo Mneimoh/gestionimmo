@@ -56,7 +56,7 @@
             </button>
             Vous avez reçu un message du recouvrement.
           </div>
-          <div class="alert alert-danger alert-dismissible" role="alert">
+          <div id="error" class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert">
               <span aria-hidden="true">&times;</span
               ><span class="sr-only">Close</span>
@@ -82,9 +82,26 @@
         <span class="sr-only">45% Complete</span>
       </div>
     </div>
-    <div class="panel-group" id="accordion">
-      <!-- <form class="" role="form" id="templatemo-preferences-form"> -->
 
+    <div class="col-md-12">
+      <div class="btn-group pull-right bg-danger" id="templatemo_sort_btn">
+        <button type="button" class="btn btn-default">Type de Client</button>
+        <button
+          type="button"
+          class="btn btn-default dropdown-toggle"
+          data-toggle="dropdown"
+        >
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li id="regular" style="padding: 5px 10px;cursor: pointer;">Regular Client</li>
+          <li id="irregular" style="padding: 5px 10px;cursor: pointer;">Co-Signatir Client</li>
+        </ul>
+      </div>
+    <div class="panel-group" id="accordion">  
+
+      <!-- Client Info Form -->
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
@@ -98,30 +115,36 @@
           </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="firstName" class="control-label">Nom</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="firstName"
-                  value="John"
-                  placeholder="Thomas"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="lastName" class="control-label">Prénom</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="lastName"
-                  required
-                />
-              </div>
+          
+        <div class="panel-body">
+          <div class="row">
+
+          <form name="client" id="info_perso_client" class="regular">
+            {% csrf_token %}
+            <div class="col-md-6 margin-bottom-15">
+              <label for="firstName" class="control-label">Nom</label>
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                value="John"
+                placeholder="Thomas"
+                name="nom"
+                required
+              />
             </div>
-            <div class="row">
+            <div class="col-md-6 margin-bottom-15">
+              <label for="lastName" class="control-label">Prénom</label>
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                name="prenom"
+                value="smith"
+                required
+              />
+            </div>               
+            
               <div class="col-md-6 margin-bottom-15">
                 <label for="dateNaiss" class="control-label"
                   >Date de naissance</label
@@ -130,6 +153,7 @@
                   type="date"
                   class="form-control"
                   id="dateNaiss"
+                  name="date_naissance"
                   required
                 />
               </div>
@@ -142,11 +166,12 @@
                   class="form-control"
                   id="lieuNaiss"
                   placeholder="Bobo Djoulasso"
+                  name="ville_naissance"
+                  value="Bamenda Cameroon"
                   required
                 />
               </div>
-            </div>
-            <div class="row">
+            
               <div class="col-md-6 margin-bottom-15">
                 <label for="email" class="control-label">Email</label>
                 <input
@@ -154,17 +179,20 @@
                   class="form-control"
                   id="email"
                   placeholder="moktar@gmail.com"
+                  value="karlsedoide@gmail.com"
+                  name="email"
                   required
                 />
               </div>
-            </div>
-            <div class="row">
+            
               <div class="col-md-6 margin-bottom-15">
                 <label for="phoneA" class="control-label">Téléphone 1</label>
                 <input
                   type="text"
                   class="form-control"
                   id="phoneA"
+                  name="phone_1"
+                  value="660027896"
                   placeholder="887786455"
                   required
                 />
@@ -175,20 +203,21 @@
                   type="text"
                   class="form-control"
                   id="phoneB"
+                  name="phone_2"
+                  value="654451039"
                   placeholder="885577834"
                   required
                 />
               </div>
-            </div>
-            <div class="row">
+            
               <div class="col-md-6 margin-bottom-15">
                 <label for="typePiece" class="control-label"
                   >Type de pièce d'identité</label
                 >
-                <select class="form-control margin-bottom-15" id="typePiece">
-                  <option>Carte d'identité</option>
-                  <option>Passeport</option>
-                  <option>Permis de conduire</option>
+                <select class="form-control margin-bottom-15" name="type_piece_id" id="typePiece">
+                  <option value="carte d'identite">Carte d'identité</option>
+                  <option value="passport">Passeport</option>
+                  <option value="permis de conduire">Permis de conduire</option>
                 </select>
               </div>
               <div class="col-md-6 margin-bottom-15">
@@ -200,168 +229,202 @@
                   class="form-control"
                   id="numPiece"
                   placeholder="CO45006879"
+                  value=""
+                  name="numero_piece_id"
                   required
                 />
               </div>
-            </div>
-            <div class="row">
+            
               <div class="col-md-6 margin-bottom-15">
                 <label for="articleI" class="control-label"
                   >Article d'intérêt</label
                 >
-                <select class="form-control margin-bottom-15" id="articleI">
-                  <option>Maison 1</option>
-                  <option>Maison 2</option>
-                  <option>Terrain 1</option>
-                  <option>Terrain 2</option>
-                  <option>Logement 1</option>
-                  <option>Logement 2</option>
+                <select class="form-control margin-bottom-15" name="article_interet" id="articleI">
+                  {% for obj in article_interet %}
+                  
+                  <option>{{ obj }}</option>
+                  
+                  {% endfor %}
                 </select>
               </div>
               <div class="col-md-6 margin-bottom-15">
                 <label for="connuA" class="control-label"
                   >Comment nous a t-il connu ?</label
                 >
-                <select class="form-control margin-bottom-15" id="connuA">
-                  <option>Presse</option>
-                  <option>Télé</option>
+                <select class="form-control margin-bottom-15"  name="how_connu" id="connuA">
+                  <option value="Presse">Presse</option>
+                  <option value="Télé">Télé</option>
                   <option>Radio</option>
                   <option>Connaissance</option>
                   <option>Autre</option>
                 </select>
               </div>
-            </div>
-
-            <h1>Informations professionnelles co-signataire</h1>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="firstNamecosig" class="control-label">Nom</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="firstNamecosig"
-                  value="John"
-                  placeholder="Thomas"
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="lastNamecosig" class="control-label">Prénom</label>
-                <input type="text" class="form-control" id="lastNamecosig" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="dateNaisscosig" class="control-label"
-                  >Date de naissance</label
-                >
-                <input type="date" class="form-control" id="dateNaisscosig" />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="lieuNaisscosig" class="control-label"
-                  >Lieu de naissance</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="lieuNaisscosig"
-                  placeholder="Bobo Djoulasso"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="emailcosig" class="control-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="emailcosig"
-                  placeholder="moktar@gmail.com"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="phoneAcosig" class="control-label"
-                  >Téléphone 1</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="phoneAcosig"
-                  placeholder="887786455"
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="phoneBcosig" class="control-label"
-                  >Téléphone 2</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="phoneBcosig"
-                  placeholder="885577834"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="typePiececosig" class="control-label"
-                  >Type de pièce d'identité</label
-                >
-                <select
-                  class="form-control margin-bottom-15"
-                  id="typePiececosig"
-                >
-                  <option>Carte d'identité</option>
-                  <option>Passeport</option>
-                  <option>Permis de conduire</option>
-                </select>
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="numPiececosig" class="control-label"
-                  >Numéro de pièce d'identité</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="numPiececosig"
-                  placeholder="CO45006879"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="articleIcosig" class="control-label"
-                  >Article d'intérêt</label
-                >
-                <select
-                  class="form-control margin-bottom-15"
-                  id="articleIcosig"
-                >
-                  <option>Maison 1</option>
-                  <option>Maison 2</option>
-                  <option>Terrain 1</option>
-                  <option>Terrain 2</option>
-                  <option>Logement 1</option>
-                  <option>Logement 2</option>
-                </select>
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="connuAcosig" class="control-label"
-                  >Comment nous a t-il connu ?</label
-                >
-                <select class="form-control margin-bottom-15" id="connuAcosig">
-                  <option>Presse</option>
-                  <option>Télé</option>
-                  <option>Radio</option>
-                  <option>Connaissance</option>
-                  <option>Autre</option>
-                </select>
-              </div>
-            </div>
+            
+        
+          
+          
+            <!-- <button type="submit">Send</button> -->
+          
+          </form>
           </div>
+              
+              
+        <form name="client" class="irregular">
+          {% csrf_token %}
+              <!-- <div id="irregular"> -->
+            <h1>Informations professionnelles co-signataire</h1> 
+        <div class="col-md-6 margin-bottom-15">
+          <label for="firstName" class="control-label">Nom</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            value="John"
+            placeholder="Thomas"
+            name="nom"
+            required
+          />
+        </div>
+        <div class="col-md-6 margin-bottom-15">
+          <label for="lastName" class="control-label">Prénom</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            name="prenom"
+            value="smith"
+            required
+          />
+        </div>               
+        
+          <div class="col-md-6 margin-bottom-15">
+            <label for="dateNaiss" class="control-label"
+              >Date de naissance</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="dateNaiss"
+              name="date_naissance"
+              required
+            />
+          </div>
+          <div class="col-md-6 margin-bottom-15">
+            <label for="lieuNaiss" class="control-label"
+              >Lieu de naissance</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="lieuNaiss"
+              placeholder="Bobo Djoulasso"
+              name="ville_naissance"
+              value="Bamenda Cameroon"
+              required
+            />
+          </div>
+        
+          <div class="col-md-6 margin-bottom-15">
+            <label for="email" class="control-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="moktar@gmail.com"
+              value="karlsedoide@gmail.com"
+              name="email"
+              required
+            />
+          </div>
+        
+          <div class="col-md-6 margin-bottom-15">
+            <label for="phoneA" class="control-label">Téléphone 1</label>
+            <input
+              type="text"
+              class="form-control"
+              id="phoneA"
+              name="phone_1"
+              value="660027896"
+              placeholder="887786455"
+              required
+            />
+          </div>
+          <div class="col-md-6 margin-bottom-15">
+            <label for="phoneB" class="control-label">Téléphone 2</label>
+            <input
+              type="text"
+              class="form-control"
+              id="phoneB"
+              name="phone_2"
+              value="654451039"
+              placeholder="885577834"
+              required
+            />
+          </div>
+        
+          <div class="col-md-6 margin-bottom-15">
+            <label for="typePiece" class="control-label"
+              >Type de pièce d'identité</label
+            >
+            <select class="form-control margin-bottom-15" name="type_piece_id" id="typePiece">
+              <option value="carte d'identite">Carte d'identité</option>
+              <option value="passport">Passeport</option>
+              <option value="permis de conduire">Permis de conduire</option>
+            </select>
+          </div>
+          <div class="col-md-6 margin-bottom-15">
+            <label for="numPiece" class="control-label"
+              >Numéro de pièce d'identité</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="numPiece"
+              placeholder="CO45006879"
+              value=""
+              name="numero_piece_id"
+              required
+            />
+          </div>
+        
+          <div class="col-md-6 margin-bottom-15">
+            <label for="articleI" class="control-label"
+              >Article d'intérêt</label
+            >
+            <select class="form-control margin-bottom-15" name="article_interet" id="articleI">
+              {% for obj in article_interet %}
+              
+              <option>{{ obj }}</option>
+              
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6 margin-bottom-15">
+            <label for="connuA" class="control-label"
+              >Comment nous a t-il connu ?</label
+            >
+            <select class="form-control margin-bottom-15"  name="how_connu" id="connuA">
+              <option>Presse</option>
+              <option>Télé</option>
+              <option>Radio</option>
+              <option>Connaissance</option>
+              <option>Autre</option>
+            </select>
+          </div>
+        
+    
+      
+      
+        <!-- <button type="submit">Send</button> -->
+      
+      </form>
+
+              </div>
         </div>
       </div>
+
+
+      <!-- Client Address Section -->
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
@@ -376,15 +439,234 @@
         </div>
         <div id="collapseTwo" class="panel-collapse collapse">
           <div class="panel-body">
+            <form name="place" class="regular">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <strong>Etes vous propriétaire ou locataire ?</strong><br />
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="proprietaire"
+                      id="proprietaire"
+                      value="True"
+                      checked
+                    />
+                    Propiétaire
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="proprietaire"
+                      id="locataire"
+                      value="False"
+                    />
+                    Locataire
+                  </label>
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <strong>Habitez-vous avec vos parents ?</strong><br />
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="parents"
+                      id="presence"
+                      value="True"
+                      checked
+                    />
+                    oui
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="parents"
+                      id="absence"
+                      value="False"
+                    />
+                    non
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="adresse" class="control-label">Adresse</label>
+                  <input type="text" class="form-control" name="adresse" id="adresse" required />
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="ville" class="control-label">Ville</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="ville"
+                    name="ville"
+                    placeholder="Bobo Djoulasso"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="pays" class="control-label">Pays</label>
+                  <input type="text" class="form-control" name="pays" id="pays" required />
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="codePostal" class="control-label"
+                    >Code postal</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="codePostal"
+                    placeholder="54000"
+                    required
+                    name="code_postal"
+                  />
+                </div>
+              </div>
+              <strong>Vous y avez habité combien de temps ?</strong>
+              <div class="row">
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="annee" class="control-label">Année</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="annee"
+                    placeholder="3"
+                    required
+                    name="anciennete"
+                  />
+                </div>
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="mois" class="control-label">Mois</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="mois"
+                    name="mois"
+                    placeholder="7"
+                    required
+                  />
+                </div>
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="loyer" class="control-label"
+                    >Paiement mensuel</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="loyer"
+                    name="loyer"
+                    placeholder="885577834"
+                  />
+                </div>
+              </div>
+
+              <h1>Si moins de 5 ans</h1>
+
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="adresseCinq" class="control-label"
+                    >Ancienne adresse</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="adresseCinq"
+                    name="ancienne_address"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="villeCinq" class="control-label"
+                    >Ancienne ville</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="villeCinq"
+                    name="ancienne_ville"
+                    placeholder="Bobo Djoulasso"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="paysCinq" class="control-label">Ancien pays</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="paysCinq"
+                    name="ancienne_pays"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="codePostalCinq" class="control-label"
+                    >Ancien code postal</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="codePostalCinq"
+                    placeholder="54000"
+                    name="ancienne_code_postal"
+                    required
+                  />
+                </div>
+              </div>
+              <strong>Vous y avez habité combien de temps ?</strong>
+              <div class="row">
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="anneeCinq" class="control-label">Année</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="anneeCinq"
+                    name="ancienne_anciennete"
+                    placeholder="3"
+                    required
+                  />
+                </div>
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="moisCinq" class="control-label">Mois</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="moisCinq"
+                    name="ancienne_mois"
+                    placeholder="7"
+                    required
+                  />
+                </div>
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="loyerCinq" class="control-label"
+                    >Paiement mensuel</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="loyerCinq"
+                    name="ancienne_loyer"
+                    placeholder="885577834"
+                  />
+                </div>
+              </div>
+            
+            </form>
+
+          <form name="place" class="irregular">
+            <h1>Informations personnelles co-signataire</h1>
+            {% csrf_token %}
             <div class="row">
               <div class="col-md-6 margin-bottom-15">
                 <strong>Etes vous propriétaire ou locataire ?</strong><br />
                 <label class="radio-inline">
                   <input
                     type="radio"
-                    name="propLoc"
+                    name="proprietaire"
                     id="proprietaire"
-                    value="proprietaire"
+                    value="True"
                     checked
                   />
                   Propiétaire
@@ -392,9 +674,9 @@
                 <label class="radio-inline">
                   <input
                     type="radio"
-                    name="propLoc"
+                    name="proprietaire"
                     id="locataire"
-                    value="locataire"
+                    value="False"
                   />
                   Locataire
                 </label>
@@ -404,9 +686,9 @@
                 <label class="radio-inline">
                   <input
                     type="radio"
-                    name="presenceParent"
+                    name="parents"
                     id="presence"
-                    value="oui"
+                    value="True"
                     checked
                   />
                   oui
@@ -414,9 +696,9 @@
                 <label class="radio-inline">
                   <input
                     type="radio"
-                    name="presenceParent"
+                    name="parents"
                     id="absence"
-                    value="non"
+                    value="False"
                   />
                   non
                 </label>
@@ -425,7 +707,7 @@
             <div class="row">
               <div class="col-md-6 margin-bottom-15">
                 <label for="adresse" class="control-label">Adresse</label>
-                <input type="text" class="form-control" id="adresse" required />
+                <input type="text" class="form-control" name="adresse" id="adresse" required />
               </div>
               <div class="col-md-6 margin-bottom-15">
                 <label for="ville" class="control-label">Ville</label>
@@ -433,6 +715,7 @@
                   type="text"
                   class="form-control"
                   id="ville"
+                  name="ville"
                   placeholder="Bobo Djoulasso"
                   required
                 />
@@ -441,7 +724,7 @@
             <div class="row">
               <div class="col-md-6 margin-bottom-15">
                 <label for="pays" class="control-label">Pays</label>
-                <input type="text" class="form-control" id="pays" required />
+                <input type="text" class="form-control" name="pays" id="pays" required />
               </div>
               <div class="col-md-6 margin-bottom-15">
                 <label for="codePostal" class="control-label"
@@ -453,6 +736,7 @@
                   id="codePostal"
                   placeholder="54000"
                   required
+                  name="code_postal"
                 />
               </div>
             </div>
@@ -461,19 +745,21 @@
               <div class="col-md-4 margin-bottom-15">
                 <label for="annee" class="control-label">Année</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   id="annee"
                   placeholder="3"
                   required
+                  name="anciennete"
                 />
               </div>
               <div class="col-md-4 margin-bottom-15">
                 <label for="mois" class="control-label">Mois</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   id="mois"
+                  name="mois"
                   placeholder="7"
                   required
                 />
@@ -483,9 +769,10 @@
                   >Paiement mensuel</label
                 >
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   id="loyer"
+                  name="loyer"
                   placeholder="885577834"
                 />
               </div>
@@ -502,6 +789,7 @@
                   type="text"
                   class="form-control"
                   id="adresseCinq"
+                  name="ancienne_address"
                   required
                 />
               </div>
@@ -513,6 +801,7 @@
                   type="text"
                   class="form-control"
                   id="villeCinq"
+                  name="ancienne_ville"
                   placeholder="Bobo Djoulasso"
                   required
                 />
@@ -525,6 +814,7 @@
                   type="text"
                   class="form-control"
                   id="paysCinq"
+                  name="ancienne_pays"
                   required
                 />
               </div>
@@ -537,6 +827,7 @@
                   class="form-control"
                   id="codePostalCinq"
                   placeholder="54000"
+                  name="ancienne_code_postal"
                   required
                 />
               </div>
@@ -546,9 +837,10 @@
               <div class="col-md-4 margin-bottom-15">
                 <label for="anneeCinq" class="control-label">Année</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   id="anneeCinq"
+                  name="ancienne_anciennete"
                   placeholder="3"
                   required
                 />
@@ -556,9 +848,10 @@
               <div class="col-md-4 margin-bottom-15">
                 <label for="moisCinq" class="control-label">Mois</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   id="moisCinq"
+                  name="ancienne_mois"
                   placeholder="7"
                   required
                 />
@@ -568,230 +861,23 @@
                   >Paiement mensuel</label
                 >
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   id="loyerCinq"
+                  name="ancienne_loyer"
                   placeholder="885577834"
                 />
               </div>
             </div>
+          
+          </form>
 
-            <h1>Informations personnelles co-signataire</h1>
-
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Etes vous propriétaire ou locataire ?</strong><br />
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="propLocCosig"
-                    id="proprietaire"
-                    value="proprietaire"
-                    checked
-                  />
-                  Propiétaire
-                </label>
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="propLocCosig"
-                    id="locataire"
-                    value="locataire"
-                  />
-                  Locataire
-                </label>
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Habitez-vous avec vos parents ?</strong><br />
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="presenceParentCosig"
-                    id="presence"
-                    value="oui"
-                    checked
-                  />
-                  oui
-                </label>
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="presenceParentCosig"
-                    id="absence"
-                    value="non"
-                  />
-                  non
-                </label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="adresseCosig" class="control-label">Adresse</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="adresseCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="villeCosig" class="control-label">Ville</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="villeCosig"
-                  placeholder="Bobo Djoulasso"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="paysCosig" class="control-label">Pays</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="paysCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="codePostalCosig" class="control-label"
-                  >Code postal</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="codePostalCosig"
-                  placeholder="54000"
-                  required
-                />
-              </div>
-            </div>
-            <strong>Vous y avez habité combien de temps ?</strong>
-            <div class="row">
-              <div class="col-md-4 margin-bottom-15">
-                <label for="anneeCosig" class="control-label">Année</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="anneeCosig"
-                  placeholder="3"
-                  required
-                />
-              </div>
-              <div class="col-md-4 margin-bottom-15">
-                <label for="moisCosig" class="control-label">Mois</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="moisCosig"
-                  placeholder="7"
-                  required
-                />
-              </div>
-              <div class="col-md-4 margin-bottom-15">
-                <label for="loyerCosig" class="control-label"
-                  >Paiement mensuel</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="loyerCosig"
-                  placeholder="885577834"
-                />
-              </div>
-            </div>
-
-            <h1>Si moins de 5 ans</h1>
-
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="adresseCinqCosig" class="control-label"
-                  >Ancienne adresse</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="adresseCinqCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="villeCinqCosig" class="control-label"
-                  >Ancienne ville</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="villeCinqCosig"
-                  placeholder="Bobo Djoulasso"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="paysCinqCosig" class="control-label"
-                  >Ancien pays</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="paysCinqCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="codePostalCinqCosig" class="control-label"
-                  >Ancien code postal</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="codePostalCinqCosig"
-                  placeholder="54000"
-                  required
-                />
-              </div>
-            </div>
-            <strong>Vous y avez habité combien de temps ?</strong>
-            <div class="row">
-              <div class="col-md-4 margin-bottom-15">
-                <label for="anneeCinqCosig" class="control-label">Année</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="anneeCinqCosig"
-                  placeholder="3"
-                  required
-                />
-              </div>
-              <div class="col-md-4 margin-bottom-15">
-                <label for="moisCinqCosig" class="control-label">Mois</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="moisCinqCosig"
-                  placeholder="7"
-                  required
-                />
-              </div>
-              <div class="col-md-4 margin-bottom-15">
-                <label for="loyerCinqCosig" class="control-label"
-                  >Paiement mensuel</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="loyerCinqCosig"
-                  placeholder="885577834"
-                />
-              </div>
-            </div>
           </div>
         </div>
       </div>
+
+
+      <!-- Client Empoyment sectioon -->
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
@@ -806,514 +892,546 @@
         </div>
         <div id="collapseThree" class="panel-collapse collapse">
           <div class="panel-body">
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="emploiActPro" class="control-label"
-                  >Emploi actuel</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="emploiActPro"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="nomSocPro" class="control-label"
-                  >Nom de la société</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomSocPro"
-                  placeholder="MTN"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="adrSocPro" class="control-label">Adresse</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="adrSocPro"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="villeSocPro" class="control-label">Ville</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="villeSocPro"
-                  placeholder="Bobo Djoulasso"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="paySocPro" class="control-label">Pays</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="paySocPro"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="cpSocPro" class="control-label">Code postal</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cpSocPro"
-                  placeholder="54000"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="salaireMens" class="control-label"
-                  >Salaire mensuel</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="salaireMens"
-                  required
-                />
-              </div>
-            </div>
-            <strong>Vous y avez travaillé combien de temps ?</strong>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="anneeSocPro" class="control-label">Année</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="anneeSocPro"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="moiSocPro" class="control-label">Mois</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="moiSocPro"
-                  placeholder="3"
-                  required
-                />
-              </div>
-            </div>
+            <form name="emploi" class="regular">
+              {% csrf_token %}
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="emploiActPro" class="control-label"
+                      >Emploi actuel</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="emploiActPro"
+                      name="denomination"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="nomSocPro" class="control-label"
+                      >Nom de la société</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nomSocPro"
+                      placeholder="MTN"
+                      name="nom_societe"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="adrSocPro" class="control-label">Adresse</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="adrSocPro"
+                      name="adresse"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="villeSocPro" class="control-label">Ville</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="villeSocPro"
+                      placeholder="Bobo Djoulasso"
+                      name="ville"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="paySocPro" class="control-label">Pays</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="paySocPro"
+                      name="pays"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="cpSocPro" class="control-label">Code postal</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cpSocPro"
+                      placeholder="54000"
+                      name="code_postal"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="salaireMens" class="control-label"
+                      >Salaire mensuel</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="salaireMens"
+                      name="salaire_m"
+                      required
+                    />
+                  </div>
+                </div>
+                <strong>Vous y avez travaillé combien de temps ?</strong>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="anneeSocPro" class="control-label">Année</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                        id="anneeSocPro"
+                      name="anciennete"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="moiSocPro" class="control-label">Mois</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="moiSocPro"
+                      placeholder="3"
+                      name="mois"
+                      required
+                    />
+                  </div>
+                </div>
 
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="emploiActProAnc" class="control-label"
-                  >Ancien emploi</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="emploiActProAnc"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="nomSocProAnc" class="control-label"
-                  >Nom de l'ancienne société</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomSocProAnc"
-                  placeholder="MTN"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="adrSocProAnc" class="control-label">Adresse</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="adrSocProAnc"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="villeSocProAnc" class="control-label">Ville</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="villeSocProAnc"
-                  placeholder="Bobo Djoulasso"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="paySocProAnc" class="control-label">Pays</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="paySocProAnc"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="cpSocProAnc" class="control-label"
-                  >Code postal</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cpSocProAnc"
-                  placeholder="54000"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="salaireMensAnc" class="control-label"
-                  >Salaire mensuel</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="salaireMensAnc"
-                  required
-                />
-              </div>
-            </div>
-            <strong>Vous y avez travaillé combien de temps ?</strong>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="anneeSocProAnc" class="control-label">Année</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="anneeSocProAnc"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="moiSocProAnc" class="control-label">Mois</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="moiSocProAnc"
-                  placeholder="3"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Avez vous d'autres revenus ?</strong><br />
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="revenuAutre"
-                    id="revenuOui"
-                    value="oui"
-                    checked
-                  />
-                  oui
-                </label>
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="revenuAutre"
-                    id="revenuNon"
-                    value="non"
-                  />
-                  non
-                </label>
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="revenuMensuel" class="control-label"
-                  >Revenus mensuel</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="revenuMensuel"
-                  required
-                />
-              </div>
-            </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="emploiActProAnc" class="control-label"
+                      >Ancien emploi</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="emploiActProAnc"
+                      name="ancien_denomination"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="nomSocProAnc" class="control-label"
+                      >Nom de l'ancienne société</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nomSocProAnc"
+                      placeholder="MTN"
+                      name="ancien_nom_societe"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="adrSocProAnc" class="control-label">Adresse</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="adrSocProAnc"
+                      name="ancien_adresse"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="villeSocProAnc" class="control-label">Ville</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="villeSocProAnc"
+                      placeholder="Bobo Djoulasso"
+                      required
+                      name="ancien_ville"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="paySocProAnc" class="control-label">Pays</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="paySocProAnc"
+                      name="ancien_pays"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="cpSocProAnc" class="control-label"
+                      >Code postal</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cpSocProAnc"
+                      placeholder="54000"
+                      name="ancien_code_postal"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="salaireMensAnc" class="control-label"
+                      >Salaire mensuel</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="salaireMensAnc"
+                      name="ancien_salaire_m"
+                      required
+                    />
+                  </div>
+                </div>
+                <strong>Vous y avez travaillé combien de temps ?</strong>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="anneeSocProAnc" class="control-label">Année</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="anneeSocProAnc"
+                      name="ancien_anciennete"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="moiSocProAnc" class="control-label">Mois</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="moiSocProAnc"
+                      placeholder="3"
+                      name="ancienne_mois"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <strong>Avez vous d'autres revenus ?</strong><br />
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        id="revenuOui"
+                        value="oui"
+                        name="poste_actu"
+                        checked
+                      />
+                      oui
+                    </label>
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        name="poste_actu"
+                        id="revenuNon"
+                        name="poste_actu"
+                        value="non"
+                      />
+                      non
+                    </label>
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="revenuMensuel" class="control-label"
+                      >Revenus mensuel</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="revenuMensuel"
+                      name="autre_rev_sum"
+                      required
+                    />
+                  </div>
+                </div>
+            </form>
 
-            <h1>Informations personnelles co-signataire</h1>
+            <form name="emploi" class="irregular">
+              {% csrf_token %}
+                <h1>Informations personnelles co-signataire</h1>
 
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="emploiActProCosig" class="control-label"
-                  >Emploi actuel</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="emploiActProCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="nomSocProCosig" class="control-label"
-                  >Nom de la société</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomSocProCosig"
-                  placeholder="MTN"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="adrSocProCosig" class="control-label"
-                  >Adresse</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="adrSocProCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="villeSocProCosig" class="control-label"
-                  >Ville</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="villeSocProCosig"
-                  placeholder="Bobo Djoulasso"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="paySocProCosig" class="control-label">Pays</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="paySocProCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="cpSocProCosig" class="control-label"
-                  >Code postal</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cpSocProCosig"
-                  placeholder="54000"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="salaireMensCosig" class="control-label"
-                  >Salaire mensuel</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="salaireMensCosig"
-                  required
-                />
-              </div>
-            </div>
-            <strong>Vous y avez travaillé combien de temps ?</strong>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="anneeSocProCosig" class="control-label"
-                  >Année</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="anneeSocProCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="moiSocProCosig" class="control-label">Mois</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="moiSocProCosig"
-                  placeholder="3"
-                  required
-                />
-              </div>
-            </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="emploiActPro" class="control-label"
+                      >Emploi actuel</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="emploiActPro"
+                      name="denomination"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="nomSocPro" class="control-label"
+                      >Nom de la société</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nomSocPro"
+                      placeholder="MTN"
+                      name="nom_societe"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="adrSocPro" class="control-label">Adresse</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="adrSocPro"
+                      name="adresse"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="villeSocPro" class="control-label">Ville</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="villeSocPro"
+                      placeholder="Bobo Djoulasso"
+                      name="ville"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="paySocPro" class="control-label">Pays</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="paySocPro"
+                      name="pays"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="cpSocPro" class="control-label">Code postal</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cpSocPro"
+                      placeholder="54000"
+                      name="code_postal"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="salaireMens" class="control-label"
+                      >Salaire mensuel</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="salaireMens"
+                      name="salaire_m"
+                      required
+                    />
+                  </div>
+                </div>
+                <strong>Vous y avez travaillé combien de temps ?</strong>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="anneeSocPro" class="control-label">Année</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                        id="anneeSocPro"
+                      name="anciennete"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="moiSocPro" class="control-label">Mois</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="moiSocPro"
+                      placeholder="3"
+                      name="mois"
+                      required
+                    />
+                  </div>
+                </div>
 
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="emploiActProAncCosig" class="control-label"
-                  >Ancien emploi</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="emploiActProAncCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="nomSocProAncCosig" class="control-label"
-                  >Nom de l'ancienne société</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomSocProAncCosig"
-                  placeholder="MTN"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="adrSocProAncCosig" class="control-label"
-                  >Adresse</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="adrSocProAncCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="villeSocProAncCosig" class="control-label"
-                  >Ville</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="villeSocProAncCosig"
-                  placeholder="Bobo Djoulasso"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="paySocProAncCosig" class="control-label"
-                  >Pays</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="paySocProAncCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="cpSocProAncCosig" class="control-label"
-                  >Code postal</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cpSocProAncCosig"
-                  placeholder="54000"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="salaireMensAncCosig" class="control-label"
-                  >Salaire mensuel</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="salaireMensAncCosig"
-                  required
-                />
-              </div>
-            </div>
-            <strong>Vous y avez travaillé combien de temps ?</strong>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="anneeSocProAncCosig" class="control-label"
-                  >Année</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="anneeSocProAncCosig"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="moiSocProAncCosig" class="control-label"
-                  >Mois</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="moiSocProAncCosig"
-                  placeholder="3"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Avez vous d'autres revenus ?</strong><br />
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="revenuAutreCosig"
-                    id="revenuOui"
-                    value="oui"
-                    checked
-                  />
-                  oui
-                </label>
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="revenuAutreCosig"
-                    id="revenuNon"
-                    value="non"
-                  />
-                  non
-                </label>
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="revenuMensuelCosig" class="control-label"
-                  >Revenus mensuel</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="revenuMensuelCosig"
-                  required
-                />
-              </div>
-            </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="emploiActProAnc" class="control-label"
+                      >Ancien emploi</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="emploiActProAnc"
+                      name="ancien_denomination"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="nomSocProAnc" class="control-label"
+                      >Nom de l'ancienne société</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nomSocProAnc"
+                      placeholder="MTN"
+                      name="ancien_nom_societe"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="adrSocProAnc" class="control-label">Adresse</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="adrSocProAnc"
+                      name="ancien_adresse"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="villeSocProAnc" class="control-label">Ville</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="villeSocProAnc"
+                      placeholder="Bobo Djoulasso"
+                      required
+                      name="ancien_ville"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="paySocProAnc" class="control-label">Pays</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="paySocProAnc"
+                      name="ancien_pays"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="cpSocProAnc" class="control-label"
+                      >Code postal</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cpSocProAnc"
+                      placeholder="54000"
+                      name="ancien_code_postal"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="salaireMensAnc" class="control-label"
+                      >Salaire mensuel</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="salaireMensAnc"
+                      name="ancien_salaire_m"
+                      required
+                    />
+                  </div>
+                </div>
+                <strong>Vous y avez travaillé combien de temps ?</strong>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="anneeSocProAnc" class="control-label">Année</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="anneeSocProAnc"
+                      name="ancien_anciennete"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="moiSocProAnc" class="control-label">Mois</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="moiSocProAnc"
+                      placeholder="3"
+                      name="ancienne_mois"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <strong>Avez vous d'autres revenus ?</strong><br />
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        id="revenuOui"
+                        value="oui"
+                        name="poste_actu"
+                        checked
+                      />
+                      oui
+                    </label>
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        name="poste_actu"
+                        id="revenuNon"
+                        name="poste_actu"
+                        value="non"
+                      />
+                      non
+                    </label>
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="revenuMensuel" class="control-label"
+                      >Revenus mensuel</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="revenuMensuel"
+                      name="autre_rev_sum"
+                      required
+                    />
+                  </div>
+                </div>
+            </form>
+  
           </div>
         </div>
       </div>
+
+
+      <!-- Client Debts section   -->
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
@@ -1328,647 +1446,746 @@
         </div>
         <div id="collapseFour" class="panel-collapse collapse">
           <div class="panel-body">
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="telEmploi" class="control-label"
-                  >Téléphone emploi</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="telEmploi"
-                  required
-                />
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="nomCpt" class="control-label"
-                  >Nom du comptable ou patron</label
-                >
-                <input type="text" class="form-control" id="nomCpt" required />
-              </div>
-            </div>
+            
+          <form name="endettement" class="regular">
+            {% csrf_token %}
 
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Vous a t-on déjà saisi quoi que ce soit ?</strong><br />
-                <label class="radio-inline">
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="telEmploi" class="control-label"
+                    >Téléphone emploi</label
+                  >
                   <input
-                    type="radio"
-                    name="saisi"
-                    id="saisiOui"
-                    value="oui"
-                    checked
+                    type="number"
+                    class="form-control"
+                    id="telEmploi"
+                    name="phone_emploi"
+                    required
                   />
-                  oui
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="saisi" id="saisiNon" value="non" />
-                  non
-                </label>
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="nomCpt" class="control-label"
+                    >Nom du comptable ou patron</label
+                  >
+                  <input 
+                  type="text" 
+                  class="form-control" 
+                  id="nomCpt" 
+                  name="nom_responsable"
+                  required />
+                </div>
               </div>
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Avez-vous déjà fait banqueroute ou faillite ?</strong
-                ><br />
-                <label class="radio-inline">
+
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <strong>Vous a t-on déjà saisi quoi que ce soit ?</strong><br />
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="saisi"
+                      id="saisiOui"
+                      name="saisi"
+                      value="oui"
+                      checked
+                    />
+                    oui
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio" 
+                      name="saisi" 
+                      id="saisiNon" 
+                      name="saisi"
+                      value="non" />
+                    non
+                  </label>
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <strong>Avez-vous déjà fait banqueroute ou faillite ?</strong
+                  ><br />
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="faillite"
+                      id="failliteOui"
+                      value="oui"
+                      checked
+                    />
+                    oui
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="faillite"
+                      id="failliteNon"
+                      value="non"
+                    />
+                    non
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <strong
+                    >Êtes-vous obligé de verser une pension alimentaire, un
+                    support juridique ou autres charges ?</strong
+                  ><br />
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="charge"
+                      id="pensionOui"
+                      value="True"
+                      checked
+                    />
+                    oui
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="charge"
+                      id="pensionNon"
+                      value="False"
+                    />
+                    non
+                  </label>
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="pensionSum" class="control-label"
+                    >Si oui, quel est le montant ?</label
+                  >
                   <input
-                    type="radio"
-                    name="faillite"
-                    id="failliteOui"
-                    value="oui"
-                    checked
+                    type="number"
+                    class="form-control"
+                    id="pensionSum"
+                    name="charge_sum"
+                    required
                   />
-                  oui
-                </label>
-                <label class="radio-inline">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <strong>Avez-vous un compte bancaire quelconque ?</strong><br />
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="compte"
+                      id="cptBankOui"
+                      value="True"
+                      checked
+                    />
+                    oui
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="compte"
+                      id="cptBankNon"
+                      value="False"
+                    />
+                    non
+                  </label>
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="bkName" class="control-label"
+                    >Si oui, quelle banque ?</label
+                  >
+                  <input 
+                  type="text" 
+                  name="nom_banque"
+                  class="form-control" 
+                  id="bkName" 
+                  required />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <strong>Quel genre de compte avez-vous ?</strong><br />
+                  <label class="checkbox-inline">
+                    <input
+                      type="checkbox"
+                      id="typeBkCpt1"
+                      value="cheque"
+                      name="type_compte"
+                      checked
+                    />
+                    Chèque
+                  </label>
+                  <label class="checkbox-inline">
+                    <input 
+                    type="checkbox" 
+                    id="typeBkCpt2" 
+                    value="epargne" 
+                    name="type_compte"
+                    />
+                    &Eacute;pargne
+                  </label>
+                  <label class="checkbox-inline">
+                    <input
+                      type="checkbox"
+                      id="typeBkCpt3"
+                      value="carte de credit"
+                      name="type_compte"
+                    />
+                    Carte de crédit
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 margin-bottom-15">
+                  <strong
+                    >Citez les banques ou institutions auxquelles vous avez
+                    souscrit des prêts</strong
+                  >
+                </div>
+
+                <div class="col-md-12 margin-bottom-10">
+                  <strong
+                    >Banque 1</strong
+                  >
+                </div>
+
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="nomBkPret" class="control-label">Nom</label>
                   <input
-                    type="radio"
-                    name="faillite"
-                    id="failliteNon"
-                    value="non"
+                    type="text"
+                    class="form-control"
+                    id="nomBkPret"
+                    name="nom_banque"
+                    required
                   />
-                  non
-                </label>
-              </div>
-            </div>
+                </div>
 
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong
-                  >Êtes-vous obligé de verser une pension alimentaire, un
-                  support juridique ou autres charges ?</strong
-                ><br />
-                <label class="radio-inline">
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="typePret" class="control-label">Type de prêt</label>
                   <input
-                    type="radio"
-                    name="pension"
-                    id="pensionOui"
-                    value="oui"
-                    checked
+                    type="text"
+                    class="form-control"
+                    id="typePret"
+                    name="type_pret"
+                    required
                   />
-                  oui
-                </label>
-                <label class="radio-inline">
+                </div>
+
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="dettePret" class="control-label"
+                    >Reste à payer</label
+                  >
                   <input
-                    type="radio"
-                    name="pension"
-                    id="pensionNon"
-                    value="non"
+                    type="number"
+                    class="form-control"
+                    id="dettePret"
+                    name="reste"
+                    required
                   />
-                  non
-                </label>
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="pensionSum" class="control-label"
-                  >Si oui, quel est le montant ?</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="pensionSum"
-                  required
-                />
-              </div>
-            </div>
+                </div>
 
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Avez-vous un compte bancaire quelconque ?</strong><br />
-                <label class="radio-inline">
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="mensuelPretSum" class="control-label"
+                    >Mensualité</label
+                  >
                   <input
-                    type="radio"
-                    name="cptBank"
-                    id="cptBankOui"
-                    value="oui"
-                    checked
+                    type="number"
+                    name="mensualite"
+                    class="form-control"
+                    id="mensuelPretSum"
+                    required
                   />
-                  oui
-                </label>
-                <label class="radio-inline">
+                </div>
+
+                <div class="col-md-12 margin-bottom-10">
+                  <strong
+                    >Banque 2</strong
+                  >
+                </div>
+
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="nomBkPret" class="control-label">Nom</label>
                   <input
-                    type="radio"
-                    name="cptBank"
-                    id="cptBankNon"
-                    value="non"
+                    type="text"
+                    class="form-control"
+                    id="nomBkPret"
+                    name="nom_banque_1"
+                    required
                   />
-                  non
-                </label>
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="bkName" class="control-label"
-                  >Si oui, quelle banque ?</label
-                >
-                <input type="text" class="form-control" id="bkName" required />
-              </div>
-            </div>
+                </div>
 
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Quel genre de compte avez-vous ?</strong><br />
-                <label class="checkbox-inline">
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="typePret" class="control-label">Type de prêt</label>
                   <input
-                    type="checkbox"
-                    id="typeBkCpt1"
-                    value="cheque"
-                    checked
+                    type="text"
+                    class="form-control"
+                    id="typePret"
+                    name="type_pret_1"
+                    required
                   />
-                  Chèque
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" id="typeBkCpt2" value="epargne" />
-                  &Eacute;pargne
-                </label>
-                <label class="checkbox-inline">
+                </div>
+
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="dettePret" class="control-label"
+                    >Reste à payer</label
+                  >
                   <input
-                    type="checkbox"
-                    id="typeBkCpt3"
-                    value="carte de credit"
+                    type="number"
+                    class="form-control"
+                    id="dettePret"
+                    name="reste_1"
+                    required
                   />
-                  Carte de crédit
-                </label>
-              </div>
-            </div>
+                </div>
 
-            <div class="row">
-              <div class="col-md-12 margin-bottom-15">
-                <strong
-                  >Citez les banques ou institutions auxquelles vous avez
-                  souscrit des prêts</strong
-                >
-              </div>
-              <div class="col-md-4 margin-bottom-15">
-                <label for="nomBkPret" class="control-label">Nom</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomBkPret"
-                  required
-                />
-              </div>
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="mensuelPretSum" class="control-label"
+                    >Mensualité</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="mensuelPretSum"
+                    name="mensualite_1"
+                    required
+                  />
+                </div>
 
-              <div class="col-md-4 margin-bottom-15">
-                <label for="typePret" class="control-label">Type de prêt</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="typePret"
-                  required
-                />
-              </div>
+                <div class="col-md-12 margin-bottom-10">
+                  <strong
+                    >Banque 3</strong
+                  >
+                </div>
+                
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="nomBkPret" class="control-label">Nom</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nomBkPret"
+                    name="nom_banque_2"
+                    required
+                  />
+                </div>
 
-              <div class="col-md-2 margin-bottom-15">
-                <label for="dettePret" class="control-label"
-                  >Reste à payer</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="dettePret"
-                  required
-                />
-              </div>
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="typePret" class="control-label">Type de prêt</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="typePret"
+                    name="type_pret_2"
+                    required
+                  />
+                </div>
 
-              <div class="col-md-2 margin-bottom-15">
-                <label for="mensuelPretSum" class="control-label"
-                  >Mensualité</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="mensuelPretSum"
-                  required
-                />
-              </div>
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="dettePret" class="control-label"
+                    >Reste à payer</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="dettePret"
+                    name="reste_2"
+                    required
+                  />
+                </div>
 
-              <div class="col-md-4 margin-bottom-15">
-                <label for="nomBkPret" class="control-label">Nom</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomBkPret"
-                  required
-                />
-              </div>
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="mensuelPretSum" class="control-label"
+                    >Mensualité</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="mensuelPretSum"
+                    name="mensualite_2"
+                    required
+                  />
+                </div>
 
-              <div class="col-md-4 margin-bottom-15">
-                <label for="typePret" class="control-label">Type de prêt</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="typePret"
-                  required
-                />
               </div>
-
-              <div class="col-md-2 margin-bottom-15">
-                <label for="dettePret" class="control-label"
-                  >Reste à payer</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="dettePret"
-                  required
-                />
-              </div>
-
-              <div class="col-md-2 margin-bottom-15">
-                <label for="mensuelPretSum" class="control-label"
-                  >Mensualité</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="mensuelPretSum"
-                  required
-                />
-              </div>
-
-              <div class="col-md-4 margin-bottom-15">
-                <label for="nomBkPret" class="control-label">Nom</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomBkPret"
-                  required
-                />
-              </div>
-
-              <div class="col-md-4 margin-bottom-15">
-                <label for="typePret" class="control-label">Type de prêt</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="typePret"
-                  required
-                />
-              </div>
-
-              <div class="col-md-2 margin-bottom-15">
-                <label for="dettePret" class="control-label"
-                  >Reste à payer</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="dettePret"
-                  required
-                />
-              </div>
-
-              <div class="col-md-2 margin-bottom-15">
-                <label for="mensuelPretSum" class="control-label"
-                  >Mensualité</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="mensuelPretSum"
-                  required
-                />
-              </div>
-            </div>
-
+          </form>          
+            
+          <form name="endettement" class="irregular">
+            {% csrf_token %}
             <h1>Informations endettement co-signataire</h1>
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="telEmploi" class="control-label"
+                    >Téléphone emploi</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="telEmploi"
+                    name="phone_emploi"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="nomCpt" class="control-label"
+                    >Nom du comptable ou patron</label
+                  >
+                  <input 
+                  type="text" 
+                  class="form-control" 
+                  id="nomCpt" 
+                  name="nom_responsable"
+                  required />
+                </div>
+              </div>
 
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <label for="telEmploiCosig" class="control-label"
-                  >Téléphone emploi</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="telEmploiCosig"
-                  required
-                />
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <strong>Vous a t-on déjà saisi quoi que ce soit ?</strong><br />
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="saisi"
+                      id="saisiOui"
+                      name="saisi"
+                      value="oui"
+                      checked
+                    />
+                    oui
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio" 
+                      name="saisi" 
+                      id="saisiNon" 
+                      name="saisi"
+                      value="non" />
+                    non
+                  </label>
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <strong>Avez-vous déjà fait banqueroute ou faillite ?</strong
+                  ><br />
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="faillite"
+                      id="failliteOui"
+                      value="oui"
+                      checked
+                    />
+                    oui
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="faillite"
+                      id="failliteNon"
+                      value="non"
+                    />
+                    non
+                  </label>
+                </div>
               </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="nomCptCosig" class="control-label"
-                  >Nom du comptable ou patron</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomCptCosig"
-                  required
-                />
+
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <strong
+                    >Êtes-vous obligé de verser une pension alimentaire, un
+                    support juridique ou autres charges ?</strong
+                  ><br />
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="charge"
+                      id="pensionOui"
+                      value="True"
+                      checked
+                    />
+                    oui
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="charge"
+                      id="pensionNon"
+                      value="False"
+                    />
+                    non
+                  </label>
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="pensionSum" class="control-label"
+                    >Si oui, quel est le montant ?</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="pensionSum"
+                    name="charge_sum"
+                    required
+                  />
+                </div>
               </div>
+
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <strong>Avez-vous un compte bancaire quelconque ?</strong><br />
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="compte"
+                      id="cptBankOui"
+                      value="True"
+                      checked
+                    />
+                    oui
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="compte"
+                      id="cptBankNon"
+                      value="False"
+                    />
+                    non
+                  </label>
+                </div>
+                <div class="col-md-6 margin-bottom-15">
+                  <label for="bkName" class="control-label"
+                    >Si oui, quelle banque ?</label
+                  >
+                  <input 
+                  type="text" 
+                  name="nom_banque"
+                  class="form-control" 
+                  id="bkName" 
+                  required />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <strong>Quel genre de compte avez-vous ?</strong><br />
+                  <label class="checkbox-inline">
+                    <input
+                      type="checkbox"
+                      id="typeBkCpt1"
+                      value="cheque"
+                      name="type_compte"
+                      checked
+                    />
+                    Chèque
+                  </label>
+                  <label class="checkbox-inline">
+                    <input 
+                    type="checkbox" 
+                    id="typeBkCpt2" 
+                    value="epargne" 
+                    name="type_compte"
+                    />
+                    &Eacute;pargne
+                  </label>
+                  <label class="checkbox-inline">
+                    <input
+                      type="checkbox"
+                      id="typeBkCpt3"
+                      value="carte de credit"
+                      name="type_compte"
+                    />
+                    Carte de crédit
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 margin-bottom-15">
+                  <strong
+                    >Citez les banques ou institutions auxquelles vous avez
+                    souscrit des prêts</strong
+                  >
+                </div>
+
+                <div class="col-md-12 margin-bottom-10">
+                  <strong
+                    >Banque 1</strong
+                  >
+                </div>
+
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="nomBkPret" class="control-label">Nom</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nomBkPret"
+                    name="nom_banque"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="typePret" class="control-label">Type de prêt</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="typePret"
+                    name="type_pret"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="dettePret" class="control-label"
+                    >Reste à payer</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="dettePret"
+                    name="reste"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="mensuelPretSum" class="control-label"
+                    >Mensualité</label
+                  >
+                  <input
+                    type="number"
+                    name="mensualite"
+                    class="form-control"
+                    id="mensuelPretSum"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-12 margin-bottom-10">
+                  <strong
+                    >Banque 2</strong
+                  >
+                </div>
+
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="nomBkPret" class="control-label">Nom</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nomBkPret"
+                    name="nom_banque_1"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="typePret" class="control-label">Type de prêt</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="typePret"
+                    name="type_pret_1"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="dettePret" class="control-label"
+                    >Reste à payer</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="dettePret"
+                    name="reste_1"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="mensuelPretSum" class="control-label"
+                    >Mensualité</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="mensuelPretSum"
+                    name="mensualite_1"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-12 margin-bottom-10">
+                  <strong
+                    >Banque 3</strong
+                  >
+                </div>
+                
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="nomBkPret" class="control-label">Nom</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nomBkPret"
+                    name="nom_banque_2"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-4 margin-bottom-15">
+                  <label for="typePret" class="control-label">Type de prêt</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="typePret"
+                    name="type_pret_2"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="dettePret" class="control-label"
+                    >Reste à payer</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="dettePret"
+                    name="reste_2"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-2 margin-bottom-15">
+                  <label for="mensuelPretSum" class="control-label"
+                    >Mensualité</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="mensuelPretSum"
+                    name="mensualite_2"
+                    required
+                  />
+                </div>
+
+              </div>
+          </form>
+
+          <div class="row">
+            <div class="col-md-6 margin-bottom-15"></div>
+            <div class="col-md-6 margin-bottom-15">
+              <button
+                type="button"
+                id="loading-example-btn"
+                data-loading-text="validation en cours"
+                class="btn btn-primary"
+              >
+                Pré-enregistrement du formulaire
+              </button>
             </div>
+          </div>
 
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Vous a t-on déjà saisi quoi que ce soit ?</strong><br />
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="saisiCosig"
-                    id="saisiOui"
-                    value="oui"
-                    checked
-                  />
-                  oui
-                </label>
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="saisiCosig"
-                    id="saisiNon"
-                    value="non"
-                  />
-                  non
-                </label>
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Avez-vous déjà fait banqueroute ou faillite ?</strong
-                ><br />
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="failliteCosig"
-                    id="failliteOui"
-                    value="oui"
-                    checked
-                  />
-                  oui
-                </label>
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="failliteCosig"
-                    id="failliteNon"
-                    value="non"
-                  />
-                  non
-                </label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong
-                  >Êtes-vous obligé de verser une pension alimentaire, un
-                  support juridique ou autres charges ?</strong
-                ><br />
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="pensionCosig"
-                    id="pensionOui"
-                    value="oui"
-                    checked
-                  />
-                  oui
-                </label>
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="pensionCosig"
-                    id="pensionNon"
-                    value="non"
-                  />
-                  non
-                </label>
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="pensionSumCosig" class="control-label"
-                  >Si oui, quel est le montant ?</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="pensionSumCosig"
-                  required
-                />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Avez-vous un compte bancaire quelconque ?</strong><br />
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="cptBankCosig"
-                    id="cptBankOui"
-                    value="oui"
-                    checked
-                  />
-                  oui
-                </label>
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="cptBankCosig"
-                    id="cptBankNon"
-                    value="non"
-                  />
-                  non
-                </label>
-              </div>
-              <div class="col-md-6 margin-bottom-15">
-                <label for="bkNameCosig" class="control-label"
-                  >Si oui, quelle banque ?</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="bkNameCosig"
-                  required
-                />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15">
-                <strong>Quel genre de compte avez-vous ?</strong><br />
-                <label class="checkbox-inline">
-                  <input
-                    type="checkbox"
-                    id="typeBkCpt1Cosig"
-                    value="cheque"
-                    checked
-                  />
-                  Chèque
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" id="typeBkCpt2Cosig" value="epargne" />
-                  &Eacute;pargne
-                </label>
-                <label class="checkbox-inline">
-                  <input
-                    type="checkbox"
-                    id="typeBkCpt3Cosig"
-                    value="carte de credit"
-                  />
-                  Carte de crédit
-                </label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12 margin-bottom-15">
-                <strong
-                  >Citez les banques ou institutions auxquelles vous avez
-                  souscrit des prêts</strong
-                >
-              </div>
-              <div class="col-md-4 margin-bottom-15">
-                <label for="nomBkPretCosig" class="control-label">Nom</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomBkPretCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-4 margin-bottom-15">
-                <label for="typePretCosig" class="control-label"
-                  >Type de prêt</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="typePretCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-2 margin-bottom-15">
-                <label for="dettePretCosig" class="control-label"
-                  >Reste à payer</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="dettePretCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-2 margin-bottom-15">
-                <label for="mensuelPretSumCosig" class="control-label"
-                  >Mensualité</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="mensuelPretSumCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-4 margin-bottom-15">
-                <label for="nomBkPretCosig" class="control-label">Nom</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomBkPretCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-4 margin-bottom-15">
-                <label for="typePretCosig" class="control-label"
-                  >Type de prêt</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="typePretCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-2 margin-bottom-15">
-                <label for="dettePretCosig" class="control-label"
-                  >Reste à payer</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="dettePretCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-2 margin-bottom-15">
-                <label for="mensuelPretSumCosig" class="control-label"
-                  >Mensualité</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="mensuelPretSumCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-4 margin-bottom-15">
-                <label for="nomBkPretCosig" class="control-label">Nom</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nomBkPretCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-4 margin-bottom-15">
-                <label for="typePretCosig" class="control-label"
-                  >Type de prêt</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="typePretCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-2 margin-bottom-15">
-                <label for="dettePretCosig" class="control-label"
-                  >Reste à payer</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="dettePretCosig"
-                  required
-                />
-              </div>
-
-              <div class="col-md-2 margin-bottom-15">
-                <label for="mensuelPretSumCosig" class="control-label"
-                  >Mensualité</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="mensuelPretSumCosig"
-                  required
-                />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 margin-bottom-15"></div>
-              <div class="col-md-6 margin-bottom-15">
-                <button
-                  type="button"
-                  id="loading-example-btn"
-                  data-loading-text="validation en cours"
-                  class="btn btn-primary"
-                >
-                  Pré-enregistrement du formulaire
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
-      <!-- </form> -->
-
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
@@ -2023,8 +2240,8 @@
                     <br />
 
                     <div>
-                      <!-- <form class="" role="form" id="templatemo-preferences-form"> -->
-
+                      <form id="debitor_form" class="">
+                        {% csrf_token %}
                       <h4>IDENTIFICATION DE LA DETTE A PAYER</h4>
                       <div class="row">
                         <div class="col-md-6 margin-bottom-15">
@@ -2032,10 +2249,11 @@
                           <select
                             class="form-control margin-bottom-15"
                             id="creditImm"
+                            name="debt_type"
                           >
                             <option>Crédit immobilier en mensualité</option>
-                            <option>Crédit type 2</option>
-                            <option>Crédit type 1</option>
+                            <option value = "Crédit type 2">Crédit type 2</option>
+                            <option value = "Crédit type 1">Crédit type 1</option>
                           </select>
                         </div>
                       </div>
@@ -2050,6 +2268,7 @@
                             type="text"
                             class="form-control"
                             id="nomNotif"
+                            name="debiteur_name"
                             required
                           />
                         </div>
@@ -2061,6 +2280,7 @@
                             type="text"
                             class="form-control"
                             id="adressNotif"
+                            name="debiteur_adresse"
                             placeholder="Bobo Djoulasso"
                             required
                           />
@@ -2075,6 +2295,7 @@
                             type="text"
                             class="form-control"
                             id="villeNotif"
+                            name="debiteur_ville"
                             required
                           />
                         </div>
@@ -2087,6 +2308,7 @@
                             class="form-control"
                             id="cpNotif"
                             placeholder="54000"
+                            name="debiteur_code_postal"
                             required
                           />
                         </div>
@@ -2100,6 +2322,7 @@
                             type="text"
                             class="form-control"
                             id="telNotif"
+                            name="debiteur_telephone"
                             required
                           />
                         </div>
@@ -2111,6 +2334,7 @@
                             type="text"
                             class="form-control"
                             id="agentNotif"
+                            name="debiteur_agent"
                             required
                           />
                         </div>
@@ -2126,6 +2350,7 @@
                             type="text"
                             class="form-control"
                             id="nomNotifCdt"
+                            name="crediteur_name"
                             required
                           />
                         </div>
@@ -2138,6 +2363,7 @@
                             class="form-control"
                             id="adressNotifCdt"
                             placeholder="Bobo Djoulasso"
+                            name="crediteur_adresse"
                             required
                           />
                         </div>
@@ -2151,6 +2377,7 @@
                             type="text"
                             class="form-control"
                             id="villeNotifCdt"
+                            name="crediteur_ville"
                             required
                           />
                         </div>
@@ -2163,6 +2390,7 @@
                             class="form-control"
                             id="cpNotifCdt"
                             placeholder="54000"
+                            name="crediteur_code_postal"
                             required
                           />
                         </div>
@@ -2176,6 +2404,7 @@
                             type="text"
                             class="form-control"
                             id="telNotifCdt"
+                            name="crediteur_telephone"
                             required
                           />
                         </div>
@@ -2187,6 +2416,7 @@
                             type="text"
                             class="form-control"
                             id="agentNotifCdt"
+                            name="crediteur_agent"
                             required
                           />
                         </div>
@@ -2198,7 +2428,7 @@
                         <div class="col-md-6 margin-bottom-15">
                           <button
                             type="button"
-                            id="loading-example-btn2"
+                            id="creditor_message"
                             data-loading-text="envoi en cours"
                             class="btn btn-primary"
                           >
@@ -2207,7 +2437,7 @@
                         </div>
                       </div>
 
-                      <!-- </form> -->
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -2439,12 +2669,134 @@
     $(this).tab("show");
   });
 
-  $("#loading-example-btn").click(function () {
-    var btn = $(this);
-    btn.button("loading");
-    // $.ajax(...).always(function () {
-    //   btn.button('reset');
-    // });
-  });
+
+  let regular = null;
+  let regular_client = document.getElementById('regular')
+  let irregular_client = document.getElementById('irregular')
+  let regular_forms = document.getElementsByClassName('regular')
+  let irregular_forms = document.getElementsByClassName('irregular')
+  let error_messages = document.getElementById('error')
+
+  // Disable co-signateur fields
+  for(let index=0; index<regular_forms.length; index++){
+      irregular_forms[index].style.display = 'none'
+      regular_forms[index].style.display = 'none'
+    }
+
+
+  regular_client.onclick =()=>{
+    regular = true
+    console.log('sets regular to true')
+    for(let index=0; index<regular_forms.length; index++){
+      irregular_forms[index].style.display = 'none'
+    } 
+    for(let index=0; index<regular_forms.length; index++){
+      regular_forms[index].style.display = 'block'
+    }
+
+  }
+
+  irregular_client.onclick =()=>{
+    regular = false
+    console.log('sets regular to false')
+    for(let index=0; index<irregular_forms.length; index++){
+      regular_forms[index].style.display = 'none'
+    }
+    for(let index=0; index<irregular_forms.length; index++){
+      irregular_forms[index].style.display = 'block'
+    } 
+
+  }
+
+  error_messages.innerHTML=`
+        <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span
+              ><span class="sr-only">Close</span>
+            </button>
+            Veuillez corriger les erreurs.
+        `
+       
+
+    $("#loading-example-btn").click(function(){
+
+      if(regular)
+        $(".regular").each(function(){
+          console.log('--  sending regular  --')
+          console.log(this.name)
+          var fd = new FormData($(this)[0]);
+          $.ajax({
+              type: "POST",
+              url: `/transac/register/${this.name}/True/`,
+              data: fd,
+              processData: false,
+              contentType: false,
+              success: function(data,status) {
+                let message = document.createElement('div')
+                // console.log('------------response arrived------------')
+                console.log(data)
+                if(data != "success")
+                  message.innerHTML=data
+                  error_messages.appendChild(message)
+                
+              },
+              error: function(data, status) {
+              },
+          });
+        });
+      else
+        $(".irregular").each(function(){
+            console.log(this.name)
+            console.log('--  sending irregular  --')
+            var fd = new FormData($(this)[0]);
+              $.ajax({
+                  type: "POST",
+                  url: `/transac/register/${this.name}/False/`,
+                  data: fd,
+                  processData: false,
+                  contentType: false,
+                  success: function(data,status) {
+                    let message = document.createElement('div')
+                    // console.log('------------response arrived------------')
+                    console.log(data)
+                    if(data != "success")
+                      message.innerHTML=data
+                      error_messages.appendChild(message)
+                    
+                  },
+                  error: function(data, status) {
+                  },
+            });
+          });
+      
+      });
+  
+      
+  // 
+
+  $('#creditor_message').click(function(){
+    let debitor_form = document.getElementById('debitor_form')
+
+    var fd = new FormData(debitor_form);
+    console.log(fd)
+    $.ajax({
+                type: "POST",
+                url: `/transac/mail`,
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function(data,status) {
+                  let message = document.createElement('div')
+ 
+                  
+                  //this will execute when form is submited without errors
+              },
+              error: function(data, status) {
+                  //this will execute when get any error
+              },
+          });
+ 
+  })
+  
+
 </script>
 {% endblock %}

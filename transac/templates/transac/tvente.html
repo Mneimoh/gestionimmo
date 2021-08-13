@@ -2,23 +2,31 @@
 <div class="margin-bottom-30">
             <div class="row">
               <div class="col-md-12">
-                <form class="navbar-form">
+                <form id="navsearch" class="navbar-form">
+                  {% csrf_token %}
                   <ul class="nav nav-pills">
                     <!--<li class="active"><a href="#">Compte ouvert<span class="badge">42</span></a></li>
                     <li class="active"><a href="#">Non finalisé <span class="badge">26</span></a></li>
                     <li class="active"><a href="#">Abandonné <span class="badge">14</span></a></li> -->
                     <li>
-                        <select class="form-control margin-bottom-15" id="typeArticle">
+                        <!-- <select class="form-control margin-bottom-15" id="typeArticle">
                           <option value="" selected>Type d'article</option>
                           <option>Immobilier</option>
                           <option>Moto</option>
                           <option>Electroménager</option>
+                        </select> -->
+                        <select class="form-control margin-bottom-15" name="article_interet" id="articleI">
+                          {% for obj in all_articles %}
+                          
+                          <option>{{ obj }}</option>
+                          
+                          {% endfor %}
                         </select>
                       </form>
                     </li> 
                     <li>
-                        &nbsp;&nbsp;<input type="text" class="form-control" id="templatemo_search_box" placeholder="N° de dossier">
-                        <span class="btn btn-default">Rechercher</span>
+                        &nbsp;&nbsp;<input type="number" name='dossier_id' class="form-control" id="templatemo_search_box" placeholder="N° de dossier">
+                        <span id="rechercher" class="btn btn-default">Rechercher</span>
                     </li> 
                   </ul>    
                 </form>      
@@ -144,41 +152,6 @@
                           </div>
                         </div>
 
-                        <!-- Si article = produit subventionné -->
-                        <!--<div class="row">
-                          <div class="col-md-4 margin-bottom-15">
-                            <label for="tvArticle" class="control-label">Article</label>
-                            <input type="text" class="form-control" id="tvArticle" value="Moto" disabled>
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <label for="tvMarque" class="control-label">Marque</label>
-                            <input type="text" class="form-control" id="tvMarque" value="Yamaha" disabled>   
-                          </div>
-                          <div class="col-md-2 margin-bottom-15">
-                            <label for="tvModel" class="control-label">Modèle</label>
-                            <input type="text" class="form-control" id="tvModel" value="SIRIUS" disabled>
-                          </div>
-                          <div class="col-md-2 margin-bottom-15">
-                            <label for="tvCode" class="control-label">Code</label>
-                            <input type="text" class="form-control" id="tvCode" value="YMHSS" disabled>   
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">
-                            <label for="tvNserie" class="control-label">N° de serie</label>
-                            <input type="text" class="form-control" id="tvNserie" value="" disabled>
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <label for="tvColor" class="control-label">Couleur</label>
-                            <input type="text" class="form-control" id="tvColor" value="Blanche" disabled>   
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <label for="tvNstock" class="control-label">N° de stock</label>
-                            <input type="text" class="form-control" id="tvNstock" value="" disabled>
-                          </div>
-                        </div>-->
-
-
                       </div>
                     </div>
                   </div>
@@ -196,30 +169,30 @@
                         <div class="row">
                           <div class="col-md-8 margin-bottom-15">
                             <label for="tvNomVendeur" class="control-label">Nom</label>
-                            <input type="text" class="form-control" id="tvNomVendeur" value="Wend Puire Distribution" disabled>
+                            <input type="text" class="form-control" id="tvNomVendeur" value={{user.societe.nom}} disabled>
                           </div>
                           <div class="col-md-4 margin-bottom-15">
                             <label for="tvTelephone" class="control-label">Téléphone</label>
-                            <input type="text" class="form-control" id="tvTelephone" value="+226 64 45 89 98" disabled>   
+                            <input type="text" class="form-control" id="tvTelephone" value={{user.societe.telephone}} disabled>   
                           </div>
                         </div>
 
                         <div class="row">
                           <div class="col-md-6 margin-bottom-15">
                             <label for="tvAdresse" class="control-label">Adresse</label>
-                            <input type="text" class="form-control" id="tvAdresse" value="Secteur 54, parcelle 14, lot 33, section 283, Ouaga 2000" disabled>
+                            <input type="text" class="form-control" id="tvAdresse" value={{user.societe.address}} disabled>
                           </div>
                           <div class="col-md-2 margin-bottom-15">
                             <label for="tvCp" class="control-label">Code postal</label>
-                            <input type="text" class="form-control" id="tvCp" value="01 BP 5414" disabled>   
+                            <input type="text" class="form-control" id="tvCp" value={{user.societe.code_postal}} disabled>   
                           </div>
                           <div class="col-md-2 margin-bottom-15">
                             <label for="tvVille" class="control-label">Ville</label>
-                            <input type="text" class="form-control" id="tvVille" value="Ouagadougou 01" disabled>
+                            <input type="text" class="form-control" id="tvVille" value={{user.societe.ville}} disabled>
                           </div>
                           <div class="col-md-2 margin-bottom-15">
                             <label for="tvPays" class="control-label">Pays</label>
-                            <input type="text" class="form-control" id="tvPays" value="Burkina Faso" disabled>   
+                            <input type="text" class="form-control" id="tvPays" value={{user.societe.pays}} disabled>   
                           </div>
                         </div>
 
@@ -954,7 +927,7 @@
                       </div>
                     </div>
                   </div>                  
-                </div>
+              </div>
 
             </div>
               
@@ -1088,5 +1061,30 @@
     //   btn.button('reset');
     // });
   });
+
+  // Search for a specific document
+  
+  $('#rechercher').click(function(){
+    let debitor_form = document.getElementById('navsearch')
+
+    var fd = new FormData(debitor_form);
+    console.log(fd)
+
+    $.ajax({
+                type: "POST",
+                url: `/transac/vente`,
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function(data,status) {
+                  let message = document.createElement('div')
+                  //this will execute when form is submited without errors
+              },
+              error: function(data, status) {
+                  //this will execute when get any error
+              },
+          });
+ 
+  })
 </script>
 {% endblock %}
