@@ -9,14 +9,10 @@
                 <div class="alert alert-{{ message.tags }}">{{ message }}</div>
         {% endfor %}
 {% endif %}
+
 <div class="row">
+    <div class="col-md-12">    
 
-    <div class="col-md-12">
-      
-      <div class="panel-group" id="accordion">
-
-        <!-- <form class="" role="form" id="templatemo-preferences-form"> -->
-          
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
@@ -26,82 +22,88 @@
               </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
-              <div class="panel-body">
+             <form action="" method="POST">
+              {% csrf_token %}
+             
+                <div class="panel-body">
                 <div class="row">
                   <div class="col-md-6 margin-bottom-15">
                     <label for="firstName" class="control-label">Numéro client</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="ex: 959766784" required>                  
+                    <input type="text" name="num_client" class="form-control" id="numero_client" placeholder="ex: 959766784" required>                  
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 margin-bottom-15">
                     <label for="dateNaiss" class="control-label">Date d'appel</label>
-                    <input type="date" class="form-control" id="dateNaiss" required>                  
+                    <input type="date" name="date_dappel" class="form-control" id="dateNaiss" required>                  
                   </div>
                   <div class="col-md-6 margin-bottom-15">
                     <label for="lieuNaiss" class="control-label">Heure d'appel</label>
-                    <input type="text" class="form-control" id="lieuNaiss" required>                 
+                    <input type="text" name="heure_dappel" class="form-control" id="lieuNaiss" required>                 
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 margin-bottom-15">
                     <label for="email" class="control-label">Nom</label>
-                    <input type="text" class="form-control" id="email" placeholder="DOSSO" required>                 
+                    <input type="text" name="nom" class="form-control" id="email" placeholder="DOSSO" required>                 
                   </div> 
                   <div class="col-md-6 margin-bottom-15">
                     <label for="phoneA" class="control-label">Prénom</label>
-                    <input type="text" class="form-control" id="phoneA" placeholder="Hubert" required>                  
+                    <input type="text" name="prenom" class="form-control" id="phoneA" placeholder="Hubert" required>                  
                   </div>                                               
                 </div>
+            
                 <div class="row">
                   <div class="col-md-6 margin-bottom-15">
                     <label for="phoneA" class="control-label">Téléphone</label>
-                    <input type="text" class="form-control" id="phoneA" placeholder="986876869" required>                  
+                    <input type="text" name="telephone" class="form-control" id="phoneA" placeholder="986876869" required>                  
                   </div>
                   <div class="col-md-6 margin-bottom-15">
                     <label for="articleI" class="control-label">Article d'intérêt</label>                            
-                    <select class="form-control margin-bottom-15" id="articleI">
-                      <option>Maison 1</option>
-                      <option>Maison 2</option>
-                      <option>Terrain 1</option>
-                      <option>Terrain 2</option>
-                      <option>Logement 1</option>
-                      <option>Logement 2</option>
+                    <select name="article_dinteret" class="form-control margin-bottom-15" id="articleI">
+                      <option value="maison1">Maison 1</option>
+                      <option value="maison2">Maison 2</option>
+                      <option value="terrain1">Terrain 1</option>
+                      <option value="terrain2">Terrain 2</option>
+                      <option value="logement1">Logement 1</option>
+                      <option value="logement2">Logement 2</option>
                     </select>              
                   </div>
                 </div>                        
                 <div class="row">                          
                   <div class="col-md-6 margin-bottom-15">
                     <label for="connuA" class="control-label">Comment nous a t-il connu ?</label>
-                    <select class="form-control margin-bottom-15" id="connuA">
-                      <option>Presse</option>
-                      <option>Télé</option>
-                      <option>Radio</option>
-                      <option>Connaissance</option>
-                      <option>Autre</option>
+                    <select name="how_connu" class="form-control margin-bottom-15" id="connuA">
+                      <option value="Presse">Presse</option>
+                      <option value="Tele">Télé</option>
+                      <option value="Radio">Radio</option>
+                      <option value="Connaissance">Connaissance</option>
+                      <option value="Autre">Autre</option>
                     </select>                 
                   </div>                          
                 </div>
                 <div class="row" style="background:#D1E5FE; padding-top:15px;">
                   <div class="col-md-6 margin-bottom-15">
                     <label for="dateNaiss" class="control-label">Date de rendez-vous</label>
-                    <input type="date" class="form-control" id="dateNaiss" required>                  
+                    <input name="date_redezvous" type="date" class="form-control" id="dateNaiss" required>                  
                   </div>
                   <div class="col-md-6 margin-bottom-15">
                     <label for="lieuNaiss" class="control-label">Heure de rendez-vous</label>
-                    <input type="text" class="form-control" id="lieuNaiss" required>                 
+                    <input type="text" name="heure_redezvous" class="form-control" id="lieuNaiss" required>                 
                   </div>
                 </div>
                 <br>
                 <div class="row">                                                    
                   <div class="col-md-6 margin-bottom-15">
-                    <button type="button" id="loading-example-btn3" data-loading-text="impression en cours" class="btn btn-primary">
+                    <input type="submit" id="loading-example-btn3" data-loading-text="impression en cours" value="Valider" class="btn btn-primary">
+                    <!-- <button type="submit" id="loading-example-btn3" data-loading-text="impression en cours" class="btn btn-primary">
                       Valider
-                    </button>
+                    </button> -->
                   </div>
                 </div>                        
 
               </div>
+             </form>
             </div>
           </div>
                   
@@ -197,5 +199,11 @@
       //   btn.button('reset');
       // });
   });
+  </script>
+
+  <script>
+    let numero_input = document.getElementById('numero_client');
+    numero = Math.floor(100000000 + Math.random() * 900000000);
+    numero_input.value = numero;
   </script>
 {% endblock %}
