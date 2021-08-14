@@ -55,7 +55,9 @@ INSTALLED_APPS = [
     'recouvrement',
     'authentication',
     'societe',
-    'main'
+    'main',
+    'django_filters',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -141,11 +143,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 
 
 #  Add configuration for static files storage using whitenoise
