@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from rest_framework.utils.serializer_helpers import JSONBoundField
 from .decorators import unauthenticated_user, allowed_users
-from main.models import Appointment, Client
+from main.models import Appointment
 from .forms import AppointmentForms
 from .filters import AppointmentFilter
 from datetime import date
