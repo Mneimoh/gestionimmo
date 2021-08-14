@@ -214,7 +214,25 @@ class Client(models.Model):
     def __str__(self):
         return self.nom
 
+class Appointment(models.Model):
+    nom = models.CharField(max_length=30)
+    prenom = models.CharField(max_length=30)
+    num_client = models.CharField(max_length=10)
+    telephone = models.CharField(max_length=15)
+    how_connu = models.TextField()
+    date_dappel = models.DateField()
+    heure_dappel = models.TextField(default='',null=True)
+    date_arrivee = models.DateField(default='12-09-2030',null=True)
+    article_dinteret = models.TextField()
+    date_redezvous = models.DateTimeField()
+    heure_redezvous = models.TimeField()
+    status = models.TextField(default='',null=True)
+    heure_arrivee = models.TextField()
+    
+    def __str__(self):
+        return self.nom
 
+        
 class Dossier(models.Model):
     societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
     User = models.ForeignKey(User, on_delete=models.CASCADE)

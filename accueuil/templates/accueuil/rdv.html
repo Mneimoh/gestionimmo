@@ -1,27 +1,42 @@
-{% extends 'accueuil/layouts/base.html' %} {% load static %} {% block content %}
+{% extends 'accueuil/layouts/base.html' %} {% load static %} 
+
+{% block styles %} 
+    <style>
+      #prev:hover {
+        cursor: pointer;
+      }
+
+      #next:hover {
+        cursor: pointer;
+      }
+
+    </style>
+{% endblock %}
+{% block content %}
 <div class="margin-bottom-30">
   <div class="row">
     <div class="col-md-12">
       <ul class="nav nav-pills">
         <li class="active">
-          <a href="#">En attente d'ouverture <span class="badge">42</span></a>
+          <a class="btn">En attente d'ouverture <span class="badge">{{ date_tocome }}</span></a>
         </li>
         <li class="active">
-          <a href="#">Ouvert <span class="badge">126</span></a>
+          <!-- <a class="btn"> <span class="badge">126</span></a> -->
         </li>
         <li class="active">
-          <a href="#">Abandonné <span class="badge">14</span></a>
+          <a class="btn">Abandonné <span class="badge">{{ date_pass }}</span></a>
         </li>
         <li>
-          <form class="navbar-form">
+          
             <input
               type="text"
+              name="nom"
               class="form-control"
               id="templatemo_search_box"
               placeholder="..."
             />
-            <span class="btn btn-default">Rechercher</span>
-          </form>
+            <button onClick="find_appointment()" class="btn btn-default">Rechercher </button>
+         
         </li>
       </ul>
     </div>
@@ -77,7 +92,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="btn-group pull-right" id="templatemo_sort_btn">
-      <button type="button" class="btn btn-default">Trier par</button>
+      <!-- <button type="button" class="btn btn-default">Trier par</button>
       <button
         type="button"
         class="btn btn-default dropdown-toggle"
@@ -87,163 +102,95 @@
         <span class="sr-only">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu" role="menu">
-        <li><a href="#">N° client</a></li>
-        <li><a href="#">Téléphone</a></li>
         <li><a href="#">Nom</a></li>
-        <li><a href="#">Prénom</a></li>
-        <li><a href="#">N°dossier</a></li>
-        <li><a href="#">Statut</a></li>
-        <li><a href="#">Dernier Paiement</a></li>
-        <li><a href="#">Coeff recouvr</a></li>
-        <li><a href="#">Appelé & récouvré</a></li>
-      </ul>
+        <li><a href="#">Prenom</a></li>
+        <li><a href="#">Numero Client</a></li>
+        <li><a href="#">Telephone</a></li>
+        <li><a href="#">Date d'appel</a></li>
+        <li><a href="#">Heure d'appel</a></li>
+        <li><a href="#">Article d'interet</a></li>
+        <li><a href="#">Comment nous a t-il connu</a></li>
+        <li><a href="#">Date de rendez-vous</a></li>
+        <li><a href="#">Heure de rendez-vous</a></li>
+      </ul> -->
+    
+    <select onchange="sort_appointments(this.value)" style="border: 1px solid #ddd; padding-top: .5rem; padding-bottom: .5rem; padding-left: 1rem; font-size: 1.25rem;" class="form-select" name="" id="">
+      <option disabled selected value="">Sort By</option>
+      <option value="">All</option>
+      <option value="Nom">Nom</option>
+      <option value="prenom">Prenom</option>
+      <option value="num_client">Numero Client</option>
+      <option value="telephone">Telephone</option>
+      <option value="date_dappel">Date d'appel</option>
+      <option value="heure_dappel">Heure d'appel</option>
+      <option value="article_dinteret">Article d'interet</option>
+      <option value="how_connu">Comment nous a t-il connu</option>
+      <option value="date_redezvous">Date de rendez-vous</option>
+      <option value="heure_redezvous">Heure de rendez-vous</option>
+    </select>
     </div>
+   
+    
     <div class="table-responsive">
-      <table class="table table-striped table-hover table-bordered">
+      <table id="appointmentTable" class="table table-striped table-hover table-bordered">
         <thead>
           <tr>
-            <th>N° client</th>
-            <th>Téléphone</th>
             <th>Nom</th>
-            <th>Prénom</th>
-            <th>N°dossier</th>
-            <th>Statut</th>
-            <th>Dernier Paiement</th>
-            <th>Coeff recouvr</th>
-            <th>Appelé & récouvré</th>
-            <th>Dernier appel</th>
-            <th>hr</th>
-            <th>Vérifier</th>
-            <th>Ouvrir</th>
+            <th>Prenom</th>
+            <th>Numero Client</th>
+            <th>Telephone</th>
+            <th>Date d'appel</th>
+            <th>Heure d'appel</th>
+            
+            <th>Article d'interet</th>
+            <th>Comment nous a t-il connu</th>
+            <th>Date de rendez-vous</th>
+            <th>Heure de rendez-vous</th>
+            <th> Ouvert </th>
           </tr>
         </thead>
         <tbody>
+          {% for appointment in appointments %}
           <tr>
-            <td>35975975</td>
-            <td>887786455</td>
-            <td>Wade</td>
-            <td>Abdou</td>
-            <td>484084058</td>
-            <td>R1</td>
-            <td>15/03/2014</td>
-            <td>1</td>
-            <td>non</td>
-            <td>15/01/2014</td>
-            <td>12:35</td>
-            <td><a href="#" class="btn btn-default">Confirmer</a></td>
+            <td>{{ appointment.nom }}</td>
+            <td>{{ appointment.prenom }}</td>
+            <td>{{ appointment.num_client }}</td>
+            <td>{{ appointment.telephone }}</td>
+            <td>{{ appointment.date_dappel }}</td>
+            <td>{{ appointment.heure_dappel }}</td>
+            <td>{{ appointment.article_dinteret }}</td>
+            <td>{{ appointment.how_connu }}</td>
+            <td>{{ appointment.date_redezvous }}</td>
+            <td>{{ appointment.heure_redezvous }}</td>
             <td>
               <!-- Split button -->
-              <div classbtn-group">
-              <button
+              <div class="btn-group">
+              <a
                 type="button"
                 class="btn btn-info"
-                data-toggle="modal"
-                data-target="#confirmOpen"
+               href="#accordion"
+                onclick="get_appointment('{{ appointment.id }}')"
               >
-                Ouvrir
-              </button>
+              Ouvert
+              </a>
+              <div>
             </td>
           </tr>
-          <tr>
-            <td>35975975</td>
-            <td>887786455</td>
-            <td>Wade</td>
-            <td>Abdou</td>
-            <td>484084058</td>
-            <td>R1</td>
-            <td>15/03/2014</td>
-            <td>1</td>
-            <td>non</td>
-            <td>15/01/2014</td>
-            <td>12:35</td>
-            <td><a href="#" class="btn btn-default">Confirmer</a></td>
-            <td>
-              <!-- Split button -->
-              <div classbtn-group">
-              <button
-                type="button"
-                class="btn btn-info"
-                data-toggle="modal"
-                data-target="#confirmOpen"
-              >
-                Ouvrir
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>35975975</td>
-            <td>887786455</td>
-            <td>Wade</td>
-            <td>Abdou</td>
-            <td>484084058</td>
-            <td>R1</td>
-            <td>15/03/2014</td>
-            <td>1</td>
-            <td>non</td>
-            <td>15/01/2014</td>
-            <td>12:35</td>
-            <td><a href="#" class="btn btn-default">Confirmer</a></td>
-            <td>
-              <!-- Split button -->
-              <div classbtn-group">
-              <button
-                type="button"
-                class="btn btn-info"
-                data-toggle="modal"
-                data-target="#confirmOpen"
-              >
-                Ouvrir
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>35975975</td>
-            <td>887786455</td>
-            <td>Wade</td>
-            <td>Abdou</td>
-            <td>484084058</td>
-            <td>R1</td>
-            <td>15/03/2014</td>
-            <td>1</td>
-            <td>non</td>
-            <td>15/01/2014</td>
-            <td>12:35</td>
-            <td><a href="#" class="btn btn-default">Confirmer</a></td>
-            <td>
-              <!-- Split button -->
-              <div classbtn-group">
-              <button
-                type="button"
-                class="btn btn-info"
-                data-toggle="modal"
-                data-target="#confirmOpen"
-              >
-                Ouvrir
-              </button>
-            </td>
-          </tr>
+
+          {% endfor  %}
+         
         </tbody>
       </table>
     </div>
   </div>
   <ul class="pagination pull-right">
-    <li class="disabled"><a href="#">&laquo;</a></li>
-    <li class="active">
-      <a href="#">1 <span class="sr-only">(current)</span></a>
+    <li class="disabled" onclick="prev()" id="prev"><a >&laquo;</a></li>
+    {% for i in page_list %}
+    <li class="{% if i == page %}active {% endif %}">
+      <a class="btn" onclick="paginate_table('{{ i }}')">{{ i }} <span class="sr-only">(current)</span></a>
     </li>
-    <li>
-      <a href="#">2 <span class="sr-only">(current)</span></a>
-    </li>
-    <li>
-      <a href="#">3 <span class="sr-only">(current)</span></a>
-    </li>
-    <li>
-      <a href="#">4 <span class="sr-only">(current)</span></a>
-    </li>
-    <li>
-      <a href="#">5 <span class="sr-only">(current)</span></a>
-    </li>
-    <li><a href="#">&raquo;</a></li>
+    {% endfor %}
+    <li id="next" onclick="next()"><a >&raquo;</a></li>
   </ul>
 </div>
 
@@ -264,7 +211,10 @@
             </a>
           </h4>
         </div>
+        <form id="form">
+          {% csrf_token %}
         <div id="collapseOne" class="panel-collapse collapse in">
+          
           <div class="panel-body">
             <div class="row">
               <div class="col-md-6 margin-bottom-15">
@@ -274,10 +224,17 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="firstName"
+                  id="num_client"
                   placeholder="ex: 959766784"
                   required
                 />
+                <input
+                name="client_id"
+                type="hidden"
+                class="form-control"
+                id="client_id"
+                placeholder=""
+              />
               </div>
             </div>
             <div class="row">
@@ -310,7 +267,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="email"
+                  id="nom"
                   placeholder="DOSSO"
                   required
                 />
@@ -320,7 +277,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="phoneA"
+                  id="prenom"
                   placeholder="Hubert"
                   required
                 />
@@ -332,7 +289,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="phoneA"
+                  id="telephone"
                   placeholder="986876869"
                   required
                 />
@@ -341,14 +298,14 @@
                 <label for="articleI" class="control-label"
                   >Article d'intérêt</label
                 >
-                <select class="form-control margin-bottom-15" id="articleI">
-                  <option>Maison 1</option>
-                  <option>Maison 2</option>
-                  <option>Terrain 1</option>
-                  <option>Terrain 2</option>
-                  <option>Logement 1</option>
-                  <option>Logement 2</option>
-                </select>
+                <select name="article_dinteret" class="form-control margin-bottom-15" id="articleI">
+                  <option value="maison1">Maison 1</option>
+                  <option value="maison2">Maison 2</option>
+                  <option value="terrain1">Terrain 1</option>
+                  <option value="terrain2">Terrain 2</option>
+                  <option value="logement1">Logement 1</option>
+                  <option value="logement2">Logement 2</option>
+                </select> 
               </div>
             </div>
             <div class="row">
@@ -356,12 +313,12 @@
                 <label for="connuA" class="control-label"
                   >Comment nous a t-il connu ?</label
                 >
-                <select class="form-control margin-bottom-15" id="connuA">
-                  <option>Presse</option>
-                  <option>Télé</option>
-                  <option>Radio</option>
-                  <option>Connaissance</option>
-                  <option>Autre</option>
+                <select name="how_connu" class="form-control margin-bottom-15" id="connuA">
+                  <option value="Presse">Presse</option>
+                  <option value="Tele">Télé</option>
+                  <option value="Radio">Radio</option>
+                  <option value="Connaissance">Connaissance</option>
+                  <option value="Autre">Autre</option>
                 </select>
               </div>
             </div>
@@ -372,6 +329,7 @@
                   id="loading-example-btn3"
                   data-loading-text="impression en cours"
                   class="btn btn-primary"
+                  onclick="update_appointment()"
                 >
                   Préqualifier
                 </button>
@@ -379,6 +337,7 @@
             </div>
           </div>
         </div>
+      </form>
       </div>
     </div>
   </div>
@@ -405,7 +364,7 @@
         </h4>
       </div>
       <div class="modal-footer">
-        <a href="../../logout" class="btn btn-primary">Ouiii</a>
+        <button class="btn btn-primary">Oui</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">
           Non
         </button>
@@ -441,7 +400,9 @@
     </div>
   </div>
 </div>
-{% endblock %} {% block scripts %}
+{% endblock %} 
+
+{% block scripts %}
 <script>
   // Line chart
   var randomScalingFactor = function () {
@@ -510,4 +471,356 @@
     //   btn.button('reset');
   });
 </script>
+
+<!-- ADD CUSTOM SCRIPT -->
+<script>
+
+
+// UDPATE APPOINTMENT
+function update_appointment() {
+  console.log('MAKE UPDATE REQUEST')
+  // let data = {hello: 'great'};
+  var form = document.getElementById('form');
+
+  csrftoken = form.getElementsByTagName('input')[0].value;
+
+  let client_id = document.getElementById('client_id');
+  let num_client_input = document.getElementById('num_client');
+  let date_arrivee_input = document.getElementById('dateNaiss');
+  let heure_arrivee_input = document.getElementById('lieuNaiss');
+  let nom_input = document.getElementById('nom');
+  let prenom_input = document.getElementById('prenom');
+  let telephone_input = document.getElementById('telephone');
+  let article_input = document.getElementById('articleI');
+  let how_connu_input = document.getElementById('connuA') 
+
+
+  $.ajax({
+        method: 'PUT',
+        url: 'accueuil/api/get_appointment/',
+        beforeSend: function() {
+            console.log('Before Send')
+        }, 
+        headers: { "X-CSRFTOKEN": csrftoken  },
+        data: {
+                client_id: client_id.value,
+                num_client: num_client_input.value,
+                date_arrivee: date_arrivee_input.value,
+                heure_arrivee: heure_arrivee_input.value,
+                nom: nom_input.value,
+                prenom: prenom_input.value,
+                telephone: telephone_input.value,
+                article: article_input.value,
+                how_connu: how_connu_input.value
+              }, 
+        success: function(result) {
+          let client_id_input = document.getElementById('client_id');
+          let num_client_input = document.getElementById('num_client');
+          let date_arrivee_input = document.getElementById('dateNaiss');
+          let heure_arrivee_input = document.getElementById('lieuNaiss');
+          let nom_input = document.getElementById('nom');
+          let prenom_input = document.getElementById('prenom');
+          let telephone_input = document.getElementById('telephone');
+          let article_input = document.getElementById('articleI');
+          let how_connu_input = document.getElementById('connuA')
+
+          client_id_input.value = '';
+          nom_input.value = '';
+          num_client_input.value = '';
+          prenom_input.value = '';
+          telephone_input.value = '';
+          article_input.value = '';
+          how_connu_input.value = '';
+          date_arrivee_input.value = '';
+          heure_arrivee_input.value = '';
+          window.location.reload("#");
+            console.log('after send') 
+        },
+
+        error: function() {
+            console.log('error')
+        }
+    })
+}
+// Bellow Is Function To Update Appointment
+function update_appointment_input(appointment_data,id) {
+  appointment = appointment_data;
+
+  let nom = appointment.nom;
+  let prenom = appointment.prenom;
+  let num_client = appointment.num_client;
+  let telephone = appointment.telephone;
+  let date_dappel = appointment.date_dappel;
+  let heure_dappel = appointment.heure_dappel;
+  let article = appointment.article_dinteret;
+  let how_connu = appointment.how_connu;
+  let date_rendezvous = appointment.date_rendezvous;
+  let heure_redezvous = appointment.heure_redezvous
+
+  let client_id_input = document.getElementById('client_id');
+  let num_client_input = document.getElementById('num_client');
+  let date_arrivee_input = document.getElementById('dateNaiss');
+  let heure_arrivee_input = document.getElementById('lieuNaiss');
+  let nom_input = document.getElementById('nom');
+  let prenom_input = document.getElementById('prenom');
+  let telephone_input = document.getElementById('telephone');
+  let article_input = document.getElementById('articleI');
+  let how_connu_input = document.getElementById('connuA')
+
+  client_id_input.value = id;
+  nom_input.value = nom;
+  num_client_input.value = num_client;
+  prenom_input.value = prenom;
+  telephone_input.value = telephone;
+  article_input.value = article;
+  how_connu_input.value = how_connu;
+
+}
+
+function get_appointment(id) {
+  // console.log('Appointment Bellow')
+  // console.log(appointment)
+  let params = `id=${id}`
+  let appointment = null;
+  $.ajax({
+        method: 'GET',
+        url: 'accueuil/api/get_appointment?' + params,
+        beforeSend: function() {
+            console.log('Before Send')
+        },
+
+        success: function(result) {
+            appointment = result;
+            console.log(result)
+            update_appointment_input(result,id)
+            console.log('after send') 
+        },
+
+        error: function() {
+            console.log('error')
+        }
+    })
+  
+  
+}
+
+// PAGINATOR CODE BELLOW
+
+function paginate_table(page,$event) {
+    document.getElementById('templatemo_search_box').value = '';
+  if(page > 1) {
+    document.getElementById('prev').classList = '';
+  }
+
+  if(page == 1) {
+    document.getElementById('prev').classList = 'disabled'
+  }
+
+
+
+  //  Write Logic to change current active button
+  
+    all_childrens = event.target.parentElement.parentElement.children
+    for(let i = 0; i < all_childrens.length; i++){
+        if(all_childrens[i].classList.contains('active')){
+          all_childrens[i].classList = '';
+        }
+    }
+   
+    event.target.parentElement.classList = 'active'
+
+    // Total Pages Calculation Bellow
+    let total = all_childrens.length - 2;
+
+    if(page == total) {
+      document.getElementById('next').classList = 'disabled'
+    }
+
+    if(page < total) {
+      document.getElementById('next').classList = ''
+    }
+
+    let param = `page=${page}`
+    send_paginate_request(param)
+}
+
+function next($event) {
+  let all_childrens = event.target.parentElement.parentElement.children
+  let setactive = 0;
+  prevactive = 0;
+
+  for(let i = 0; i < all_childrens.length; i++){
+        if(all_childrens[i].classList.contains('active')){
+          prevactive = i;
+          all_childrens[i].classList = '';
+          setactive = i+1;
+        }
+    }
+
+    
+  let total = all_childrens.length - 2;
+  
+  if(setactive > total) {
+    console.log('SET ACTIVE IS GREATER THAN TOTAL')
+    all_childrens[prevactive].classList = 'active';
+
+  }else {
+
+    if(setactive > 1) {
+      document.getElementById('prev').classList = '';
+    }
+
+
+    if(setactive == total) {
+      document.getElementById('next').classList = 'disabled'
+    }
+
+
+    all_childrens[setactive].classList = 'active';
+    let param = `page=${setactive}`
+    send_paginate_request(param)
+  }
+
+}
+
+
+function prev($event) {
+  let all_childrens = event.target.parentElement.parentElement.children
+  let setactive = 0;
+  let prevactive = 0;
+
+  for(let i = 0; i < all_childrens.length; i++){
+        if(all_childrens[i].classList.contains('active')){
+          prevactive = i;
+          all_childrens[i].classList = '';
+          setactive = i-1;
+        }
+    }
+
+    
+  let total = all_childrens.length - 2;
+  
+  if(setactive < 1) {
+    console.log('SET ACTIVE IS LESSER THAN ONE')
+    all_childrens[prevactive].classList = 'active';
+
+  }else {
+
+    if(setactive < total) {
+      document.getElementById('next').classList = '';
+    }
+
+    if(setactive == 1) {
+      document.getElementById('prev').classList = 'disabled'
+    }
+
+
+    all_childrens[setactive].classList = 'active';
+    let param = `page=${setactive}`
+    send_paginate_request(param)
+  }
+
+}
+
+
+function send_paginate_request(param) {
+    $.ajax({
+        method: 'GET',
+        url: 'accueuil/api/paginate_appointments?' + param,
+        beforeSend: function() {
+            console.log('Before Send')
+        },
+
+        success: function(result) {
+          console.log('after send')
+            update_table_paginate(result);
+            
+        },
+
+        error: function() {
+            console.log('error')
+        }
+    })
+}
+
+function update_table_paginate(data) {
+    let row;
+    let all_rows = '';
+
+    Object.keys(data).forEach((key,index) => {
+        elem = data[key];
+        
+        row = `<tr><td> ${elem['nom']} </td> <td>${elem['prenom']}</td> <td>${elem['num_client']}</td> <td>${elem['telephone']}</td> <td>${elem['date_dappel']}</td> <td>${elem['heure_dappel']}</td> <td>${elem['article_dinteret']}</td> <td>${elem['how_connu']}</td> <td>${elem['date_redezvous']}</td> <td>${elem['heure_redezvous']}</td> <td> <div class="btn-group"> <a type="button" class="btn btn-info"  href="#accordion" onclick="get_appointment(${elem['id']})"> Ouvert </a> </td> </tr>`
+        all_rows = all_rows + row;
+    });
+
+    $("#appointmentTable tbody").html(all_rows)
+}
+
+// END OF PAGINATOR
+
+
+function sort_appointments(sort_type) {
+    document.getElementById('templatemo_search_box').value = '';
+    let param = `${sort_type}=${sort_type}`
+    send_request(param);
+}
+
+function find_appointment() {
+    let nom = document.getElementById('templatemo_search_box').value;
+    let param = `search_nom=${nom}`
+    send_request(param);
+}
+
+// function appointment_tocome() {
+//     document.getElementById('templatemo_search_box').value = '';
+//     let param = `date_tocome=True`
+//     send_request(param);
+// }
+
+// function appointment_pass() {
+//     document.getElementById('templatemo_search_box').value = '';
+//     let param = `date_pass=True`
+//     send_request(param)
+// }
+
+function send_request(param) {
+    $.ajax({
+        method: 'GET',
+        url: 'accueuil/api/get_appointments?' + param,
+        beforeSend: function() {
+            console.log('Before Send')
+        },
+
+        success: function(result) {
+            update_table(result);
+            console.log('after send')
+        },
+
+        error: function() {
+            console.log('error')
+        }
+    })
+}
+
+function update_table(data) {
+    console.log('Table Update')
+    let row;
+    let all_rows = '';
+
+    Object.keys(data).forEach((key,index) => {
+        elem = data[key];
+        console.log('data bellow')
+        console.log(data[index])
+        app = data[index];
+        row = `<tr><td> ${elem['nom']} </td> <td>${elem['prenom']}</td> <td>${elem['num_client']}</td> <td>${elem['telephone']}</td> <td>${elem['date_dappel']}</td> <td>${elem['heure_dappel']}</td> <td>${elem['article_dinteret']}</td> <td>${elem['how_connu']}</td> <td>${elem['date_redezvous']}</td> <td>${elem['heure_redezvous']}</td> <td> <div class="btn-group"> <a type="button" class="btn btn-info"  href="#accordion" onclick="get_appointment(${elem['id']})"> Ouvert </a> </td> </tr>`
+        all_rows = all_rows + row;
+    });
+    console.log(all_rows)
+    $("#appointmentTable tbody").html(all_rows)
+}
+   
+</script>
+<script type="text/javasctipt" src="{% static 'appointment.js' %}"></script>
+
 {% endblock %}
