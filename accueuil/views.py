@@ -58,7 +58,7 @@ def index(request):
 def rdv(request):
     if(request.user.poste == section):
         if(request.method == 'GET'):
-            all_appointments = Appointment.objects.all()
+            all_appointments = Appointment.objects.filter(status='APT')
             # Pass All Appoints To The table view and display them on the table
             #Add Filter Functionality
             # myFilter = AppointmentFilter(request.GET,queryset=all_appointments)
@@ -72,7 +72,7 @@ def rdv(request):
             date_tocome_count = len(date_tocome)
 
             # CODE FOR PAGINATOR BELLOW
-            appointment_objects = Appointment.objects.filter()
+            appointment_objects = Appointment.objects.filter(status='APT')
             paginator = Paginator(appointment_objects,10)
             page = request.GET.get('page',1)
 
@@ -137,7 +137,7 @@ def appointment(request):
 
         appointment = Appointment.objects.get(pk=client_id)
         print('############APPOINTMENT BELLOW#############3')
-        appointment.date_arivee = date_arrivee
+        appointment.date_arivee = date_arrivee 
         appointment.heure_arrivee = heure_arrivee
         appointment.nom = nom
         appointment.prenom = prenom
@@ -145,6 +145,7 @@ def appointment(request):
         appointment.article = article
         appointment.num_client = num_client
         appointment.how_connu = how_connu
+        appointment.status = 'PQ'
         appointment.save()
         return Response({}) 
         
