@@ -305,7 +305,7 @@ class Client(models.Model):
     )
 
     def __str__(self):
-        return self.nom or ''
+        return self.nom +' '+self.prenom
 
 class Article(models.Model):
     # dossier                  = models.ForeignKey(Dossier, on_delete=models.CASCADE)

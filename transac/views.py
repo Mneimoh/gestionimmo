@@ -9,6 +9,7 @@ from main.models import Client,Place,Emploi,Endettement,CompteEndettement,PretEn
 from django.core.mail import send_mail
 import uuid
 import random
+from fpdf import FPDF
 
 
 # Declaring Global Variables.
@@ -19,9 +20,10 @@ proprietaire      = False
 parents           = False
 charges           = False
 compte            = False
-nom_banque        = None,
-type_compte       = None,
+nom_banque        = None
+type_compte       = None
 article_interet   = None
+client_interet    = None
 clientData        = None
 currentDossier    = None
 clientForm        = ClientForms()
@@ -35,7 +37,8 @@ endettementForm   = EndettementForm()
 def index(request):
       if(request.user.poste == section):  
             articles = Article.objects.all()
-            return render(request, 'transac/tcompte.html', { 'title': 'Espace ouverture compte','clientForm':ClientForms,'article_interet':articles})
+            all_clients = Client.objects.filter(societe = request.user.societe)
+            return render(request, 'transac/tcompte.html', { 'title': 'Espace ouverture compte','clientForm':ClientForms,'article_interet':articles, 'clients': all_clients})
       else:
             return redirect(f"/login?next=/{section}/")
 
@@ -43,7 +46,7 @@ def index(request):
 def registerAccount(request,table=None,type=None):
 
       if(request.method == 'POST' and request.user.poste == section):
-            global globvar,clientForm,emploiForm,placeForm,endettementForm,proprietaire,parents,charges,compte,nom_banque,type_compte,clientData, article_interet
+            global globvar,clientForm,emploiForm,placeForm,endettementForm,proprietaire,parents,charges,compte,nom_banque,type_compte,clientData, article_interet,client_interet
             
             
             if globvar>=4:
@@ -56,7 +59,9 @@ def registerAccount(request,table=None,type=None):
                   clientForm = ClientForms(request.POST)
                   if type=="True":
                         article_interet = request.POST['article_interet']
-                  
+                  else:
+                        client_interet = request.POST['client_interet']  
+
             if (data_type == 'emploi'):
                   globvar = globvar + 1
                   emploiForm = EmploiForm(request.POST)
@@ -194,8 +199,13 @@ def registerAccount(request,table=None,type=None):
                                     endettement             = new_endettement,                        
                               )
                               new_cosigner.save() 
-                              clientData.cosigner = new_cosigner
-                              clientData.save()    
+
+                              nom = client_interet.split(' ')[0]
+                              prenom = client_interet.split(' ')[1:]
+                              prenom = ' '.join(prenom)
+                              client = Client.objects.filter(nom = nom, prenom = prenom)[0]
+                              client.cosigner = new_cosigner
+                              client.save()    
 
                               # Creating the Clients Dossier
                               article_interet = article_interet.split('-')[-1]
@@ -205,7 +215,7 @@ def registerAccount(request,table=None,type=None):
                                           new_dossier = Dossier(
                                                 societe                 = request.user.societe,             
                                                 User                    = request.user,             
-                                                client                  = clientData,
+                                                client                  = client,
                                                 article_interet         = article,
                                                 statut                  = 'A',          
                                                 coeff_recouv            = 0,   
@@ -227,7 +237,7 @@ def registerAccount(request,table=None,type=None):
                               nom_compte              = endettementForm.cleaned_data.get('nom_compte'),
                         )
 
-                        # new_compte_endettement.save()
+                        new_compte_endettement.save()
 
                         PretEndettement(
                               endettement             = new_endettement,
@@ -260,41 +270,46 @@ def sendMail(request):
             print(request.POST)
              
             send_mail(
-                  subject="Django Email Test",# subject
-                  message="Yo, hello from the real world, it just so happens that i am testing out django right now", # message
-                  from_email="karlsedoide@gmail.com",# from email
-                  recipient_list=['dzekarlson@gmail.com']# To mail
+                  "Django Email Test",
+                  "Yo, hello from the real world, it just so happens that i am testing out django right now", # message
+                  "karlsedoide@gmail.com",# from email
+                  ['dzekarlson@gmail.com'],# To mail
+                  fail_silently=False
             )
       else:
             pass
 
 
 
+@login_required
+def makePdf(request,name):
+      if(request.method == 'POST' and request.user.poste == section):
+            print('--------------------------')
+            print('whats  up here')
+            print('--------------------------')
+            pdf = FPDF('P', 'mm', 'Letter')
+            print(request.POST)
+            pdf.add_page()
+            pdf.set_font('helvetica','',16)
+            pdf.cell(40,11,request.POST['top_info'])
+            pdf.call(40,11,request.POST['bottom_info'])
+            pdf.output('pdf_1.pdf')
+            return HttpResponse(' ')
+
+
 
 @login_required
 def vente(request):
+      global currentDossier
+      dossier_uid = None
       if(request.user.poste == section):
-            print('---------------------------------')
-            print(clientData)
-            print('---------------------------------')
-
             if request.method == 'POST':
-                  print('-------------Post ----------------')
-                  print(clientData)
                   print(request.POST)
-                  print('---------------------------------')
-            else:
-                  pass
-
-            all_dossier = Dossier.objects.all()
-            all_articles = Article.objects.all()
-
-            for dossier in all_dossier:
-                  print(dossier)
-
-
-
-            return render(request, 'transac/tvente.html', { 'title': 'Espace vente','clientData':clientData,'article':all_articles,'dossier':currentDossier})
+                  dossier_uid = int(request.POST['dossier_id'])
+                  currentDossier = Dossier.objects.filter(uid=dossier_uid)[0]
+                  return render(request, 'transac/tvente.html', { 'title': 'Espace vente','client':clientData,'dossier':currentDossier})
+                  
+            return render(request, 'transac/tvente.html', { 'title': 'Espace vente','client':clientData,'dossier':currentDossier})
       else:
             return redirect(f"/login?next=/{section}/")
 

@@ -33,8 +33,8 @@ class UserCreationForm(forms.ModelForm):
 
     def save(self, commit=True):
         # Save the provided password in hashed format
-        user = super(UserCreationForm, self)
-        user.save(commit=False)
+        user = super(UserCreationForm, self).save(commit=False)
+       
 
         user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -125,8 +125,15 @@ class SetSocieteUserPermission(BaseUserAdmin):
     def get_queryset(self, request):
         User = get_user_model()
         print((request.user.societe and  request.user.email))
-        users = User.objects.filter(societe = request.user.societe, is_admin=False)    
-        return users  
+        users = User.objects.filter(societe = request.user.societe, is_admin=False)
+        unchecked = User.objects.filter(email = None, societe = None, is_admin=False )
+        # print('---------------unchecked users-------------------')
+        # print(users)
+        # print(unchecked)
+        combined_users = users.union(unchecked,)
+        print(combined_users)
+        # print('-------------------------------------------------')
+        return users
 
     def get_form(self, request, obj=None, **kwargs):
 

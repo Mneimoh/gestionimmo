@@ -5,7 +5,8 @@ from django.urls import path
 urlpatterns = [
     path('', views.index, name='transac'),
     path('vente', views.vente, name='vente'),
-    path('register/<table>/<type>/', views.registerAccount), 
+    path('register/<table>/<type>/', views.registerAccount),
+    path('generatepdf/<name>/',views.makePdf),
     # path('register/client', views.registerAccount),
     # path('register/place', views.registerAccount),
     # path('register/emploi',  views.registerAccount),
