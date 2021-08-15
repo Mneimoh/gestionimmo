@@ -354,7 +354,8 @@ class Dossier(models.Model):
 class Facture(models.Model):
     article             = models.ForeignKey(Article, on_delete=models.CASCADE)
     User_editeur        = models.ForeignKey(User, on_delete=models.CASCADE)
-    statut              = models.CharField(max_length=60)
+    statut              = models.CharField(max_length=60)   
+    somme               = models.FloatField()
     num_facture         = models.CharField(max_length=10)
     date                = models.DateTimeField(auto_now_add=True)
 

@@ -5,7 +5,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user,allowed_users
 from .forms import ClientForms,PlaceForm,EmploiForm,EndettementForm
-from main.models import Client,Place,Emploi,Endettement,CompteEndettement,PretEndettement, Dossier, Cosignataire,Article
+from main.models import Client, Facture,Place,Emploi,Endettement,CompteEndettement,PretEndettement, Dossier, Cosignataire,Article, Appointment
 from django.core.mail import send_mail
 import uuid
 import random
@@ -41,6 +41,19 @@ def index(request):
             return render(request, 'transac/tcompte.html', { 'title': 'Espace ouverture compte','clientForm':ClientForms,'article_interet':articles, 'clients': all_clients})
       else:
             return redirect(f"/login?next=/{section}/")
+
+
+@login_required
+def prequalifList(request):
+      if(request.user.poste == section):  
+            all_prequalifier = Appointment.objects.filter(status="PA")
+            print('----------- all prequalified ------------------')
+            print(all_prequalifier)
+            print('-----------------------------------------------')
+            return render(request, 'transac/tprequalifier.html', { 'title': 'Liste Prequalifier', "all_prequalifiers":all_prequalifier})
+      else:
+            return redirect(f"/login?next=/{section}/")
+
 
 @login_required
 def registerAccount(request,table=None,type=None):
@@ -200,11 +213,11 @@ def registerAccount(request,table=None,type=None):
                               )
                               new_cosigner.save() 
 
-                              nom = client_interet.split(' ')[0]
-                              prenom = client_interet.split(' ')[1:]
-                              prenom = ' '.join(prenom)
-                              client = Client.objects.filter(nom = nom, prenom = prenom)[0]
-                              client.cosigner = new_cosigner
+                              nom               = client_interet.split(' ')[0]
+                              prenom            = client_interet.split(' ')[1:]
+                              prenom            = ' '.join(prenom)
+                              client            = Client.objects.filter(nom = nom, prenom = prenom)[0]
+                              client.cosigner   = new_cosigner
                               client.save()    
 
                               # Creating the Clients Dossier
@@ -228,6 +241,16 @@ def registerAccount(request,table=None,type=None):
 
                                           new_dossier.save()
                                           currentDossier = new_dossier
+
+                              
+                                          # Creating the clients facture after applied
+                                          Facture(
+                                                article             = article,
+                                                User_editeur        = request.user,
+                                                statut              = "FD",
+                                                num_facture         = "",
+                                          )
+
 
                         new_compte_endettement = CompteEndettement(
                               endettement             = new_endettement,
@@ -308,7 +331,7 @@ def vente(request):
                   dossier_uid = int(request.POST['dossier_id'])
                   currentDossier = Dossier.objects.filter(uid=dossier_uid)[0]
                   return render(request, 'transac/tvente.html', { 'title': 'Espace vente','client':clientData,'dossier':currentDossier})
-                  
+
             return render(request, 'transac/tvente.html', { 'title': 'Espace vente','client':clientData,'dossier':currentDossier})
       else:
             return redirect(f"/login?next=/{section}/")
