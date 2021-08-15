@@ -30,15 +30,15 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
       <div class="navbar-collapse collapse templatemo-sidebar">
         <ul class="templatemo-sidebar-menu">          
           
-          <li class="active"><a href="{% url 'caisse' %}"><i class="fa fa-folder-open"></i>Ouverture et montage de dossier</a></li>
-          <li><a href="{% url 'cpaiements' %}"><i class="fa fa-money"></i>Paiements mensuels</a></li>
-          <li><a href="{% url 'cpenalites' %}"><i class="fa fa-clock-o"></i>Pénalités</a></li>
-          <li><a href="{% url 'crestructurations' %}"><i class="fa fa-cubes"></i>Restructure</a></li>
-          <li><a href="{% url 'cdelocalisations' %}"><i class="fa fa-paper-plane"></i>Délocalisations</a></li>
-          <li><a href="{% url 'cmutations' %}"><i class="fa fa-step-forward"></i>Mutations</a></li>
-          <li><a href="{% url 'cpml' %}"><i class="fa fa-map-marker"></i>Plan de masse</a></li>
-          <li><a href="{% url 'cdcpt' %}"><i class="fa fa-file-image-o"></i>Dossiers crédits prop. terriens</a></li>
-          <li><a href="{% url 'cdc' %}"><i class="fa fa-file-text-o"></i>Dossiers crédits</a></li>        
+          <li class="{% if request.resolver_match.url_name == 'caisse' %}active{% endif %}"><a href="{% url 'caisse' %}"><i class="fa fa-folder-open"></i>Ouverture et montage de dossier</a></li>
+          <li class="{% if request.resolver_match.url_name == 'cpaiements' %}active{% endif %}"><a href="{% url 'cpaiements' %}"><i class="fa fa-money"></i>Paiements mensuels</a></li>
+          <li class="{% if request.resolver_match.url_name == 'cpenalites' %}active{% endif %}"><a href="{% url 'cpenalites' %}"><i class="fa fa-clock-o"></i>Pénalités</a></li>
+          <li class="{% if request.resolver_match.url_name == 'crestructurations' %}active{% endif %}"><a href="{% url 'crestructurations' %}"><i class="fa fa-cubes"></i>Restructure</a></li>
+          <li class="{% if request.resolver_match.url_name == 'cdelocalisations' %}active{% endif %}"><a href="{% url 'cdelocalisations' %}"><i class="fa fa-paper-plane"></i>Délocalisations</a></li>
+          <li class="{% if request.resolver_match.url_name == 'cmutations' %}active{% endif %}"><a href="{% url 'cmutations' %}"><i class="fa fa-step-forward"></i>Mutations</a></li>
+          <li class="{% if request.resolver_match.url_name == 'cpml' %}active{% endif %}"><a href="{% url 'cpml' %}"><i class="fa fa-map-marker"></i>Plan de masse</a></li>
+          <li class="{% if request.resolver_match.url_name == 'cdcpt' %}active{% endif %}"><a href="{% url 'cdcpt' %}"><i class="fa fa-file-image-o"></i>Dossiers crédits prop. terriens</a></li>
+          <li class="{% if request.resolver_match.url_name == 'cdc' %}active{% endif %}"><a href="{% url 'cdc' %}"><i class="fa fa-file-text-o"></i>Dossiers crédits</a></li>        
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
         </ul>
       </div><!--/.navbar-collapse -->
