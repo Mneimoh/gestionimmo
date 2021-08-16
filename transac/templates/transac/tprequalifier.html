@@ -23,12 +23,12 @@
             <td>{{ obj.nom }}</td>
             <td>{{ obj.prenom }}</td>
             <td>{{ obj.telephone }}</td>
-            <td>hello world</td>
-            <td>hello world</td>
-            <td>hello world</td>
-            <td>hello world</td>
-            <td>hello world</td>
-            <td>hello world</td>
+            <td>{{ obj.date_dappel }}</td>
+            <td>{{ obj.heure_dappel }}</td>
+            <td>{{ obj.date_redezvous }}</td>
+            <td>{{ obj.heure_redezvous }}</td>
+            <td>{{ obj.article_dinteret }}</td>
+            <td>{{ obj.status}}</td>
             <td><a href="compte/{{obj.nom}}-{{obj.prenom}}" class="btn btn-link">Create Account</a></td>
             </tr>      
         {% endfor %}                                    

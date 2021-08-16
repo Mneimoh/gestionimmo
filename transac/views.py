@@ -42,7 +42,9 @@ def index(request,nom):
             # prenom  = ' '.join(prenom)
             print(fnom)
             print(prenom)
-            client = Appointment.objects.filter(nom=fnom,prenom=prenom)[0]
+            client = Appointment.objects.filter(nom=fnom)
+            if client:
+                  client = client[0]
             articles = Article.objects.all()
             all_clients = Client.objects.filter(societe = request.user.societe, cosigner = None)
             return render(request, 'transac/tcompte.html', { 'title': 'Espace ouverture compte','clientForm':ClientForms,'article_interet':articles, 'client': client, 'clients':all_clients})
@@ -215,52 +217,62 @@ def registerAccount(request,table=None,type=None):
                                     emploi                  = new_emploi,
                                     endettement             = new_endettement,                        
                               )
-                              new_cosigner.save() 
-
+                              new_cosigner.save()
+                              
                               nom               = client_interet.split(' ')[0]
                               prenom            = client_interet.split(' ')[1:]
                               prenom            = ' '.join(prenom)
                               client            = Client.objects.filter(nom = nom, prenom = prenom)[0]
                               client.cosigner   = new_cosigner
-                              client.save()  
-                              appointment_to_delete = Appointment.objects.filter(nom=clientForm.cleaned_data.get('nom'),prenom=clientForm.cleaned_data.get('prenom'))[0]
-                              print('------------- appointment to delete ------------')
-                              print(appointment_to_delete)
-                              print('------------------------------------------------')  
-                              appointment_to_delete.delete()
-                              print('*******  appointmnt deleted  ********')
-                              # Creating the Clients Dossier
-                              article_interet = article_interet.split('-')[-1]
-                              for article in Article.objects.all():
-                                    if article.nom == article_interet:
+                              client.save() 
 
-                                          # Creating the clients facture after applied
-                                          new_facture = Facture(
-                                                article             = article,
-                                                User_editeur        = request.user,
-                                                statut              = "FM",
-                                                num_facture         = "",
-                                                somme               = article.frais_montage
+                              print(nom)
+                              print(prenom)
+                              appointment_to_delete = Appointment.objects.filter(nom = nom)
+
+                              if appointment_to_delete:
+                                    appointment_to_delete = appointment_to_delete[0]
+
+                              print(appointment_to_delete)
+
+                              article_interet       = appointment_to_delete.article_dinteret           
+
+                              appointment_to_delete.delete()
+
+                              # Creating the Clients Dossier
+
+                              article_interet   = article_interet.split('-')[-1]
+                              article           = Article.objects.filter(nom = article_interet.split('-')[-1])                   
+
+                              if article:
+                                    article = article[0]
+                              if article:
+                                    # Creating the clients facture after applied
+                                    new_facture = Facture(
+                                          article             = article,
+                                          User_editeur        = request.user,
+                                          statut              = "FM",
+                                          num_facture         = "",
+                                          somme               = article.frais_montage
+                                    )
+
+                                    new_facture.save()
+
+                                    new_dossier = Dossier(
+                                          societe                 = request.user.societe,             
+                                          User                    = request.user,             
+                                          client                  = client,
+                                          article_interet         = article,
+                                          facture                 = new_facture,        
+                                          statut                  = 'A',
+                                          coeff_recouv            = 0,   
+                                          pin                     = 0,    
+                                          verifie                 = False, 
+                                          uid                     = int(random.random()*1000000000)
                                           )
 
-                                          Facture.save()
-
-                                          new_dossier = Dossier(
-                                                societe                 = request.user.societe,             
-                                                User                    = request.user,             
-                                                client                  = client,
-                                                article_interet         = article,
-                                                facture                 = new_facture,        
-                                                statut                  = 'A',
-                                                coeff_recouv            = 0,   
-                                                pin                     = 0,    
-                                                verifie                 = False, 
-                                                uid                     = int(random.random()*1000000000)
-                                                )
-                                          new_dossier.save()
-                                          currentDossier = new_dossier
-                     
-
+                                    new_dossier.save()
+                                    currentDossier = new_dossier
 
 
                         new_compte_endettement = CompteEndettement(
@@ -273,7 +285,7 @@ def registerAccount(request,table=None,type=None):
 
                         new_compte_endettement.save()
 
-                        PretEndettement(
+                        new_preendettement = PretEndettement(
                               endettement             = new_endettement,
                               nom_banque              = nom_banque,
                               type_pret               = endettementForm.cleaned_data.get('type_pret'),
@@ -290,6 +302,8 @@ def registerAccount(request,table=None,type=None):
                               date                    = endettementForm.cleaned_data.get('date'),
 
                         )
+
+                        # new_preendettement.save()
                   else:
                         errors = f'Info Perso Client <br />{clientForm.errors}<br />Info Address Client <br />{placeForm.errors}<br />Info Emploi <br /> {emploiForm.errors} <br /> Info Endettement <br /> {endettementForm.errors} <br /> '                   
                        

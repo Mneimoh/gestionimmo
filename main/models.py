@@ -2,6 +2,7 @@
 from uuid import UUID
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
+from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
 # Create your models here.
 
@@ -268,7 +269,7 @@ class Client(models.Model):
     email                    = models.EmailField(verbose_name="Email Address",max_length=60, null=True,blank=True)
     phone_1                  = models.CharField(max_length=15, null=True,blank=True)
     phone_2                  = models.CharField(max_length=15, null=True,blank=True)
-    nom                      = models.CharField(max_length=30, null=True,blank=True)
+    nom                      = models.CharField(max_length=30, null=True,blank=True,unique=True)
     prenom                   = models.CharField(max_length=30, null=True,blank=True)
     date_naissance           = models.DateField(null=True)
     ville_naissance          = models.CharField(max_length=20, null=True,blank=True)
@@ -341,9 +342,11 @@ class Facture(models.Model):
     somme               = models.FloatField(default=0)
     num_facture         = models.CharField(max_length=10,null=True,blank=True)
     date                = models.DateTimeField(auto_now_add=True)
+    penalty_status      = models.BooleanField(default=False)
+    penalty_somme       = models.FloatField(default=0)
 
     def __str__(self):
-        return self.num_facture
+        return f'{self.statut}-{self.article.nom}'
 
 
 

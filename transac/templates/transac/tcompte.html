@@ -140,7 +140,7 @@
                 class="form-control"
                 id="lastName"
                 name="prenom"
-                value={{client.prenom}}
+                value="{{client.prenom}}"
                 required
             
               />
@@ -2795,9 +2795,13 @@
                     let message = document.createElement('div')
                     // console.log('------------response arrived------------')
                     console.log(data)
-                    if(data != "success")
-                      message.innerHTML=data
+                    if(data != "success"){
+                       message.innerHTML=data
                       error_messages.appendChild(message)
+                    }                    
+                    else 
+                      window.location.reload(false);
+                    
                     
                   },
                   error: function(data, status) {
