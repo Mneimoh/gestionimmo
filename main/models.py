@@ -304,8 +304,10 @@ class Client(models.Model):
         primary_key=False,
     )
 
+
+
     def __str__(self):
-        return self.nom +' '+self.prenom
+        return f'{self.nom} {self.prenom}'
 
 class Article(models.Model):
     # dossier                  = models.ForeignKey(Dossier, on_delete=models.CASCADE)
@@ -332,13 +334,25 @@ class Article(models.Model):
     def __str__(self):
         return self.type_article+ '-' +self.nom
 
+class Facture(models.Model):
+    article             = models.ForeignKey(Article, on_delete=models.CASCADE,null=True,blank=True)
+    User_editeur        = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
+    statut              = models.CharField(max_length=60,null=True,blank=True)   
+    somme               = models.FloatField(default=0)
+    num_facture         = models.CharField(max_length=10,null=True,blank=True)
+    date                = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.num_facture
+
 
 
 class Dossier(models.Model):
-    societe             = models.ForeignKey(Societe, on_delete=models.CASCADE)
-    User                = models.ForeignKey(User, on_delete=models.CASCADE)
-    client              = models.ForeignKey(Client, on_delete=models.CASCADE)
-    article_interet     = models.ForeignKey(Article, on_delete=models.CASCADE)
+    societe             = models.ForeignKey(Societe, on_delete=models.CASCADE, null=True,blank=True)
+    User                = models.ForeignKey(User, on_delete=models.CASCADE, null=True,blank=True)
+    client              = models.ForeignKey(Client, on_delete=models.CASCADE, null=True,blank=True)
+    article_interet     = models.ForeignKey(Article, on_delete=models.CASCADE, null=True,blank=True)
+    facture             = models.ForeignKey(Facture, on_delete=models.CASCADE, null=True,blank=True)
     statut              = models.CharField(max_length=20,default="A")
     coeff_recouv        = models.FloatField(default=0)
     appele_recouvre     = models.BooleanField(default=False)
@@ -350,17 +364,6 @@ class Dossier(models.Model):
 
     def __str__(self):
         return str(self.uid)
-
-class Facture(models.Model):
-    article             = models.ForeignKey(Article, on_delete=models.CASCADE)
-    User_editeur        = models.ForeignKey(User, on_delete=models.CASCADE)
-    statut              = models.CharField(max_length=60)   
-    somme               = models.FloatField()
-    num_facture         = models.CharField(max_length=10)
-    date                = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.num_facture
 
 
 class Paiement(models.Model):

@@ -1,3 +1,4 @@
+from accueuil.views import appointment
 from django.db.models.expressions import F
 from django.forms.widgets import DateInput
 from django.http.response import HttpResponse
@@ -34,11 +35,17 @@ endettementForm   = EndettementForm()
 
 
 @login_required
-def index(request):
-      if(request.user.poste == section):  
+def index(request,nom):
+      if(request.user.poste == section): 
+            fnom   = nom.split('-')[0]
+            prenom  = nom.split('-')[1]
+            # prenom  = ' '.join(prenom)
+            print(fnom)
+            print(prenom)
+            client = Appointment.objects.filter(nom=fnom,prenom=prenom)[0]
             articles = Article.objects.all()
-            all_clients = Client.objects.filter(societe = request.user.societe)
-            return render(request, 'transac/tcompte.html', { 'title': 'Espace ouverture compte','clientForm':ClientForms,'article_interet':articles, 'clients': all_clients})
+            all_clients = Client.objects.filter(societe = request.user.societe, cosigner = None)
+            return render(request, 'transac/tcompte.html', { 'title': 'Espace ouverture compte','clientForm':ClientForms,'article_interet':articles, 'client': client, 'clients':all_clients})
       else:
             return redirect(f"/login?next=/{section}/")
 
@@ -46,10 +53,7 @@ def index(request):
 @login_required
 def prequalifList(request):
       if(request.user.poste == section):  
-            all_prequalifier = Appointment.objects.filter(status="PA")
-            print('----------- all prequalified ------------------')
-            print(all_prequalifier)
-            print('-----------------------------------------------')
+            all_prequalifier = Appointment.objects.filter(status="PQ")
             return render(request, 'transac/tprequalifier.html', { 'title': 'Liste Prequalifier', "all_prequalifiers":all_prequalifier})
       else:
             return redirect(f"/login?next=/{section}/")
@@ -218,38 +222,45 @@ def registerAccount(request,table=None,type=None):
                               prenom            = ' '.join(prenom)
                               client            = Client.objects.filter(nom = nom, prenom = prenom)[0]
                               client.cosigner   = new_cosigner
-                              client.save()    
-
+                              client.save()  
+                              appointment_to_delete = Appointment.objects.filter(nom=clientForm.cleaned_data.get('nom'),prenom=clientForm.cleaned_data.get('prenom'))[0]
+                              print('------------- appointment to delete ------------')
+                              print(appointment_to_delete)
+                              print('------------------------------------------------')  
+                              appointment_to_delete.delete()
+                              print('*******  appointmnt deleted  ********')
                               # Creating the Clients Dossier
                               article_interet = article_interet.split('-')[-1]
                               for article in Article.objects.all():
                                     if article.nom == article_interet:
+
+                                          # Creating the clients facture after applied
+                                          new_facture = Facture(
+                                                article             = article,
+                                                User_editeur        = request.user,
+                                                statut              = "FM",
+                                                num_facture         = "",
+                                                somme               = article.frais_montage
+                                          )
+
+                                          Facture.save()
 
                                           new_dossier = Dossier(
                                                 societe                 = request.user.societe,             
                                                 User                    = request.user,             
                                                 client                  = client,
                                                 article_interet         = article,
-                                                statut                  = 'A',          
+                                                facture                 = new_facture,        
+                                                statut                  = 'A',
                                                 coeff_recouv            = 0,   
-                                                # appele_recouvre         = '',  
                                                 pin                     = 0,    
-                                                # dernier_appel           = '',  
                                                 verifie                 = False, 
                                                 uid                     = int(random.random()*1000000000)
                                                 )
-
                                           new_dossier.save()
                                           currentDossier = new_dossier
+                     
 
-                              
-                                          # Creating the clients facture after applied
-                                          Facture(
-                                                article             = article,
-                                                User_editeur        = request.user,
-                                                statut              = "FD",
-                                                num_facture         = "",
-                                          )
 
 
                         new_compte_endettement = CompteEndettement(

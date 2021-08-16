@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from rest_framework.utils.serializer_helpers import JSONBoundField
 from .decorators import unauthenticated_user, allowed_users
-from main.models import Appointment
+from main.models import Appointment,Article
 from .forms import AppointmentForms
 from .filters import AppointmentFilter
 from datetime import date
@@ -29,6 +29,8 @@ section = "accueuil"
 @login_required
 def index(request):
     if(request.user.poste == section):
+        articles = Article.objects.all()
+
         if(request.method == 'POST'):
             print('##########REQUEST BELLOW#############')
             print(request.POST)
@@ -42,14 +44,14 @@ def index(request):
                 # If appointment is valid then we want to save it to the database 
                 print('APPOINTMENT IS VALID')
                 appointment.save()
-                return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels', 'new_appointment': True})
+                return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels', 'new_appointment': True,'article_interet':articles})
             else:
                 print('###############Erros Bellow#################')
                 print(appointment.errors)
-                return render(request,'accueuil/appel.html', {'title': '', 'is_valid': False, })
+                return render(request,'accueuil/appel.html', {'title': '', 'is_valid': False, 'article_interet':articles })
 
         else:
-            return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels','new_appointment': False})
+            return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels','new_appointment': False, 'article_interet':articles})
         
     else:
         return redirect(f"/login?next=/{section}/")

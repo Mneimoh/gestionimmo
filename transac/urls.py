@@ -4,7 +4,7 @@ from django.urls import path
 
 urlpatterns = [
     path('', views.prequalifList , name='transac'),
-    path('register',views.index, name="transact list"),
+    path('compte/<nom>',views.index, name="transact list"),
     path('vente', views.vente, name='vente'),
     path('register/<table>/<type>/', views.registerAccount),
     path('generatepdf/<name>/',views.makePdf),
