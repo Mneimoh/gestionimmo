@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from rest_framework.utils.serializer_helpers import JSONBoundField
 from .decorators import unauthenticated_user, allowed_users
-from main.models import Appointment
+from main.models import Appointment, Article
 from .forms import AppointmentForms
 from .filters import AppointmentFilter
 from datetime import date
@@ -49,7 +49,9 @@ def index(request):
                 return render(request,'accueuil/appel.html', {'title': '', 'is_valid': False, })
 
         else:
-            return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels','new_appointment': False})
+            articles = Article.objects.all()
+
+            return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels','new_appointment': False, 'article_interet':articles})
         
     else:
         return redirect(f"/login?next=/{section}/")
@@ -85,7 +87,9 @@ def rdv(request):
             
             page_list = appointments.paginator.page_range
 
-            return render(request,'accueuil/rdv.html', { 'title': 'Enregistrement des rendez-vous', 'page_list': page_list, 'page': page, 'appointments': appointments, 'date_tocome': date_tocome_count, 'date_pass': date_pass_count})
+            articles = Article.objects.all()
+
+            return render(request,'accueuil/rdv.html', { 'title': 'Enregistrement des rendez-vous', 'page_list': page_list, 'page': page, 'appointments': appointments, 'date_tocome': date_tocome_count, 'date_pass': date_pass_count, 'article_interet':articles})
 
         else:
             #POST REQUEST
