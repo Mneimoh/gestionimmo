@@ -170,7 +170,7 @@
               </button>
               </div>
             </td>
-            <td><a href="#" class="btn btn-link">Consulter</a></td>
+            <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" class="btn btn-link">Consulter</a></td>
           </tr>
           {% endfor  %}
         </tbody>
@@ -188,6 +188,40 @@
   </ul>
 </div>
 {% endblock %} {% block modal %}
+
+<div
+  class="modal fade"
+  id="showFacture"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Fermer</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel" style="text-align: center;">
+         DISPLAY USERS FACTURE HERE
+        </h4>
+        <hr>
+      <div id="display-facture">
+        
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div
   class="modal fade"
   id="modifDelocal"
@@ -557,7 +591,108 @@
       });
       $("#delocalisationTable tbody").html(all_rows)
   }
+
+
   
+  // SCRIPT CODE BELLOW FOR 3 BUTTONS
+
+
+  // #####CODE FOR FACTURE############
+  // THE ID PASSED HERE IS THE DOSSIER ID
+  function get_facture(id) {
+    // This is the function that will make the api call and get facture
+    let param = "id="+id
+    let result = null;
+    
+    $.ajax({
+          method: 'GET',
+          url: 'facture/api/get_facture?' + param,
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+  
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            udpate_facture_modal(result.facture)
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+
+  }
+  function show_facture(id) {
+    // CALL GET FACTURE FUNCTION TO GO AND GET FCTURE
+   get_facture(id)
+  }
+
+  function udpate_facture_modal(facture) {
+    console.log('UPDATE FACTURE MODAL')
+    let data = `
+    <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Article Name: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.article.nom}</span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Somme: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.somme}</span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">STATUT: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.statut}</span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">DATE: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.date}</span>
+        </div>
+    `
+
+    document.getElementById('display-facture').innerHTML = data;
+  }
+
+  // #########END OF FACTURE SHOWING CODE#########
+
+  // PAY FACTURE CODE BELLOW
+  let id_to_pay = null;
+
+
+  function pay_facture() {
+    //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
+    console.log('pay facture')
+    console.log(id_to_pay)
+    // let param = "id=" + id_to_pay & "status="+"A"
+    var form = document.getElementById('form');
+
+    csrftoken = form.getElementsByTagName('input')[0].value;
+
+    $.ajax({
+          method: 'POST',
+          url: 'caisse/api/pay_facture',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: id_to_pay},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('facture paid')
+            window.location.reload()
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+  }
+
+  function set_id_to_pay(id) {
+    id_to_pay = id;
+  }
+
   </script>
 
 {% endblock %}

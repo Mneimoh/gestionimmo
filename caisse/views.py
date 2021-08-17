@@ -101,7 +101,8 @@ def cpenalites(request):
 def crestructurations(request):
     if(request.user.poste == section):
         all_info = Dossier.objects.all()
-        
+        # print('BELLOW DOSSIER INFO')
+        # print(all_info)
         # CODE FOR PAGINATOR BELLOW
         dossier_objects = Dossier.objects.filter()
         paginator = Paginator(dossier_objects,1)

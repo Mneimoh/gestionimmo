@@ -125,7 +125,7 @@
             <th>Appelé & récouvré</th>
             <th>Dernier appel</th>
             <!-- <th>hr</th> -->
-            <th>Modifier</th>
+            <!-- <th>Modifier</th> -->
             <th>Muter</th>
             <th>Consulter</th>
           </tr>
@@ -143,19 +143,7 @@
             <td>{{ dossier.coeff_recouv }}</td>
             <td>{{ dossier.appele_recouvre }}</td>
             <td>{{ dossier.dernier_appel }}</td>
-            <td>
-              <!-- Split button -->
-              <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-default"
-                data-toggle="modal"
-                data-target="#modifMutation"
-              >
-                Modifier
-              </button>
-              </div>
-            </td>
+          
             <td>
               <!-- Split button -->
               <div class="btn-group">
@@ -164,12 +152,13 @@
                 class="btn btn-info"
                 data-toggle="modal"
                 data-target="#confirmMutation"
+                onclick="set_id_to_pay('{{ dossier.id }}')"
               >
                 Muter
               </button>
               </div>
             </td>
-            <td><a href="#" class="btn btn-link">Consulter</a></td>
+            <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" class="btn btn-link">Consulter</a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -190,6 +179,38 @@
 
 <div
   class="modal fade"
+  id="showFacture"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Fermer</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel" style="text-align: center;">
+         DISPLAY USERS FACTURE HERE
+        </h4>
+        <hr>
+      <div id="display-facture">
+        
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
   id="modifMutation"
   tabindex="-1"
   role="dialog"
@@ -203,15 +224,10 @@
           <span aria-hidden="true">&times;</span
           ><span class="sr-only">Fermer</span>
         </button>
-        <select>
-          <option>type de mutation 1</option>
-          <option>type de mutation 2</option>
-          <option selected>type de mutation 3</option>
-          <option>type de mutation 4</option>
-        </select>
+ 
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-primary">Ouvrir</a>
+        <a onclick="pay_mute_facture()" class="btn btn-primary">Confirmer</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">
           Fermer
         </button>
@@ -500,7 +516,7 @@
      
           elem = data[key];
           row = ''
-          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> 15/03/2014 </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td><td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifMutation"> Modifier </button> </div> </td> <td> <div class="btn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmMutation">Muter </button> </div> </td><td><a href="#" class="btn btn-link">Consulter</a></td>`
+          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> 15/03/2014 </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmMutation">Muter </button> </div> </td><td><a href="#" class="btn btn-link">Consulter</a></td>`
           all_rows = all_rows + row;
       });
   
@@ -552,10 +568,50 @@
           console.log('data bellow')
           console.log(data[index])
           app = data[index];
-          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> 15/03/2014 </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td><td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifMutation"> Modifier </button> </div> </td> <td> <div class="btn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmMutation">Muter </button> </div> </td><td><a href="#" class="btn btn-link">Consulter</a></td>`
+          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> 15/03/2014 </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmMutation">Muter </button> </div> </td><td><a href="#" class="btn btn-link">Consulter</a></td>`
           all_rows = all_rows + row;
       });
       $("#mutationsTable tbody").html(all_rows)
+  }
+
+  
+  // #########END OF FACTURE SHOWING CODE#########
+
+  // PAY FACTURE CODE BELLOW
+  let id_to_pay = null;
+
+  // CHANGE CODE TO PAY FACTURE FOR MUTE
+  function pay_mute_facture() {
+    //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
+    console.log('pay facture')
+    console.log(id_to_pay)
+    // let param = "id=" + id_to_pay & "status="+"A"
+    var form = document.getElementById('form');
+
+    csrftoken = form.getElementsByTagName('input')[0].value;
+
+    $.ajax({
+          method: 'POST',
+          url: 'caisse/api/pay_facture',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: id_to_pay, status: 'A'},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('facture paid')
+            window.location.reload()
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+  }
+
+  function set_id_to_pay(id) {
+    id_to_pay = id;
   }
   
   </script>

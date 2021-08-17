@@ -324,7 +324,7 @@ class Article(models.Model):
     accompte                 = models.FloatField(blank=True, null=True)
     statut                   = models.CharField(max_length=20,null=True)
     frais_dossier            = models.FloatField(blank=True, null=True)
-    frais_montage            = models.FloatField(blank=True, null=True)
+    frais_montage            = models.FloatField(default=15000)
     frais_immat              = models.FloatField(blank=True, null=True)
     autres_tax               = models.FloatField(blank=True, null=True)
     frais_livraison          = models.FloatField(blank=True, null=True)
@@ -335,6 +335,7 @@ class Article(models.Model):
     def __str__(self):
         return self.type_article+ '-' +self.nom
 
+        
 class Facture(models.Model):
     article             = models.ForeignKey(Article, on_delete=models.CASCADE,null=True,blank=True)
     User_editeur        = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
@@ -350,24 +351,6 @@ class Facture(models.Model):
         return f'{self.statut}-{self.article.nom}'
 
 
-
-class Dossier(models.Model):
-    societe             = models.ForeignKey(Societe, on_delete=models.CASCADE, null=True,blank=True)
-    User                = models.ForeignKey(User, on_delete=models.CASCADE, null=True,blank=True)
-    client              = models.ForeignKey(Client, on_delete=models.CASCADE, null=True,blank=True)
-    article_interet     = models.ForeignKey(Article, on_delete=models.CASCADE, null=True,blank=True)
-    facture             = models.ForeignKey(Facture, on_delete=models.CASCADE, null=True,blank=True)
-    statut              = models.CharField(max_length=20,default="A")
-    coeff_recouv        = models.FloatField(default=0)
-    appele_recouvre     = models.BooleanField(default=False)
-    pin                 = models.IntegerField(default=0)
-    dernier_appel       = models.DateTimeField(auto_now_add=True,null=True)
-    verifie             = models.BooleanField(default=False)
-    uid                 = models.IntegerField(null=True,unique = True)
-    date_dernier_paiement    = models.DateField(blank=True, null=True)
-
-    def __str__(self):
-        return str(self.uid)
 
 
 class Paiement(models.Model):
@@ -426,68 +409,92 @@ class Penalite(models.Model):
 
 
 class Credit(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    emetteur = models.ForeignKey(User, on_delete=models.CASCADE)
-    montant = models.FloatField()
-    taux = models.FloatField()
-    apport = models.FloatField()
-    date_emission = models.DateField()
-    date_fin = models.DateField()
-    frais_dossier = models.FloatField()
-    autre_frais = models.FloatField()
-    subvention = models.FloatField()
-    accompte = models.FloatField()
-    date_signature = models.DateField()
-    somme_payee = models.FloatField()
-    pre_qual = models.BooleanField(default=False)
-    struct_pret = models.BooleanField(default=False)
-    application_credit = models.BooleanField(default=False)
-    autorisation_etude = models.BooleanField(default=False)
-    notification_cosign = models.BooleanField(default=False)
-    ref_acheteur = models.BooleanField(default=False)
-    verif_pro = models.BooleanField(default=False)
-    aut_paiement_source = models.BooleanField(default=False)
-    aut_prel_bk = models.BooleanField(default=False)
-    aut_prel_cb = models.BooleanField(default=False)
-    lettre_eng = models.BooleanField(default=False)
-    plan_dom = models.BooleanField(default=False)
-    certif_res = models.BooleanField(default=False)
-    phot_fact = models.BooleanField(default=False)
-    att_heberg = models.BooleanField(default=False)
-    photo_id = models.BooleanField(default=False)
-    photoc_piece_id = models.BooleanField(default=False)
-    fdp = models.BooleanField(default=False)
-    photoc_crt_pro = models.BooleanField(default=False)
-    reg_comm = models.BooleanField(default=False)
-    rdb = models.BooleanField(default=False)
-    attest_rev = models.BooleanField(default=False)
-    carte_ret = models.BooleanField(default=False)
-    facture = models.BooleanField(default=False)
-    protect_vie = models.BooleanField(default=False)
-    protect_empl = models.BooleanField(default=False)
-    protoc_accord = models.BooleanField(default=False)
-    cond_resp_financ = models.BooleanField(default=False)
-    date = models.DateTimeField(auto_now_add=True)
+    article              = models.ForeignKey(Article, on_delete=models.CASCADE,default=None)
+    societe              = models.ForeignKey(Societe, on_delete=models.CASCADE,default=None)
+    montant              = models.FloatField(default=0)
+    taux                 = models.FloatField(default=0)
+    apport               = models.FloatField(default=0)
+    date_emission        = models.DateField(default=0)
+    date_fin             = models.DateField(default=0)   
+    frais_dossier        = models.FloatField(default=0)
+    autre_frais          = models.FloatField(default=0)
+    subvention           = models.FloatField(default=0)
+    accompte             = models.FloatField(default=0)
+    date_signature       = models.DateField(default=0)
+    somme_payee          = models.FloatField(default=0)
+    pre_qual             = models.BooleanField(default=False)
+    struct_pret          = models.BooleanField(default=False)
+    application_credit   = models.BooleanField(default=False)
+    autorisation_etude   = models.BooleanField(default=False)
+    notification_cosign  = models.BooleanField(default=False)
+    ref_acheteur         = models.BooleanField(default=False)
+    verif_pro            = models.BooleanField(default=False)
+    aut_paiement_source  = models.BooleanField(default=False)
+    aut_prel_bk          = models.BooleanField(default=False)
+    aut_prel_cb          = models.BooleanField(default=False)
+    lettre_eng           = models.BooleanField(default=False)
+    plan_dom             = models.BooleanField(default=False)
+    certif_res           = models.BooleanField(default=False)
+    phot_fact            = models.BooleanField(default=False)
+    att_heberg           = models.BooleanField(default=False)
+    photo_id             = models.BooleanField(default=False)
+    photoc_piece_id      = models.BooleanField(default=False)
+    fdp                  = models.BooleanField(default=False)
+    photoc_crt_pro       = models.BooleanField(default=False)
+    reg_comm             = models.BooleanField(default=False)
+    rdb                  = models.BooleanField(default=False)
+    attest_rev           = models.BooleanField(default=False)
+    carte_ret            = models.BooleanField(default=False)
+    facture              = models.BooleanField(default=False)
+    protect_vie          = models.BooleanField(default=False)
+    protect_empl         = models.BooleanField(default=False)
+    protoc_accord        = models.BooleanField(default=False)
+    cond_resp_financ     = models.BooleanField(default=False)
+    date                 = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.article
 
 
+
+class Dossier(models.Model):
+    societe             = models.ForeignKey(Societe, on_delete=models.CASCADE, null=True,blank=True)
+    User                = models.ForeignKey(User, on_delete=models.CASCADE, null=True,blank=True)
+    client              = models.ForeignKey(Client, on_delete=models.CASCADE, null=True,blank=True)
+    article_interet     = models.ForeignKey(Article, on_delete=models.CASCADE, null=True,blank=True)
+    facture             = models.ForeignKey(Facture, on_delete=models.CASCADE, null=True,blank=True)
+    credit              = models.ForeignKey(Credit, on_delete= models.CASCADE, null = True, blank= True)
+    statut              = models.CharField(max_length=20,default="A")
+    coeff_recouv        = models.FloatField(default=0)
+    appele_recouvre     = models.BooleanField(default=False)
+    pin                 = models.IntegerField(default=0)
+    dernier_appel       = models.DateTimeField(auto_now_add=True,null=True)
+    verifie             = models.BooleanField(default=False)
+    uid                 = models.IntegerField(null=True,unique = True)
+    date_dernier_paiement    = models.DateField(blank=True, null=True)
+
+
+    def __str__(self):
+        return str(self.uid)
+
+
+
+
 class Assurance(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    emetteur = models.ForeignKey(User, on_delete=models.CASCADE)
-    statut = models.CharField(max_length=60)
-    nom = models.CharField(max_length=60)
-    adresse = models.CharField(max_length=60)
-    ville = models.CharField(max_length=60)
-    cp = models.CharField(max_length=60)
-    pays = models.CharField(max_length=60)
-    phone = models.CharField(max_length=60)
-    num_police = models.CharField(max_length=60)
-    somme = models.FloatField()
-    date_emission = models.DateField()
-    date_fin = models.DateField()
-    date = models.DateTimeField(auto_now_add=True)
+    article             = models.ForeignKey(Article, on_delete=models.CASCADE)
+    emetteur            = models.ForeignKey(User, on_delete=models.CASCADE)
+    statut              = models.CharField(max_length=60)
+    nom                 = models.CharField(max_length=60)
+    adresse             = models.CharField(max_length=60)
+    ville               = models.CharField(max_length=60)
+    cp                  = models.CharField(max_length=60)
+    pays                = models.CharField(max_length=60)
+    phone               = models.CharField(max_length=60)
+    num_police          = models.CharField(max_length=60)
+    somme               = models.FloatField()
+    date_emission       = models.DateField()
+    date_fin            = models.DateField()
+    date                = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nom

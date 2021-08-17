@@ -138,6 +138,7 @@
                         class="btn btn-info"
                         data-toggle="modal"
                         data-target="#confirmRestruct"
+                        onclick="set_id_to_pay('{{ dossier.id }}')"
                       >
                         Restructurer
                       </button>
@@ -241,7 +242,7 @@
       </div>
       <div class="modal-footer">
         <a href="#" class="btn btn-primary">Restructurer</a>
-        <button type="button" class="btn btn-default" data-dismiss="modal">
+        <button onclick="restructurer()" type="button" class="btn btn-default" data-dismiss="modal">
           Annuler
         </button>
       </div>
@@ -655,6 +656,12 @@
 
   function set_id_to_pay(id) {
     id_to_pay = id;
+  }
+
+
+  function restructurer() {
+    console.log('MAKE REQUEST TO RESTRUCTURE')
+    console.log(id_to_pay)
   }
   </script>
 

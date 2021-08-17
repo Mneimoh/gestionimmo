@@ -1,6 +1,6 @@
 from django.db import models
 from django.http import request
-from main.models import Article, Client, CompteEndettement, Dossier, Emploi, Endettement, PretEndettement, Cosignataire, Facture, Paiement,Appointment
+from main.models import Article, Client, CompteEndettement, Dossier, Emploi, Endettement, PretEndettement, Cosignataire, Facture, Paiement,Appointment, Credit
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
@@ -317,11 +317,22 @@ class AppointmentAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
         return False
 
+class CreditAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return False
+    def has_view_permission(self, request: HttpRequest, obj=None) -> bool:
+        return True
+    def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+    def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+
 # societe_site.register(User,Administrator)
 societe_site.register(User, SetSocieteUserPermission)
 societe_site.register(Client,ClientAdmin)
 societe_site.register(Cosignataire,CosignataireAdmin)
 societe_site.register(Dossier,DossierAdmin)
+societe_site.register(Credit, CreditAdmin)
 societe_site.register(Article, ArticleAdmin)
 societe_site.register(Societe,SetSocietePermission)
 societe_site.register(Place,PlaceAdmin)

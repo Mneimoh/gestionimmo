@@ -6,7 +6,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user,allowed_users
 from .forms import ClientForms,PlaceForm,EmploiForm,EndettementForm
-from main.models import Client, Facture,Place,Emploi,Endettement,CompteEndettement,PretEndettement, Dossier, Cosignataire,Article, Appointment
+from main.models import Client, Facture,Place,Emploi,Endettement,CompteEndettement,PretEndettement, Dossier, Cosignataire,Article, Appointment, Credit, Societe     
 from django.core.mail import send_mail
 import uuid
 import random
@@ -20,6 +20,13 @@ from transac.serializers import DossierSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+# Import for the pdf creator
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch,cm
+from reportlab.lib.pagesizes import letter
+from textwrap import wrap
 
 # Declaring Global Variables.
 section           = 'transac'
@@ -251,30 +258,39 @@ def registerAccount(request,table=None,type=None):
 
                               # Creating the Clients Dossier
 
-                              article_interet   = article_interet.split('-')[-1]
-                              article           = Article.objects.filter(nom = article_interet.split('-')[-1])                   
+                              article_interet          = article_interet.split('-')[-1]
+                              article                  = Article.objects.filter(nom = article_interet.split('-')[-1])                   
 
                               if article:
                                     article = article[0]
                               if article:
+
+                                    # Creating Client forms
+                                    new_client = Client(
+                                         article              = article,
+                                         societe              = request.user,             
+                                    )
+
+                                    new_client.save()
+
                                     # Creating the clients facture after applied
                                     new_facture = Facture(
                                           article             = article,
                                           User_editeur        = request.user,
-                                          statut              = "FM",
+                                          statut              = "OM",
                                           num_facture         = "",
                                           somme               = article.frais_montage
                                     )
-
                                     new_facture.save()
+
 
                                     new_dossier = Dossier(
                                           societe                 = request.user.societe,             
                                           User                    = request.user,             
-                                          client                  = client,
+                                          client                  = new_client,
                                           article_interet         = article,
                                           facture                 = new_facture,        
-                                          statut                  = 'A',
+                                          statut                  = 'OM',
                                           coeff_recouv            = 0,   
                                           pin                     = 0,    
                                           verifie                 = False, 
@@ -321,6 +337,22 @@ def registerAccount(request,table=None,type=None):
 
             return HttpResponse('')
 
+@login_required
+def save_credit(request,dossier):
+      print('**************  dossier *************')
+      print(dossier)
+      matching_dossier = Dossier.objects.filter(uid=int(dossier))
+      print(matching_dossier)
+      if matching_dossier:
+            client_dossier = matching_dossier[0]
+            client_dossier.client.montant       = request.POST['']
+      print('--------------save credit------------------')
+      print(request.POST)
+      print(matching_dossier)
+      print('-------------------------------------------')
+      # return HttpResponse('hello')
+
+
 
 @login_required
 def sendMail(request):
@@ -341,18 +373,62 @@ def sendMail(request):
 
 @login_required
 def makePdf(request,name):
-      if(request.method == 'POST' and request.user.poste == section):
+      if(request.user.poste == section):
             print('--------------------------')
             print('whats  up here')
+            print(name)
             print('--------------------------')
-            pdf = FPDF('P', 'mm', 'Letter')
-            print(request.POST)
-            pdf.add_page()
-            pdf.set_font('helvetica','',16)
-            pdf.cell(40,11,request.POST['top_info'])
-            pdf.call(40,11,request.POST['bottom_info'])
-            pdf.output('pdf_1.pdf')
-            return HttpResponse(' ')
+            buf = io.BytesIO()
+
+            # create canvas
+            c = canvas.Canvas(buf,pagesize=letter,bottomup=0)
+            c.translate(cm,cm)
+            #create a text object
+            textob = c.beginText()
+            textob.setTextOrigin(inch,inch)
+            textob.setFont("Helvetica",14)
+
+            # Add some lines of text
+            if name=='authorisation':
+                  text = '''
+                  <img src="" height="500", width="300" />
+                  Je soussigné ___________________ avoir appliqué pour un crédit à la consommation et autorise WEND PUIRE DISTRIBUTION et ses partenaires à faire des recherches concernant mon passé, mon emploi et d'autres informations qu'ils jugeront nécessaires., et tout cela dans le but de mieux évaluer les risques qu'ils pourraient encourir en octroyant un crédit. Je reconnais aussi que tout autre institution financière à laquel ils pourraient faire recours utilisera le même processus. J'accepte aussi d'être transféré de terrain, de site, de région, de banque ou di'institution financière, sans dédommagement si pour des raisons personnelles, WEND  PUIRE DISTRIBUTION en jugeait l'utilité.
+                  L'institution financière sous citée pourrait être celle qui est responsable du futur contrat de financement concernant ma cession si WEND PUIRE DISTRIBUTION leur transmettait mon dossier, et je m'engage par la présente à me conformer aux normes, conditions et termes de cette nouvelle institution. Je suis par là notifié que mon application pour crédit consommateur pourrait leur être soumise.\n Institution financière : ___________________ Toutes
+                  '''
+            elif name == "recapitulatif":
+                  pass
+            elif name == "facture":
+                  pass
+            elif name == "engagement":
+                  pass
+            elif name == "ppe_imp":
+                  pass
+            elif name == "ppr_imp":
+                  pass
+            elif name == "pvi_imp":
+                  pass
+            elif name == "ct_imp":
+                  pass
+            else:
+                  pass
+
+            wraped_text = "\n".join(wrap(text, 70)) # 80 is line width
+            textob.textLines(wraped_text)
+
+            c.drawText(textob)
+            c.showPage()
+            c.save()
+            buf.seek(0)
+
+            return FileResponse(buf, as_attachment=True, filename=f"{name}.pdf")
+            # pdf = FPDF('P', 'mm', 'Letter')
+            # print(request.POST)
+            # pdf.add_page()
+            # pdf.set_font('helvetica','',16)
+            # pdf.cell(40,11,request.POST['top_info'])
+            # pdf.call(40,11,request.POST['bottom_info'])
+            # pdf.output('pdf_1.pdf')
+            # return HttpResponse(' ')
 
 
 
@@ -1085,7 +1161,7 @@ def pay_facture(request):
     # dossier
 
     # GENERATE FACTURE 
-    
+
     dossier.statut = status
     dossier.save()
 
