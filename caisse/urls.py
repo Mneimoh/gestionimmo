@@ -6,6 +6,7 @@ urlpatterns = [
     path('caisse/api/paginate_caisse', views.paginate_caisse),
     path('caisse/api/get_caisse/', views.get_caisse),
     path('caisse/api/pay_facture',views.pay_facture_om),
+    path('caisse/api/genarate_facture', views.genarate_facture),
     path('paiements', views.cpaiement, name='cpaiements'),
     path('paiements/api/get_paiements', views.get_paiement),
     path('paiements/api/paginate_paiements', views.paginate_paiement),

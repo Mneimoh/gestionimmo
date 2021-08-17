@@ -96,6 +96,7 @@
         <ul class="dropdown-menu" role="menu">
           <li id="regular" style="padding: 5px 10px;cursor: pointer;">Regular Client</li>
           <li id="irregular" style="padding: 5px 10px;cursor: pointer;">Co-Signatir Client</li>
+          <li id="terrain" style="padding: 5px 10px;cursor: pointer;">Terrain Client</li>
         </ul>
       </div>
     <div class="panel-group" id="accordion">  
@@ -2774,12 +2775,15 @@
               contentType: false,
               success: function(data,status) {
                 let message = document.createElement('div')
-                location.reload();
                 console.log(data)
-                if(data != "success")
+                if(data != "success"){
+                  location.reload();
+                }
+                else{
                   message.innerHTML=data
                   error_messages.appendChild(message)
-                
+                }
+                  
               },
               error: function(data, status) {
               },

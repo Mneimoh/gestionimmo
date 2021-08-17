@@ -10,6 +10,7 @@ from .decorators import unauthenticated_user, allowed_users
 from main.models import Dossier, Facture
 # IMPORTS FOR SEARCH
 from django.db.models import  Q
+from datetime import date
 
 # NEW IMPORTS FOR PAGINATION
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -917,5 +918,56 @@ def pay_facture_om(request):
     dossier.save()
     facture.save()
 
-
+ 
     return Response({}) 
+
+
+@login_required
+@api_view(['POST'])
+def genarate_facture(request):
+    print('WRITE CODE TO GENARATE FACTURE')
+    # DOSSIER ID
+    dos_id = request.POST.get('id', None)
+    # GET STATUS
+    status = request.POST.get('status', None)
+    # GET DOSSIER
+    dossier = Dossier.objects.get(pk=dos_id)
+    # INSIDE DOSSIER CREDIT FOREIGN KEY
+    credit = dossier.credit
+
+    # DATA FOR FACTURE
+    article = dossier.article_interet
+    user = request.user
+    sum = credit.montant
+    num_facture = '0'
+    end_date = str(credit.date_fin)
+    end_year = end_date.split('-')[0]
+    end_month = end_date.split('-')[1]
+    end_day = end_date.split('-')[2]
+    today_year = date.today().year
+    today_day = date.today().day
+    today_month = date.today().month
+    
+    # new facture pay date
+    new_pay_date = str(today_year) + "-" + str(today_month + 1) + "-" + str(end_day)
+
+    print('INFO BELLOW')
+    if(end_year == today_year and end_month == today_month):
+        print('END YEAR NOW')
+    
+    else:
+        print('GENARATE NEW FACTURE HERE')
+        new_facture = Facture(
+            article = article,
+            User_editeur = user,
+            somme = sum,
+            num_facture = num_facture,
+            date = new_pay_date,
+            statut = status
+        )
+
+        dossier.facture = new_facture
+        
+        dossier.save()
+
+    return Response({})

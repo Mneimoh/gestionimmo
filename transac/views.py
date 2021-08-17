@@ -10,7 +10,6 @@ from main.models import Client, Facture,Place,Emploi,Endettement,CompteEndetteme
 from django.core.mail import send_mail
 import uuid
 import random
-from fpdf import FPDF
 
 # IMPORTS FOR SEARCH
 from django.db.models import  Q
@@ -236,11 +235,24 @@ def registerAccount(request,table=None,type=None):
                               )
                               new_cosigner.save()
                               
-                              nom               = client_interet.split(' ')[0]
-                              prenom            = client_interet.split(' ')[1:]
-                              prenom            = ' '.join(prenom)
-                              client            = Client.objects.filter(nom = nom, prenom = prenom)[0]
-                              client.cosigner   = new_cosigner
+                              nom                     = client_interet.split(' ')[0]
+                              prenom                  = client_interet.split(' ')[1:]
+                              prenom                  = ' '.join(prenom)
+                              print('----------------------------------------')
+                              print(nom)
+                              print(prenom)
+                              print('----------------------------------------')
+
+                              client                  = Client.objects.filter(nom = nom, prenom = prenom)
+                              if client:
+                                    client = client[0]
+                              else:
+                                    print('***********************************')
+                                    print('*******   Client not found ********')
+                                    print('***********************************')
+
+
+                              client.cosigner         = new_cosigner
                               client.save() 
 
                               print(nom)
@@ -254,7 +266,6 @@ def registerAccount(request,table=None,type=None):
 
                               article_interet       = appointment_to_delete.article_dinteret           
 
-                              appointment_to_delete.delete()
 
                               # Creating the Clients Dossier
 
@@ -263,15 +274,14 @@ def registerAccount(request,table=None,type=None):
 
                               if article:
                                     article = article[0]
-                              if article:
-
+                                    print(article)
                                     # Creating Client forms
-                                    new_client = Client(
+                                    new_credit = Credit(
                                          article              = article,
-                                         societe              = request.user,             
+                                         societe              = request.user.societe,             
                                     )
 
-                                    new_client.save()
+                                    new_credit.save()
 
                                     # Creating the clients facture after applied
                                     new_facture = Facture(
@@ -287,7 +297,8 @@ def registerAccount(request,table=None,type=None):
                                     new_dossier = Dossier(
                                           societe                 = request.user.societe,             
                                           User                    = request.user,             
-                                          client                  = new_client,
+                                          client                  = client,
+                                          credit                  = new_credit,
                                           article_interet         = article,
                                           facture                 = new_facture,        
                                           statut                  = 'OM',
@@ -299,6 +310,7 @@ def registerAccount(request,table=None,type=None):
 
                                     new_dossier.save()
                                     currentDossier = new_dossier
+                              appointment_to_delete.delete()
 
 
                         new_compte_endettement = CompteEndettement(
@@ -330,6 +342,7 @@ def registerAccount(request,table=None,type=None):
                         )
 
                         # new_preendettement.save()
+                        # return HttpResponse('success')
                   else:
                         errors = f'Info Perso Client <br />{clientForm.errors}<br />Info Address Client <br />{placeForm.errors}<br />Info Emploi <br /> {emploiForm.errors} <br /> Info Endettement <br /> {endettementForm.errors} <br /> '                   
                        
@@ -339,18 +352,21 @@ def registerAccount(request,table=None,type=None):
 
 @login_required
 def save_credit(request,dossier):
-      print('**************  dossier *************')
-      print(dossier)
       matching_dossier = Dossier.objects.filter(uid=int(dossier))
-      print(matching_dossier)
       if matching_dossier:
             client_dossier = matching_dossier[0]
-            client_dossier.client.montant       = request.POST['']
-      print('--------------save credit------------------')
-      print(request.POST)
-      print(matching_dossier)
-      print('-------------------------------------------')
-      # return HttpResponse('hello')
+            credit         = client_dossier.credit
+            credit.accompte         = request.POST['accompte']
+            credit.taux             = request.POST['taux']
+            credit.somme_payee      = request.POST['total']
+            credit.frais_dossier    = request.POST['frais_dossier']
+            credit.autre_frais      = request.POST['frais_autre']  
+            credit.montant          = request.POST['paiement_mensuel']
+            credit.date_fin         = request.POST['date_fin']
+            
+            credit.save()
+
+            return HttpResponse('hello')
 
 
 

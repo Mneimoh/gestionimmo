@@ -659,7 +659,7 @@
 
                             <button type="button" id="save_loan" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
                               <!-- <a href="../generatepdf/facture"> -->
-                                Save Load Structure 
+                                Save Loan Structure 
                               <!-- </a> -->
                             </button>
                       </form>
@@ -1268,7 +1268,6 @@ Date.prototype.addDays = function(days) {
 var date = new Date();
 var days             = Math.ceil((240/12)*365.366666)
 
-
 var day = date.getDate();
 var month = date.getMonth() + 1;
 var year = date.getFullYear();
@@ -1286,7 +1285,7 @@ var year = date.getFullYear();
   if (month < 10) month = "0" + month;
   if (day < 10) day = "0" + day;
     
-  var fin_date = day + "-" + month + "-" + year;  
+  var fin_date = year +"-" + month + "-" + day ;  
 
 
   let payment_duration = document.getElementById('payment_length')
@@ -1378,12 +1377,7 @@ $('#payment_length').change(function(e){
   $('#paiement_mensuel').val(Math.ceil(paiement_mensuel))
   days  = Math.ceil((parseInt(e.target.value)/12)*365.366666)
   date = new Date()
-  console.log('------------------hello---------')
-  console.log(days)
-  console.log('------------------hello---------')
-
   date = date.addDays(days);
-  console.log('------  New Date  ---------')
   day = date.getDate();
   month = date.getMonth() + 1;
   year = date.getFullYear();
@@ -1400,7 +1394,7 @@ $('#taux').change(function(e){
   montant_financer = montant_financer + taux_amount
   paiement_mensuel = montant_financer/parseInt(payment_duration.value)
   paiement_mensuel = Math.ceil(paiement_mensuel)
-  alert(paiement_mensuel)
+  // alert(paiement_mensuel)
 })
 
 
@@ -1442,6 +1436,7 @@ $('#save_loan').click(function(e){
   fd.append('prise_en_charge',`${prise_en_charge}`)
   fd.append('prix_finance',`${prix_finance}`)
   fd.append('date_emission',`${today}`)
+  fd.append('date_fin',`${fin_date}`)
   // fd.append('date_fin',`${}`)
   // fd.append('',`${}`)
   // fd.append('',`${}`)

@@ -637,17 +637,41 @@
           beforeSend: function() {
               console.log('Before Send')
           },
-          data: {id: id_to_pay},
+          data: {id: id_to_pay, status: 'A'},
           success: function(result) {
+            genarate_next_facture()
             // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
             console.log('facture paid')
-            window.location.reload()
+            
           },
   
           error: function() {
               console.log('error')
           }
       })
+  }
+
+  function genarate_next_facture() {
+    $.ajax({
+          method: 'POST',
+          url: 'caisse/api/genarate_facture',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: id_to_pay, status: 'PM'},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('NEXT FACTURE GENARATED')
+            // window.location.reload()
+            
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+    
   }
 
   function set_id_to_pay(id) {
