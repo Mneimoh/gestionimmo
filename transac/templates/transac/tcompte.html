@@ -2537,11 +2537,14 @@
                           {% csrf_token %}
                         <button
                           type="button"
-                          id="print_autorisation"
+                          
                           data-loading-text="impression en cours"
                           class="btn btn-primary"
                         >
-                          Imprimer l'autorisation
+                        <a href="../generatepdf/authorisation">
+                            Imprimer l'autorisation
+                        </a>
+                        
                         </button>
                      </form>
                       </div>
@@ -2576,7 +2579,10 @@
                   data-loading-text="ouverture en cours"
                   class="btn btn-primary"
                 >
+                <a href="../generatepdf/recapitulatif">
                   Editer récapitulatif PDF
+                </a>
+                
                 </button>
               </div>
             </div>
@@ -2742,7 +2748,7 @@
     for(let index=0; index<irregular_forms.length; index++){
       irregular_forms[index].style.display = 'block'
     } 
-
+    location.reload();
   }
 
   error_messages.innerHTML=`
@@ -2799,8 +2805,6 @@
                        message.innerHTML=data
                       error_messages.appendChild(message)
                     }                    
-                    else 
-                      window.location.reload(false);
                     
                     
                   },
@@ -2826,6 +2830,7 @@
                 processData: false,
                 contentType: false,
                 success: function(data,status) {
+                  console.log(data)
                   let message = document.createElement('div')
  
                   

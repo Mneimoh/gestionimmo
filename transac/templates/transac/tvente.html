@@ -419,241 +419,250 @@
                     </div>
                     <div id="collapseFive" class="panel-collapse collapse">
                       <div class="panel-body">
-                        <h2>Structure prêt</h2>
-                        <div class="row">
-                          <div class="col-md-6 margin-bottom-15">
-                            <label for="tvNomIap" class="control-label" style="color:#99ccff;">TYPE D'ARTICLE </label>
-                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" id="tvNomIap" value={{dossier.article_interet.type_article}} disabled>
-                          </div>
-                          <div class="col-md-6 margin-bottom-15">
-                            <label class="control-label" style="color:#99ccff;">NUMERO DE STOCK</label>
-                            <input type="text" id="numero_de_stock" class="form-control" style="background-color:#99ccff; color:#000;" disabled>   
-                          </div>
-                        </div>
-
-                        <strong style="color:#99ccff;">Information transaction</strong><br>
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">
-                            <label class="control-label">Valeur article</label>
-                            <input type="text" class="form-control" value="100%" disabled>
-                            <input type="text" id="valeur_article" class="form-control" value={{dossier.article_interet.valeur}} disabled>
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <label class="control-label">TAUX</label>
-                            <table>
-                              <tr>
-                                <td class="col-md-8">
-                                  <input type="text" class="form-control" value="0%" disabled>
-                                </td>
-                                <td class="col-md-4">
-                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <input type="text" class="form-control" pattern="[A-Za-z]{3}" name="valeur_millions" value="six millions" disabled>
-                            <input type="text" class="form-control" value="cinq cent" disabled>
-                            <input type="text" class="form-control" value="zéro milles" disabled>
-                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">
-                            <label class="control-label">Prise en charge</label>
-                            <input type="text" class="form-control" value="100%" disabled>
-                            <input type="text" id='prise_en_charge' class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <label class="control-label">DATE</label>
-                            <input type="text" class="form-control" value="09/08/18" disabled>   
-                          </div>                          
-                        </div>
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">
-                            <label class="control-label">Prix de l'article financé</label>
-                            <input type="text" id="prix_finance" class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
-                          </div>                       
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 margin-bottom-15">
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <label class="control-label">Valeur reprise</label>
-                            <input type="text" class="form-control" value="0" disabled>
-                            <label class="control-label">Subvention</label>
-                            <input type="text" class="form-control" value="0" disabled>
-                          </div>
-                        </div>    
-                        <div class="row">
-                          <div class="col-md-2 margin-bottom-15">
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <label class="control-label">Accompte frais</label>  
-                            <table>
-                              <tr>
-                                <td class="col-md-8">
-                                  <input id="accompte" type="text" class="form-control" value="20 000" disabled>  
-                                </td>
-                                <td class="col-md-4">
-                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
-                                </td>
-                              </tr>
-                            </table> 
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <input type="text" class="form-control" value="six millions" disabled>
-                            <input type="text" class="form-control" value="cinq cent" disabled>
-                            <input type="text" class="form-control" value="zéro milles" disabled>
-                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">
-                            <label class="control-label">TVA (incluse)</label>
-                            <input type="text" class="form-control" value="0" disabled>
-                            <label class="control-label">Commission (si applicable)</label>
-                            <input type="text" class="form-control" value="0" disabled>
-                            <label class="control-label">Immatriculation (si applicable)</label>
-                            <input type="text" class="form-control" value="0" disabled>
-                            <label class="control-label">Transfert titre (si applicable)</label>
-                            <input type="text" class="form-control" value="0" disabled>
-                            <label class="control-label">Autres taxes (si applicable)</label>
-                            <input type="text" class="form-control" value="0" disabled>
-                            <label class="control-label">Frais de dossier</label>
-                            <input type="text" id="frais_dossier" class="form-control" style="background-color:#99ccff; color:#000;" value="7 500" disabled>
-                          </div>  
-                        </div>
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">
-                          </div>  
-                          <div class="col-md-4 margin-bottom-15">
-                            <label class="control-label">DATE FIN</label>
-                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="0" disabled>
-                          </div>  
-                        </div>
-                        <strong style="color:#99ccff;">FRAIS SECONDAIRES</strong><br>
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">
-                            <label class="control-label">Estimation durée de paiement</label>
-                            <input id="payment_length" type="number" class="form-control" value="320">
-                            <label class="control-label">Frais de montage de dossier</label>
-                            <input type="text" id="frais_montage" class="form-control" style="background-color:#99ccff; color:#000;" disabled>
-                            <label class="control-label">Livraison (si applicable)</label>
-                            <input type="text" id="frais_livraison" class="form-control" disabled>
-                            <label class="control-label">Protection perte emploi ou revenu</label>
-                            <input type="text" class="form-control" id="perte_emploi" style="background-color:#99ccff; color:#000;"disabled>
-                          </div>  
-                        </div>
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">    
-                            <table>
-                              <tr>
-                                <td class="col-md-8">
-                                  <label class="control-label">Protection vie ou invalidité</label>
-                                  <input type="text" id="vie_ou_invalidite" class="form-control" style="background-color:#99ccff; color:#000;"disabled>  
-                                </td>
-                                <td class="col-md-4">
-                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
-                                </td>
-                              </tr>
-                            </table> 
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <input type="text" class="form-control" value="zéro millions" disabled>
-                            <input type="text" class="form-control" value="six cent" disabled>
-                            <input type="text" class="form-control" value="vingt milles" disabled>
-                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                        <form id="loan_structure">
+                          {% csrf_token %}
+                          <h2>Structure prêt</h2>
+                          <div class="row">
+                            <div class="col-md-6 margin-bottom-15">
+                              <label for="tvNomIap" class="control-label" style="color:#99ccff;">TYPE D'ARTICLE </label>
+                              <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" id="tvNomIap" value={{dossier.article_interet.type_article}} disabled>
+                            </div>
+                            <div class="col-md-6 margin-bottom-15">
+                              <label class="control-label" style="color:#99ccff;">NUMERO DE STOCK</label>
+                              <input type="text" id="numero_de_stock" class="form-control" style="background-color:#99ccff; color:#000;" disabled>   
+                            </div>
                           </div>
 
-                        </div>
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">    
-                            <label class="control-label">Protection SOS réparation</label>
-                            <input type="text" id="sos_reparation" class="form-control" value="0" disabled>
-                            <label for="tvAgentIap" class="control-label">Paiement banque pour reprise (S.A)</label>
-                            <input type="text" class="form-control" value="" disabled>
-                            <label for="tvAgentIap" class="control-label">Autres frais</label>
-                            <input type="text" id="frais_autre" class="form-control" value="" disabled>
+                          <strong style="color:#99ccff;">Information transaction</strong><br>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">
+                              <label class="control-label">Valeur article</label>
+                              <input type="text" class="form-control" value="100%" disabled>
+                              <input type="text" id="valeur_article" class="form-control" value={{dossier.article_interet.valeur}} disabled>
+                            </div>
+                            <div class="col-md-4 margin-bottom-15">
+                              <label class="control-label">TAUX</label>
+                              <table>
+                                <tr>
+                                  <td class="col-md-8">
+                                    <input type="number" placeholder="Percentage" class="form-control" id="taux" value="0%" >
+                                  </td>
+                                  <td class="col-md-4">
+                                    &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                            <div class="col-md-4 margin-bottom-15">
+                              <input type="text" class="form-control" pattern="[A-Za-z]{3}" name="valeur_millions" value="six millions" disabled>
+                              <input type="text" class="form-control" value="cinq cent" disabled>
+                              <input type="text" class="form-control" value="zéro milles" disabled>
+                              <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">
+                              <label class="control-label">Prise en charge</label>
+                              <input type="text" class="form-control" value="100%" disabled>
+                              <input type="text" id='prise_en_charge' class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
+                            </div>
+                            <div class="col-md-4 margin-bottom-15">
+                              <label class="control-label">DATE</label>
+                              <input type="text" class="form-control" id="thedate"  disabled>   
+                            </div>                          
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">
+                              <label class="control-label">Prix de l'article financé</label>
+                              <input type="text" id="prix_finance" class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
+                            </div>                       
+                          </div>
+                          <div class="row">
+                            <div class="col-md-2 margin-bottom-15">
+                            </div>
+                            <div class="col-md-4 margin-bottom-15">
+                              <label class="control-label">Valeur reprise</label>
+                              <input type="text" class="form-control" value="0" disabled>
+                              <label class="control-label">Subvention</label>
+                              <input type="text" class="form-control" value="0" disabled>
+                            </div>
+                          </div>    
+                          <div class="row">
+                            <div class="col-md-2 margin-bottom-15">
+                            </div>
+                            <div class="col-md-4 margin-bottom-15">
+                              <label class="control-label">Accompte frais</label>  
+                              <table>
+                                <tr>
+                                  <td class="col-md-8">
+                                    <input id="accompte" type="text" class="form-control" value="20 000" disabled>  
+                                  </td>
+                                  <td class="col-md-4">
+                                    &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                  </td>
+                                </tr>
+                              </table> 
+                            </div>
+                            <div class="col-md-4 margin-bottom-15">
+                              <input type="text" class="form-control" value="six millions" disabled>
+                              <input type="text" class="form-control" value="cinq cent" disabled>
+                              <input type="text" class="form-control" value="zéro milles" disabled>
+                              <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">
+                              <label class="control-label">TVA (incluse)</label>
+                              <input type="text" class="form-control" value="0" disabled>
+                              <label class="control-label">Commission (si applicable)</label>
+                              <input type="text" class="form-control" value="0" disabled>
+                              <label class="control-label">Immatriculation (si applicable)</label>
+                              <input type="text" class="form-control" value="0" disabled>
+                              <label class="control-label">Transfert titre (si applicable)</label>
+                              <input type="text" class="form-control" value="0" disabled>
+                              <label class="control-label">Autres taxes (si applicable)</label>
+                              <input type="text" class="form-control" value="0" disabled>
+                              <label class="control-label">Frais de dossier</label>
+                              <input type="text" id="frais_dossier" class="form-control" style="background-color:#99ccff; color:#000;" value="7 500" disabled>
+                            </div>  
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">
+                            </div>  
+                            <div class="col-md-4 margin-bottom-15">
+                              <label class="control-label">DATE FIN</label>
+                              <input type="text" id="fin_date" class="form-control" style="background-color:#99ccff; color:#000;" value="0" disabled>
+                            </div>  
+                          </div>
+                          <strong style="color:#99ccff;">FRAIS SECONDAIRES</strong><br>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">
+                              <label class="control-label">Estimation durée de paiement</label>
+                              <input id="payment_length" type="number" class="form-control" value="240">
+                              <label class="control-label">Frais de montage de dossier</label>
+                              <input type="text" id="frais_montage" class="form-control" style="background-color:#99ccff; color:#000;" disabled>
+                              <label class="control-label">Livraison (si applicable)</label>
+                              <input type="text" id="frais_livraison" class="form-control">
+                              <label class="control-label">Protection perte emploi ou revenu</label>
+                              <input type="text" class="form-control" id="perte_emploi" style="background-color:#99ccff; color:#000;"disabled>
+                            </div>  
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">    
+                              <table>
+                                <tr>
+                                  <td class="col-md-8">
+                                    <label class="control-label">Protection vie ou invalidité</label>
+                                    <input type="text" id="vie_ou_invalidite" class="form-control" style="background-color:#99ccff; color:#000;"disabled>  
+                                  </td>
+                                  <td class="col-md-4">
+                                    &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                  </td>
+                                </tr>
+                              </table> 
+                            </div>
+                            <div class="col-md-4 margin-bottom-15">
+                              <input type="text" class="form-control" value="zéro millions" disabled>
+                              <input type="text" class="form-control" value="six cent" disabled>
+                              <input type="text" class="form-control" value="vingt milles" disabled>
+                              <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                            </div>
+
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">    
+                              <label class="control-label">Protection SOS réparation</label>
+                              <input type="text" id="sos_reparation" class="form-control" value="0" disabled>
+                              <label for="tvAgentIap" class="control-label">Paiement banque pour reprise (S.A)</label>
+                              <input type="text" class="form-control" value="" disabled>
+                              <label for="tvAgentIap" class="control-label">Autres frais</label>
+                              <input type="text" id="frais_autre" class="form-control" value="" disabled>
+                            </div> 
                           </div> 
-                        </div> 
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">    
-                            <table>
-                              <tr>
-                                <td class="col-md-8">
-                                  <label for="tvAgentIap" class="control-label" style="color:#99ccff;">MONTANT A FINANCER</label>
-                                  <input type="text" id = "montant_financer" class="form-control" style="background-color:#99ccff; color:#000;"disabled>  
-                                </td>
-                                <td class="col-md-4">
-                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
-                                </td>
-                              </tr>
-                            </table> 
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <input type="text" class="form-control" value="trois millions" disabled>
-                            <input type="text" class="form-control" value="quatre cent" disabled>
-                            <input type="text" class="form-control" value="quatre vingt milles" disabled>
-                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
-                          </div>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">    
+                              <table>
+                                <tr>
+                                  <td class="col-md-8">
+                                    <label for="tvAgentIap" class="control-label" style="color:#99ccff;">MONTANT A FINANCER</label>
+                                    <input type="text" id = "montant_financer" class="form-control" style="background-color:#99ccff; color:#000;"disabled>  
+                                  </td>
+                                  <td class="col-md-4">
+                                    &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                  </td>
+                                </tr>
+                              </table> 
+                            </div>
+                            <div class="col-md-4 margin-bottom-15">
+                              <input type="text" class="form-control" value="trois millions" disabled>
+                              <input type="text" class="form-control" value="quatre cent" disabled>
+                              <input type="text" class="form-control" value="quatre vingt milles" disabled>
+                              <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                            </div>
 
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">    
-                            <label class="control-label" style="color:#99ccff;">NOMBRE DE MOIS</label>
-                            <input id="payment_length_read_only" type="text" class="form-control" style="background-color:#99ccff; color:#000;" disabled>
                           </div>
 
-                        </div>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">    
+                              <label class="control-label" style="color:#99ccff;">NOMBRE DE MOIS</label>
+                              <input id="payment_length_read_only" type="text" class="form-control" style="background-color:#99ccff; color:#000;" disabled>
+                            </div>
 
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">    
-                            <table>
-                              <tr>
-                                <td class="col-md-8">
-                                  <label class="control-label" style="color:#99ccff;">PAIEMENT MENSUEL</label>
-                                  <input type="text" id="paiement_mensuel" class="form-control" style="background-color:#99ccff; color:#000;" disabled>  
-                                </td>
-                                <td class="col-md-4">
-                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
-                                </td>
-                              </tr>
-                            </table> 
-                          </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <input type="text" class="form-control" value="zéro millions" disabled>
-                            <input type="text" class="form-control" value="zéro cent" disabled>
-                            <input type="text" class="form-control" value="vingt neuf milles" disabled>
-                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
                           </div>
 
-                        </div>
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">    
+                              <table>
+                                <tr>
+                                  <td class="col-md-8">
+                                    <label class="control-label" style="color:#99ccff;">PAIEMENT MENSUEL</label>
+                                    <input type="number" id="paiement_mensuel" name="paiement_mensuel" class="form-control" style="background-color:#99ccff; color:#000;" disabled>  
+                                  </td>
+                                  <td class="col-md-4">
+                                    &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                  </td>
+                                </tr>
+                              </table> 
+                            </div>
+                            <div class="col-md-4 margin-bottom-15">
+                              <input type="text" class="form-control" value="zéro millions" disabled>
+                              <input type="text" class="form-control" value="zéro cent" disabled>
+                              <input type="text" class="form-control" value="vingt neuf milles" disabled>
+                              <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                            </div>
 
-                        <div class="row">
-                          <div class="col-md-4 margin-bottom-15">    
-                            <table>
-                              <tr>
-                                <td class="col-md-8">
-                                  <label for="tvAgentIap" class="control-label" style="color:#99ccff;">TOTAL</label>
-                                  <input type="text" id="total" class="form-control" style="background-color:#99ccff; color:#000;" disabled>  
-                                </td>
-                                <td class="col-md-4">
-                                  &nbsp;<i class="fa fa-long-arrow-right"></i> 
-                                </td>
-                              </tr>
-                            </table> 
                           </div>
-                          <div class="col-md-4 margin-bottom-15">
-                            <input type="text" class="form-control" value="zéro millions" disabled>
-                            <input type="text" class="form-control" value="zéro cent" disabled>
-                            <input type="text" class="form-control" value="vingt neuf milles" disabled>
-                            <input type="text" class="form-control" value="zéro francs CFA" disabled>
+
+                          <div class="row">
+                            <div class="col-md-4 margin-bottom-15">    
+                              <table>
+                                <tr>
+                                  <td class="col-md-8">
+                                    <label for="tvAgentIap" class="control-label" style="color:#99ccff;">TOTAL</label>
+                                    <input type="text" id="total" class="form-control" style="background-color:#99ccff; color:#000;" name="total" disabled>  
+                                  </td>
+                                  <td class="col-md-4">
+                                    &nbsp;<i class="fa fa-long-arrow-right"></i> 
+                                  </td>
+                                </tr>
+                              </table> 
+                            </div>
+                            <div class="col-md-4 margin-bottom-15">
+                              <input type="text" class="form-control" value="zéro millions" disabled>
+                              <input type="text" class="form-control" value="zéro cent" disabled>
+                              <input type="text" class="form-control" value="vingt neuf milles" disabled>
+                              <input type="text" class="form-control" value="zéro francs CFA" disabled>
+                            </div>
+
                           </div>
+                            <br />
 
-                        </div>
-
+                            <button type="button" id="save_loan" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
+                              <!-- <a href="../generatepdf/facture"> -->
+                                Save Load Structure 
+                              <!-- </a> -->
+                            </button>
+                      </form>
                       </div>
                     </div>
                   </div>
@@ -668,7 +677,9 @@
                     <div id="collapseSix" class="panel-collapse collapse">
                       <div class="panel-body">                       
                         <button type="button" id="loading-example-btn" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
-                          Editer facture <b class="red">PDF</b>
+                          <a href="../generatepdf/facture">
+                            Editer facture <b class="red">PDF</b>
+                          </a>
                         </button>
                       </div>
                     </div>
@@ -705,7 +716,9 @@
                                 <br>
 
                                 <button type="button" id="loading-example-btn2" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
-                                  Editer engagement <b class="red">PDF</b>
+                                  <a href="../generatepdf/engagement"> 
+                                      Editer engagement <b class="red">PDF</b>
+                                  </a>
                                 </button>
 
                                 <br>
@@ -727,7 +740,11 @@
                     <div id="collapseEight" class="panel-collapse collapse">
                       <div class="panel-body">
                         <button type="button" id="loading-example-btn3" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
-                          Editer protection perte d'emploi terrain <b class="red">PDF</b>
+                          
+                          <a href="../generatepdf/ppe_imp"> 
+                            Editer protection perte d'emploi terrain <b class="red">PDF</b>
+                          </a>
+                          
                         </button>
                       </div>
                     </div>
@@ -743,7 +760,9 @@
                     <div id="collapseNine" class="panel-collapse collapse">
                       <div class="panel-body">
                         <button type="button" id="loading-example-btn4" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
+                          <a href="../generatepdf/ppr_imp"> 
                           Editer protection perte de revenus terrain <b class="red">PDF</b>
+                          </a>
                         </button>
                       </div>
                     </div>
@@ -759,7 +778,9 @@
                     <div id="collapseTen" class="panel-collapse collapse">
                       <div class="panel-body">
                         <button type="button" id="loading-example-btn5" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
-                          Editer protection vie et invalidité terrain <b class="red">PDF</b>
+                          <a href="../generatepdf/pvi_imp">
+                            Editer protection vie et invalidité terrain <b class="red">PDF</b>
+                          </a>
                         </button>
                       </div>
                     </div>
@@ -775,7 +796,10 @@
                     <div id="collapseEleven" class="panel-collapse collapse">
                       <div class="panel-body">
                         <button type="button" id="loading-example-btn6" data-loading-text="En cours d'ouverture..." class="btn btn-primary">
-                          Editer contrat de location - cession de terrain à usage d'habitation <b class="red">PDF</b>
+                          
+                          <a href="../generatepdf/ct_imp">
+                             Editer contrat de location - cession de terrain à usage d'habitation <b class="red">PDF</b>
+                          </a>
                         </button>
                       </div>
                     </div>
@@ -1083,6 +1107,8 @@
                 success: function(data,status) {
                   let message = document.createElement('div')
                   //this will execute when form is submited without errors
+                  location.reload();
+
               },
               error: function(data, status) {
                   //this will execute when get any error
@@ -1091,7 +1117,23 @@
  
   })
 
-  // make the number digits a multiple 3
+  $(document).ready(function() {
+    var date = new Date();
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = day + "-" + month + "-" + year;  
+    console.log('---------  here  ----------')
+    console.log(today) 
+    $("#thedate").attr("value", today);
+    
+});
+// make the number digits a multiple 3
 function makeNumberMultiple(number){
     // console.log(number)
     let digits = `${number}`.split('').length
@@ -1217,6 +1259,36 @@ function convertNumberToString(number){
 }
 
 
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+var date = new Date();
+var days             = Math.ceil((240/12)*365.366666)
+
+
+var day = date.getDate();
+var month = date.getMonth() + 1;
+var year = date.getFullYear();
+
+  if (month < 10) month = "0" + month;
+  if (day < 10) day = "0" + day;
+
+    var today = day + "-" + month + "-" + year;   
+    
+  date = date.addDays(days);
+  day = date.getDate();
+  month = date.getMonth() + 1;
+  year = date.getFullYear();
+
+  if (month < 10) month = "0" + month;
+  if (day < 10) day = "0" + day;
+    
+  var fin_date = day + "-" + month + "-" + year;  
+
+
   let payment_duration = document.getElementById('payment_length')
   var valeur_article   = "{{dossier.article_interet.valeur}}"
   var valeur_article_s = convertNumberToString(parseInt(valeur_article))
@@ -1242,7 +1314,7 @@ function convertNumberToString(number){
   var montant_financer = null
   var paiement_mensuel = undefined
   var total            = null
-
+  var taux             = 0
   perte_emploi         = 240 * 2500;
   vie_ou_invalidite    = perte_emploi
   montant_financer     =  parseInt(valeur_article) - 
@@ -1262,6 +1334,8 @@ function convertNumberToString(number){
                           parseInt(sos_reparation) + 
                           parseInt(paiement_banque) 
 
+  montant_financer     =  montant_financer + (taux * montant_financer)
+
   paiement_mensuel     = montant_financer/240
   total                = parseInt(valeur_article) +
                          parseInt(tva) + 
@@ -1276,8 +1350,7 @@ function convertNumberToString(number){
                          parseInt(vie_ou_invalidite) + 
                          parseInt(sos_reparation) + 
                          parseInt(paiement_banque)
-
-  console.log(document.getElementById('payment_length_read_only'))
+                         
   document.getElementById('payment_length_read_only').value   = 240
   document.getElementById('valeur_article').value             = parseInt(valeur_article)
   document.getElementById('prise_en_charge').value            = parseInt(valeur_article)
@@ -1294,11 +1367,7 @@ function convertNumberToString(number){
   document.getElementById('montant_financer').value           = montant_financer
   document.getElementById('paiement_mensuel').value           = Math.ceil(paiement_mensuel)
   document.getElementById('total').value                      = total
-  document.getElementsByName('valeur_millions')[0].value      = valeur_article_s.splice(0,)
-
-  // Number to String
-//  convertNumberToString(total)
-
+  document.getElementById('fin_date').value                   = fin_date
 
 $('#payment_length').change(function(e){
   console.log(e.target.value)
@@ -1307,7 +1376,97 @@ $('#payment_length').change(function(e){
   $('#vie_ou_invalidite').val(parseInt(e.target.value)*2500)
   paiement_mensuel = montant_financer/parseInt(e.target.value)
   $('#paiement_mensuel').val(Math.ceil(paiement_mensuel))
+  days  = Math.ceil((parseInt(e.target.value)/12)*365.366666)
+  date = new Date()
+  console.log('------------------hello---------')
+  console.log(days)
+  console.log('------------------hello---------')
 
+  date = date.addDays(days);
+  console.log('------  New Date  ---------')
+  day = date.getDate();
+  month = date.getMonth() + 1;
+  year = date.getFullYear();
+  if (month < 10) month = "0" + month;
+  if (day < 10) day = "0" + day; 
+  fin_date = day + "-" + month + "-" + year;  
+
+  document.getElementById('fin_date').value                   = fin_date
+
+})
+
+$('#taux').change(function(e){
+  var taux_amount = (parseFloat(e.target.value)/100)*montant_financer
+  montant_financer = montant_financer + taux_amount
+  paiement_mensuel = montant_financer/parseInt(payment_duration.value)
+  paiement_mensuel = Math.ceil(paiement_mensuel)
+  alert(paiement_mensuel)
+})
+
+
+$('#save_loan').click(function(e){
+  let loan_structure = document.getElementById('loan_structure')
+  console.log(loan_structure)
+
+  var fd = new FormData(loan_structure);
+  
+  somewariable          = document.getElementById('valeur_article').value 
+  prise_en_charge       = document.getElementById('prise_en_charge').value 
+  prix_finance          = document.getElementById('prix_finance').value 
+  frais_dossier         = document.getElementById('frais_dossier').value 
+  numbero_de_stock      = document.getElementById('numero_de_stock').value 
+  frais_montage         = document.getElementById('frais_montage').value 
+  frais_livraison       = document.getElementById('frais_livraison').value 
+  frais_autre           = document.getElementById('frais_autre').value 
+  accompte              = document.getElementById('accompte').value 
+  sos_reparation        = document.getElementById('sos_reparation').value 
+  perte_emploi          = document.getElementById('perte_emploi').value 
+  vie_ou_invalidite     = document.getElementById('vie_ou_invalidite').value 
+  montant_financier     = document.getElementById('montant_financer').value 
+  paiement_mensuel      = document.getElementById('paiement_mensuel').value 
+  total                 = document.getElementById('total').value 
+
+
+  fd.append('payment_duration', `${payment_duration.value}` );
+  fd.append('valeur_article', `${valeur_article}` );
+  fd.append('frais_dossier', `${frais_dossier}` );
+  fd.append('frais_montage',`${frais_montage}`)
+  fd.append('frais_livraison',`${frais_livraison}`)
+  fd.append('frais_autre',`${frais_autre}`)
+  fd.append('accompte',`${accompte}`)
+  fd.append('sos_reparation',`${sos_reparation}`)
+  fd.append('taux',`${taux}`)
+  fd.append('total',`${total}`)
+  fd.append('paiement_mensuel',`${paiement_mensuel}`)
+  fd.append('montant_financier',`${montant_financer}`)
+  fd.append('prise_en_charge',`${prise_en_charge}`)
+  fd.append('prix_finance',`${prix_finance}`)
+  fd.append('date_emission',`${today}`)
+  // fd.append('date_fin',`${}`)
+  // fd.append('',`${}`)
+  // fd.append('',`${}`)
+  // fd.append('',`${}`)
+
+
+  console.log(fd)
+
+
+  $.ajax({
+          type: "POST",
+          url: `/transac/credit/{{dossier}}/`,
+          data: fd,
+          processData: false,
+          contentType: false,
+          success: function(data,status) {
+            let message = document.createElement('div')
+            //this will execute when form is submited without errors
+            location.reload();
+
+        },
+        error: function(data, status) {
+            //this will execute when get any error
+        },
+    });
 })
 
 </script>
