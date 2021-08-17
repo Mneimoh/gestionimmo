@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
+from datetime import date
 # Create your models here.
 
 USER_POSTES = (
@@ -269,7 +270,7 @@ class Client(models.Model):
     email                    = models.EmailField(verbose_name="Email Address",max_length=60, null=True,blank=True)
     phone_1                  = models.CharField(max_length=15, null=True,blank=True)
     phone_2                  = models.CharField(max_length=15, null=True,blank=True)
-    nom                      = models.CharField(max_length=30, null=True,blank=True,unique=True)
+    nom                      = models.CharField(max_length=30, null=True,blank=True)
     prenom                   = models.CharField(max_length=30, null=True,blank=True)
     date_naissance           = models.DateField(null=True)
     ville_naissance          = models.CharField(max_length=20, null=True,blank=True)
@@ -333,7 +334,7 @@ class Article(models.Model):
     #statut_final = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.type_article+ '-' +self.nom
+        return f'{self.type_article}-{self.nom}'
 
 class Facture(models.Model):
     article             = models.ForeignKey(Article, on_delete=models.CASCADE,null=True,blank=True)
@@ -409,13 +410,13 @@ class Credit(models.Model):
     montant              = models.FloatField(default=0)
     taux                 = models.FloatField(default=0)
     apport               = models.FloatField(default=0)
-    date_emission        = models.DateField(default=0)
-    date_fin             = models.DateField(default=0)   
+    date_emission        = models.DateField(default=date.today)
+    date_fin             = models.DateField(null=True,default=None,blank=True)   
     frais_dossier        = models.FloatField(default=0)
     autre_frais          = models.FloatField(default=0)
     subvention           = models.FloatField(default=0)
     accompte             = models.FloatField(default=0)
-    date_signature       = models.DateField(default=0)
+    date_signature       = models.DateField(null=True,default=None)
     somme_payee          = models.FloatField(default=0)
     pre_qual             = models.BooleanField(default=False)
     struct_pret          = models.BooleanField(default=False)
