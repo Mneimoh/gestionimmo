@@ -264,9 +264,7 @@ def registerAccount(request, table=None, type=None):
                     client = Client.objects.filter(nom=nom, prenom=prenom)
                     if client:
                         client = client[0]
-                        client = Client.objects.get(pk=client.id)
-                        print(client)
-
+                        client = Client.objects.get(pk=client.pk)
                     client.cosigner = new_cosigner
                     client.save()
 
