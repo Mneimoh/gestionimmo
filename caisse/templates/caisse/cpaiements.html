@@ -127,7 +127,7 @@
             <th>Appelé & récouvré</th>
             <th>Dernier appel</th>
             <!-- <th>hr</th> -->
-            <th>Modifier</th>
+            <!-- <th>Modifier</th> -->
             <th>Paiement</th>
             <th>Consulter</th>
           </tr>
@@ -141,12 +141,12 @@
             <td>{{ dossier.client.prenom }}</td>
             <td>{{ dossier.uid }}</td>
             <td>{{ dossier.statut }}</td>
-            <td>15/03/2014</td>
+            <td>{{ dossier.date_dernier_paiement }}</td>
             <td>{{ dossier.coeff_recouv }}</td>
             <td>{{ dossier.appele_recouvre }}</td>
             <td>{{ dossier.dernier_appel }}</td>
-            <td>
-              <!-- Split button -->
+            <!-- <td>
+              
               <div class="btn-group">
               <button
                 type="button"
@@ -156,7 +156,7 @@
               >
                 Modifier
               </button>
-            </td>
+            </td> -->
             <td>
               <!-- Split button -->
               <div class="btn-group">
@@ -165,11 +165,12 @@
                 class="btn btn-info"
                 data-toggle="modal"
                 data-target="#confirmPaiement"
+                onclick="set_id_to_pay('{{ dossier.id }}')"
               >
                 Confirmer
               </button>
             </td>
-            <td><a href="#" class="btn btn-link">Consulter</a></td>
+            <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" class="btn btn-link">Consulter</a></td>
           </tr>
           {% endfor  %}
         </tbody>
@@ -187,9 +188,10 @@
   </ul>
 </div>
 {% endblock %} {% block modal %}
+
 <div
   class="modal fade"
-  id="modifPaiement"
+  id="showFacture"
   tabindex="-1"
   role="dialog"
   aria-labelledby="myModalLabel"
@@ -202,22 +204,24 @@
           <span aria-hidden="true">&times;</span
           ><span class="sr-only">Fermer</span>
         </button>
-        <input
-          class="modal-input"
-          id="myModalLabel"
-          placeholder="Modifier le montant"
-          value="35000"
-        />
+        <h4 class="modal-title" id="myModalLabel" style="text-align: center;">
+         DISPLAY USERS FACTURE HERE
+        </h4>
+        <hr>
+      <div id="display-facture">
+        
+      </div>
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-primary">Modifier</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">
-          Non
+          Fermer
         </button>
       </div>
     </div>
   </div>
 </div>
+
+
 <div
   class="modal fade"
   id="confirmPaiement"
@@ -233,14 +237,17 @@
           <span aria-hidden="true">&times;</span
           ><span class="sr-only">Fermer</span>
         </button>
-        <input
+        <!-- <input
           class="modal-input"
           id="myModalLabel"
           placeholder="Entrer le montant"
-        />
+        /> -->
+        <form id="form">
+          {% csrf_token %}
+        </form>
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-primary">Confirmer</a>
+        <a onclick="pay_facture()" class="btn btn-primary">Confirmer</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">
           Non
         </button>
@@ -498,7 +505,7 @@
      
           elem = data[key];
           row = ''
-          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> 15/03/2014 </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td>  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPaiement"> Modifier </button> </td> <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmPaiement"> Confirmer</button> </td>  <td> <a href="#" class="btn btn-link">Consulter</a> </td></tr>`
+          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> 15/03/2014 </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmPaiement"> Confirmer</button> </td>  <td> <a href="#" class="btn btn-link">Consulter</a> </td></tr>`
           all_rows = all_rows + row;
       });
   
@@ -550,10 +557,112 @@
           console.log('data bellow')
           console.log(data[index])
           app = data[index];
-          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> 15/03/2014 </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td>  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPaiement"> Modifier </button> </td> <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmPaiement"> Confirmer</button> </td>  <td> <a href="#" class="btn btn-link">Consulter</a> </td></tr>`
+          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> 15/03/2014 </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmPaiement"> Confirmer</button> </td>  <td> <a href="#" class="btn btn-link">Consulter</a> </td></tr>`
           all_rows = all_rows + row;
       });
       $("#paiementTable tbody").html(all_rows)
+  }
+
+
+
+  
+  // SCRIPT CODE BELLOW FOR 3 BUTTONS
+
+
+  // #####CODE FOR FACTURE############
+  // THE ID PASSED HERE IS THE DOSSIER ID
+  function get_facture(id) {
+    // This is the function that will make the api call and get facture
+    let param = "id="+id
+    let result = null;
+    
+    $.ajax({
+          method: 'GET',
+          url: 'facture/api/get_facture?' + param,
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+  
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            udpate_facture_modal(result.facture)
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+
+  }
+  function show_facture(id) {
+    // CALL GET FACTURE FUNCTION TO GO AND GET FCTURE
+   get_facture(id)
+  }
+
+  function udpate_facture_modal(facture) {
+    console.log('UPDATE FACTURE MODAL')
+    let data = `
+    <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Article Name: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.article.nom}</span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Somme: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.somme}</span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">STATUT: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.statut}</span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">DATE: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.date}</span>
+        </div>
+    `
+
+    document.getElementById('display-facture').innerHTML = data;
+  }
+
+  // #########END OF FACTURE SHOWING CODE#########
+
+  // PAY FACTURE CODE BELLOW
+  let id_to_pay = null;
+
+
+  function pay_facture() {
+    //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
+    // let param = "id=" + id_to_pay & "status="+"A"
+    var form = document.getElementById('form');
+
+    csrftoken = form.getElementsByTagName('input')[0].value;
+
+    $.ajax({
+          method: 'POST',
+          url: 'caisse/api/pay_facture',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: id_to_pay , status: "A"},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('facture paid')
+            window.location.reload()
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+  }
+
+  function set_id_to_pay(id) {
+    id_to_pay = id;
+    console.log('ID TO PAY BELLOW')
+    console.log(id)
   }
 
   </script>

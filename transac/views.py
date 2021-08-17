@@ -6,10 +6,11 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user,allowed_users
 from .forms import ClientForms,PlaceForm,EmploiForm,EndettementForm
-from main.models import Client,Place,Emploi,Endettement,CompteEndettement,PretEndettement, Dossier, Cosignataire,Article
+from main.models import Client, Facture,Place,Emploi,Endettement,CompteEndettement,PretEndettement, Dossier, Cosignataire,Article, Appointment
 from django.core.mail import send_mail
 import uuid
 import random
+from fpdf import FPDF
 
 # IMPORTS FOR SEARCH
 from django.db.models import  Q
@@ -28,9 +29,10 @@ proprietaire      = False
 parents           = False
 charges           = False
 compte            = False
-nom_banque        = None,
-type_compte       = None,
+nom_banque        = None
+type_compte       = None
 article_interet   = None
+client_interet    = None
 clientData        = None
 currentDossier    = None
 clientForm        = ClientForms()
@@ -41,18 +43,39 @@ endettementForm   = EndettementForm()
 
 
 @login_required
-def index(request):
-      if(request.user.poste == section):  
+def index(request,nom):
+      if(request.user.poste == section): 
+            fnom   = nom.split('-')[0]
+            prenom  = nom.split('-')[1]
+            # prenom  = ' '.join(prenom)
+            print(fnom)
+            print(prenom)
+            client = Appointment.objects.filter(nom=fnom)
+            if client:
+                  client = client[0]
             articles = Article.objects.all()
-            return render(request, 'transac/tcompte.html', { 'title': 'Espace ouverture compte','clientForm':ClientForms,'article_interet':articles})
+            all_clients = Client.objects.filter(societe = request.user.societe, cosigner = None)
+            print('##########ALL CLIENTS BELLOW##########')
+            print(all_clients)
+            return render(request, 'transac/tcompte.html', { 'title': 'Espace ouverture compte','clientForm':ClientForms,'article_interet':articles, 'client': client, 'clients':all_clients})
       else:
             return redirect(f"/login?next=/{section}/")
+
+
+@login_required
+def prequalifList(request):
+      if(request.user.poste == section):  
+            all_prequalifier = Appointment.objects.filter(status="PQ")
+            return render(request, 'transac/tprequalifier.html', { 'title': 'Liste Prequalifier', "all_prequalifiers":all_prequalifier})
+      else:
+            return redirect(f"/login?next=/{section}/")
+
 
 @login_required
 def registerAccount(request,table=None,type=None):
 
       if(request.method == 'POST' and request.user.poste == section):
-            global globvar,clientForm,emploiForm,placeForm,endettementForm,proprietaire,parents,charges,compte,nom_banque,type_compte,clientData, article_interet
+            global globvar,clientForm,emploiForm,placeForm,endettementForm,proprietaire,parents,charges,compte,nom_banque,type_compte,clientData, article_interet,client_interet
             
             
             if globvar>=4:
@@ -65,7 +88,9 @@ def registerAccount(request,table=None,type=None):
                   clientForm = ClientForms(request.POST)
                   if type=="True":
                         article_interet = request.POST['article_interet']
-                  
+                  else:
+                        client_interet = request.POST['client_interet']  
+
             if (data_type == 'emploi'):
                   globvar = globvar + 1
                   emploiForm = EmploiForm(request.POST)
@@ -202,31 +227,63 @@ def registerAccount(request,table=None,type=None):
                                     emploi                  = new_emploi,
                                     endettement             = new_endettement,                        
                               )
-                              new_cosigner.save() 
-                              clientData.cosigner = new_cosigner
-                              clientData.save()    
+                              new_cosigner.save()
+                              
+                              nom               = client_interet.split(' ')[0]
+                              prenom            = client_interet.split(' ')[1:]
+                              prenom            = ' '.join(prenom)
+                              client            = Client.objects.filter(nom = nom, prenom = prenom)[0]
+                              client.cosigner   = new_cosigner
+                              client.save() 
+
+                              print(nom)
+                              print(prenom)
+                              appointment_to_delete = Appointment.objects.filter(nom = nom)
+
+                              if appointment_to_delete:
+                                    appointment_to_delete = appointment_to_delete[0]
+
+                              print(appointment_to_delete)
+
+                              article_interet       = appointment_to_delete.article_dinteret           
+
+                              appointment_to_delete.delete()
 
                               # Creating the Clients Dossier
-                              article_interet = article_interet.split('-')[-1]
-                              for article in Article.objects.all():
-                                    if article.nom == article_interet:
 
-                                          new_dossier = Dossier(
-                                                societe                 = request.user.societe,             
-                                                User                    = request.user,             
-                                                client                  = clientData,
-                                                article_interet         = article,
-                                                statut                  = 'A',          
-                                                coeff_recouv            = 0,   
-                                                # appele_recouvre         = '',  
-                                                pin                     = 0,    
-                                                # dernier_appel           = '',  
-                                                verifie                 = False, 
-                                                uid                     = int(random.random()*1000000000)
-                                                )
+                              article_interet   = article_interet.split('-')[-1]
+                              article           = Article.objects.filter(nom = article_interet.split('-')[-1])                   
 
-                                          new_dossier.save()
-                                          currentDossier = new_dossier
+                              if article:
+                                    article = article[0]
+                              if article:
+                                    # Creating the clients facture after applied
+                                    new_facture = Facture(
+                                          article             = article,
+                                          User_editeur        = request.user,
+                                          statut              = "FM",
+                                          num_facture         = "",
+                                          somme               = article.frais_montage
+                                    )
+
+                                    new_facture.save()
+
+                                    new_dossier = Dossier(
+                                          societe                 = request.user.societe,             
+                                          User                    = request.user,             
+                                          client                  = client,
+                                          article_interet         = article,
+                                          facture                 = new_facture,        
+                                          statut                  = 'A',
+                                          coeff_recouv            = 0,   
+                                          pin                     = 0,    
+                                          verifie                 = False, 
+                                          uid                     = int(random.random()*1000000000)
+                                          )
+
+                                    new_dossier.save()
+                                    currentDossier = new_dossier
+
 
                         new_compte_endettement = CompteEndettement(
                               endettement             = new_endettement,
@@ -236,9 +293,9 @@ def registerAccount(request,table=None,type=None):
                               nom_compte              = endettementForm.cleaned_data.get('nom_compte'),
                         )
 
-                        # new_compte_endettement.save()
+                        new_compte_endettement.save()
 
-                        PretEndettement(
+                        new_preendettement = PretEndettement(
                               endettement             = new_endettement,
                               nom_banque              = nom_banque,
                               type_pret               = endettementForm.cleaned_data.get('type_pret'),
@@ -255,6 +312,8 @@ def registerAccount(request,table=None,type=None):
                               date                    = endettementForm.cleaned_data.get('date'),
 
                         )
+
+                        # new_preendettement.save()
                   else:
                         errors = f'Info Perso Client <br />{clientForm.errors}<br />Info Address Client <br />{placeForm.errors}<br />Info Emploi <br /> {emploiForm.errors} <br /> Info Endettement <br /> {endettementForm.errors} <br /> '                   
                        
@@ -269,41 +328,46 @@ def sendMail(request):
             print(request.POST)
              
             send_mail(
-                  subject="Django Email Test",# subject
-                  message="Yo, hello from the real world, it just so happens that i am testing out django right now", # message
-                  from_email="karlsedoide@gmail.com",# from email
-                  recipient_list=['dzekarlson@gmail.com']# To mail
+                  "Django Email Test",
+                  "Yo, hello from the real world, it just so happens that i am testing out django right now", # message
+                  "karlsedoide@gmail.com",# from email
+                  ['dzekarlson@gmail.com'],# To mail
+                  fail_silently=False
             )
       else:
             pass
 
 
 
+@login_required
+def makePdf(request,name):
+      if(request.method == 'POST' and request.user.poste == section):
+            print('--------------------------')
+            print('whats  up here')
+            print('--------------------------')
+            pdf = FPDF('P', 'mm', 'Letter')
+            print(request.POST)
+            pdf.add_page()
+            pdf.set_font('helvetica','',16)
+            pdf.cell(40,11,request.POST['top_info'])
+            pdf.call(40,11,request.POST['bottom_info'])
+            pdf.output('pdf_1.pdf')
+            return HttpResponse(' ')
+
+
 
 @login_required
 def vente(request):
+      global currentDossier
+      dossier_uid = None
       if(request.user.poste == section):
-            print('---------------------------------')
-            print(clientData)
-            print('---------------------------------')
-
             if request.method == 'POST':
-                  print('-------------Post ----------------')
-                  print(clientData)
                   print(request.POST)
-                  print('---------------------------------')
-            else:
-                  pass
+                  dossier_uid = int(request.POST['dossier_id'])
+                  currentDossier = Dossier.objects.filter(uid=dossier_uid)[0]
+                  return render(request, 'transac/tvente.html', { 'title': 'Espace vente','client':clientData,'dossier':currentDossier})
 
-            all_dossier = Dossier.objects.all()
-            all_articles = Article.objects.all()
-
-            for dossier in all_dossier:
-                  print(dossier)
-
-
-
-            return render(request, 'transac/tvente.html', { 'title': 'Espace vente','clientData':clientData,'article':all_articles,'dossier':currentDossier})
+            return render(request, 'transac/tvente.html', { 'title': 'Espace vente','client':clientData,'dossier':currentDossier})
       else:
             return redirect(f"/login?next=/{section}/")
 
@@ -341,11 +405,11 @@ def penalties(request):
 @login_required
 def payments(request):
       if(request.user.poste == section):
-
-            all_info = Dossier.objects.all()
+            filterby = Q(statut="P1") | Q(statut="A")
+            all_info = Dossier.objects.filter(filterby)
         
             # CODE FOR PAGINATOR BELLOW
-            dossier_objects = Dossier.objects.filter()
+            dossier_objects = Dossier.objects.filter(filterby)
             paginator = Paginator(dossier_objects,1)
             page = request.GET.get('page',1)
 
@@ -990,3 +1054,79 @@ def get_tdc(request):
         return Response(serialized.data)
     else:
         return Response({})
+
+
+
+
+# BELLOW ARE API CALL METHODS FOR THE 3 BUTTONS
+@login_required
+@api_view(['GET'])
+def get_facture(request):
+    id = request.query_params.get('id',None)
+    # lookup = Q(uid=id)
+    dossier = Dossier.objects.filter(uid=id)
+
+    serialized = DossierSerializer(dossier, many=True)
+    print('SERIALIZED DATA BELLOW')
+    # print(serialized.data)
+    return Response(serialized.data[0])
+
+
+# PAY FACTURE BUTTON FOR OM
+@login_required
+@api_view(['POST'])
+def pay_facture(request):
+    # id = request.query_params.get('id',None)
+    id = request.POST.get('id',None)
+    status = request.POST.get('status', None)
+    dossier = Dossier.objects.get(pk=id)
+    
+    # facture = Facture.objects.get(pk=dossier.id)
+    # dossier
+
+    # GENERATE FACTURE 
+    
+    dossier.statut = status
+    dossier.save()
+
+    # print('INFO BELLOW')
+    # print(id)
+    # print(status)
+
+    return Response({}) 
+
+
+
+# SET PERCENT FOR FACTURE
+@login_required
+@api_view(['POST'])
+def set_facture_penalty(request):
+    # id = request.query_params.get('id',None)
+    id = request.POST.get('id',None)
+    type_of_amount = request.POST.get('type', None)
+    value = request.POST.get('value',None)
+
+    facture = Facture.objects.get(pk=id)
+
+    if(type_of_amount == 'PERCENT'):
+        # GET FACTURE AND CALCULATE PERCENT
+        sum = int(facture.somme) * int(value) / 100
+        facture.penalty_somme = sum
+        facture.save()
+    else:
+        # GET FACTURE AND SUM AMOUNT
+        sum = int(facture.somme) + int(value)
+        facture.penalty_somme = sum
+        facture.save()
+    
+    
+    # facture = Facture.objects.get(pk=dossier.id)
+    # dossier
+
+    # GENERATE FACTURE 
+
+    # print('INFO BELLOW')
+    # print(id)
+    # print(status)
+
+    return Response({}) 

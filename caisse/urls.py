@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.index, name='caisse'),
     path('caisse/api/paginate_caisse', views.paginate_caisse),
     path('caisse/api/get_caisse/', views.get_caisse),
+    path('caisse/api/pay_facture',views.pay_facture_om),
     path('paiements', views.cpaiement, name='cpaiements'),
     path('paiements/api/get_paiements', views.get_paiement),
     path('paiements/api/paginate_paiements', views.paginate_paiement),
@@ -28,7 +29,7 @@ urlpatterns = [
     path('cdcpt/api/paginate_cdcpt', views.paginate_cdcpt),
     path('cdc', views.cdc, name='cdc'),
     path('cdc/api/get_cdc', views.get_cdc),
-    path('cdc/api/paginate_cdc', views.paginate_cdc)
-    
+    path('cdc/api/paginate_cdc', views.paginate_cdc),
+    path('facture/api/get_facture', views.get_facture)
     
 ]

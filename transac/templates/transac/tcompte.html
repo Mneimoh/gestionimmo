@@ -82,7 +82,6 @@
         <span class="sr-only">45% Complete</span>
       </div>
     </div>
-
     <div class="col-md-12">
       <div class="btn-group pull-right bg-danger" id="templatemo_sort_btn">
         <button type="button" class="btn btn-default">Type de Client</button>
@@ -127,10 +126,11 @@
                 type="text"
                 class="form-control"
                 id="firstName"
-                value="John"
+                value="{{client.nom}}"
                 placeholder="Thomas"
                 name="nom"
                 required
+            
               />
             </div>
             <div class="col-md-6 margin-bottom-15">
@@ -140,8 +140,9 @@
                 class="form-control"
                 id="lastName"
                 name="prenom"
-                value="smith"
+                value="{{client.prenom}}"
                 required
+            
               />
             </div>               
             
@@ -192,7 +193,7 @@
                   class="form-control"
                   id="phoneA"
                   name="phone_1"
-                  value="660027896"
+                  value="{{client.telephone}}"
                   placeholder="887786455"
                   required
                 />
@@ -272,7 +273,24 @@
         <form name="client" class="irregular">
           {% csrf_token %}
               <!-- <div id="irregular"> -->
+
+          <div class="col-md-12 margin-bottom-15">
+            <label for="articleI" class="control-label"
+              >Sélectionnez le client à associer</label
+            >
+            <select class="form-control margin-bottom-15" name="client_interet" id="articleI">
+              {% for obj in clients %}
+              
+              <option>{{ obj }}</option>
+              
+              {% endfor %}
+            </select>
+          </div>
+
             <h1>Informations professionnelles co-signataire</h1> 
+
+
+
         <div class="col-md-6 margin-bottom-15">
           <label for="firstName" class="control-label">Nom</label>
           <input
@@ -2256,6 +2274,20 @@
                             <option value = "Crédit type 1">Crédit type 1</option>
                           </select>
                         </div>
+
+                        <!-- <div class="col-md-6 margin-bottom-15">
+                          <label for="articleI" class="control-label"
+                            >Article d'intérêt</label
+                          >
+                          <select class="form-control margin-bottom-15" name="article_interet" id="articleI">
+                            {% for obj in article_interet %}
+                            
+                            <option>{{ obj }}</option>
+                            
+                            {% endfor %}
+                          </select>
+                        </div> -->
+
                       </div>
 
                       <strong>Nom du débiteur</strong>
@@ -2335,6 +2367,7 @@
                             class="form-control"
                             id="agentNotif"
                             name="debiteur_agent"
+
                             required
                           />
                         </div>
@@ -2499,14 +2532,18 @@
                       <div class="col-md-6 margin-bottom-15"></div>
 
                       <div class="col-md-6 margin-bottom-15">
+
+                        <form method="POST" id="authorisation">
+                          {% csrf_token %}
                         <button
                           type="button"
-                          id="loading-example-btn3"
+                          id="print_autorisation"
                           data-loading-text="impression en cours"
                           class="btn btn-primary"
                         >
                           Imprimer l'autorisation
                         </button>
+                     </form>
                       </div>
                     </div>
                   </div>
@@ -2706,6 +2743,8 @@
       irregular_forms[index].style.display = 'block'
     } 
 
+    // window.location.reload()
+
   }
 
   error_messages.innerHTML=`
@@ -2758,9 +2797,13 @@
                     let message = document.createElement('div')
                     // console.log('------------response arrived------------')
                     console.log(data)
-                    if(data != "success")
-                      message.innerHTML=data
+                    if(data != "success"){
+                       message.innerHTML=data
                       error_messages.appendChild(message)
+                    }                    
+                    else 
+                      window.location.reload(false);
+                    
                     
                   },
                   error: function(data, status) {
@@ -2795,6 +2838,49 @@
               },
           });
  
+  })
+
+  $('#print_autorisation').click(function(){
+    let authorization_form = document.getElementById('authorisation')
+    var fd = new FormData(authorization_form);
+    fd.append('top_info',`Je soussigné ___________________ avoir appliqué pour un
+                        crédit à la consommation et autorise WEND PUIRE
+                        DISTRIBUTION et ses partenaires à faire des recherches
+                        concernant mon passé, mon emploi et d'autres
+                        informations qu'ils jugeront nécessaires., et tout cela
+                        dans le but de mieux évaluer les risques qu'ils
+                        pourraient encourir en octroyant un crédit. Je reconnais
+                        aussi que tout autre institution financière à laquel ils
+                        pourraient faire recours utilisera le même processus.
+                        J'accepte aussi d'être transféré de terrain, de site, de
+                        région, de banque ou di'institution financière, sans
+                        dédommagement si pour des raisons personnelles, WEND
+                        PUIRE DISTRIBUTION en jugeait l'utilité.`)
+
+    fd.append('bottom_info',`L'institution financière sous citée pourrait être celle
+                        qui est responsable du futur contrat de financement
+                        concernant ma cession si WEND PUIRE DISTRIBUTION leur
+                        transmettait mon dossier, et je m'engage par la présente
+                        à me conformer aux normes, conditions et termes de cette
+                        nouvelle institution. Je suis par là notifié que mon
+                        application pour crédit consommateur pourrait leur être
+                        soumise.`)
+
+    console.log(fd)
+            $.ajax({
+              type: "POST",
+              url: `/transac/generatepdf/authorisation/`,
+              data: fd,
+              processData: false,
+              contentType: false,
+              success: function(data,status) {
+                //this will execute when form is submited without errors
+            },
+            error: function(data, status) {
+                //this will execute when get any error
+            },
+        });
+        
   })
   
 

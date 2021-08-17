@@ -1,11 +1,13 @@
+from transac.views import dossiers
+from django.http import request
 from accueuil import serializers
-from caisse.serializers import DossierSerializer
+from caisse.serializers import DossierSerializer, FactureSerializer
 from accueuil.views import appointment
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .decorators import unauthenticated_user, allowed_users
-from main.models import Dossier
+from main.models import Dossier, Facture
 # IMPORTS FOR SEARCH
 from django.db.models import  Q
 
@@ -20,10 +22,11 @@ section = 'caisse'
 @login_required
 def index(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.all()
+        all_info = Dossier.objects.filter(statut='OM')
         
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter()
+        # GETTING JUST USERS THAT JUST OPENED ACCOUNT
+        dossier_objects = Dossier.objects.filter(statut="OM")
         paginator = Paginator(dossier_objects,1)
         page = request.GET.get('page',1)
 
@@ -45,10 +48,10 @@ def index(request):
 @login_required
 def cpaiement(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.all()
+        all_info = Dossier.objects.filter(statut='A')
         
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter()
+        dossier_objects = Dossier.objects.filter(statut='A')
         paginator = Paginator(dossier_objects,1)
         page = request.GET.get('page',1)
 
@@ -71,10 +74,11 @@ def cpaiement(request):
 @login_required
 def cpenalites(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.all()
+        # GETTING JUST USERS WITH PENALTY STATUS TRUES
+        all_info = Dossier.objects.filter(facture__penalty_status=True)
         
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter()
+        dossier_objects = Dossier.objects.filter(facture__penalty_status=True)
         paginator = Paginator(dossier_objects,1)
         page = request.GET.get('page',1)
 
@@ -879,3 +883,38 @@ def get_cdc(request):
         return Response(serialized.data)
     else:
         return Response({})
+
+
+# BELLOW ARE API CALL METHODS FOR THE 3 BUTTONS
+@login_required
+@api_view(['GET'])
+def get_facture(request):
+    id = request.query_params.get('id',None)
+    # lookup = Q(uid=id)
+    dossier = Dossier.objects.filter(uid=id)
+
+    serialized = DossierSerializer(dossier, many=True)
+    print('SERIALIZED DATA BELLOW')
+    # print(serialized.data)
+    return Response(serialized.data[0])
+
+
+# PAY FACTURE BUTTON FOR OM
+@login_required
+@api_view(['POST'])
+def pay_facture_om(request):
+    # id = request.query_params.get('id',None)
+    id = request.POST.get('id',None)
+    status = request.POST.get('status',None)
+    # status = request.query_params.get('status',None)
+    dossier = Dossier.objects.get(pk=id)
+    
+    facture = Facture.objects.get(pk=dossier.id)
+    # dossier
+    dossier.statut = status
+    facture.statut = 'PAID'
+    dossier.save()
+    facture.save()
+
+
+    return Response({}) 

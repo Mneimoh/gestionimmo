@@ -125,7 +125,7 @@
                           class="btn btn-default"
                           data-toggle="modal"
                           data-target="#modifPenalite"
-                          onclick="set_user('{{ dossier }}')"
+                          onclick="set_user('{{ dossier.id }}')"
                         >
                           Modifier
                         </button>
@@ -138,12 +138,12 @@
                           class="btn btn-info"
                           data-toggle="modal"
                           data-target="#openPenalite"
-                          onclick="set_user('{{ dossier }}')"
+                          onclick="set_id_to_pay('{{ dossier.id }}')"
                         >
-                          OUVRIR
+                        Confirmer
                         </button>
                       </td>
-                      <td><a onclick="set_user('{{ dossier }}')" href="#" class="btn btn-link">Consulter</a></td>
+                      <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" href="#" class="btn btn-link">Consulter</a></td>
                     </tr>
                     {% endfor  %}
                   </tbody>
@@ -163,10 +163,10 @@
           
           </div> 
 {% endblock %} {% block modal %}
-<!-- Modal -->
+
 <div
   class="modal fade"
-  id="modifPenalite"
+  id="showFacture"
   tabindex="-1"
   role="dialog"
   aria-labelledby="myModalLabel"
@@ -179,15 +179,45 @@
           <span aria-hidden="true">&times;</span
           ><span class="sr-only">Fermer</span>
         </button>
-        <input
-          class="modal-input"
-          id="myModalLabel"
-          placeholder="Modifier la pénalité"
-          value="5%"
-        />
+        <h4 class="modal-title" id="myModalLabel" style="text-align: center;">
+         DISPLAY USERS FACTURE HERE
+        </h4>
+        <hr>
+      <div id="display-facture">
+        
+      </div>
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-primary">Modifier</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="openPenalite"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Fermer</span>
+        </button>
+        <form id="form">
+          {% csrf_token %}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a onclick="pay_facture()" data-dismiss="modal" class="btn btn-primary">Confirmer</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">
           Non
         </button>
@@ -197,7 +227,7 @@
 </div>
 <div
   class="modal fade"
-  id="openPenalite"
+  id="modifPenalite"
   tabindex="-1"
   role="dialog"
   aria-labelledby="myModalLabel"
@@ -536,42 +566,175 @@
       $("#penaliteTable tbody").html(all_rows)
   }
 
-  let dossier = null;
+
+  
+  // SCRIPT CODE BELLOW FOR 3 BUTTONS
+
+
+  // #####CODE FOR FACTURE############
+  // THE ID PASSED HERE IS THE DOSSIER ID
+  function get_facture(id) {
+    // This is the function that will make the api call and get facture
+    let param = "id="+id
+    let result = null;
+    
+    $.ajax({
+          method: 'GET',
+          url: 'facture/api/get_facture?' + param,
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+  
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            udpate_facture_modal(result.facture)
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+
+  }
+  function show_facture(id) {
+    // CALL GET FACTURE FUNCTION TO GO AND GET FCTURE
+   get_facture(id)
+  }
+
+  function udpate_facture_modal(facture) {
+    console.log('UPDATE FACTURE MODAL')
+    let data = `
+    <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Article Name: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.article.nom}</span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Somme: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.somme}</span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">STATUT: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.statut}</span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">DATE: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.date}</span>
+        </div>
+    `
+
+    document.getElementById('display-facture').innerHTML = data;
+  }
+
+  // #########END OF FACTURE SHOWING CODE#########
+
+  // PAY FACTURE CODE BELLOW
+  let id_to_pay = null;
+
+
+  function pay_facture() {
+    //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
+    // let param = "id=" + id_to_pay & "status="+"A"
+    var form = document.getElementById('form');
+
+    csrftoken = form.getElementsByTagName('input')[0].value;
+
+    $.ajax({
+          method: 'POST',
+          url: 'transac/api/pay_facture',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: id_to_pay , status: "A"},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('facture paid')
+            window.location.reload()
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+  }
+
+  function set_id_to_pay(id) {
+    id_to_pay = id;
+    console.log('ID TO PAY BELLOW')
+    console.log(id)
+  }
+
+
+  // OLD CODE 
+  let dossier_id = null;
 
   // Function Bellow Will Set User To A Variable
   function set_user(dossier_info) {
-    dossier = dossier_info;
+    dossier_id = dossier_info;
   }
-  
+
+ 
   function set_amount() {
     // SET AMOUNT FOR PENALITE
-    console.log('USER BELLOW')
-    console.log(dossier)
     let amount = document.getElementById('amountInput').value;
-    console.log('AMOUNT BELLOW')
-    console.log(amount)
+
+    var form = document.getElementById('form');
+
+    csrftoken = form.getElementsByTagName('input')[0].value;
+
+    $.ajax({
+          method: 'POST',
+          url: 'penalites/api/set_facture_amount',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: dossier_id , type: "AMOUNT", value: amount},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('facture paid')
+            window.location.reload()
+          },
+
+          error: function() {
+              console.log('error')
+          }
+      })
   }
 
   function set_percent() {
+  
     // SET PERCENT FOR PENALITE
-    console.log('USER BELLOW')
-    console.log(dossier)
     let amount = document.getElementById('amountInput').value;
-    console.log('AMOUNT BELLOW')
-    console.log(amount)
+    
+    var form = document.getElementById('form');
+
+    csrftoken = form.getElementsByTagName('input')[0].value;
+
+    $.ajax({
+          method: 'POST',
+          url: 'penalites/api/set_facture_amount',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: dossier_id , type: "PERCENT", value: amount},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('facture paid')
+            window.location.reload()
+          },
+
+          error: function() {
+              console.log('error')
+          }
+      })
 
   }
 
-  function consulter_button() {
-    // NEEDS TO SHOW USERS FACTURE 
-
-  }
-
-  function modifier_button() {
-    // NEED TO CHANGE BUTTON SO THAT IT DOES THE SECOND CONFIRMATION FOR PAYMENT AFTER CAISSE
-    console.log('DOSSIER BELLOW')
-    console.log(dossier)
-  }
   
   </script>
 {% endblock %}

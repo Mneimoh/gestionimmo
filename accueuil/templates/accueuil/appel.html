@@ -58,7 +58,7 @@
                     <label for="phoneA" class="control-label">Téléphone</label>
                     <input type="text" name="telephone" class="form-control" id="phoneA" placeholder="986876869" required>                  
                   </div>
-                  <div class="col-md-6 margin-bottom-15">
+                  <!-- <div class="col-md-6 margin-bottom-15">
                     <label for="articleI" class="control-label">Article d'intérêt</label>                            
                     <select name="article_dinteret" class="form-control margin-bottom-15" id="articleI">
                       {% for obj in article_interet %}
@@ -67,6 +67,19 @@
                       
                       {% endfor %}
                     </select>              
+                  </div> -->
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="articleI" class="control-label"
+                      >Article d'intérêt</label
+                    >
+                    <select class="form-control margin-bottom-15" name="article_dinteret" id="articleI">
+
+                      {% for obj in article_interet %}
+                      
+                      <option>{{ obj }}</option>
+                      
+                      {% endfor %}
+                    </select>
                   </div>
                 </div>                        
                 <div class="row">                          

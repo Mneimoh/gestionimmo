@@ -12,3 +12,5 @@ sqlparse==0.4.1
 whitenoise==5.3.0
 django-filter==2.4.0
 djangorestframework==3.12.4
+uuid==1.30
+fpdf2==2.4.2

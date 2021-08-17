@@ -1,6 +1,6 @@
 from django.db import models
 from django.http import request
-from main.models import Article, Client, CompteEndettement, Dossier, Emploi, Endettement, PretEndettement, Cosignataire
+from main.models import Article, Client, CompteEndettement, Dossier, Emploi, Endettement, PretEndettement, Cosignataire, Facture, Paiement,Appointment
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
@@ -33,8 +33,8 @@ class UserCreationForm(forms.ModelForm):
 
     def save(self, commit=True):
         # Save the provided password in hashed format
-        user = super(UserCreationForm, self)
-        user.save(commit=False)
+        user = super(UserCreationForm, self).save(commit=False)
+       
 
         user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -125,8 +125,15 @@ class SetSocieteUserPermission(BaseUserAdmin):
     def get_queryset(self, request):
         User = get_user_model()
         print((request.user.societe and  request.user.email))
-        users = User.objects.filter(societe = request.user.societe, is_admin=False)    
-        return users  
+        users = User.objects.filter(societe = request.user.societe, is_admin=False)
+        unchecked = User.objects.filter(email = None, societe = None, is_admin=False )
+        # print('---------------unchecked users-------------------')
+        # print(users)
+        # print(unchecked)
+        combined_users = users | unchecked
+        print(combined_users)
+        # print('-------------------------------------------------')
+        return combined_users
 
     def get_form(self, request, obj=None, **kwargs):
 
@@ -279,7 +286,37 @@ class CosignataireAdmin(admin.ModelAdmin):
         return False
     def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
         return False
-        
+
+class FactureAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return False
+    def has_view_permission(self, request: HttpRequest, obj=None) -> bool:
+        return True
+    def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+    def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+
+class PaiementAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return False
+    def has_view_permission(self, request: HttpRequest, obj=None) -> bool:
+        return True
+    def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+    def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+
+class AppointmentAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return False
+    def has_view_permission(self, request: HttpRequest, obj=None) -> bool:
+        return True
+    def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+    def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+
 # societe_site.register(User,Administrator)
 societe_site.register(User, SetSocieteUserPermission)
 societe_site.register(Client,ClientAdmin)
@@ -291,4 +328,7 @@ societe_site.register(Place,PlaceAdmin)
 societe_site.register(Emploi, EmploiAdmin)
 societe_site.register(Endettement,EndettementAdmin)
 societe_site.register(CompteEndettement,CompteEndettementAdmin)
-# societe_site.register(PretEndettement,PretEndettementAdmin)
+societe_site.register(Facture, FactureAdmin)
+societe_site.register(Paiement, PaiementAdmin)
+societe_site.register(Appointment, AppointmentAdmin)
+societe_site.register(PretEndettement,PretEndettementAdmin) 

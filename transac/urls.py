@@ -3,9 +3,13 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('', views.index, name='transac'),
+    path('', views.prequalifList , name='transac'),
+    path('transac/api/pay_facture',views.pay_facture),
+    path('facture/api/get_facture', views.get_facture),
+    path('compte/<nom>',views.index, name="transact list"),
     path('vente', views.vente, name='vente'),
-    path('register/<table>/<type>/', views.registerAccount), 
+    path('register/<table>/<type>/', views.registerAccount),
+    path('generatepdf/<name>/',views.makePdf),
     # path('register/client', views.registerAccount),
     # path('register/place', views.registerAccount),
     # path('register/emploi',  views.registerAccount),
@@ -14,6 +18,7 @@ urlpatterns = [
     path('penalties', views.penalties, name='penalties'),
     path('penalites/api/get_penalites', views.get_penalite),
     path('penalites/api/paginate_penalites', views.paginate_penalite),
+    path('penalites/api/set_facture_amount', views.set_facture_penalty),
     path('payments', views.payments, name='payments'),
     path('paiements/api/get_paiements', views.get_paiement),
     path('paiements/api/paginate_paiements', views.paginate_paiement),

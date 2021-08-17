@@ -25,7 +25,7 @@
                       </form>
                     </li> 
                     <li>
-                        &nbsp;&nbsp;<input type="number" name='dossier_id' class="form-control" id="templatemo_search_box" placeholder="N° de dossier">
+                        &nbsp;&nbsp;<input type="number" maxlength="9" name='dossier_id' class="form-control" id="templatemo_search_box" placeholder="N° de dossier">
                         <span id="rechercher" class="btn btn-default">Rechercher</span>
                     </li> 
                   </ul>    
@@ -71,42 +71,44 @@
           <div class="row">
             <div class="col-md-12">
 
-              <div class="table-responsive">
-                <table class="table table-striped table-hover table-bordered">
-                  <thead>
-                    <tr>
-                      <th>N° client</th>
-                      <th>Téléphone</th>
-                      <th>Nom</th>
-                      <th>Prénom</th>
-                      <th>N°dossier</th>
-                      <th>Statut</th>
-                      <th>Dernier Paiement</th>
-                      <th>Coeff recouvr</th>
-                      <th>Appelé & récouvré</th>
-                      <th>Dernier appel</th>
-                      <th>hr</th>
-                      <th>Consulter</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>35975975</td>
-                      <td>887786455</td>
-                      <td>Wade</td>
-                      <td>Abdou</td>
-                      <td>484084058</td>
-                      <td>R1</td>
-                      <td>15/03/2014</td>
-                      <td>1</td>
-                      <td>non</td>
-                      <td>15/01/2014</td>
-                      <td>12:35</td>                      
-                      <td><a href="#" class="btn btn-link">Consulter</a></td>
-                    </tr>                                             
-                  </tbody>
-                </table>
-              </div>
+            {% if dossier %}
+
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th>N° client</th>
+                        <th>Téléphone</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>N°dossier</th>
+                        <th>Statut</th>
+                        <th>Dernier Paiement</th>
+                        <th>Coeff recouvr</th>
+                        <th>Appelé & récouvré</th>
+                        <th>Dernier appel</th>
+                        <!-- <th>hr</th> -->
+                        <th>Consulter</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{ dossier.client.uid }}</td>
+                        <td>{{ dossier.client.phone_1 }}</td>
+                        <td>{{ dossier.client.nom }}</td>
+                        <td>{{ dossier.client.prenom }}</td>
+                        <td>{{ dossier.uid }}</td>
+                        <td>{{ dossier.statut }}</td>
+                        <td>{{ dossier.article.date_dernier_paiement }}</td>
+                        <td>{{ dossier.coeff_recouv}}</td>
+                        <td>{{ dossier.appele_recouvre }}</td>
+                        <td>{{ dossier.dernier_appel}}</td>
+                        <!-- <td>12:35</td>                       -->
+                        <td><a href="#" class="btn btn-link">Consulter</a></td>
+                      </tr>                                             
+                    </tbody>
+                  </table>
+                </div>     
 
               <div class="panel-group" id="accordion">
                   <div class="panel panel-default">
@@ -420,12 +422,12 @@
                         <h2>Structure prêt</h2>
                         <div class="row">
                           <div class="col-md-6 margin-bottom-15">
-                            <label for="tvNomIap" class="control-label" style="color:#99ccff;">TYPE D'ARTICLE</label>
-                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" id="tvNomIap" value="Immobilier" disabled>
+                            <label for="tvNomIap" class="control-label" style="color:#99ccff;">TYPE D'ARTICLE </label>
+                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" id="tvNomIap" value={{dossier.article_interet.type_article}} disabled>
                           </div>
                           <div class="col-md-6 margin-bottom-15">
                             <label class="control-label" style="color:#99ccff;">NUMERO DE STOCK</label>
-                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="KINT10001" disabled>   
+                            <input type="text" id="numero_de_stock" class="form-control" style="background-color:#99ccff; color:#000;" disabled>   
                           </div>
                         </div>
 
@@ -434,7 +436,7 @@
                           <div class="col-md-4 margin-bottom-15">
                             <label class="control-label">Valeur article</label>
                             <input type="text" class="form-control" value="100%" disabled>
-                            <input type="text" class="form-control" value="3 600 000" disabled>
+                            <input type="text" id="valeur_article" class="form-control" value={{dossier.article_interet.valeur}} disabled>
                           </div>
                           <div class="col-md-4 margin-bottom-15">
                             <label class="control-label">TAUX</label>
@@ -450,7 +452,7 @@
                             </table>
                           </div>
                           <div class="col-md-4 margin-bottom-15">
-                            <input type="text" class="form-control" value="six millions" disabled>
+                            <input type="text" class="form-control" pattern="[A-Za-z]{3}" name="valeur_millions" value="six millions" disabled>
                             <input type="text" class="form-control" value="cinq cent" disabled>
                             <input type="text" class="form-control" value="zéro milles" disabled>
                             <input type="text" class="form-control" value="zéro francs CFA" disabled>
@@ -460,7 +462,7 @@
                           <div class="col-md-4 margin-bottom-15">
                             <label class="control-label">Prise en charge</label>
                             <input type="text" class="form-control" value="100%" disabled>
-                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
+                            <input type="text" id='prise_en_charge' class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
                           </div>
                           <div class="col-md-4 margin-bottom-15">
                             <label class="control-label">DATE</label>
@@ -470,7 +472,7 @@
                         <div class="row">
                           <div class="col-md-4 margin-bottom-15">
                             <label class="control-label">Prix de l'article financé</label>
-                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
+                            <input type="text" id="prix_finance" class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
                           </div>                       
                         </div>
                         <div class="row">
@@ -491,7 +493,7 @@
                             <table>
                               <tr>
                                 <td class="col-md-8">
-                                  <input type="text" class="form-control" value="20 000" disabled>  
+                                  <input id="accompte" type="text" class="form-control" value="20 000" disabled>  
                                 </td>
                                 <td class="col-md-4">
                                   &nbsp;<i class="fa fa-long-arrow-right"></i> 
@@ -519,7 +521,7 @@
                             <label class="control-label">Autres taxes (si applicable)</label>
                             <input type="text" class="form-control" value="0" disabled>
                             <label class="control-label">Frais de dossier</label>
-                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="7 500" disabled>
+                            <input type="text" id="frais_dossier" class="form-control" style="background-color:#99ccff; color:#000;" value="7 500" disabled>
                           </div>  
                         </div>
                         <div class="row">
@@ -534,13 +536,13 @@
                         <div class="row">
                           <div class="col-md-4 margin-bottom-15">
                             <label class="control-label">Estimation durée de paiement</label>
-                            <input type="text" class="form-control" value="32" disabled>
+                            <input id="payment_length" type="number" class="form-control" value="320">
                             <label class="control-label">Frais de montage de dossier</label>
-                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="12 500" disabled>
+                            <input type="text" id="frais_montage" class="form-control" style="background-color:#99ccff; color:#000;" disabled>
                             <label class="control-label">Livraison (si applicable)</label>
-                            <input type="text" class="form-control" value="" disabled>
+                            <input type="text" id="frais_livraison" class="form-control" disabled>
                             <label class="control-label">Protection perte emploi ou revenu</label>
-                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="80 000" disabled>
+                            <input type="text" class="form-control" id="perte_emploi" style="background-color:#99ccff; color:#000;"disabled>
                           </div>  
                         </div>
                         <div class="row">
@@ -549,7 +551,7 @@
                               <tr>
                                 <td class="col-md-8">
                                   <label class="control-label">Protection vie ou invalidité</label>
-                                  <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="80 000" disabled>  
+                                  <input type="text" id="vie_ou_invalidite" class="form-control" style="background-color:#99ccff; color:#000;"disabled>  
                                 </td>
                                 <td class="col-md-4">
                                   &nbsp;<i class="fa fa-long-arrow-right"></i> 
@@ -568,11 +570,11 @@
                         <div class="row">
                           <div class="col-md-4 margin-bottom-15">    
                             <label class="control-label">Protection SOS réparation</label>
-                            <input type="text" class="form-control" value="0" disabled>
+                            <input type="text" id="sos_reparation" class="form-control" value="0" disabled>
                             <label for="tvAgentIap" class="control-label">Paiement banque pour reprise (S.A)</label>
                             <input type="text" class="form-control" value="" disabled>
                             <label for="tvAgentIap" class="control-label">Autres frais</label>
-                            <input type="text" class="form-control" value="" disabled>
+                            <input type="text" id="frais_autre" class="form-control" value="" disabled>
                           </div> 
                         </div> 
                         <div class="row">
@@ -581,7 +583,7 @@
                               <tr>
                                 <td class="col-md-8">
                                   <label for="tvAgentIap" class="control-label" style="color:#99ccff;">MONTANT A FINANCER</label>
-                                  <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="3 760 000" disabled>  
+                                  <input type="text" id = "montant_financer" class="form-control" style="background-color:#99ccff; color:#000;"disabled>  
                                 </td>
                                 <td class="col-md-4">
                                   &nbsp;<i class="fa fa-long-arrow-right"></i> 
@@ -601,7 +603,7 @@
                         <div class="row">
                           <div class="col-md-4 margin-bottom-15">    
                             <label class="control-label" style="color:#99ccff;">NOMBRE DE MOIS</label>
-                            <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="32" disabled>
+                            <input id="payment_length_read_only" type="text" class="form-control" style="background-color:#99ccff; color:#000;" disabled>
                           </div>
 
                         </div>
@@ -612,7 +614,7 @@
                               <tr>
                                 <td class="col-md-8">
                                   <label class="control-label" style="color:#99ccff;">PAIEMENT MENSUEL</label>
-                                  <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="117 500" disabled>  
+                                  <input type="text" id="paiement_mensuel" class="form-control" style="background-color:#99ccff; color:#000;" disabled>  
                                 </td>
                                 <td class="col-md-4">
                                   &nbsp;<i class="fa fa-long-arrow-right"></i> 
@@ -635,7 +637,7 @@
                               <tr>
                                 <td class="col-md-8">
                                   <label for="tvAgentIap" class="control-label" style="color:#99ccff;">TOTAL</label>
-                                  <input type="text" class="form-control" style="background-color:#99ccff; color:#000;" value="3 780 000" disabled>  
+                                  <input type="text" id="total" class="form-control" style="background-color:#99ccff; color:#000;" disabled>  
                                 </td>
                                 <td class="col-md-4">
                                   &nbsp;<i class="fa fa-long-arrow-right"></i> 
@@ -928,6 +930,8 @@
                     </div>
                   </div>                  
               </div>
+            
+            {% endif %}
 
             </div>
               
@@ -1086,5 +1090,225 @@
           });
  
   })
+
+  // make the number digits a multiple 3
+function makeNumberMultiple(number){
+    // console.log(number)
+    let digits = `${number}`.split('').length
+    // console.log('<< Multiple is running >>')
+
+
+    if(digits%3){
+        // console.log('its not a multiple, fix it')
+        return makeNumberMultiple(`0${number}`)
+    }
+    else{
+        // console.log(' its a multiple, fixed!')
+        return number;
+    }
+
+}
+// name each block and attach its unit
+function blockName(number){
+    // console.log('<< Hello from the Namer >>')
+    let name = ''
+    number = `${number}`.split('')
+    const N_Constants = {
+  
+        1:'one',
+        01:'one',
+        2:'two',
+        3:'three',
+        4:'four',
+        5:'five',
+        6:'six',
+        7:'seven',
+        8:'eight',
+        9:'nine',
+        10:'ten',
+        11:'eleven',
+        12:'twelve',
+        13:'thirteen',
+        14:'fourteen',
+        15:'fifteen',
+        16:'sixteen',
+        17:'seventeen',
+        18:'eighteen',
+        19:'nineteen',
+        20:'twenty',
+        30:'thirty',
+        40:'fourty',
+        50:'fifty',
+        60:'sixty',
+        70:'seventy',
+        80:'eighty',
+        90:'ninety'
+
+    }
+    
+    if(number[0] !='0')
+        name = N_Constants[number.shift()]+ " hundred and "
+    else{
+         number.shift()
+        //  console.log('zero found and removed')
+    }
+       
+    if(Object.keys(N_Constants).includes(number.join(''))){
+        name = name + N_Constants[`${number.join('')}`]
+    }else{
+
+        if(number[0] !='0')
+        name = name +  N_Constants[`${number.shift()}0`]+ " "
+        else{
+            number.shift()
+            // console.log('zero found and removed')
+        }
+
+        if(number[0] !='0')
+            name = name +  N_Constants[number.shift()]+ " "
+        else{
+            number.shift()
+            // console.log('zero found and removed')
+        }
+       
+    }
+
+    return name;
+
+}
+
+function convertNumberToString(number){
+    // console.log('<< Hola from the function >>')
+
+    const units = {
+        1: '',
+        2:' Thousand ',
+        3:' Million ',
+        4:' Billion ',
+        5:" Trillion ",
+        6:' Quatrillion ',
+
+    }
+    /*Make numbers digits a multiple of 3 */
+    number =  makeNumberMultiple(number)
+   
+    let digits = `${number}`.split('').length;
+    let number_of_blocks = digits/3;
+    let block_name = ""
+    /* name each block and attach its unit */
+    number = `${number}`.split('')
+
+    for(let block = 0; block < number_of_blocks; block++){
+        // console.log('<< hellloo >>')
+        
+         /* Split the new number into blocks of 3s */
+        let block_number = number.splice(0,3)
+
+        // name each block and attach its unit
+        // join every block name from first to last
+        if(block_number.join('') != 0)
+        block_name = block_name +   blockName(block_number.join('')) + units[`${number_of_blocks - block}`] + " "
+        
+    }
+
+    // console.log(block_name)
+    return block_name
+
+}
+
+
+  let payment_duration = document.getElementById('payment_length')
+  var valeur_article   = "{{dossier.article_interet.valeur}}"
+  var valeur_article_s = convertNumberToString(parseInt(valeur_article))
+  var frais_dossier    = "{{dossier.article_interet.frais_dossier}}"
+  var numero_stock     = "{{dossier.article_interet.num_stock}}"
+  var frais_montage    = "{{dossier.article_interet.frais_montage}}"
+  var frais_livraison  = "{{dossier.article_interet.frais_livraison}}"
+  var frais_autre      = "{{dossier.article_interet.frais_livraison}}"
+  var accompte         = "{{dossier.article_interet.accompte}}"
+  var perte_emploi     = undefined
+  var vie_ou_invalidite= perte_emploi
+  var prix_de_article  = valeur_article
+  var valeur_reprise   = 0
+  var subvention       = 0
+  var tva              = 0
+  var commission       = 0
+  var immatriculation  = 0
+  var transfer_titre   = 0
+  var paiement_banque  = 0
+  var autre_tax        = 0
+  var sos_reparation   = 0
+  var montant_financer = undefined
+  var montant_financer = null
+  var paiement_mensuel = undefined
+  var total            = null
+
+  perte_emploi         = 240 * 2500;
+  vie_ou_invalidite    = perte_emploi
+  montant_financer     =  parseInt(valeur_article) - 
+                          parseInt(valeur_reprise) -
+                          parseInt(subvention) + 
+                          parseFloat(accompte) + 
+                          parseInt(tva) + 
+                          parseInt(commission) + 
+                          parseInt(immatriculation) + 
+                          parseInt(transfer_titre) + 
+                          parseInt(frais_autre) + 
+                          parseInt(frais_dossier) + 
+                          parseInt(frais_montage) + 
+                          parseInt(frais_livraison) + 
+                          parseInt(perte_emploi) + 
+                          parseInt(vie_ou_invalidite) + 
+                          parseInt(sos_reparation) + 
+                          parseInt(paiement_banque) 
+
+  paiement_mensuel     = montant_financer/240
+  total                = parseInt(valeur_article) +
+                         parseInt(tva) + 
+                         parseInt(commission) +
+                         parseInt(immatriculation) + 
+                         parseInt(transfer_titre) + 
+                         parseInt(frais_autre) + 
+                         parseInt(frais_dossier) + 
+                         parseInt(frais_montage) + 
+                         parseInt(frais_livraison) + 
+                         parseInt(perte_emploi) + 
+                         parseInt(vie_ou_invalidite) + 
+                         parseInt(sos_reparation) + 
+                         parseInt(paiement_banque)
+
+  console.log(document.getElementById('payment_length_read_only'))
+  document.getElementById('payment_length_read_only').value   = 240
+  document.getElementById('valeur_article').value             = parseInt(valeur_article)
+  document.getElementById('prise_en_charge').value            = parseInt(valeur_article)
+  document.getElementById('prix_finance').value               = parseInt(valeur_article)
+  document.getElementById('frais_dossier').value              = parseInt(frais_dossier)
+  document.getElementById('numero_de_stock').value            = numero_stock
+  document.getElementById('frais_montage').value              = parseInt(frais_montage)
+  document.getElementById('frais_livraison').value            = parseInt(frais_livraison)
+  document.getElementById('frais_autre').value                = parseInt(frais_autre)
+  document.getElementById('accompte').value                   = parseInt(accompte)
+  document.getElementById('sos_reparation').value             = sos_reparation;
+  document.getElementById('perte_emploi').value               = perte_emploi
+  document.getElementById('vie_ou_invalidite').value          = vie_ou_invalidite
+  document.getElementById('montant_financer').value           = montant_financer
+  document.getElementById('paiement_mensuel').value           = Math.ceil(paiement_mensuel)
+  document.getElementById('total').value                      = total
+  document.getElementsByName('valeur_millions')[0].value      = valeur_article_s.splice(0,)
+
+  // Number to String
+//  convertNumberToString(total)
+
+
+$('#payment_length').change(function(e){
+  console.log(e.target.value)
+  $('#payment_length_read_only').val(e.target.value)
+  $('#perte_emploi').val(parseInt(e.target.value)*2500)  
+  $('#vie_ou_invalidite').val(parseInt(e.target.value)*2500)
+  paiement_mensuel = montant_financer/parseInt(e.target.value)
+  $('#paiement_mensuel').val(Math.ceil(paiement_mensuel))
+
+})
+
 </script>
 {% endblock %}

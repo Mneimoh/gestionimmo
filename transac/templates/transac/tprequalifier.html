@@ -1,0 +1,43 @@
+{% extends 'transac/layouts/base.html' %} {% load static %} {% block content %}
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Telephone</th>
+          <th>Date d'Appel</th>
+          <th>Heur Arrive</th>
+          <th>Date d'rendezvous</th>
+          <th>Heur d'rendezvous</th>
+          <th>Article d'interet</th>
+          <th>Status</th>
+          <th>Creer Compte</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for obj in all_prequalifiers %}               
+            <tr>
+            <td>{{ obj.nom }}</td>
+            <td>{{ obj.prenom }}</td>
+            <td>{{ obj.telephone }}</td>
+            <td>{{ obj.date_dappel }}</td>
+            <td>{{ obj.heure_arrivee }}</td>
+            <td>{{ obj.date_redezvous }}</td>
+            <td>{{ obj.heure_redezvous }}</td>
+            <td>{{ obj.article_dinteret }}</td>
+            <td>{{ obj.status}}</td>
+            <td><a href="compte/{{obj.nom}}-{{obj.prenom}}" class="btn btn-link">Create Account</a></td>
+            </tr>      
+        {% endfor %}                                    
+      </tbody>
+    </table>
+  </div> 
+
+{% endblock %} {% block modal %}
+
+{% endblock %} {% block scripts %}
+<script></script>
+{% endblock %}
