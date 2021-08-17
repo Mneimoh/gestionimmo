@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
 from datetime import date
+
+from django.db.models.fields import IntegerField
 # Create your models here.
 
 USER_POSTES = (
@@ -334,7 +336,7 @@ class Article(models.Model):
     #statut_final = models.CharField(max_length=20)
 
     def __str__(self):
-        return f'{self.type_article}-{self.nom}'
+        return f'{self.type_article} {self.nom}'
 
 class Facture(models.Model):
     article             = models.ForeignKey(Article, on_delete=models.CASCADE,null=True,blank=True)
@@ -356,9 +358,11 @@ class Paiement(models.Model):
     num_transaction     = models.CharField(max_length=10)
     date_paiement       = models.DateField()
     date                = models.DateTimeField(auto_now_add=True)
-
+    uid                 = IntegerField(blank=True)
     def __str__(self):
         return self.num_transaction
+
+
 
 
 class TypeArticleImmobilier(models.Model):
@@ -449,7 +453,7 @@ class Credit(models.Model):
     date                 = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.article
+        return f"{self.date_emission}"
 
 
 
@@ -460,6 +464,7 @@ class Dossier(models.Model):
     article_interet     = models.ForeignKey(Article, on_delete=models.CASCADE, null=True,blank=True)
     facture             = models.ForeignKey(Facture, on_delete=models.CASCADE, null=True,blank=True)
     credit              = models.ForeignKey(Credit, on_delete= models.CASCADE, null = True, blank= True)
+    Paiement            = models.ForeignKey(Paiement, on_delete=models.CASCADE, null =True, blank =True)
     statut              = models.CharField(max_length=20,default="A")
     coeff_recouv        = models.FloatField(default=0)
     appele_recouvre     = models.BooleanField(default=False)

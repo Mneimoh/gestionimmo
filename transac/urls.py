@@ -7,7 +7,7 @@ urlpatterns = [
     path('compte/<nom>',views.index, name="transact list"),
     path('vente', views.vente, name='vente'),
     path('register/<table>/<type>/', views.registerAccount),
-    path('generatepdf/<name>/', views.makePdf),
+    path('generatepdf/', views.ViewPDF.as_view(), name="pdf_view"),
     path('credit/<dossier>/', views.save_credit),
     # path('register/client', views.registerAccount),
     # path('register/place', views.registerAccount),
