@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-=======
-from django.http import response
-from reportlab.lib import pagesizes
 from accueuil.views import appointment
->>>>>>> 27ab278013a387b4f9f0e4db1bb0780753d43776
 from django.db.models.expressions import F
 from django.forms.widgets import DateInput
 from django.http.response import HttpResponse
@@ -32,10 +27,6 @@ from io import BytesIO
 from django.template.loader import get_template
 from django.views import View
 from xhtml2pdf import pisa
-
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import inch, cm
-from reportlab.lib.pagesizes import letter
 from textwrap import wrap
 
 # Declaring Global Variables.
