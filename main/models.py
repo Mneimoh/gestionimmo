@@ -469,7 +469,7 @@ class Dossier(models.Model):
     article_interet     = models.ForeignKey(Article, on_delete=models.CASCADE, null=True,blank=True)
     facture             = models.ForeignKey(Facture, on_delete=models.CASCADE, null=True,blank=True)
     credit              = models.ForeignKey(Credit, on_delete= models.CASCADE, null = True, blank= True)
-    Paiement            = models.ForeignKey(Paiement, on_delete=models.CASCADE, null =True, blank =True)
+    # Paiement            = models.ForeignKey(Paiement, on_delete=models.CASCADE, null =True, blank =True)
     statut              = models.CharField(max_length=20,default="A")
     coeff_recouv        = models.FloatField(default=0)
     appele_recouvre     = models.BooleanField(default=False)

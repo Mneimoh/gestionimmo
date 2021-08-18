@@ -417,76 +417,25 @@ def sendMail(request):
         pass
 
 
+@login_required
 def getPdf(request):
-	template_path = 'transac/test_template.html'
+    template_path = 'transac/test_template.html'
 
-	context = {'products': 'hello'}
+    context = {'products': 'hello'}
 
-	response = HttpResponse(content_type='application/pdf')
+    response = HttpResponse(content_type='application/pdf')
 
-	response['Content-Disposition'] = 'filename="products_report.pdf"'
+    response['Content-Disposition'] = 'filename="products_report.pdf"'
 
-	template = get_template(template_path)
+    template = get_template(template_path)
 
-	html = template.render(context)
-	# create a pdf
-	pisa_status = pisa.CreatePDF(html, dest=response)
-	# if error then show some funy view
-	if pisa_status.err:
-		return HttpResponse('We had some errors <pre>' + html + '</pre>')
-	return response
-
-    # buf = io.BytesIO()
-
-    # # create canvas
-    # c = canvas.Canvas(buf,pagesize=letter,bottomup=0)
-    # c.translate(cm,cm)
-    # #create a text object
-    # textob = c.beginText()
-    # textob.setTextOrigin(inch,inch)
-    # textob.setFont("Helvetica",14)
-
-    # # Add some lines of text
-    # if name=='authorisation':
-    #       text = '''
-    #       <img src="" height="500", width="300" />
-    #       Je soussigné ___________________ avoir appliqué pour un crédit à la consommation et autorise WEND PUIRE DISTRIBUTION et ses partenaires à faire des recherches concernant mon passé, mon emploi et d'autres informations qu'ils jugeront nécessaires., et tout cela dans le but de mieux évaluer les risques qu'ils pourraient encourir en octroyant un crédit. Je reconnais aussi que tout autre institution financière à laquel ils pourraient faire recours utilisera le même processus. J'accepte aussi d'être transféré de terrain, de site, de région, de banque ou di'institution financière, sans dédommagement si pour des raisons personnelles, WEND  PUIRE DISTRIBUTION en jugeait l'utilité.
-    #       L'institution financière sous citée pourrait être celle qui est responsable du futur contrat de financement concernant ma cession si WEND PUIRE DISTRIBUTION leur transmettait mon dossier, et je m'engage par la présente à me conformer aux normes, conditions et termes de cette nouvelle institution. Je suis par là notifié que mon application pour crédit consommateur pourrait leur être soumise.\n Institution financière : ___________________ Toutes
-    #       '''
-    # elif name == "recapitulatif":
-    #       pass
-    # elif name == "facture":
-    #       pass
-    # elif name == "engagement":
-    #       pass
-    # elif name == "ppe_imp":
-    #       pass
-    # elif name == "ppr_imp":
-    #       pass
-    # elif name == "pvi_imp":
-    #       pass
-    # elif name == "ct_imp":
-    #       pass
-    # else:
-    #       pass
-
-    # wraped_text = "\n".join(wrap(text, 70)) # 80 is line width
-    # textob.textLines(wraped_text)
-
-    # c.drawText(textob)
-    # c.showPage()
-    # c.save()
-    # buf.seek(0)
-
-    # return FileResponse(buf, as_attachment=True, filename=f"{name}.pdf")
-    # pdf = FPDF('P', 'mm', 'Letter')
-    # print(request.POST)
-    # pdf.add_page()
-    # pdf.set_font('helvetica','',16)
-    # pdf.cell(40,11,request.POST['top_info'])
-    # pdf.call(40,11,request.POST['bottom_info'])
-    # pdf.output('pdf_1.pdf')
-    # return HttpResponse(' ')
+    html = template.render(context)
+    # create a pdf
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 
 
 @login_required
