@@ -1,3 +1,5 @@
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from transac.views import dossiers, payments
 from django.http import request
 from accueuil import serializers
@@ -9,7 +11,7 @@ from django.contrib.auth.models import User
 from .decorators import unauthenticated_user, allowed_users
 from main.models import Dossier, Facture, Paiement
 # IMPORTS FOR SEARCH
-from django.db.models import  Q
+from django.db.models import Q
 from datetime import date
 from datetime import datetime
 
@@ -21,16 +23,17 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 section = 'caisse'
 
+
 @login_required
 def index(request):
     if(request.user.poste == section):
         all_info = Dossier.objects.filter(statut='OM')
-        
+
         # CODE FOR PAGINATOR BELLOW
         # GETTING JUST USERS THAT JUST OPENED ACCOUNT
         dossier_objects = Dossier.objects.filter(statut="OM")
-        paginator = Paginator(dossier_objects,1)
-        page = request.GET.get('page',1)
+        paginator = Paginator(dossier_objects, 1)
+        page = request.GET.get('page', 1)
 
         try:
             all_info = paginator.page(page)
@@ -41,21 +44,20 @@ def index(request):
 
         page_list = all_info.paginator.page_range
 
-        return render(request, 'caisse/caisse.html', {'title': 'Ouverture et montage de dossier', 'page_list': page_list, 'page': page, "all_dossier": all_info })
+        return render(request, 'caisse/caisse.html', {'title': 'Ouverture et montage de dossier', 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
-
 
 
 @login_required
 def cpaiement(request):
     if(request.user.poste == section):
         all_info = Dossier.objects.filter(statut='A')
-        
+
         # CODE FOR PAGINATOR BELLOW
         dossier_objects = Dossier.objects.filter(statut='A')
-        paginator = Paginator(dossier_objects,1)
-        page = request.GET.get('page',1)
+        paginator = Paginator(dossier_objects, 1)
+        page = request.GET.get('page', 1)
 
         try:
             all_info = paginator.page(page)
@@ -66,11 +68,9 @@ def cpaiement(request):
 
         page_list = all_info.paginator.page_range
 
-
-        return render(request,'caisse/cpaiements.html', { 'title': 'Paiements mensuels','page_list': page_list, 'page': page, "all_dossier": all_info})
+        return render(request, 'caisse/cpaiements.html', {'title': 'Paiements mensuels', 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
-
 
 
 @login_required
@@ -81,8 +81,8 @@ def cpenalites(request):
         lookup = Q(facture__penalty_status=True)
         # CODE FOR PAGINATOR BELLOW
         dossier_objects = Dossier.objects.filter(lookup)
-        paginator = Paginator(dossier_objects,1)
-        page = request.GET.get('page',1)
+        paginator = Paginator(dossier_objects, 1)
+        page = request.GET.get('page', 1)
 
         try:
             all_info = paginator.page(page)
@@ -93,10 +93,9 @@ def cpenalites(request):
 
         page_list = all_info.paginator.page_range
 
-        return render(request,'caisse/cpenalites.html', { 'title': 'Pénalités','page_list': page_list, 'page': page, "all_dossier": all_info})
+        return render(request, 'caisse/cpenalites.html', {'title': 'Pénalités', 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
-
 
 
 @login_required
@@ -107,8 +106,8 @@ def crestructurations(request):
         # print(all_info)
         # CODE FOR PAGINATOR BELLOW
         dossier_objects = Dossier.objects.filter(statut="RT")
-        paginator = Paginator(dossier_objects,1)
-        page = request.GET.get('page',1)
+        paginator = Paginator(dossier_objects, 1)
+        page = request.GET.get('page', 1)
 
         try:
             all_info = paginator.page(page)
@@ -119,21 +118,20 @@ def crestructurations(request):
 
         page_list = all_info.paginator.page_range
 
-        return render(request,'caisse/crestructurations.html', { 'title': 'Restructurations','page_list': page_list, 'page': page, "all_dossier": all_info})
+        return render(request, 'caisse/crestructurations.html', {'title': 'Restructurations', 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
-
 
 
 @login_required
 def cdelocalisations(request):
     if(request.user.poste == section):
         all_info = Dossier.objects.filter(statut='A')
-        
+
         # CODE FOR PAGINATOR BELLOW
         dossier_objects = Dossier.objects.filter(statut='A')
-        paginator = Paginator(dossier_objects,1)
-        page = request.GET.get('page',1)
+        paginator = Paginator(dossier_objects, 1)
+        page = request.GET.get('page', 1)
 
         try:
             all_info = paginator.page(page)
@@ -144,21 +142,20 @@ def cdelocalisations(request):
 
         page_list = all_info.paginator.page_range
 
-        return render(request,'caisse/cdelocalisations.html', { 'title': 'Délocalisations','page_list': page_list, 'page': page, "all_dossier": all_info})
+        return render(request, 'caisse/cdelocalisations.html', {'title': 'Délocalisations', 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
-
 
 
 @login_required
 def cmutations(request):
     if(request.user.poste == section):
         all_info = Dossier.objects.filter(statut='MT')
-        
+
         # CODE FOR PAGINATOR BELLOW
         dossier_objects = Dossier.objects.filter(statut='MT')
-        paginator = Paginator(dossier_objects,1)
-        page = request.GET.get('page',1)
+        paginator = Paginator(dossier_objects, 1)
+        page = request.GET.get('page', 1)
 
         try:
             all_info = paginator.page(page)
@@ -169,22 +166,21 @@ def cmutations(request):
 
         page_list = all_info.paginator.page_range
 
-        return render(request,'caisse/cmutations.html', { 'title': 'Mutations','page_list': page_list, 'page': page, "all_dossier": all_info})
+        return render(request, 'caisse/cmutations.html', {'title': 'Mutations', 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
-
 
 
 @login_required
 def cpml(request):
     if(request.user.poste == section):
 
-        all_info = Dossier.objects.filter(statut='MT')
-        
+        all_info = Dossier.objects.filter(statut='FN')
+
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(statut='MT')
-        paginator = Paginator(dossier_objects,1)
-        page = request.GET.get('page',1)
+        dossier_objects = Dossier.objects.filter(statut='FN')
+        paginator = Paginator(dossier_objects, 1)
+        page = request.GET.get('page', 1)
 
         try:
             all_info = paginator.page(page)
@@ -194,22 +190,23 @@ def cpml(request):
             all_info = paginator.page(paginator.num_pages)
 
         page_list = all_info.paginator.page_range
-        
-        return render(request,'caisse/cpml.html', { 'title': 'Plan de masse local','page_list': page_list, 'page': page, "all_dossier": all_info})
+
+        return render(request, 'caisse/cpml.html', {'title': 'Plan de masse local', 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
-
 
 
 @login_required
 def cdcpt(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.all()
-        
+        all_info = Dossier.objects.filter(
+            article_interet__type_article='TERRAIN')
+
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter()
-        paginator = Paginator(dossier_objects,1)
-        page = request.GET.get('page',1)
+        dossier_objects = Dossier.objects.filter(
+            article_interet__type_article='TERRAIN')
+        paginator = Paginator(dossier_objects, 1)
+        page = request.GET.get('page', 1)
 
         try:
             all_info = paginator.page(page)
@@ -219,22 +216,23 @@ def cdcpt(request):
             all_info = paginator.page(paginator.num_pages)
 
         page_list = all_info.paginator.page_range
-        
-        return render(request,'caisse/cdcpt.html', { 'title': 'Dossiers crédits propriétaires terriens (DCPT)','page_list': page_list, 'page': page, "all_dossier": all_info})
+
+        return render(request, 'caisse/cdcpt.html', {'title': 'Dossiers crédits propriétaires terriens (DCPT)', 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
-
 
 
 @login_required
 def cdc(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.all()
-        
+        all_info = Dossier.objects.filter(
+            statut='A').exclude(statut='OM')
+
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter()
-        paginator = Paginator(dossier_objects,1)
-        page = request.GET.get('page',1)
+        dossier_objects = Dossier.objects.filter(
+            statut='A').exclude(statut='OM')
+        paginator = Paginator(dossier_objects, 1)
+        page = request.GET.get('page', 1)
 
         try:
             all_info = paginator.page(page)
@@ -245,29 +243,29 @@ def cdc(request):
 
         page_list = all_info.paginator.page_range
 
-
-        return render(request,'caisse/cdc.html', { 'title': 'Dossiers crédits (DC)','page_list': page_list, 'page': page, "all_dossier": all_info})
+        return render(request, 'caisse/cdc.html', {'title': 'Dossiers crédits (DC)', 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
 
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 
 # ALL API CALLS ENDPOINTS BELLOW
 
 # ENDPOINTS FOR CAISSE BELLOW
+
+
 @login_required
 @api_view(['GET'])
 def paginate_caisse(request):
     # pagination bellow
     print('GOT HERE IN PAGINATE')
-    page = request.GET.get('page',None)
+    page = request.GET.get('page', None)
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
 
-    results = Dossier.objects.filter(statut='OM')[starting_number:ending_number]
-    
+    results = Dossier.objects.filter(
+        statut='OM')[starting_number:ending_number]
+
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
     # print(serialized.data)
@@ -283,9 +281,9 @@ def get_caisse(request):
     prenom = request.query_params.get('prenom', None)
     statut = request.query_params.get('statut', None)
     dernier_appel = request.query_params.get('dernier_appel', None)
-    coeff_recouv =  request.query_params.get('coeff_recouv', None)
+    coeff_recouv = request.query_params.get('coeff_recouv', None)
     appele_recouvre = request.query_params.get('appele_recouvre', None)
-    
+
     # FOR SEARCH FIELD BELLOW
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
@@ -293,11 +291,11 @@ def get_caisse(request):
     caisse_info = Dossier.objects.all(statut='OM')
 
     if search_table:
-        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
-        
+        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+            uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
         caisse_info = caisse_info.filter(lookups).distinct()
-        
-   
+
     if uid:
         caisse_info = caisse_info.all().order_by('client__uid')
     if phone_1:
@@ -314,17 +312,12 @@ def get_caisse(request):
         caisse_info = caisse_info.all().order_by('coeff_recouv')
     if appele_recouvre:
         caisse_info = caisse_info.all().order_by('appele_recouvre')
-   
-    
+
     if caisse_info:
         serialized = DossierSerializer(caisse_info, many=True)
         return Response(serialized.data)
     else:
         return Response({})
-
-
-
-
 
 
 # ENDPOINTS FOR PAIEMENTS BELLOW
@@ -334,13 +327,13 @@ def get_caisse(request):
 def paginate_paiement(request):
     # pagination bellow
     print('GOT HERE IN PAGINATE')
-    page = request.GET.get('page',None)
+    page = request.GET.get('page', None)
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
 
     results = Dossier.objects.filter()[starting_number:ending_number]
-    
+
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
     # print(serialized.data)
@@ -356,9 +349,9 @@ def get_paiement(request):
     prenom = request.query_params.get('prenom', None)
     statut = request.query_params.get('statut', None)
     dernier_appel = request.query_params.get('dernier_appel', None)
-    coeff_recouv =  request.query_params.get('coeff_recouv', None)
+    coeff_recouv = request.query_params.get('coeff_recouv', None)
     appele_recouvre = request.query_params.get('appele_recouvre', None)
-    
+
     # FOR SEARCH FIELD BELLOW
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
@@ -366,11 +359,11 @@ def get_paiement(request):
     caisse_info = Dossier.objects.all()
 
     if search_table:
-        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
-        
+        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+            uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
         caisse_info = caisse_info.filter(lookups).distinct()
-        
-   
+
     if uid:
         caisse_info = caisse_info.all().order_by('client__uid')
     if phone_1:
@@ -387,15 +380,12 @@ def get_paiement(request):
         caisse_info = caisse_info.all().order_by('coeff_recouv')
     if appele_recouvre:
         caisse_info = caisse_info.all().order_by('appele_recouvre')
-   
-    
+
     if caisse_info:
         serialized = DossierSerializer(caisse_info, many=True)
         return Response(serialized.data)
     else:
         return Response({})
-
-
 
 
 # ENDPOINTS FOR PENALITE BELLOW
@@ -405,13 +395,13 @@ def get_paiement(request):
 def paginate_penalite(request):
     # pagination bellow
     print('GOT HERE IN PAGINATE')
-    page = request.GET.get('page',None)
+    page = request.GET.get('page', None)
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
 
     results = Dossier.objects.filter()[starting_number:ending_number]
-    
+
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
     # print(serialized.data)
@@ -427,9 +417,9 @@ def get_penalite(request):
     prenom = request.query_params.get('prenom', None)
     statut = request.query_params.get('statut', None)
     dernier_appel = request.query_params.get('dernier_appel', None)
-    coeff_recouv =  request.query_params.get('coeff_recouv', None)
+    coeff_recouv = request.query_params.get('coeff_recouv', None)
     appele_recouvre = request.query_params.get('appele_recouvre', None)
-    
+
     # FOR SEARCH FIELD BELLOW
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
@@ -437,11 +427,11 @@ def get_penalite(request):
     caisse_info = Dossier.objects.all()
 
     if search_table:
-        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
-        
+        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+            uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
         caisse_info = caisse_info.filter(lookups).distinct()
-        
-   
+
     if uid:
         caisse_info = caisse_info.all().order_by('client__uid')
     if phone_1:
@@ -458,14 +448,12 @@ def get_penalite(request):
         caisse_info = caisse_info.all().order_by('coeff_recouv')
     if appele_recouvre:
         caisse_info = caisse_info.all().order_by('appele_recouvre')
-   
-    
+
     if caisse_info:
         serialized = DossierSerializer(caisse_info, many=True)
         return Response(serialized.data)
     else:
         return Response({})
-
 
 
 # ENDPOINTS FOR RESTRUCTURATIONS BELLOW
@@ -475,13 +463,14 @@ def get_penalite(request):
 def paginate_restructurations(request):
     # pagination bellow
     print('GOT HERE IN PAGINATE')
-    page = request.GET.get('page',None)
+    page = request.GET.get('page', None)
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
 
-    results = Dossier.objects.filter(statut="RT")[starting_number:ending_number]
-    
+    results = Dossier.objects.filter(
+        statut="RT")[starting_number:ending_number]
+
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
     # print(serialized.data)
@@ -497,9 +486,9 @@ def get_restructurations(request):
     prenom = request.query_params.get('prenom', None)
     statut = request.query_params.get('statut', None)
     dernier_appel = request.query_params.get('dernier_appel', None)
-    coeff_recouv =  request.query_params.get('coeff_recouv', None)
+    coeff_recouv = request.query_params.get('coeff_recouv', None)
     appele_recouvre = request.query_params.get('appele_recouvre', None)
-    
+
     # FOR SEARCH FIELD BELLOW
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
@@ -507,11 +496,11 @@ def get_restructurations(request):
     caisse_info = Dossier.objects.all(statut="RT")
 
     if search_table:
-        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
-        
+        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+            uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
         caisse_info = caisse_info.filter(lookups).distinct()
-        
-   
+
     if uid:
         caisse_info = caisse_info.all().order_by('client__uid')
     if phone_1:
@@ -528,14 +517,12 @@ def get_restructurations(request):
         caisse_info = caisse_info.all().order_by('coeff_recouv')
     if appele_recouvre:
         caisse_info = caisse_info.all().order_by('appele_recouvre')
-   
-    
+
     if caisse_info:
         serialized = DossierSerializer(caisse_info, many=True)
         return Response(serialized.data)
     else:
         return Response({})
-
 
 
 # ENDPOINTS FOR DELOCALISATIONS BELLOW
@@ -545,13 +532,13 @@ def get_restructurations(request):
 def paginate_delocalisations(request):
     # pagination bellow
     print('GOT HERE IN PAGINATE')
-    page = request.GET.get('page',None)
+    page = request.GET.get('page', None)
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
 
     results = Dossier.objects.filter(statut='A')[starting_number:ending_number]
-    
+
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
     # print(serialized.data)
@@ -567,9 +554,9 @@ def get_delocalisations(request):
     prenom = request.query_params.get('prenom', None)
     statut = request.query_params.get('statut', None)
     dernier_appel = request.query_params.get('dernier_appel', None)
-    coeff_recouv =  request.query_params.get('coeff_recouv', None)
+    coeff_recouv = request.query_params.get('coeff_recouv', None)
     appele_recouvre = request.query_params.get('appele_recouvre', None)
-    
+
     # FOR SEARCH FIELD BELLOW
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
@@ -577,11 +564,11 @@ def get_delocalisations(request):
     caisse_info = Dossier.objects.all()
 
     if search_table:
-        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
-        
+        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+            uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
         caisse_info = caisse_info.filter(lookups).distinct()
-        
-   
+
     if uid:
         caisse_info = caisse_info.all().order_by('client__uid')
     if phone_1:
@@ -598,14 +585,12 @@ def get_delocalisations(request):
         caisse_info = caisse_info.all().order_by('coeff_recouv')
     if appele_recouvre:
         caisse_info = caisse_info.all().order_by('appele_recouvre')
-   
-    
+
     if caisse_info:
         serialized = DossierSerializer(caisse_info, many=True)
         return Response(serialized.data)
     else:
         return Response({})
-
 
 
 # ENDPOINTS FOR MUTATIONS BELLOW
@@ -615,13 +600,13 @@ def get_delocalisations(request):
 def paginate_mutations(request):
     # pagination bellow
     print('GOT HERE IN PAGINATE')
-    page = request.GET.get('page',None)
+    page = request.GET.get('page', None)
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
 
     results = Dossier.objects.filter()[starting_number:ending_number]
-    
+
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
     # print(serialized.data)
@@ -637,9 +622,9 @@ def get_mutations(request):
     prenom = request.query_params.get('prenom', None)
     statut = request.query_params.get('statut', None)
     dernier_appel = request.query_params.get('dernier_appel', None)
-    coeff_recouv =  request.query_params.get('coeff_recouv', None)
+    coeff_recouv = request.query_params.get('coeff_recouv', None)
     appele_recouvre = request.query_params.get('appele_recouvre', None)
-    
+
     # FOR SEARCH FIELD BELLOW
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
@@ -647,11 +632,11 @@ def get_mutations(request):
     caisse_info = Dossier.objects.all()
 
     if search_table:
-        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
-        
+        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+            uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
         caisse_info = caisse_info.filter(lookups).distinct()
-        
-   
+
     if uid:
         caisse_info = caisse_info.all().order_by('client__uid')
     if phone_1:
@@ -668,14 +653,12 @@ def get_mutations(request):
         caisse_info = caisse_info.all().order_by('coeff_recouv')
     if appele_recouvre:
         caisse_info = caisse_info.all().order_by('appele_recouvre')
-   
-    
+
     if caisse_info:
         serialized = DossierSerializer(caisse_info, many=True)
         return Response(serialized.data)
     else:
         return Response({})
-
 
 
 # ENDPOINTS FOR CPML BELLOW
@@ -685,13 +668,13 @@ def get_mutations(request):
 def paginate_cpml(request):
     # pagination bellow
     print('GOT HERE IN PAGINATE')
-    page = request.GET.get('page',None)
+    page = request.GET.get('page', None)
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
 
     results = Dossier.objects.filter()[starting_number:ending_number]
-    
+
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
     # print(serialized.data)
@@ -707,9 +690,9 @@ def get_cpml(request):
     prenom = request.query_params.get('prenom', None)
     statut = request.query_params.get('statut', None)
     dernier_appel = request.query_params.get('dernier_appel', None)
-    coeff_recouv =  request.query_params.get('coeff_recouv', None)
+    coeff_recouv = request.query_params.get('coeff_recouv', None)
     appele_recouvre = request.query_params.get('appele_recouvre', None)
-    
+
     # FOR SEARCH FIELD BELLOW
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
@@ -717,11 +700,11 @@ def get_cpml(request):
     caisse_info = Dossier.objects.all()
 
     if search_table:
-        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
-        
+        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+            uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
         caisse_info = caisse_info.filter(lookups).distinct()
-        
-   
+
     if uid:
         caisse_info = caisse_info.all().order_by('client__uid')
     if phone_1:
@@ -738,15 +721,12 @@ def get_cpml(request):
         caisse_info = caisse_info.all().order_by('coeff_recouv')
     if appele_recouvre:
         caisse_info = caisse_info.all().order_by('appele_recouvre')
-   
-    
+
     if caisse_info:
         serialized = DossierSerializer(caisse_info, many=True)
         return Response(serialized.data)
     else:
         return Response({})
-
-
 
 
 # ENDPOINTS FOR CDCPT BELLOW
@@ -756,13 +736,13 @@ def get_cpml(request):
 def paginate_cdcpt(request):
     # pagination bellow
     print('GOT HERE IN PAGINATE')
-    page = request.GET.get('page',None)
+    page = request.GET.get('page', None)
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
 
     results = Dossier.objects.filter()[starting_number:ending_number]
-     
+
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
     # print(serialized.data)
@@ -778,9 +758,9 @@ def get_cdcpt(request):
     prenom = request.query_params.get('prenom', None)
     statut = request.query_params.get('statut', None)
     dernier_appel = request.query_params.get('dernier_appel', None)
-    coeff_recouv =  request.query_params.get('coeff_recouv', None)
+    coeff_recouv = request.query_params.get('coeff_recouv', None)
     appele_recouvre = request.query_params.get('appele_recouvre', None)
-    
+
     # FOR SEARCH FIELD BELLOW
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
@@ -788,11 +768,11 @@ def get_cdcpt(request):
     caisse_info = Dossier.objects.all()
 
     if search_table:
-        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
-        
+        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+            uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
         caisse_info = caisse_info.filter(lookups).distinct()
-        
-   
+
     if uid:
         caisse_info = caisse_info.all().order_by('client__uid')
     if phone_1:
@@ -809,14 +789,12 @@ def get_cdcpt(request):
         caisse_info = caisse_info.all().order_by('coeff_recouv')
     if appele_recouvre:
         caisse_info = caisse_info.all().order_by('appele_recouvre')
-   
-    
+
     if caisse_info:
         serialized = DossierSerializer(caisse_info, many=True)
         return Response(serialized.data)
     else:
         return Response({})
-
 
 
 # ENDPOINTS FOR CDC BELLOW
@@ -826,13 +804,13 @@ def get_cdcpt(request):
 def paginate_cdc(request):
     # pagination bellow
     print('GOT HERE IN PAGINATE')
-    page = request.GET.get('page',None)
+    page = request.GET.get('page', None)
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
 
     results = Dossier.objects.filter()[starting_number:ending_number]
-     
+
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
     # print(serialized.data)
@@ -848,9 +826,9 @@ def get_cdc(request):
     prenom = request.query_params.get('prenom', None)
     statut = request.query_params.get('statut', None)
     dernier_appel = request.query_params.get('dernier_appel', None)
-    coeff_recouv =  request.query_params.get('coeff_recouv', None)
+    coeff_recouv = request.query_params.get('coeff_recouv', None)
     appele_recouvre = request.query_params.get('appele_recouvre', None)
-    
+
     # FOR SEARCH FIELD BELLOW
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
@@ -858,11 +836,11 @@ def get_cdc(request):
     caisse_info = Dossier.objects.all()
 
     if search_table:
-        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
-        
+        lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+            uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
         caisse_info = caisse_info.filter(lookups).distinct()
-        
-   
+
     if uid:
         caisse_info = caisse_info.all().order_by('client__uid')
     if phone_1:
@@ -879,8 +857,7 @@ def get_cdc(request):
         caisse_info = caisse_info.all().order_by('coeff_recouv')
     if appele_recouvre:
         caisse_info = caisse_info.all().order_by('appele_recouvre')
-   
-    
+
     if caisse_info:
         serialized = DossierSerializer(caisse_info, many=True)
         return Response(serialized.data)
@@ -892,7 +869,7 @@ def get_cdc(request):
 @login_required
 @api_view(['GET'])
 def get_facture(request):
-    id = request.query_params.get('id',None)
+    id = request.query_params.get('id', None)
     # lookup = Q(uid=id)
     dossier = Dossier.objects.filter(uid=id)
 
@@ -907,11 +884,11 @@ def get_facture(request):
 @api_view(['POST'])
 def pay_facture_om(request):
     # id = request.query_params.get('id',None)
-    id = request.POST.get('id',None)
-    status = request.POST.get('status',None)
+    id = request.POST.get('id', None)
+    status = request.POST.get('status', None)
     # status = request.query_params.get('status',None)
     dossier = Dossier.objects.get(pk=id)
-    
+
     facture = Facture.objects.get(pk=dossier.facture.id)
     # dossier
     dossier.statut = status
@@ -919,8 +896,7 @@ def pay_facture_om(request):
     dossier.save()
     facture.save()
 
- 
-    return Response({}) 
+    return Response({})
 
 
 @login_required
@@ -949,15 +925,16 @@ def genarate_facture(request):
     end_day = end_date.split('-')[2]
     today_year = date.today().year
     today_day = date.today().day
-    today_month = date.today().month
-    
+    today_month = date.today().month + 1
+
     # new facture pay date
-    new_pay_date = str(today_year) + "-" + str(today_month + 1) + "-" + str(end_day)
+    new_pay_date = str(today_year) + "-" + \
+        str(today_month + 1) + "-" + str(end_day)
 
     print('INFO BELLOW')
     if(end_year == today_year and end_month == today_month):
         print('END YEAR NOW')
-    
+
     else:
         print('GENARATE NEW FACTURE HERE')
         # OLD FACTURE BELLOW
@@ -965,12 +942,12 @@ def genarate_facture(request):
 
         # CREATE NEW FACTURE
         new_facture = Facture(
-            article = article,
-            User_editeur = user,
-            somme = sum,
-            num_facture = num_facture,
-            date = new_pay_date,
-            statut = status
+            article=article,
+            User_editeur=user,
+            somme=sum,
+            num_facture=num_facture,
+            date=new_pay_date,
+            statut=status
         )
 
         new_facture.save()
@@ -980,21 +957,21 @@ def genarate_facture(request):
         tot_sum = old_facture.somme
         if(old_facture.penalty_status == True):
             tot_sum = old_facture.penalty_somme + old_facture.somme
-        
+
         new_paiement = Paiement(
-            facture = old_facture,
-            User_encaisseur = user,
-            somme = tot_sum,
-            num_transaction = '1',
-            date_paiement = payment_date,
-            date = payment_date,
-            uid = dos_id
+            facture=old_facture,
+            User_encaisseur=user,
+            somme=tot_sum,
+            num_transaction='1',
+            date_paiement=payment_date,
+            date=payment_date,
+            uid=dos_id
         )
 
         new_paiement.save()
 
         dossier.facture = new_facture
-        
+
         dossier.save()
 
     return Response({})
