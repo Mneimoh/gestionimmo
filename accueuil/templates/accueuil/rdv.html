@@ -145,7 +145,7 @@
             <th>Comment nous a t-il connu</th>
             <th>Date de rendez-vous</th> 
             <th>Heure de rendez-vous</th>
-            <th>Vérifier</th>
+            <!-- <th>Vérifier</th> -->
             <th> Ouvrir </th>
           </tr>
         </thead>
@@ -162,19 +162,7 @@
             <td>{{ appointment.how_connu }}</td>
             <td>{{ appointment.date_redezvous }}</td>
             <td>{{ appointment.heure_redezvous }}</td>
-            <td>
-             
-              <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-default"
-                data-toggle="modal"
-                data-target="#modifDc"
-              >
-                Modifier
-              </button>
-              </div>
-            </td>
+  
             <td>
               
               <div class="btn-group">
@@ -312,12 +300,11 @@
                   >Article d'intérêt</label
                 >
                 <select name="article_dinteret" class="form-control margin-bottom-15" id="articleI">
-                  <option value="maison1">Maison 1</option>
-                  <option value="maison2">Maison 2</option>
-                  <option value="terrain1">Terrain 1</option>
-                  <option value="terrain2">Terrain 2</option>
-                  <option value="logement1">Logement 1</option>
-                  <option value="logement2">Logement 2</option>
+                  {% for obj in article_interet %}
+                  
+                  <option value="{{ obj }}">{{ obj }}</option>
+                  
+                  {% endfor %}
                 </select> 
               </div>
             </div>
@@ -763,7 +750,7 @@ function update_table_paginate(data) {
     Object.keys(data).forEach((key,index) => {
         elem = data[key];
         
-        row = `<tr><td> ${elem['nom']} </td> <td>${elem['prenom']}</td> <td>${elem['num_client']}</td> <td>${elem['telephone']}</td> <td>${elem['date_dappel']}</td> <td>${elem['heure_dappel']}</td> <td>${elem['article_dinteret']}</td> <td>${elem['how_connu']}</td> <td>${elem['date_redezvous']}</td> <td>${elem['heure_redezvous']}</td> <td> <div class="btn-group"> <a type="button" class="btn btn-info"  href="#accordion" onclick="get_appointment(${elem['id']})"> Ouvert </a> </td> </tr>`
+        row = `<tr><td> ${elem['nom']} </td> <td>${elem['prenom']}</td> <td>${elem['num_client']}</td> <td>${elem['telephone']}</td> <td>${elem['date_dappel']}</td> <td>${elem['heure_dappel']}</td> <td>${elem['article_dinteret']}</td> <td>${elem['how_connu']}</td> <td>${elem['date_redezvous']}</td> <td>${elem['heure_redezvous']}</td>  <td> <div class="btn-group"> <a type="button" class="btn btn-info"  href="#accordion" onclick="get_appointment(${elem['id']})"> Ouvert </a></div> </td> </tr>`
         all_rows = all_rows + row;
     });
 
@@ -826,7 +813,7 @@ function update_table(data) {
         console.log('data bellow')
         console.log(data[index])
         app = data[index];
-        row = `<tr><td> ${elem['nom']} </td> <td>${elem['prenom']}</td> <td>${elem['num_client']}</td> <td>${elem['telephone']}</td> <td>${elem['date_dappel']}</td> <td>${elem['heure_dappel']}</td> <td>${elem['article_dinteret']}</td> <td>${elem['how_connu']}</td> <td>${elem['date_redezvous']}</td> <td>${elem['heure_redezvous']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifDc"> Modifier </button> </div> </td> <td> <div class="btn-group"> <a type="button" class="btn btn-info"  href="#accordion" onclick="get_appointment(${elem['id']})"> Ouvert </a></div> </td> </tr>`
+        row = `<tr><td> ${elem['nom']} </td> <td>${elem['prenom']}</td> <td>${elem['num_client']}</td> <td>${elem['telephone']}</td> <td>${elem['date_dappel']}</td> <td>${elem['heure_dappel']}</td> <td>${elem['article_dinteret']}</td> <td>${elem['how_connu']}</td> <td>${elem['date_redezvous']}</td> <td>${elem['heure_redezvous']}</td>  <td> <div class="btn-group"> <a type="button" class="btn btn-info"  href="#accordion" onclick="get_appointment(${elem['id']})"> Ouvert </a></div> </td> </tr>`
         all_rows = all_rows + row;
     });
     console.log(all_rows)

@@ -245,7 +245,7 @@ class Cosignataire(models.Model):
     )
 
     def __str__(self):
-        return self.nom or ''
+        return str(self.nom or '')
 
 class Appointment(models.Model):
     nom = models.CharField(max_length=30)
@@ -311,7 +311,7 @@ class Client(models.Model):
 
 
     def __str__(self):
-        return f'{self.nom} {self.prenom}'
+        return str(f'{self.nom} {self.prenom}')
 
 class Article(models.Model):
     # dossier                  = models.ForeignKey(Dossier, on_delete=models.CASCADE)
@@ -338,6 +338,7 @@ class Article(models.Model):
     def __str__(self):
         return f'{self.type_article} {self.nom}'
 
+        
 class Facture(models.Model):
     article             = models.ForeignKey(Article, on_delete=models.CASCADE,null=True,blank=True)
     User_editeur        = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
@@ -347,9 +348,13 @@ class Facture(models.Model):
     date                = models.DateTimeField(auto_now_add=True)
     penalty_status      = models.BooleanField(default=False)
     penalty_somme       = models.FloatField(default=0)
-
+    
+    
     def __str__(self):
-        return f'{self.statut}-{self.article.nom}'
+        return str(f'{self.statut}-{self.article.nom}'
+) 
+
+
 
 class Paiement(models.Model):
     facture             = models.ForeignKey(Facture, on_delete=models.CASCADE)
@@ -358,7 +363,7 @@ class Paiement(models.Model):
     num_transaction     = models.CharField(max_length=10)
     date_paiement       = models.DateField()
     date                = models.DateTimeField(auto_now_add=True)
-    uid                 = IntegerField(blank=True)
+    uid                 = IntegerField(null=True)
     def __str__(self):
         return self.num_transaction
 
@@ -472,6 +477,7 @@ class Dossier(models.Model):
     dernier_appel       = models.DateTimeField(auto_now_add=True,null=True)
     verifie             = models.BooleanField(default=False)
     uid                 = models.IntegerField(null=True,unique = True)
+    date_dernier_paiement    = models.DateField(blank=True, null=True)
 
 
     def __str__(self):

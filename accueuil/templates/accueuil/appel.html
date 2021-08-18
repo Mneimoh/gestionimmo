@@ -61,12 +61,11 @@
                   <!-- <div class="col-md-6 margin-bottom-15">
                     <label for="articleI" class="control-label">Article d'intérêt</label>                            
                     <select name="article_dinteret" class="form-control margin-bottom-15" id="articleI">
-                      <option value="maison1">Maison 1</option>
-                      <option value="maison2">Maison 2</option>
-                      <option value="terrain1">Terrain 1</option>
-                      <option value="terrain2">Terrain 2</option>
-                      <option value="logement1">Logement 1</option>
-                      <option value="logement2">Logement 2</option>
+                      {% for obj in article_interet %}
+                  
+                      <option value="{{ obj }}">{{ obj }}</option>
+                      
+                      {% endfor %}
                     </select>              
                   </div> -->
                   <div class="col-md-6 margin-bottom-15">

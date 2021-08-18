@@ -289,13 +289,13 @@ class CosignataireAdmin(admin.ModelAdmin):
 
 class FactureAdmin(admin.ModelAdmin):
     def has_add_permission(self, request: HttpRequest) -> bool:
-        return False
+        return True
     def has_view_permission(self, request: HttpRequest, obj=None) -> bool:
         return True
     def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
-        return False
+        return True
     def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
-        return False
+        return True
 
 class PaiementAdmin(admin.ModelAdmin):
     def has_add_permission(self, request: HttpRequest) -> bool:

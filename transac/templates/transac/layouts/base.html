@@ -37,7 +37,17 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
           <li><a href="{% url 'restructure' %}"><i class="fa fa-cubes"></i>Restructurations</a></li>
           <li><a href="{% url 'plan' %}"><i class="fa fa-map-marker"></i>Plan de masse</a></li>
           <li><a href="{% url 'dossiers' %}"><i class="fa fa-file-image-o"></i>Dossiers crédits prop. terriens</a></li>
-          <li><a href="{% url 'dossiers_credit' %}"><i class="fa fa-file-image-o"></i>Dossiers crédits</a></li>       
+          <li><a href="{% url 'dossiers_credit' %}"><i class="fa fa-file-image-o"></i>Dossiers crédits</a></li>      
+
+          <!-- <li class="{% if request.resolver_match.url_name == 'transac' %}active{% endif %}"><a href="{% url 'transac' %}"><i class="fa fa-home"></i>Compte</a></li>
+          <li class="{% if request.resolver_match.url_name == 'vente' %}active{% endif %}"><a href="{% url 'vente' %}"><i class="fa fa-shopping-cart"></i>Vente</a></li>
+          <li class="{% if request.resolver_match.url_name == 'penalties' %}active{% endif %}"><a href="{% url 'penalties' %}"><i class="fa fa-clock-o"></i>Pénalités</a></li>
+          <li class="{% if request.resolver_match.url_name == 'payments' %}active{% endif %}"><a href="{% url 'payments' %}"><i class="fa fa-money"></i>Paiements mensuels</a></li>
+          <li class="{% if request.resolver_match.url_name == 'mutations' %}active{% endif %}"><a href="{% url 'mutations' %}"><i class="fa fa-step-forward"></i>Mutations</a></li>
+          <li class="{% if request.resolver_match.url_name == 'restructure' %}active{% endif %}"><a href="{% url 'restructure' %}"><i class="fa fa-cubes"></i>Restructurations</a></li>
+          <li class="{% if request.resolver_match.url_name == 'plan' %}active{% endif %}"><a href="{% url 'plan' %}"><i class="fa fa-map-marker"></i>Plan de masse</a></li>
+          <li class="{% if request.resolver_match.url_name == 'dossiers' %}active{% endif %}"><a href="{% url 'dossiers' %}"><i class="fa fa-file-image-o"></i>Dossiers crédits prop. terriens</a></li>
+          <li class="{% if request.resolver_match.url_name == 'dossiers_credit' %}active{% endif %}"><a href="{% url 'dossiers_credit' %}"><i class="fa fa-file-image-o"></i>Dossiers crédits</a></li>        -->
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
         </ul>
       </div><!--/.navbar-collapse -->
