@@ -460,16 +460,50 @@ def vente(request):
 
 
 @login_required
-def venteUpdates(request,type,dossier):
-    if type=="mutation":
+def venteUpdates(request,_type,dossier,article):
+    if _type=="mutation":
         print('************************************************')
         print('mutation request')
         print('************************************************')
     
-    if type=="restructure":
+    if _type=="restructure":
         print('***********************************************')
         print('restructure  request')
         print('***********************************************')
+    interested_article = Article.objects.get(pk=int(article))
+    print('his interested article is:')
+    print(interested_article)
+    dossier_uid = int(dossier)
+    dossier = Dossier.objects.filter(uid=dossier_uid)[0]
+    currentDossier = Dossier.objects.get(pk = dossier.pk)
+    print(currentDossier)
+    currentDossier.article_interet = interested_article
+    currentDossier.save()
+
+    
+    return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier}) 
+
+
+@login_required
+def creditFacture(request,dossier):
+    matching_dossier = Dossier.objects.filter(uid=int(dossier))
+    if matching_dossier:
+        client_dossier = matching_dossier[0]
+        credit_pk = client_dossier.credit.pk
+        credit = Credit.objects.get(pk=credit_pk)
+        credit.accompte = request.POST['accompte']
+        credit.taux = request.POST['taux']
+        credit.somme_payee = request.POST['total']
+        credit.frais_dossier = request.POST['frais_dossier']
+        credit.autre_frais = request.POST['frais_autre']
+        credit.montant = request.POST['paiement_mensuel']
+        credit.date_fin = request.POST['date_fin']
+
+        credit.save()
+
+        new_facture = Facture(
+            
+        )
 
 @login_required
 def penalties(request):
@@ -525,7 +559,7 @@ def payments(request):
 @login_required
 def mutations(request):
     if(request.user.poste == section):
-
+        all_articles = Article.objects.all()
         all_info = Dossier.objects.filter(statut='A')
 
         # CODE FOR PAGINATOR BELLOW
@@ -542,7 +576,7 @@ def mutations(request):
 
         page_list = all_info.paginator.page_range
 
-        return render(request, 'transac/tmutations.html', {'title': 'Mutations', 'page_list': page_list, 'page': page, "all_dossier": all_info})
+        return render(request, 'transac/tmutations.html', {'title': 'Mutations', 'page_list': page_list, 'page': page, "all_dossier": all_info,'all_articles':all_articles})
     else:
         return redirect(f"/login?next=/{section}/")
 

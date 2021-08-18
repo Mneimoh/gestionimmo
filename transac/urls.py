@@ -8,7 +8,7 @@ urlpatterns = [
     path('facture/api/get_facture', views.get_facture),
     path('compte/<nom>',views.index, name="transact list"),
     path('vente', views.vente, name='vente'),
-    path('vente/<type>/<dossier>/', views.vente, name='vente'),
+    path('vente/<_type>/<dossier>/<article>/', views.venteUpdates, name='vente'),
     path('register/<table>/<type>/', views.registerAccount),
     # path('generatepdf/', views.ViewPDF.as_view(), name="pdf_view"),
     path('generatepdf/', views.getPdf, name="pdf_view"),

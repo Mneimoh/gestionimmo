@@ -125,6 +125,7 @@
                           class="btn btn-default"
                           data-toggle="modal"
                           data-target="#modifMutation"
+                          onclick="set_id_to_mutate('{{dossier.uid}}')"
                         >
                           Modifier
                         </button>
@@ -212,15 +213,26 @@
           <span aria-hidden="true">&times;</span
           ><span class="sr-only">Fermer</span>
         </button>
-        <select>
-          <option>type de mutation 1</option>
-          <option>type de mutation 2</option>
-          <option selected>type de mutation 3</option>
-          <option>type de mutation 4</option>
-        </select>
+
       </div>
+        <div class="col-md-6 margin-bottom-15">
+            <label for="articleI" class="control-label"
+              >Article d'intérêt</label
+            >
+            <select onchange="set_new_article(value)" class="form-control margin-bottom-15" name="article_interet" id="articleI">
+              
+              <option value="0">All  Article</option>
+              {% for obj in all_articles %}
+              
+              <option value="{{obj.pk}}">{{ obj }}</option>
+              
+              {% endfor %}
+
+            </select>
+          </div>
+
       <div class="modal-footer">
-        <a href="#" class="btn btn-primary">Ouvrir</a>
+        <a onclick="mutate()" class="btn btn-primary">Fait Modification</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">
           Fermer
         </button>
@@ -631,40 +643,20 @@
   // #########END OF FACTURE SHOWING CODE#########
 
   // PAY FACTURE CODE BELLOW
-  let id_to_pay = null;
+  let id_to_mutate = null;
+  let article_id   = null
 
-
-  function pay_facture() {
+  function mutate() {
     //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
-    console.log('pay facture')
-    console.log(id_to_pay)
-    // let param = "id=" + id_to_pay & "status="+"A"
-    var form = document.getElementById('form');
-
-    csrftoken = form.getElementsByTagName('input')[0].value;
-
-    $.ajax({
-          method: 'POST',
-          url: 'transac/api/pay_facture',
-          headers: { "X-CSRFTOKEN": csrftoken  },
-          beforeSend: function() {
-              console.log('Before Send')
-          },
-          data: {id: id_to_pay , status: "A"},
-          success: function(result) {
-            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
-            console.log('facture paid')
-            window.location.reload()
-          },
-  
-          error: function() {
-              console.log('error')
-          }
-      })
+    console.log('*********  inside the mutate method  **********')
+    window.location.href=`./vente/mutation/${id_to_mutate}/${article_id}/`
   }
 
-  function set_id_to_pay(id) {
-    id_to_pay = id;
+  function set_new_article(value){
+    article_id = value
+  }
+  function set_id_to_mutate(id) {
+    id_to_mutate = id;
   }
   
   </script>

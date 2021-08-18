@@ -1444,11 +1444,18 @@ $('#save_loan').click(function(e){
 
 
   console.log(fd)
-
-
+  let current_path = window.location.href
+  let path_contents = current_path.split('/')
+  let url = null
+  if (path_contents.includes('mutation'))
+      url = ''
+  else if(path_contents.includes('restructure'))
+      url = ''
+  else 
+      url = `/transac/credit/{{dossier}}/`
   $.ajax({
           type: "POST",
-          url: `/transac/credit/{{dossier}}/`,
+          url: url,
           data: fd,
           processData: false,
           contentType: false,
