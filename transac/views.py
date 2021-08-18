@@ -268,8 +268,8 @@ def registerAccount(request, table=None, type=None):
                     )
                     new_cosigner.save()
 
-                    nom = client_interet.split(' ')[0]
-                    prenom = client_interet.split(' ')[1:]
+                    nom = client_interet
+                    prenom = client_interet
                     prenom = ' '.join(prenom)
                     print('************************************')
                     print(nom)
