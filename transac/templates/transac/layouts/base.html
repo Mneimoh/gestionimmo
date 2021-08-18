@@ -17,7 +17,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
 <body>
   <div class="navbar navbar-inverse" role="navigation">
       <div class="navbar-header">
-        <div class="logo"><h1>Tableau de bord - {{ user.username }} - Transac</h1></div>
+        <div class="logo">   <h1> <span>Tableau de bord - {{user.societe}} - Transac</span> {{ user.username }}</h1></div>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
@@ -29,7 +29,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
     <div class="template-page-wrapper">
       <div class="navbar-collapse collapse templatemo-sidebar">
         <ul class="templatemo-sidebar-menu">          
-          <li><a href="{% url 'transac' %}"><i class="fa fa-home"></i>Compte</a></li>
+          <li><a href="{% url 'transac' %}"><i class="fa fa-folder-open"></i>Ouverture et montage de dossier</a></li>
           <li><a href="{% url 'vente' %}"><i class="fa fa-shopping-cart"></i>Vente</a></li>
           <li><a href="{% url 'penalties' %}"><i class="fa fa-clock-o"></i>Pénalités</a></li>
           <li><a href="{% url 'payments' %}"><i class="fa fa-money"></i>Paiements mensuels</a></li>
