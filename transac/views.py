@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+=======
+from django.http import response
+from reportlab.lib import pagesizes
+from accueuil.views import appointment
+>>>>>>> 27ab278013a387b4f9f0e4db1bb0780753d43776
 from django.db.models.expressions import F
 from django.forms.widgets import DateInput
 from django.http.response import HttpResponse
@@ -420,22 +426,24 @@ def sendMail(request):
         pass
 
 
-class ViewPDF(View):
-    def get(self, request, *args, **kwargs):
-        data = {
-            "company": "Dennnis Ivanov Company",
-            "address": "123 Street name",
-            "city": "Vancouver",
-            "state": "WA",
-            "zipcode": "98663",
+def getPdf(request):
+	template_path = 'transac/test_template.html'
 
+	context = {'products': 'hello'}
 
-            "phone": "555-555-2345",
-            "email": "youremail@dennisivy.com",
-            "website": "dennisivy.com",
-        }
-        pdf = render_to_pdf('transac/test_template.html', data)
-        return HttpResponse(pdf, content_type='application/pdf',)
+	response = HttpResponse(content_type='application/pdf')
+
+	response['Content-Disposition'] = 'filename="products_report.pdf"'
+
+	template = get_template(template_path)
+
+	html = template.render(context)
+	# create a pdf
+	pisa_status = pisa.CreatePDF(html, dest=response)
+	# if error then show some funy view
+	if pisa_status.err:
+		return HttpResponse('We had some errors <pre>' + html + '</pre>')
+	return response
 
     # buf = io.BytesIO()
 
