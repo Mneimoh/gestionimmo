@@ -127,7 +127,7 @@
             <th>Appelé & récouvré</th>
             <th>Dernier appel</th>
             <!-- <th>hr</th> -->
-            <th>Modifier</th>
+            <!-- <th>Modifier</th> -->
             <th>Ouvrir</th>
             <th>Consulter</th>
           </tr>
@@ -146,8 +146,8 @@
             <td>{{ dossier.coeff_recouv }}</td>
             <td>{{ dossier.appele_recouvre }}</td>
             <td>{{ dossier.dernier_appel }}</td>
-            <td>
-              <!-- Split button -->
+            <!-- <td>
+              
               <div class="btn-group">
               <button
                 type="button"
@@ -157,7 +157,7 @@
               >
                 Modifier
               </button>
-            </td>
+            </td> -->
             <td>
               <!-- Split button -->
               <div class="btn-group">
@@ -166,8 +166,9 @@
                 class="btn btn-info"
                 data-toggle="modal"
                 data-target="#openPenalite"
+                onclick="set_id_to_pay('{{ dossier.id }}')"
               >
-                OUVRIR
+                PAY
               </button>
             </td>
             <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" class="btn btn-link">Consulter</a></td>
@@ -268,14 +269,17 @@
           <span aria-hidden="true">&times;</span
           ><span class="sr-only">Fermer</span>
         </button>
-        <input
+        <!-- <input
           class="modal-input"
           id="myModalLabel"
           placeholder="Quel pénalité souhaitez-vous ouvrir ?"
-        />
+        /> -->
+        <form id="form">
+          {% csrf_token %}
+        </form>
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-primary">Ouvrir</a>
+        <a  onclick="pay_facture()" data-dismiss="modal" class="btn btn-primary">Oui</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">
           Non
         </button>
@@ -620,6 +624,7 @@
       })
 
   }
+
   function show_facture(id) {
     // CALL GET FACTURE FUNCTION TO GO AND GET FCTURE
    get_facture(id)
@@ -636,6 +641,11 @@
         <div style="text-align: center;">
           <span style="font-size: 20px; font-weight: bold; text-align: center;">Somme: </span>
           <span style="font-size: 20px; text-align: center;">${facture.somme}</span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Penalite Somme: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.penalty_somme}</span>
         </div>
 
         <div style="text-align: center;">
@@ -674,11 +684,12 @@
           beforeSend: function() {
               console.log('Before Send')
           },
-          data: {id: id_to_pay, status="P1"},
+          data: {id: id_to_pay, status: "P1"},
           success: function(result) {
             // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
             console.log('facture paid')
-            window.location.reload()
+            genarate_next_facture()
+            
           },
   
           error: function() {
@@ -686,6 +697,31 @@
           }
       })
   }
+
+  function genarate_next_facture() {
+    $.ajax({
+          method: 'POST',
+          url: 'caisse/api/genarate_facture',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: id_to_pay, status: 'OM'},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('NEXT FACTURE GENARATED')
+            window.location.reload()
+            // window.location.reload()
+            
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+    
+  }
+
 
   function set_id_to_pay(id) {
     id_to_pay = id;

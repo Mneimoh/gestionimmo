@@ -125,7 +125,7 @@
                           class="btn btn-default"
                           data-toggle="modal"
                           data-target="#modifPenalite"
-                          onclick="set_user('{{ dossier.id }}')"
+                          onclick="set_user('{{ dossier.facture.id }}')"
                         >
                           Modifier
                         </button>
@@ -615,6 +615,11 @@
         </div>
 
         <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Penalty Somme: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.penalty_somme}</span>
+        </div>
+
+        <div style="text-align: center;">
           <span style="font-size: 20px; font-weight: bold; text-align: center;">STATUT: </span>
           <span style="font-size: 20px; text-align: center;">${facture.statut}</span>
         </div>
@@ -663,17 +668,15 @@
 
   function set_id_to_pay(id) {
     id_to_pay = id;
-    console.log('ID TO PAY BELLOW')
-    console.log(id)
   }
 
 
   // OLD CODE 
-  let dossier_id = null;
+  let facture_id = null;
 
   // Function Bellow Will Set User To A Variable
-  function set_user(dossier_info) {
-    dossier_id = dossier_info;
+  function set_user(fac_id) {
+    facture_id = fac_id;
   }
 
  
@@ -692,7 +695,7 @@
           beforeSend: function() {
               console.log('Before Send')
           },
-          data: {id: dossier_id , type: "AMOUNT", value: amount},
+          data: {id: facture_id , type: "AMOUNT", value: amount},
           success: function(result) {
             // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
             console.log('facture paid')
@@ -721,7 +724,7 @@
           beforeSend: function() {
               console.log('Before Send')
           },
-          data: {id: dossier_id , type: "PERCENT", value: amount},
+          data: {id: facture_id , type: "PERCENT", value: amount},
           success: function(result) {
             // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
             console.log('facture paid')
