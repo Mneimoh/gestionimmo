@@ -299,9 +299,9 @@ def registerAccount(request, table=None, type=None):
 
                     # Creating the Clients Dossier
 
-                    article_interet = article_interet.split(' ')[-1]
+                    article_interet = article_interet
                     article = Article.objects.filter(
-                        nom=article_interet.split(' ')[-1])
+                        nom=article_interet)
 
                     if article:
                         article = article[0]

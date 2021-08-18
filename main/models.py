@@ -336,7 +336,7 @@ class Article(models.Model):
     #statut_final = models.CharField(max_length=60)
 
     def __str__(self):
-        return f'{self.type_article} {self.nom}'
+        return f'{self.nom}'
 
         
 class Facture(models.Model):
