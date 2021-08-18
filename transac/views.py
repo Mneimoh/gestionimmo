@@ -460,6 +460,18 @@ def vente(request):
 
 
 @login_required
+def venteUpdates(request,type,dossier):
+    if type=="mutation":
+        print('************************************************')
+        print('mutation request')
+        print('************************************************')
+    
+    if type=="restructure":
+        print('***********************************************')
+        print('restructure  request')
+        print('***********************************************')
+
+@login_required
 def penalties(request):
     if(request.user.poste == section):
 
