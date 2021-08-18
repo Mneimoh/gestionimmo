@@ -235,8 +235,9 @@ def registerAccount(request, table=None, type=None):
                         endettement=new_endettement,
                         uid=int(random.random()*1000000000)
                     )
-
+                    print('******************saving new client***********************************')
                     new_client.save()
+                    print('******************saving new client***********************************')
 
                     clientData = new_client
 
@@ -305,7 +306,10 @@ def registerAccount(request, table=None, type=None):
 
                     if article:
                         article = article[0]
+                        print('##################### article found #####################')
                         print(article)
+                        print('##################### article found #####################')
+
                         # Creating Client forms
                         new_credit = Credit(
                             article=article,
@@ -338,7 +342,10 @@ def registerAccount(request, table=None, type=None):
                             uid=int(random.random()*1000000000)
                         )
 
+                        print('/////////////////////////////saving client/////////////////////////////////')
                         new_dossier.save()
+                        print('/////////////////////////////saving client/////////////////////////////////')
+
                         currentDossier = new_dossier
                         appointment_to_delete.delete()
 
