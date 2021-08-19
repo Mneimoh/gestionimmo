@@ -9,13 +9,13 @@
     <div class="col-md-12">
       <ul class="nav nav-pills">
         <li class="active">
-          <a href="#">Compte ouvert<span class="badge">42</span></a>
+          <a href="#">Compte ouvert<span class="badge">00</span></a>
         </li>
         <li class="active">
-          <a href="#">Non finalisé <span class="badge">26</span></a>
+          <a href="#">Non finalisé <span class="badge">00</span></a>
         </li>
         <li class="active">
-          <a href="#">Abandonné <span class="badge">14</span></a>
+          <a href="#">Abandonné <span class="badge">00</span></a>
         </li>
       </ul>
     </div>
@@ -27,14 +27,14 @@
     <div class="templatemo-alerts">
       <div class="row">
         <div class="col-md-12">
-          <div class="alert alert-success alert-dismissible" role="alert">
+          <div id="success" class=" col-12 alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert">
               <span aria-hidden="true">&times;</span
               ><span class="sr-only">Fermer</span>
             </button>
             <strong>Succès !</strong> Ce compte a bien été ouvert.
           </div>
-          <div class="alert alert-info alert-dismissible" role="alert">
+          <div id="info" class="alert alert-info alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert">
               <span aria-hidden="true">&times;</span
               ><span class="sr-only">Close</span>
@@ -49,28 +49,32 @@
     <div class="templatemo-alerts">
       <div class="row">
         <div class="col-md-12">
-          <div class="alert alert-warning alert-dismissible" role="alert">
+          <div id="warning" class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert">
               <span aria-hidden="true">&times;</span
               ><span class="sr-only">Fermer</span>
             </button>
             Vous avez reçu un message du recouvrement.
           </div>
-          <div id="error" class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert">
-              <span aria-hidden="true">&times;</span
-              ><span class="sr-only">Close</span>
-            </button>
-            Veuillez corriger les erreurs.
+          <div class="col-12">
+              <div id="error" class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span
+                  ><span class="sr-only">Close</span>
+                </button>
+                Veuillez corriger les erreurs.
+              </div>
           </div>
+            
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <div class="row">
-  <div class="col-md-12">
-    <div class="progress">
+  <div class="col-md-12" style="padding:0px">
+    <div class="progress" style="margin-left: 13px; margin-right: 13px;">
       <div
         class="progress-bar progress-bar-striped active"
         role="progressbar"
@@ -2714,18 +2718,32 @@
   });
 
 
-  let regular = null;
-  let regular_client = document.getElementById('regular')
-  let irregular_client = document.getElementById('irregular')
-  let regular_forms = document.getElementsByClassName('regular')
-  let irregular_forms = document.getElementsByClassName('irregular')
-  let error_messages = document.getElementById('error')
+  var regular = null;
+  var success_messages        = document.getElementById('success')
+  var warning_messages        = document.getElementById('warning')
+  var info_messages           = document.getElementById('info')
+  var error_messages          = document.getElementById('error')
+  var regular_client          = document.getElementById('regular')
+  var irregular_client        = document.getElementById('irregular')
+  var regular_forms           = document.getElementsByClassName('regular')
+  var irregular_forms         = document.getElementsByClassName('irregular')
+
+  success_messages.style.display = 'none'
+  warning_messages.style.display = 'none'
+  error_messages.style.display   = 'none'
+  info_messages.style.display    = 'none'
 
   // Disable co-signateur fields
   for(let index=0; index<regular_forms.length; index++){
       irregular_forms[index].style.display = 'none'
       regular_forms[index].style.display = 'none'
     }
+
+  if(!regular){
+    info_messages.style.display = 'inline-block'
+    info_messages.style.width = '100%'
+  }
+
 
 
   regular_client.onclick =()=>{
@@ -2774,14 +2792,24 @@
               processData: false,
               contentType: false,
               success: function(data,status) {
-                let message = document.createElement('div')
                 console.log(data)
-                if(data != "success"){
-                  // location.reload(); 
+                if(data == 'client_created'){
+                  location.reload(); 
                 }
                 else{
-                  message.innerHTML=data
-                  error_messages.appendChild(message)
+                  
+                  error_messages.innerHTML=`
+                  <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span
+                  ><span class="sr-only">Close</span>
+                  </button>
+                  Veuillez corriger les erreurs.
+                  <br />
+                  ${data}
+                  `
+                  info_messages.style.display  = 'none'
+                  error_messages.style.display = 'block'
+                  error_messages.style.width   = '100%'
                 }
                   
               },
@@ -2801,14 +2829,28 @@
                   processData: false,
                   contentType: false,
                   success: function(data,status) {
-                    let message = document.createElement('div')
-                    // console.log('------------response arrived------------')
-                    console.log(data)
-                    if(data != "success"){
-                       message.innerHTML=data
-                      error_messages.appendChild(message)
-                    }                    
-                    
+
+                    if(data == 'validated'){
+                        console.log('---- client validated -----'); 
+                        success_messages.style.display = 'inline-block'
+                        warning_messages.style.display = 'none'
+                        error_messages.style.display   = 'none'
+                        info_messages.style.display    = 'none'
+                    }else{
+                      error_messages.innerHTML=`
+                      <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span
+                      ><span class="sr-only">Close</span>
+                      </button>
+                      Veuillez corriger les erreurs.
+                      <br />
+                      ${data}
+                      `
+                      // error_messages.appendChild(data)
+                      info_messages.style.display  = 'none'
+                      error_messages.style.display = 'block'
+                      }
+                   
                     
                   },
                   error: function(data, status) {

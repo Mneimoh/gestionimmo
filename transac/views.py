@@ -238,6 +238,8 @@ def registerAccount(request, table=None, type=None):
                     print('******************saving new client***********************************')
                     new_client.save()
                     print('******************saving new client***********************************')
+                    
+                    return HttpResponse('client_created')
 
                     clientData = new_client
 
@@ -269,9 +271,9 @@ def registerAccount(request, table=None, type=None):
                     )
                     new_cosigner.save()
 
-                    nom = client_interet
-                    prenom = client_interet
-                    prenom = ' '.join(prenom)
+                    nom = client_interet.split(' ')[0]
+                    prenom = client_interet.split(' ')[1]
+                    prenom = ''.join(prenom)
                     print('************************************')
                     print(nom)
                     print(prenom)
@@ -344,10 +346,11 @@ def registerAccount(request, table=None, type=None):
 
                         print('/////////////////////////////saving client/////////////////////////////////')
                         new_dossier.save()
-                        print('/////////////////////////////saving client/////////////////////////////////')
+                        print('//////////////////// /////////saving client/////////////////////////////////')
 
                         currentDossier = new_dossier
                         appointment_to_delete.delete()
+                        return HttpResponse('validated')
 
                 new_compte_endettement = CompteEndettement(
                     endettement=new_endettement,
