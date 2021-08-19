@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from transac.views import dossiers, payments
 from django.http import request
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from accueuil import serializers
 from caisse.serializers import DossierSerializer, FactureSerializer
 from accueuil.views import appointment
@@ -27,6 +27,7 @@ from django.template.loader import get_template
 from django.views import View
 from xhtml2pdf import pisa
 from textwrap import wrap
+import json
 
 # Create your views here.
 
@@ -937,8 +938,7 @@ def genarate_facture(request):
     today_month = int(date.today().month + 1)
 
     # new facture pay date
-    new_pay_date = str(today_year) + "-" + \
-        str(today_month + 1) + "-" + str(end_day)
+    new_pay_date = str(today_year) + "-" + str(today_month + 1) + "-" + str(end_day)
 
     print('INFO BELLOW')
     if(end_year == today_year and end_month == today_month):
@@ -960,7 +960,7 @@ def genarate_facture(request):
         )
 
         new_facture.save()
-
+        
         # CREATE PAIEMENT WITH OLD FACTURE
         payment_date = datetime.today().strftime('%Y-%m-%d')
         tot_sum = old_facture.somme
@@ -979,44 +979,59 @@ def genarate_facture(request):
 
         new_paiement.save()
 
+        paiement_id = new_paiement.id
+
         dossier.facture = new_facture
 
         dossier.save()
 
-        # WRITE CODE TO GENARATE FACTURE HERE
-        # nom = dossier.client.nom
-        # adresse = dossier.client.place.adresse
-        # ville = dossier.client.place.ville
-        # pays = dossier.client.place.pays
-        # numero_dossier = dossier.uid
-        # numero_telephone = dossier.client.phone_1
-        # date_paiement = payment_date
-
-        # article_paye = dossier.article_interet.type_article
-        # penalite_payee = old_facture.penalty_somme
-        # montant_total = tot_sum
-        # paiement_du_mois = payment_date
-
-        # template_path = 'caisse/pm_facture.html'
-
-        # context = {'facture_info': {nom,adresse,ville,pays,numero_dossier,numero_telephone,date_paiement,article_paye,penalite_payee, montant_total,paiement_du_mois}}
-
-        # response = HttpResponse(content_type='application/pdf')
-
-        # response['Content-Disposition'] = 'filename="pm_facture.pdf"'
-
-        # template = get_template(template_path)
-
-        # html = template.render(context)
-        # # create a pdf
-        # pisa_status = pisa.CreatePDF(html, dest=response)
-        # # if error then show some funy view
-        # if pisa_status.err:
-        #     return HttpResponse('We had some errors <pre>' + html + '</pre>')
-        # return response
-
-    return Response({})
+       
+    # return response
+    print('sending id bellow')
+    return JsonResponse({'id': paiement_id})
 
 
 # GENARATE PDF
+@login_required
+@api_view(['GET'])
+def gen_pdf(request):
+    # WRITE CODE TO GENARATE FACTURE HERE
+    id = request.query_params.get('id', None)
+    paiement = Paiement.objects.get(pk=id)
+    old_facture = paiement.facture
+    dos_id = paiement.uid
+    dossier = Dossier.objects.get(pk=dos_id)
+    payment_date = paiement.date_paiement
+    tot_sum = paiement.somme
 
+    nom = dossier.client.nom
+    adresse = dossier.client.place.adresse
+    ville = dossier.client.place.ville
+    pays = dossier.client.place.pays
+    numero_dossier = dossier.uid
+    numero_telephone = dossier.client.phone_1
+    date_paiement = payment_date
+
+    article_paye = dossier.article_interet.type_article
+    penalite_payee = old_facture.penalty_somme
+    montant_total = tot_sum
+    paiement_du_mois = payment_date
+
+    template_path = 'caisse/pm_facture.html'
+
+    context = {'nom': nom,'adresse':adresse,'ville': ville,'pays': pays,'numero_dossier': numero_dossier,'numero_telephone': numero_telephone,'date_paiement': date_paiement,'article_paye': article_paye,'penalite_payee': penalite_payee, 'montant_total': montant_total, 'paiement_du_mois': paiement_du_mois}
+    print('CONTEXT BELLOW')
+    print(context)
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = 'filename="pm_facture.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+    # create a pdf
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

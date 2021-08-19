@@ -2,212 +2,251 @@
 <html lang="en">
 {% load static %}
 <head>
-    <title>Invoice WonderShop</title>
-  <style>
-      .container {
-          width: 90%;
-          margin: 0 auto;
-          padding-top: 30px;
-      }
-      .top {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
+  <title>Invoice WonderShop</title>
+<style>
+  .clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+a {
+  text-decoration: underline;
+}
+
+body {
+  position: relative;
+  margin: 0 auto; 
+  color: #001028;
+  background: #FFFFFF; 
+  font-family: Arial, sans-serif; 
+  font-size: 14px; 
+  font-family: Arial;
+}
+
+header {
+  padding: 10px 0;
+  margin-bottom: 30px;
+}
+
+#logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#logo img {
+  width: 90px;
+}
+
+h1 {
   
-      h3 {
-          font-weight: 600;
-      }
+  color: #5D6975;
+  font-size: 2.4em;
+  line-height: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  margin: 0 0 20px 0;
+}
+
+#project {
+  float: left;
+}
+
+#project span {
+  color: #5D6975;
+  text-align: right;
+  width: 52px;
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 14px;
+}
+
+#company {
+  float: right;
+  text-align: right;
+}
+
+#project div,
+#company div {
+  white-space: nowrap;        
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 20px;
+}
+
+
+
+table th,
+table td {
+  text-align: center;
+}
+
+table th {
+  color: #5D6975;
+  border-bottom: 1px solid #C1CED9;
+  white-space: nowrap;        
+  font-weight: normal;
+}
+
+table.sig td {
+    border-bottom: 1px solid black;
+    white-space: nowrap;
+    font-weight: normal;
+    padding-bottom: 35px;
+}
+
+table .service,
+table .desc {
+  text-align: left;
+}
+
+table td {
+ padding-top:5px;
+ padding-bottom:5px;
   
-      h3.val {
-          font-weight: normal !important;
-      }
-  
-      .second {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-      }
-  
-      .sec-right {
-          margin-top: 5px;
-          width: 50%;
-      }
-  
-  
-  
-      .sec {
-          display: flex;
-          width: 100%;
-      }
-  
-      .field {
-          width: 50%;
-      }
-  
-      .value{
-          /* width: 60% */
-      }
-   
-      .sec-left-h2 {
-          font-size: 20px;
-      }
-  
-     .third {
-         display: flex;
-         width: 100%;
-         justify-content: space-between;
-     }
-  
-     .third-left {
-         width: 50%;
-     }
-  
-     .third-right {
-         width: 50%;
-     }
-  
-     .footer {
-         display: flex;
-         justify-content: space-between;
-     }
-    </style>
-  </head>
-     
-  <body>
-      <div class="container">
-          <div class="top">
-              <div class="logo">
-                  <img src="" alt="">
-              </div>
-              <div class="title">
-                  <h1 class="title">BORDEREAU DE VERSEMENT MENSUEL</h1>
-              </div>
-          </div>
-      
-          <div class="second">
-              <div class="sec-right">
-                  <div class="sec">
-                      <div class="field">
-                          <h3>NOM: </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">AWA DONACIEN</h3>
-                      </div>
-                  </div>
-      
-                  <div class="sec">
-                      <div class="field">
-                          <h3>ADRESSE: </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">ANGE RAPHAEL</h3>
-                      </div>
-                  </div>
-      
-                  <div class="sec">
-                      <div class="field">
-                          <h3>VILE: </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">DOUALA</h3>
-                      </div>
-                  </div>
-              </div>
-  
-              <div class="sec-left">
-                  <h2 class="sec-left-h2">BORDEREAU NUMERO <span>118101</span></h2>
-              </div>
-          </div>
-      
-          <div class="third">
-              <div class="third-left">
-                  <!-- left fields -->
-                  <div class="sec">
-                      <div class="field">
-                          <h3>PAYS: </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">Douala</h3>
-                      </div>
-                  </div>
-      
-                  <div class="sec">
-                      <div class="field">
-                          <h3>NUMERO DE DOSSIER: </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">343534334</h3>
-                      </div>
-                  </div>
-      
-                  <div class="sec">
-                      <div class="field">
-                          <h3>NUMBERO DE TELEPHONE: </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">DOUALA</h3>
-                      </div>
-                  </div>
-  
-                  <div class="sec">
-                      <div class="field">
-                          <h3>DATE DU PAIEMENT: </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">12-08-2021</h3>
-                      </div>
-                  </div>
-              </div>
-              <div class="third-right">
-                  <!-- right fields -->
-                  <div class="sec">
-                      <div class="field">
-                          <h3>ARTICLE PAAYE: </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">REAL ESTATE</h3>
-                      </div>
-                  </div>
-      
-                  <div class="sec">
-                      <div class="field">
-                          <h3>PENALITE(S) PAYEE(S): </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">20000</h3>
-                      </div>
-                  </div>
-      
-                  <div class="sec">
-                      <div class="field">
-                          <h3>MONTANT TOTAL PAYE: </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">DOUALA</h3>
-                      </div>
-                  </div>
-  
-                  <div class="sec">
-                      <div class="field">
-                          <h3>PAIEMENT(S) DU MOIS DE: </h3>
-                      </div>
-                      <div class="value">
-                          <h3 class="val">12-12-2021</h3>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      
-          <div class="footer">
-              <div class="foot-right">
-                  <h4>SIGNATURE DU CLIENT</h4>
-              </div>
-              <div class="foot-left">
-                  <h4>SIGNATURE DE WEND PUIRE DISTRIBUTION</h4>
-              </div>
-          </div>
-         <span>________________________________________________________________________________________________________________________________________________________</span> 
-      </div>
-  </body>
+}
+
+table tr {
+  border-bottom: 1px solid transparent;
+  text-align: left;
+}
+
+table td.service,
+table td.desc {
+  vertical-align: top;
+}
+
+table td.unit,
+table td.qty,
+table td.total {
+  font-size: 1.2em;
+}
+
+table td.grand {
+  border-top: 1px solid #5D6975;;
+}
+
+#notices .notice {
+  color: #5D6975;
+  font-size: 1.2em;
+}
+
+footer {
+  color: #5D6975;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid #C1CED9;
+  padding: 8px 0;
+  text-align: center;
+}
+
+
+  </style>
+</head>
+
+<body>
+  <header class="clearfix">
+    <div id="logo" style="display:flex; justify-content:center; align-items:center;">
+      {#<img src="static/firstapp/images/logo.png" class="brand-logo" width=60 height=60>#} <!--not working-->
+      {#<img src="static/logo.png" class="brand-logo" height="200px">#} <!--not working-->
+      <!-- <img src="D:\Mastering Django\firstproject\firstapp\logo.png" class="brand-logo" width=60 height=60> -->
+      <h1 class="brand-name" style="font-size: 16px;">BORDEREAU DE VERSEMENT MENSUEL</h1>
+    </div>
+    <br>
+  </header>
+    <div class="table-container" style="overflow-x:auto">
+      <table class="table" style="width:100%">
+          <thead style="padding-bottom: 15px;">
+              <tr>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+              </tr>
+          </thead>
+          <tbody>
+              
+              <tr>
+                  <td scope="row" style="text-align: left; font-size: 12px;"> <div style="color: gray;"><span style="color: black;">NOM:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{nom}}</div></td>
+                  <td> </td>
+                  <td > <div><span>BORDEREAU NUMERO </span> 118101</div></td>
+                  
+              </tr>
+              <tr>
+                <td scope="row" style="text-align: left; font-size: 12px;"> <div style="color: gray;"><span style="color: black;">ADRESSE: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{{adresse}}</div></td>
+                <td> </td>
+                <td></div></td>
+                
+              </tr>
+
+              <tr>
+                <td scope="row" style="text-align: left; font-size: 12px;"> <div style="color: gray;"><span style="color: black;">VILE: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{ville}}</div></td>
+                <td> </td>
+                <td style="text-align: left; font-size: 12px;"><div style="color: gray;"><span style="color: black;"><span>  </span> </div></td>
+                
+              </tr>
+
+              <tr>
+                <td scope="row" style="text-align: left; font-size: 12px; font-size: 12px;"> <div style="color: gray;"><span style="color: black;">PAYS:<span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{pays}}</div></td>
+                <td> </td>
+                <td style="text-align: left; font-size: 12px; font-size: 12px;"><div style="color: gray;"><span style="color: black;">ARTICLE PAYE:</span> &nbsp;&nbsp;&nbsp;</span> {{article_paye}}</div></td>
+                
+              </tr>
+
+              <tr>
+                <td scope="row" style="text-align: left; font-size: 12px;"> <div style="color: gray;"><span style="color: black;">NUMERO DE DOSSIER: &nbsp;&nbsp;&nbsp;</span> {{numero_dossier}}</div></td>
+                <td> </td>
+                <td style="text-align: left; font-size: 12px;"><div style="color: gray;"><span style="color: black;">PENALITE(S) PAYEE(S): &nbsp;&nbsp;&nbsp;</span> {{ penalite_payee }}</div></td>
+                
+              </tr>
+
+              
+              <tr>
+                <td scope="row" style="text-align: left; font-size: 12px;"> <div style="color: gray;"><span style="color: black;">NUMERO DE TELEPHONE: &nbsp;&nbsp;&nbsp;</span> {{ numero_telephone }}</div></td>
+                <td> </td>
+                <td style="text-align: left; font-size: 12px;"><div style="color: gray;"><span style="color: black;">PROTECTION(S) PAYEE(S):</span> &nbsp;&nbsp;&nbsp;</div></td>
+                
+              </tr>
+
+              <tr>
+                <td scope="row" style="text-align: left; font-size: 12px;"> <div style="color: gray;"><span style="color: black;">DATE DU PAIEMENT:</span>&nbsp;&nbsp;&nbsp; {{ date_paiement}}</div></td>
+                <td> </td>
+                <td style="text-align: left; font-size: 12px;"><div style="color: gray;"><span style="color: black;">MONTANT TOTAL PAYE: &nbsp;&nbsp;&nbsp;</span>{{ montant_total }} </div></td>
+                
+              </tr>
+              
+              <tr>
+                <td scope="row" style="text-align: left; font-size: 12px;"> </td>
+                <td style="width: 0px;"> </td>
+                <td style="text-align: left; font-size: 12px;"><div style="color: gray;"><span style="color: black;">PAIEMENT(S) DU MOIS DE: &nbsp;&nbsp;&nbsp;</span> {{ paiement_du_mois }}</div></td>
+                
+              </tr>
+            
+          </tbody>
+      </table>
+
+    </div>
+    <table class="table sig" style="width: 100%;">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td style="text-align: left;">SIGNATURE DU CLIENT</td>
+                <td style="text-align: right;">SIGNATURE DE WEND PUIRE DISTRIBUTION</td>
+              
+            </tr>
+        </tbody>
+    </table>
+</body>
+
 </html>

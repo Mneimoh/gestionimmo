@@ -421,7 +421,7 @@ def sendMail(request):
 def getPdf(request):
     template_path = 'transac/test_template.html'
 
-    context = {'products': 'hello'}
+    context = {}
 
     response = HttpResponse(content_type='application/pdf')
 

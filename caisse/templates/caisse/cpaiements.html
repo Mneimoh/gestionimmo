@@ -247,7 +247,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <a onclick="pay_facture()" class="btn btn-primary">Confirmer</a>
+        <a onclick="pay_facture()" data-dismiss="modal" class="btn btn-primary">Confirmer</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">
           Non
         </button>
@@ -651,7 +651,7 @@
             // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
             console.log('facture paid')
             genarate_next_facture()
-            window.location.reload()
+            // window.location.reload()
           },
   
           error: function() {
@@ -671,9 +671,13 @@
           },
           data: {id: id_to_pay, status: 'PM'},
           success: function(result) {
+            console.log('LOG RESULT OF API CALL BELLOW')
+            console.log(result)
             // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
-            console.log('NEXT FACTURE GENARATED')
-            window.location.reload()
+            // console.log('NEXT FACTURE GENARATED') 
+            let url = '/caisse/facture/api/get_pdf?id='+result.id
+            window.location = url
+            
             
           },
   
