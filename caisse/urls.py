@@ -31,6 +31,6 @@ urlpatterns = [
     path('cdc', views.cdc, name='cdc'),
     path('cdc/api/get_cdc', views.get_cdc),
     path('cdc/api/paginate_cdc', views.paginate_cdc),
-    path('facture/api/get_facture', views.get_facture)
-    
+    path('facture/api/get_facture', views.get_facture),
+    path('facture/api/get_pdf', views.gen_pdf)
 ]
