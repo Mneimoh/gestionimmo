@@ -445,7 +445,7 @@
                               <table>
                                 <tr>
                                   <td class="col-md-8">
-                                    <input type="number" placeholder="Percentage" class="form-control" id="taux" value="0%" >
+                                    <input type="number" placeholder="Percentage" class="form-control" id="taux" value={{dossier.credit.taux}} >
                                   </td>
                                   <td class="col-md-4">
                                     &nbsp;<i class="fa fa-long-arrow-right"></i> 
@@ -495,7 +495,7 @@
                               <table>
                                 <tr>
                                   <td class="col-md-8">
-                                    <input id="accompte" type="text" class="form-control" value="20 000" disabled>  
+                                    <input id="accompte" type="text" class="form-control" value={{dossier.client.accompte}}  disabled>  
                                   </td>
                                   <td class="col-md-4">
                                     &nbsp;<i class="fa fa-long-arrow-right"></i> 
@@ -540,7 +540,7 @@
                               <label class="control-label">Estimation durée de paiement</label>
                               <input id="payment_length" type="number" class="form-control" value="240">
                               <label class="control-label">Frais de montage de dossier</label>
-                              <input type="text" id="frais_montage" class="form-control" style="background-color:#99ccff; color:#000;" disabled>
+                              <input type="text" id="frais_montage" class="form-control" style="background-color:#99ccff; color:#000;" value={{dossier.client.frais_dossier}}>
                               <label class="control-label">Livraison (si applicable)</label>
                               <input type="text" id="frais_livraison" class="form-control">
                               <label class="control-label">Protection perte emploi ou revenu</label>
@@ -576,7 +576,7 @@
                               <label for="tvAgentIap" class="control-label">Paiement banque pour reprise (S.A)</label>
                               <input type="text" class="form-control" value="" disabled>
                               <label for="tvAgentIap" class="control-label">Autres frais</label>
-                              <input type="text" id="frais_autre" class="form-control" value="" disabled>
+                              <input type="text" id="frais_autre" class="form-control" value={{dossier.client.autre_frais}} >
                             </div> 
                           </div> 
                           <div class="row">
@@ -1448,11 +1448,16 @@ $('#save_loan').click(function(e){
   let path_contents = current_path.split('/')
   let url = null
   if (path_contents.includes('mutation'))
-      url = ''
+      url = `/transac/vente/mutation/{{dossier}}/{{dossier.article_interet.pk}}/`
   else if(path_contents.includes('restructure'))
-      url = ''
+      url = `/transac/vente/restructure/{{dossier}}/{{dossier.article_interet.pk}}/`
   else 
       url = `/transac/credit/{{dossier}}/`
+
+  console.log('********** Links to Visit ************')
+  console.log(url)
+  console.log('********** Links to Visit ************')
+
   $.ajax({
           type: "POST",
           url: url,

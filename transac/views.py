@@ -468,27 +468,90 @@ def vente(request):
 
 @login_required
 def venteUpdates(request,_type,dossier,article):
-    if _type=="mutation":
-        print('************************************************')
-        print('mutation request')
-        print('************************************************')
-    
-    if _type=="restructure":
-        print('***********************************************')
-        print('restructure  request')
-        print('***********************************************')
-    interested_article = Article.objects.get(pk=int(article))
-    print('his interested article is:')
-    print(interested_article)
-    dossier_uid = int(dossier)
-    dossier = Dossier.objects.filter(uid=dossier_uid)[0]
-    currentDossier = Dossier.objects.get(pk = dossier.pk)
-    print(currentDossier)
-    currentDossier.article_interet = interested_article
-    currentDossier.save()
+    new_facture = None
 
-    
-    return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier}) 
+
+    if(request.method == "GET"):
+        if _type == "mutation":
+            interested_article = Article.objects.get(pk=int(article))
+            print('********************* mutated **********************')
+            print(interested_article)
+            print('********************* mutated **********************')
+            dossier_uid = int(dossier)
+            dossier = Dossier.objects.filter(uid=dossier_uid)[0]
+            currentDossier = Dossier.objects.get(pk = dossier.pk)
+            currentDossier.article_interet = interested_article
+            currentDossier.save()     
+            return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier}) 
+        
+        if _type == "restructure":
+            dossier_uid = int(dossier)
+            dossier = Dossier.objects.filter(uid=dossier_uid)[0]
+            currentDossier = Dossier.objects.get(pk = dossier.pk)
+            return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier}) 
+
+         
+    if(request.method == "POST"): 
+
+        if _type=="mutation":
+            print('************************************************')
+            print('creating mutation facture')
+            print('************************************************')           
+            # Creating the clients facture after applied
+            dossier_uid         = int(dossier)
+            dossier             = Dossier.objects.filter(uid=dossier_uid)[0]
+            currentDossier      = Dossier.objects.get(pk = dossier.pk)
+            new_facture         = Facture(
+                article         = currentDossier.article_interet,
+                User_editeur    = request.user,
+                statut          = "MT",
+                num_facture     = "",
+                somme           = request.POST['paiement_mensuel']
+            )
+            new_facture.save()
+
+            credit_pk           = currentDossier.credit.pk
+            credit              = Credit.objects.get(pk=credit_pk)
+            credit.accompte     = request.POST['accompte']
+            credit.taux         = request.POST['taux']
+            credit.somme_payee  = request.POST['total']
+            credit.frais_dossier = request.POST['frais_dossier']
+            credit.autre_frais  = request.POST['frais_autre']
+            credit.montant      = request.POST['paiement_mensuel']
+            credit.date_fin     = request.POST['date_fin']
+            credit.article      = currentDossier.article_interet
+
+            credit.save()
+
+            currentDossier.facture = new_facture
+            currentDossier.credit  = credit
+
+            currentDossier.save()
+
+                
+        if _type=="restructure":
+            print('***********************************************')
+            print('creating restructure factore')
+            print('***********************************************')
+             # Creating the clients facture after applied
+            dossier_uid             = int(dossier)
+            dossier                 = Dossier.objects.filter(uid=dossier_uid)[0]
+            currentDossier          = Dossier.objects.get(pk = dossier.pk)
+            print(currentDossier)
+
+            new_facture             = Facture(
+                article             = currentDossier.article_interet,
+                User_editeur        = request.user,
+                statut              = "RT",
+                num_facture         = "",
+                somme               = request.POST['paiement_mensuel']
+            )
+            new_facture.save()
+
+
+            currentDossier.facture  = new_facture
+            currentDossier.save()
+
 
 
 @login_required

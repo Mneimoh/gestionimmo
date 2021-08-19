@@ -138,7 +138,7 @@
                         class="btn btn-info"
                         data-toggle="modal"
                         data-target="#confirmRestruct"
-                        onclick="set_id_to_pay('{{ dossier.id }}')"
+                        onclick="set_id_to_pay('{{ dossier.uid }}-{{ dossier.article_interet.id}}')"
                       >
                         Restructurer
                       </button>
@@ -238,11 +238,14 @@
           <span aria-hidden="true">&times;</span
           ><span class="sr-only">Fermer</span>
         </button>
-        <a href="#">Cliquer ici pour restructurer le dossier</a>
+        <a onclick="restructurer()">Cliquer ici pour restructurer votre dossier</a>
+        <br />
+        <br />
+        <a onclick="restructurer()" class="btn btn-primary">Restructurer</a>
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-primary">Restructurer</a>
-        <button onclick="restructurer()" type="button" class="btn btn-default" data-dismiss="modal">
+        
+        <button type="button" class="btn btn-default" data-dismiss="modal">
           Annuler
         </button>
       </div>
@@ -622,7 +625,9 @@
   // #########END OF FACTURE SHOWING CODE#########
 
   // PAY FACTURE CODE BELLOW
-  let id_to_pay = null;
+  let id_to_pay     = null;
+  let dossier_id    = null;
+  let article_id    = null
 
 
   function pay_facture() {
@@ -656,12 +661,16 @@
 
   function set_id_to_pay(id) {
     id_to_pay = id;
+
+    [dossier_id,article_id] = id.split('-')
+
   }
 
 
   function restructurer() {
     console.log('MAKE REQUEST TO RESTRUCTURE')
     console.log(id_to_pay)
+    window.location.href=`./vente/restructure/${dossier_id}/${article_id}/`
   }
   </script>
 
