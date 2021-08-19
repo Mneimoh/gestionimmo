@@ -1,3 +1,4 @@
+import societe
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from accueuil.views import appointment
 from django.db.models.expressions import F
@@ -483,10 +484,10 @@ def penalties(request):
 def payments(request):
     if(request.user.poste == section):
         filterby = Q(statut="PM1") | Q(statut="A")
-        all_info = Dossier.objects.filter(filterby)
-
+        all_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(filterby)
+        
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(filterby)
+        dossier_objects = Dossier.objects.filter(societe__nom=request.user.societe).filter(filterby)
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
 
@@ -508,10 +509,10 @@ def payments(request):
 def mutations(request):
     if(request.user.poste == section):
 
-        all_info = Dossier.objects.filter(statut='A')
+        all_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')
 
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(statut='A')
+        dossier_objects = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
 
@@ -532,10 +533,10 @@ def mutations(request):
 @login_required
 def restructure(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.filter(statut='A')
+        all_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')
 
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(statut='A')
+        dossier_objects = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
 
@@ -556,10 +557,10 @@ def restructure(request):
 @login_required
 def plan(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.filter(statut='FN')
+        all_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='FN')
 
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(statut='FN')
+        dossier_objects = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='FN')
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
 
@@ -580,11 +581,11 @@ def plan(request):
 # @login_required
 def dossiers_credit(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.filter(
+        all_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(
             statut='A').exclude(statut='OM')
 
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(
+        dossier_objects = Dossier.objects.filter(societe__nom=request.user.societe).filter(
             statut='A').exclude(statut='OM')
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
@@ -606,11 +607,11 @@ def dossiers_credit(request):
 @login_required
 def dossiers(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.filter(
+        all_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(
             article_interet__type_article='TERRAIN')
 
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(
+        dossier_objects = Dossier.objects.filter(societe__nom=request.user.societe).filter(
             article_interet__type_article='TERRAIN')
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
@@ -639,8 +640,8 @@ def paginate_penalite(request):
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
-
-    results = Dossier.objects.filter()[starting_number:ending_number]
+    lookup = Q(statut="PN") | Q(statut='PN1')
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -664,7 +665,8 @@ def get_penalite(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    caisse_info = Dossier.objects.all()
+    lookup = Q(statut="PN") | Q(statut='PN1')
+    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -705,8 +707,8 @@ def paginate_paiement(request):
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
-
-    results = Dossier.objects.filter()[starting_number:ending_number]
+    lookup = Q(statut="PM1") | Q(statut="A")
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -730,7 +732,8 @@ def get_paiement(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    caisse_info = Dossier.objects.all()
+    lookup = Q(statut="PM1") | Q(statut="A")
+    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -774,7 +777,8 @@ def paginate_mutations(request):
     starting_number = (page-1)*1
     ending_number = page*1
 
-    results = Dossier.objects.filter()[starting_number:ending_number]
+    lookup = Q(statut = 'MT') | Q(statut='A')
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -798,7 +802,8 @@ def get_mutations(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    caisse_info = Dossier.objects.all()
+    lookup = Q(statut = 'MT') | Q(statut='A')
+    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -841,8 +846,8 @@ def paginate_restructurations(request):
     page = int(page)
     starting_number = (page-1)*1
     ending_number = page*1
-
-    results = Dossier.objects.filter()[starting_number:ending_number]
+    lookup = Q(statut='RT') | Q(statut='A')
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -866,7 +871,8 @@ def get_restructurations(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    caisse_info = Dossier.objects.all()
+    lookup = Q(statut='RT') | Q(statut='A')
+    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -910,7 +916,7 @@ def paginate_tpml(request):
     starting_number = (page-1)*1
     ending_number = page*1
 
-    results = Dossier.objects.filter()[starting_number:ending_number]
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='FN')[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -934,7 +940,7 @@ def get_tpml(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    caisse_info = Dossier.objects.all()
+    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='FN')
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -978,7 +984,7 @@ def paginate_tdcpt(request):
     starting_number = (page-1)*1
     ending_number = page*1
 
-    results = Dossier.objects.filter()[starting_number:ending_number]
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='TERRAIN')[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -1002,7 +1008,7 @@ def get_tdcpt(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    caisse_info = Dossier.objects.all()
+    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='TERRAIN')
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -1046,7 +1052,7 @@ def paginate_tdc(request):
     starting_number = (page-1)*1
     ending_number = page*1
 
-    results = Dossier.objects.filter()[starting_number:ending_number]
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -1070,7 +1076,7 @@ def get_tdc(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    caisse_info = Dossier.objects.all()
+    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(

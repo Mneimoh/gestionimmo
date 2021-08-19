@@ -174,7 +174,8 @@ def get_appointments(request):
     date_tocome = request.query_params.get('date_tocome', None)
     date_pass = request.query_params.get('date_pass', None)
 
-    appointments = Appointment.objects.all()
+    # ADD FILTER FOR SOCIETE ADMIN
+    appointments = Appointment.objects.filter(status='APT')
     
     today = date.today()
     

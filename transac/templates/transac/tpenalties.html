@@ -113,7 +113,7 @@
                       <td>{{ dossier.client.prenom }}</td>
                       <td>{{ dossier.uid }}</td>
                       <td>{{ dossier.statut }}</td>
-                      <td>15/03/2014</td>
+                      <td>{{ dossier.date_dernier_paiement }}</td>
                       <td>{{ dossier.coeff_recouv }}</td>
                       <td>{{ dossier.appele_recouvre }}</td>
                       <td>{{ dossier.dernier_appel }}</td>
@@ -143,7 +143,7 @@
                         Confirmer
                         </button>
                       </td>
-                      <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" href="#" class="btn btn-link">Consulter</a></td>
+                      <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" class="btn btn-link">Consulter</a></td>
                     </tr>
                     {% endfor  %}
                   </tbody>
@@ -508,7 +508,7 @@
      
           elem = data[key];
           row = ''
-          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> 15/03/2014 </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <a href="#" class="btn btn-default">Modifier</a> </td> <td> <div class="classbtn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmOpen" > Ouvrir </button> </td>  <td><a href="#" class="btn btn-link">Consulter</a></td></tr>`
+          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <button  data-toggle="modal" data-target="#modifPenalite" onclick="set_user(${elem['facture'].id})"  class="btn btn-default">Modifier</button> </td> <td> <div class="classbtn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#openPenalite" onclick="set_id_to_pay(${elem['id']})"> Confirmer </button> </td>  <td><a  data-target="#showFacture" onclick="show_facture(${elem['uid']})" data-toggle="modal" class="btn btn-link">Consulter</a></td></tr>`
           all_rows = all_rows + row;
       });
   
@@ -560,7 +560,7 @@
           console.log('data bellow')
           console.log(data[index])
           app = data[index];
-          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> 15/03/2014 </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <a href="#" class="btn btn-default">Modifier</a> </td> <td> <div class="classbtn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmOpen" > Ouvrir </button> </td>  <td><a href="#" class="btn btn-link">Consulter</a></td></tr>`
+          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <button  data-toggle="modal" data-target="#modifPenalite" onclick="set_user(${elem['facture'].id})"  class="btn btn-default">Modifier</button> </td> <td> <div class="classbtn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#openPenalite" onclick="set_id_to_pay(${elem['id']})"> Confirmer </button> </td>  <td><a  data-target="#showFacture" onclick="show_facture(${elem['uid']})" data-toggle="modal" class="btn btn-link">Consulter</a></td></tr>`
           all_rows = all_rows + row;
       });
       $("#penaliteTable tbody").html(all_rows)
