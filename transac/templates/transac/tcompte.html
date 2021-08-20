@@ -286,7 +286,7 @@
             <select class="form-control margin-bottom-15" name="client_interet" id="articleI">
               {% for obj in clients %}
               
-              <option>{{ obj }}</option>
+              <option value={{obj.pk}}>{{ obj }}</option>
               
               {% endfor %}
             </select>
@@ -2789,6 +2789,7 @@
               type: "POST",
               url: `/transac/register/${this.name}/True/`,
               data: fd,
+              async: false,
               processData: false,
               contentType: false,
               success: function(data,status) {
@@ -2818,7 +2819,7 @@
           });
         });
       else
-        $(".irregular").each(function(){
+        $(".irregular").each(function(){  
             console.log(this.name)
             console.log('--  sending irregular  --')
             var fd = new FormData($(this)[0]);
@@ -2826,6 +2827,7 @@
                   type: "POST",
                   url: `/transac/register/${this.name}/False/`,
                   data: fd,
+                  async: false,
                   processData: false,
                   contentType: false,
                   success: function(data,status) {

@@ -121,9 +121,10 @@ def registerAccount(request, table=None, type=None):
             globvar = globvar + 1
             nom_banque = request.POST['nom_banque']
             charges = request.POST['charge']
-            compte = request.POST['compte']
-            type_compte = request.POST['type_compte']
+            compte = request.POST['compte']         
+            # type_compte = request.POST['type_compte']
             endettementForm = EndettementForm(request.POST)
+            type_compte = request.POST.get('type_compte',None)
 
         print(globvar)
         if(globvar == 4):
@@ -202,7 +203,7 @@ def registerAccount(request, table=None, type=None):
                 new_place.save()
 
                 # Register either the client or the cosigner
-
+                print(type=="True")
                 if type == "True":
                     # Storing a new Client
                     new_client = Client(
@@ -233,10 +234,11 @@ def registerAccount(request, table=None, type=None):
                     print('******************saving new client***********************************')
                     new_client.save()
                     print('******************saving new client***********************************')
-                    
-                    return HttpResponse('client_created')
 
                     clientData = new_client
+                    return HttpResponse('client_created')
+
+                    
 
                 else:
                     # Saving and assigning a clients Cosigner
@@ -266,32 +268,16 @@ def registerAccount(request, table=None, type=None):
                     )
                     new_cosigner.save()
 
-                    nom = client_interet.split(' ')[0]
-                    prenom = client_interet.split(' ')[1]
-                    prenom = ''.join(prenom)
-                    print('************************************')
-                    print(nom)
-                    print(prenom)
-                    print('************************************')
-                    client = Client.objects.filter(nom=nom, prenom=prenom)
-                    print('*****************client**************')
-                    print(client)
-                    print('************************************')
-
-                    if client:
-                        client = client[0]
-                        client = Client.objects.get(pk=client.pk)
+                    print('******** you are here ***********')
+                    client    =  Client.objects.get(pk=int(client_interet))
                     client.cosigner = new_cosigner
                     client.save()
 
-                    print(nom)
-                    print(prenom)
-                    appointment_to_delete = Appointment.objects.filter(nom=nom)
+                    appointment_to_delete = Appointment.objects.filter(nom=client.nom,prenom=client.prenom)[0]
 
-                    if appointment_to_delete:
-                        appointment_to_delete = appointment_to_delete[0]
-
+                    print('************************* apointment to delete  *************************')
                     print(appointment_to_delete)
+                    print('************************* apointment to delete  *************************')
 
                     article_interet = appointment_to_delete.article_dinteret
 
