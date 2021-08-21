@@ -11,7 +11,7 @@ urlpatterns = [
     path('vente/<_type>/<dossier>/<article>/', views.venteUpdates, name='vente'),
     path('register/<table>/<type>/', views.registerAccount),
     # path('generatepdf/', views.ViewPDF.as_view(), name="pdf_view"),
-    path('generatepdf/', views.getPdf, name="pdf_view"),
+    path('generatepdf/<name>/<dossier>/', views.getPdf, name="pdf_view"),
     path('credit/<dossier>/', views.save_credit),
     # path('register/client', views.registerAccount),
     # path('register/place', views.registerAccount),

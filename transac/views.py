@@ -414,10 +414,30 @@ def sendMail(request):
 
 
 @login_required
-def getPdf(request):
+def getPdf(request,name,dossier):
+    dossier_uid = int(dossier)
+    dossier = Dossier.objects.get(uid=dossier_uid)
+    print(dossier)
+    print(name)
     template_path = 'transac/test_template.html'
-
-    context = {}
+    if name == 'facture':
+        template_path = 'transac/vente_facture.html'
+    if name == "engagement":
+        template_path = 'transac/engagement.html'
+    if name == "ppe_imp":
+        template_path = 'transac/ppe_imp.html'
+    if name == "ppr_imp":
+        template_path = 'transac/ppr_imp.html'
+    if name == "pvi_imp":
+        template_path = "transac/pvi_imp.html"
+    if name == "ct_imp":
+        template_path = "transac/ct_imp.html"
+    if name == "bal_imp":
+        template_path = "transac/bal_imp.html"
+    if name == "ppe_imp":
+        template_path = "transac/ppe_imp.html"
+    
+    context = {'dossier': dossier}
 
     response = HttpResponse(content_type='application/pdf')
 

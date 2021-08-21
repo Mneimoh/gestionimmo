@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <title></title>
+</head>
+
+<body>
+  
+
+ 
+    <h1 style="text-align: center;font-size: 17px;">
+       Lettre d'engagement irrevocable
+    </h1> 
+  <p style="font-size:13px">
+
+    Je soussigné   {{dossier.client.nom}}  {{dossier.client.prenom}}  né le  {{dossier.client.date_emission}}  à   {{dossier.client.ville_naissance}}   titulaire de  la pièce d'itentité {{dossier.client.numero_piece_id}} ou du  passeport numéro
+     {{dossier.client.numero_piece_id}} domicilié à {{dossier.client.place.address}}   ville {{dossier.client.place.ville}}  code posal {{dossier.client.place.code_postal}}  Pays  {{dossier.client.place.pays}} m'engage de maniere
+    irrévocable par la présente, à payer à la société			{{dossier.client.societe}}		 la somme totale de {{dossier.credit.somme}}				
+																				
+   	millions	_____________	cent	_____________	mille	_____________	Francs CFA	{{dossier.credit.somme}}	F CFA,		
+                          
+                       
+    soit             (	_____________	)	_____________	mensualités de: 							
+                          
+                       
+    _____________	millions	_____________	cent	_____________	mille	_____________	Francs CFA,	_____________	F CFA,		
+                          
+                        
+    et cela de la période du		_____________	jusqu'au	_____________	représentant les engagements libellés dans le contrat ou 						
+                                                 
+    protocole d'accord nous liant.											
+                                                 
+    Je m’engage par ailleurs à  respecter tous les termes du contrat qui me lient à 							_____________				
+                                                 
+    et à respecter les paiements en temps et en heure au bureau local, régional, ou à l'(aux) institution(s) désignée(s) 											
+                                                 
+    par cette dernière.											
+                                                                         
+    En foi de quoi je délivre cette présente lettre d’engagement irrévocable pour servir et valoir ce que de droit.											
+                                                                                                 
+    <br />
+    <br />Signature précédée d e la mention "lu et approuvé"					
+                          
+                          
+                L’acquéreur					
+    <br />
+    Institution financière : ___________________ Toutes
+  </p>
+</body>
+</html>

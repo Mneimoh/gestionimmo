@@ -109,6 +109,17 @@ DATABASES = {
 }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'gestionimmo',
+#         'USER': 'super',
+#         'PASSWORD': 'aqwerty40admin',
+#         'HOST': 'Donacien13-2354.postgres.pythonanywhere-services.com',
+#         'PORT': '12354',
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

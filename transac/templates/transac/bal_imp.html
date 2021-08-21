@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <title></title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <style>
+    
+@page {
+  size: letter;
+  margin: .75in;
+}
+
+html {
+  font-family: Helvetica;
+  font-size: 11px; 
+  font-weight: normal;
+  color: #000000; 
+  background-color: transparent;
+  margin: 0; 
+  padding: 0;
+  line-height: 150%;
+  border: 1px none;
+  display: inline;
+  width: auto;
+  height: auto;
+  white-space: normal;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+i,
+em {
+  font-style: italic;
+}
+
+u {
+  text-decoration: underline;
+}
+
+s,
+strike {
+  text-decoration: line-through;
+}
+
+a {
+  text-decoration: underline;
+  color: blue;
+}
+
+ins {
+  color: green;
+  text-decoration: underline;
+}
+
+del {
+  color: red;
+  text-decoration: line-through;
+}
+
+pre,
+code,
+kbd,
+samp,
+tt {
+  display: block;
+  font-family: Inconsolata;
+  font-size: 12px;
+  padding: 10px 10px 5px 10px !important;
+  background-color: #EFEFEF;
+  color: #15366D;
+  margin-left: 30px !important;
+  margin-bottom: 21px !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 2.5em 0 1em 0;
+  font-weight: bold;
+  -pdf-outline: true;
+  -pdf-outline-open: false;
+}
+
+h1 {
+  /*18px via YUI Fonts CSS foundation*/
+  font-size:138.5%; 
+  -pdf-outline-level: 0;
+}
+
+h2 {
+  /*16px via YUI Fonts CSS foundation*/
+  font-size:123.1%;
+  -pdf-outline-level: 1;
+}
+
+h3 {
+  /*14px via YUI Fonts CSS foundation*/
+  font-size:108%;
+  -pdf-outline-level: 2;
+}
+
+h4 {
+  -pdf-outline-level: 3;
+}
+
+h5 {
+  -pdf-outline-level: 4;
+}
+
+h6 {
+  -pdf-outline-level: 5;
+}
+
+p,
+pre,
+hr {
+  margin: 1em 0;
+}
+
+address,
+blockquote,
+body,
+center,
+dl,
+dir,
+div,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+isindex,
+menu,
+noframes,
+noscript,
+ol,
+p,
+pre,
+table,
+th,
+tr,
+td,
+ul,
+li,
+dd,
+dt,
+pdftoc {
+  display: block;
+}
+
+table {
+   -pdf-keep-in-frame-mode: shrink;
+}
+
+tr,
+th,
+td {
+
+  vertical-align: middle;
+  width: auto;
+}
+
+th {
+  text-align: center;
+  font-weight: bold;
+}
+
+center {
+  text-align: center;
+}
+
+big {
+  font-size: 125%;
+}
+
+small {
+  font-size: 75%;
+}
+
+ul {
+  margin-left: 1.5em;
+  list-style-type: disc;
+}
+
+ul ul {
+  list-style-type: circle;
+}
+
+ul ul ul {
+  list-style-type: square;
+}
+
+ol {
+  list-style-type: decimal;
+  margin-left: 1.5em;
+}
+
+pre {
+  white-space: pre;
+}
+
+blockquote {
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+}
+
+noscript {
+  display: none;
+}
+
+.content td{
+padding: 2px;
+border: 1px solid black;
+}
+  </style>
+  {% block styles %}{% endblock %}
+</head>
+
+<body>
+
+  <div id="container" class="bg-danger border-primary">
+       <h1 style="text-align: center;">BON A LIVRER</h1>
+
+       <table width="100%">
+          <tr>
+            <td >TYPE D'ARTICLE</td>
+            <td></td>
+            <td>Immobilier</td>
+          </tr>
+       </table>
+
+
+      <div>
+        <p>Nous soussignes Iris Immobles sa, cites ci dessous</p>
+      </div>
+       
+      <h1 style="text-align: left;">INFORMATION GARANT</h1>
+      
+      <table class="content" width="100%">
+        <tr> 
+          <td><strong>NOM</strong></td>
+          <td colspan="3">IRIS IMMOBILIER SA</td>      
+        </tr>
+
+        <tr>
+          <td><strong>ADDRESSE</strong></td>
+          <td  colspan="3">36 BOULEVARD DU RPT</td>
+         
+        </tr>
+
+        <tr>
+          <td><strong>VILLE</strong></td>
+          <td>lOME</td>
+          <td>CP</td>
+          <td>REP DU TOGO</td>
+        </tr>
+
+        <tr>
+          <td><strong>TELEPHONE</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+
+      </table>
+
+      <br />
+      <div> DONNONS L'AUTHORISATION AU CONCESSIONAIRE PAR LE PRESENTE, C'EST -A-DIRE</div>
+
+      <h1 style="text-align: left;">INFORMATION CONCESSIONAIRE</h1>
+      
+      <table class="content" width="100%">
+
+        <tr>
+          <td><strong>NOM</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+        <tr>
+          <td><strong>ADRESSE</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+        <tr>
+          <td><strong>VILLE</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+        <tr>
+          <td><strong>TELEPHONE</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+
+      </table>
+
+
+      <br />
+      <div> A LA PERSONNE SOUS CITEE</div>
+
+      <h1 style="text-align: left;">INFORMATION ARTICLE A LIVRER</h1>
+      
+      <table class="content" width="100%">
+
+        <tr>
+          <td><strong>ARTICLE</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+        <tr>
+          <td><strong>MODELE</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+        <tr>
+          <td><strong>No DE STOCK</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+        <tr>
+          <td><strong>No DE SERIE</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+
+      </table>
+
+      <br />
+      <div> DE LIVRER L'ARTICLE SOUS-CITE</div>
+
+      <h1 style="text-align: left;">INFORMATION CLIENT</h1>
+      
+      <table class="content"  width="100%">
+
+        
+        <tr>
+          <td><strong>NOM</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+        <tr>
+          <td><strong>ADRESSE</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+        <tr>
+          <td><strong>VILLE</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+        <tr>
+          <td><strong>TELELPHONE</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+        
+        <tr>
+          <td><strong>CNI</strong></td>
+          <td>second</td>
+          <td>thired</td>
+          <td>Fourth</td>
+        </tr>
+
+
+      </table>
+
+      <br />
+      <div>
+        EN FOI DE QUOI PRESENT ORDRE DE LIVRAISON EST LIVRE, POUR SERVIR ET VALOIR CE QUE CE DROID 
+        <br />
+        
+      </div>
+      <br />
+      <table width="100%">
+        <tr>
+          <td>DUREE GARANTIE A NOTIFIER:</td>
+          <td></td>
+          <td style="text-align: center;">12 MOIS</td>
+        </tr>
+     </table>
+
+     <br />
+      <table width="100%">
+        <tr>
+          <td>LE GARANT</td>
+          <td>LE LOCATAIRE</td>
+          <td>LE CONCESSIONAIRE</td>
+        </tr>
+     </table>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+</body>
+</html>
