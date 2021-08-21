@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-6">
     <div class="templatemo-alerts">
       <div class="row">
@@ -75,7 +75,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="row">
   <div class="col-md-12">
     <div class="btn-group pull-right" id="templatemo_sort_btn">
@@ -630,37 +630,12 @@
 
   // PAY FACTURE CODE BELLOW
   let id_to_pay = null;
+  var form = document.getElementById('form');
 
+  let csrftoken = form.getElementsByTagName('input')[0].value;
 
-  function pay_facture() {
-    //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
-    // let param = "id=" + id_to_pay & "status="+"A"
-    var form = document.getElementById('form');
+  // let csrftoken = null;
 
-    csrftoken = form.getElementsByTagName('input')[0].value;
-
-    $.ajax({
-          method: 'POST',
-          url: 'caisse/api/pay_facture',
-          headers: { "X-CSRFTOKEN": csrftoken  },
-          beforeSend: function() {
-              console.log('Before Send')
-          },
-          data: {id: id_to_pay , status: "PM1"},
-          success: function(result) {
-            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
-            console.log('facture paid')
-            genarate_next_facture()
-            // window.location.reload()
-          },
-  
-          error: function() {
-              console.log('error')
-          }
-      })
-  }
-
-  
   function genarate_next_facture() {
     $.ajax({
           method: 'POST',
@@ -688,6 +663,36 @@
     
   }
 
+  function pay_facture() {
+    //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
+    // let param = "id=" + id_to_pay & "status="+"A"
+    // var form = document.getElementById('form');
+
+    // csrftoken = form.getElementsByTagName('input')[0].value;
+
+    $.ajax({
+          method: 'POST',
+          url: 'caisse/api/pay_facture',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: id_to_pay , status: "PM1"},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('facture paid')
+            genarate_next_facture()
+            // window.location.reload()
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+  }
+
+  
+  
   function set_id_to_pay(id) {
     id_to_pay = id;
     console.log('ID TO PAY BELLOW')

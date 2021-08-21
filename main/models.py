@@ -261,7 +261,7 @@ class Appointment(models.Model):
     heure_redezvous = models.TimeField()
     status = models.TextField(default='',null=True)
     heure_arrivee = models.TextField()
-    
+    societe = models.ForeignKey(Societe, on_delete=models.PROTECT)
     def __str__(self):
         return self.nom
 
@@ -345,7 +345,7 @@ class Facture(models.Model):
     statut              = models.CharField(max_length=60,null=True,blank=True)   
     somme               = models.FloatField(default=0)
     num_facture         = models.CharField(max_length=10,null=True,blank=True)
-    date                = models.DateTimeField(auto_now_add=True)
+    date                = models.DateTimeField(null=True)
     penalty_status      = models.BooleanField(default=False)
     penalty_somme       = models.FloatField(default=0)
     

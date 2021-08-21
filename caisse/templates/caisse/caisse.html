@@ -28,7 +28,7 @@
   </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-6">
     <div class="templatemo-alerts">
       <div class="row">
@@ -73,7 +73,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="row">
   <div class="col-md-12">
     <div class="btn-group pull-right" id="templatemo_sort_btn">
@@ -619,8 +619,33 @@
 
   // PAY FACTURE CODE BELLOW
   let id_to_pay = null;
+  let csrftoken = null;
+
+  function genarate_next_facture() {
+    $.ajax({
+          method: 'POST',
+          url: 'caisse/api/genarate_facture',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: id_to_pay, status: 'PM'},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('NEXT FACTURE GENARATED')
+            window.location.reload()
+            
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+    
+  }
 
 
+  
   function pay_facture() {
     //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
     console.log('pay facture')
@@ -651,28 +676,6 @@
       })
   }
 
-  function genarate_next_facture() {
-    $.ajax({
-          method: 'POST',
-          url: 'caisse/api/genarate_facture',
-          headers: { "X-CSRFTOKEN": csrftoken  },
-          beforeSend: function() {
-              console.log('Before Send')
-          },
-          data: {id: id_to_pay, status: 'PM'},
-          success: function(result) {
-            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
-            console.log('NEXT FACTURE GENARATED')
-            window.location.reload()
-            
-          },
-  
-          error: function() {
-              console.log('error')
-          }
-      })
-    
-  }
 
   function set_id_to_pay(id) {
     id_to_pay = id;

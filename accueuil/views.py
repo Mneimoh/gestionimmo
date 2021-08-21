@@ -23,13 +23,15 @@ from django.db.models import  Q
 # NEW IMPORTS FOR PAGINATION
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+import calendar
+
 section = "accueuil"
 # Create your views here.
 
 @login_required
 def index(request):
     if(request.user.poste == section):
-        articles = Article.objects.all()
+        articles = Article.objects.filter(societe=request.user.societe)
 
         if(request.method == 'POST'):
             print('##########REQUEST BELLOW#############')
@@ -51,7 +53,7 @@ def index(request):
                 return render(request,'accueuil/appel.html', {'title': '', 'is_valid': False, 'article_interet':articles })
 
         else:
-            articles = Article.objects.all()
+            articles = Article.objects.filter(societe=request.user.societe)
 
             return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels','new_appointment': False, 'article_interet':articles})
         
@@ -89,7 +91,7 @@ def rdv(request):
             
             page_list = appointments.paginator.page_range
 
-            articles = Article.objects.all()
+            articles = Article.objects.filter(societe=request.user.societe)
 
             return render(request,'accueuil/rdv.html', { 'title': 'Enregistrement des rendez-vous', 'page_list': page_list, 'page': page, 'appointments': appointments, 'date_tocome': date_tocome_count, 'date_pass': date_pass_count, 'article_interet':articles})
 
@@ -143,6 +145,16 @@ def appointment(request):
 
         appointment = Appointment.objects.get(pk=client_id)
         print('############APPOINTMENT BELLOW#############3')
+        print('TESTING DATE BELLOW')
+        today_year = date.today().year
+        today_day = date.today().day
+        today_month = int(date.today().month + 1)
+        print('MONTH BELLOW')
+        print(today_month)
+        new_pay_date = str(today_year) + "-" + str(today_month) + "-" + str(today_day)
+        print('NEW PAY DATE BELLOW')
+        print(new_pay_date)
+        # print(calendar.nextmonth(year=2021, month=8))
         appointment.date_arivee = date_arrivee 
         appointment.heure_arrivee = heure_arrivee
         appointment.nom = nom
@@ -152,7 +164,7 @@ def appointment(request):
         appointment.num_client = num_client
         appointment.how_connu = how_connu
         appointment.status = 'PQ'
-        appointment.save()
+        # appointment.save()
         return Response({}) 
         
 

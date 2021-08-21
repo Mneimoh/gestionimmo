@@ -935,7 +935,7 @@ def genarate_facture(request):
     end_day = end_date.split('-')[2]
     today_year = date.today().year
     today_day = date.today().day
-    today_month = int(date.today().month + 1)
+    today_month = int(date.today().month)
 
     # new facture pay date
     new_pay_date = str(today_year) + "-" + str(today_month + 1) + "-" + str(end_day)
