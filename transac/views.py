@@ -650,7 +650,7 @@ def mutations(request):
 
         page_list = all_info.paginator.page_range
 
-        return render(request, 'transac/tmutations.html', {'title': 'Mutations', 'page_list': page_list, 'page': page, "all_dossier": all_info,'all_articles':all_articles})
+        return render(request, 'transac/tmutations.html', {'title': 'Mutations', 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
 

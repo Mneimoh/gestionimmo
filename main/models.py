@@ -3,7 +3,7 @@ from uuid import UUID
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from django.db.models.base import Model
-from django.db.models.deletion import CASCADE
+from django.db.models.deletion import CASCADE, PROTECT
 from datetime import date
 
 from django.db.models.fields import IntegerField
@@ -322,6 +322,7 @@ class Article(models.Model):
     denomination             = models.CharField(max_length=60,blank=True, null=True)
     num_stock                = models.CharField(max_length=60)
     valeur                   = models.FloatField(blank=True, null=True)
+    societe                  = models.ForeignKey(Societe,on_delete=PROTECT)
     # date_achat               = models.DateField(blank=True, null=True)
     # date_dernier_paiement    = models.DateField(blank=True, null=True)
     # accompte                 = models.FloatField(blank=True, null=True)

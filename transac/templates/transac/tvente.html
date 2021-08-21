@@ -37,7 +37,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="templatemo-alerts">
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-md-12">
                     <div class="alert alert-success alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
@@ -48,10 +48,10 @@
                       Tout est en ordre vous pouvez consulter.
                     </div>
                   </div>  
-                </div>            
+                </div>             -->
               </div>              
             </div>
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <div class="templatemo-alerts">
                 <div class="row">
                   <div class="col-md-12">                    
@@ -66,7 +66,7 @@
                   </div>  
                 </div>            
               </div>              
-            </div>
+            </div> -->
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -574,7 +574,7 @@
                               <label class="control-label">Protection SOS réparation</label>
                               <input type="text" id="sos_reparation" class="form-control" value="0" >
                               <label for="tvAgentIap" class="control-label">Paiement banque pour reprise (S.A)</label>
-                              <input type="text" class="form-control" value="" >
+                              <input type="text" class="form-control" value="0" >
                               <label for="tvAgentIap" class="control-label">Autres frais</label>
                               <input type="text" id="frais_autre" class="form-control" value={{dossier.client.autre_frais}} >
                             </div> 
@@ -1404,7 +1404,22 @@ $('#taux').change(function(e){
 })
 
 $('#accompte').change(function(e){
-  alert(e.target.val())
+  montant_financer     =  parseInt(valeur_article) - 
+                          parseInt(valeur_reprise) -
+                          parseInt(subvention) + 
+                          parseFloat(accompte) + 
+                          parseInt(tva) + 
+                          parseInt(commission) + 
+                          parseInt(immatriculation) + 
+                          parseInt(transfer_titre) + 
+                          parseInt(frais_autre) + 
+                          parseInt(frais_dossier) + 
+                          parseInt(frais_montage) + 
+                          parseInt(frais_livraison) + 
+                          parseInt(perte_emploi) + 
+                          parseInt(vie_ou_invalidite) + 
+                          parseInt(sos_reparation) + 
+                          parseInt(paiement_banque)
 })
 
 $('#save_loan').click(function(e){
