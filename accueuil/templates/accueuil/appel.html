@@ -6,7 +6,7 @@
 
 {% if messages %}
         {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                <!-- <div class="alert alert-{{ message.tags }}">{{ message }}</div> -->
         {% endfor %}
 {% endif %}
 
@@ -39,7 +39,7 @@
                   </div>
                   <div class="col-md-6 margin-bottom-15">
                     <label for="lieuNaiss" class="control-label">Heure d'appel</label>
-                    <input type="text" name="heure_dappel" class="form-control" id="lieuNaiss" required>                 
+                    <input type="time" name="heure_dappel" class="form-control" id="lieuNaiss" required>                 
                   </div>
                 </div>
                 <div class="row">
@@ -101,7 +101,7 @@
                   </div>
                   <div class="col-md-6 margin-bottom-15">
                     <label for="lieuNaiss" class="control-label">Heure de rendez-vous</label>
-                    <input type="text" name="heure_redezvous" class="form-control" id="lieuNaiss" required>                 
+                    <input type="time" name="heure_redezvous" class="form-control" id="lieuNaiss" required>                 
                   </div>
                 </div>
                 <br>

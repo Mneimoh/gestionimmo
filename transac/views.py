@@ -82,7 +82,7 @@ def index(request, nom):
 @login_required
 def prequalifList(request):
     if(request.user.poste == section):
-        all_prequalifier = Appointment.objects.filter(status="PQ")
+        all_prequalifier = Appointment.objects.filter(societe=request.user.societe).filter(status="PQ")
         return render(request, 'transac/tprequalifier.html', {'title': 'Liste Prequalifier', "all_prequalifiers": all_prequalifier})
     else:
         return redirect(f"/login?next=/{section}/")

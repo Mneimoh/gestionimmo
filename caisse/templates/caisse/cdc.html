@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-6">
     <div class="templatemo-alerts">
       <div class="row">
@@ -71,7 +71,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="row">
   <div class="col-md-12">
     <div class="btn-group pull-right" id="templatemo_sort_btn">
@@ -643,41 +643,6 @@
 
   // #########END OF FACTURE SHOWING CODE#########
 
-  // PAY FACTURE CODE BELLOW
-  let id_to_pay = null;
 
-
-  function pay_facture() {
-    //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
-    console.log('pay facture')
-    console.log(id_to_pay)
-    // let param = "id=" + id_to_pay & "status="+"A"
-    var form = document.getElementById('form');
-
-    csrftoken = form.getElementsByTagName('input')[0].value;
-
-    $.ajax({
-          method: 'POST',
-          url: 'caisse/api/pay_facture',
-          headers: { "X-CSRFTOKEN": csrftoken  },
-          beforeSend: function() {
-              console.log('Before Send')
-          },
-          data: {id: id_to_pay},
-          success: function(result) {
-            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
-            console.log('facture paid')
-            window.location.reload()
-          },
-  
-          error: function() {
-              console.log('error')
-          }
-      })
-  }
-
-  function set_id_to_pay(id) {
-    id_to_pay = id;
-  }
   </script>
 {% endblock %}
