@@ -261,7 +261,7 @@ class Appointment(models.Model):
     heure_redezvous = models.TimeField()
     status = models.TextField(default='',null=True)
     heure_arrivee = models.TextField()
-    societe = models.ForeignKey(Societe, on_delete=models.PROTECT)
+    societe = models.ForeignKey(Societe, on_delete=models.PROTECT,null=True, blank=True)
     def __str__(self):
         return self.nom
 
@@ -322,7 +322,7 @@ class Article(models.Model):
     denomination             = models.CharField(max_length=60,blank=True, null=True)
     num_stock                = models.CharField(max_length=60)
     valeur                   = models.FloatField(blank=True, null=True)
-    societe                  = models.ForeignKey(Societe,on_delete=PROTECT)
+    societe                  = models.ForeignKey(Societe,on_delete=PROTECT, null=True)
     # date_achat               = models.DateField(blank=True, null=True)
     # date_dernier_paiement    = models.DateField(blank=True, null=True)
     # accompte                 = models.FloatField(blank=True, null=True)
