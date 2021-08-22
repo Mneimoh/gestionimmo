@@ -32,7 +32,6 @@ section = "accueuil"
 def index(request):
     if(request.user.poste == section):
         articles = Article.objects.filter(societe=request.user.societe)
-
         if(request.method == 'POST'):
             print('##########REQUEST BELLOW#############')
             print(request.POST)
@@ -40,6 +39,7 @@ def index(request):
             post_values['date_arrivee'] = '12/08/2020'
             post_values['heure_arrivee'] = '14:00'
             post_values['status'] = 'APT'
+            post_values['societe'] = request.user.societe
             appointment = AppointmentForms(post_values)
         
             if(appointment.is_valid()):
@@ -54,6 +54,8 @@ def index(request):
 
         else:
             articles = Article.objects.filter(societe=request.user.societe)
+            print('user societe bellow')
+            print(request.user.societe)
 
             return render(request,'accueuil/appel.html', { 'title': 'Enregistrement des appels','new_appointment': False, 'article_interet':articles})
         
@@ -64,7 +66,7 @@ def index(request):
 def rdv(request):
     if(request.user.poste == section):
         if(request.method == 'GET'):
-            all_appointments = Appointment.objects.filter(status='APT')
+            all_appointments = Appointment.objects.filter(societe=request.user.societe).filter(status='APT')
             # Pass All Appoints To The table view and display them on the table
             #Add Filter Functionality
             # myFilter = AppointmentFilter(request.GET,queryset=all_appointments)
@@ -78,7 +80,7 @@ def rdv(request):
             date_tocome_count = len(date_tocome)
 
             # CODE FOR PAGINATOR BELLOW
-            appointment_objects = Appointment.objects.filter(status='APT')
+            appointment_objects = Appointment.objects.filter(societe=request.user.societe).filter(status='APT')
             paginator = Paginator(appointment_objects,10)
             page = request.GET.get('page',1)
 
@@ -112,7 +114,7 @@ def paginate_appointments(request):
     starting_number = (page-1)*10
     ending_number = page*10
 
-    results = Appointment.objects.filter()[starting_number:ending_number]
+    results = Appointment.objects.filter(societe=request.user.societe)[starting_number:ending_number]
     serialized = AppointmentSerializer(results, many=True)
    
     return Response(serialized.data)
@@ -164,7 +166,8 @@ def appointment(request):
         appointment.num_client = num_client
         appointment.how_connu = how_connu
         appointment.status = 'PQ'
-        # appointment.save()
+        appointment.societe = request.user.societe
+        appointment.save()
         return Response({}) 
         
 
@@ -187,7 +190,7 @@ def get_appointments(request):
     date_pass = request.query_params.get('date_pass', None)
 
     # ADD FILTER FOR SOCIETE ADMIN
-    appointments = Appointment.objects.filter(status='APT')
+    appointments = Appointment.objects.filter(societe=request.user.societe).filter(status='APT')
     
     today = date.today()
     
