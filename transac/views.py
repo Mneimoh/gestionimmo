@@ -11,6 +11,7 @@ from .forms import ClientForms, PlaceForm, EmploiForm, EndettementForm
 from main.models import Client, Facture, Place, Emploi, Endettement, CompteEndettement, PretEndettement, Dossier, Cosignataire, Article, Appointment, Credit, Societe
 from django.core.mail import send_mail
 import uuid
+import smtplib
 import random
 
 # IMPORTS FOR SEARCH
@@ -83,6 +84,7 @@ def index(request, nom):
 def prequalifList(request):
     if(request.user.poste == section):
         all_prequalifier = Appointment.objects.filter(societe=request.user.societe).filter(status="PQ")
+        
         return render(request, 'transac/tprequalifier.html', {'title': 'Liste Prequalifier', "all_prequalifiers": all_prequalifier})
     else:
         return redirect(f"/login?next=/{section}/")
@@ -400,7 +402,24 @@ def save_credit(request, dossier):
 @login_required
 def sendMail(request):
     if(request.method == 'POST' and request.user.poste == section):
-        print(request.POST)
+        server = smtplib.SMTP('smtp.gmail.com',587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login('karlsedoide@gmail.com','40sedoide40')
+
+        subject = "Your Message Subject"
+        body   = "Your messae body"
+
+        msg    = f"SubjectL{subject}\n\n{body}"
+        server.sendmail(
+            'karlsedoide@gmail.com',
+            'dzekarlson@gmail.com',
+            msg
+        )
+        print('hey uour message has been sent')
+
+        server.quit()
 
         send_mail(
             "Django Email Test",
