@@ -402,32 +402,27 @@ def save_credit(request, dossier):
 @login_required
 def sendMail(request):
     if(request.method == 'POST' and request.user.poste == section):
-        server = smtplib.SMTP('smtp.gmail.com',587)
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-        server.login('karlsedoide@gmail.com','40sedoide40')
+        print(request.path)
+        print(request.POST)
+        # server = smtplib.SMTP('smtp.gmail.com',587)
+        # server.ehlo()
+        # server.starttls()
+        # server.ehlo()
+        # server.login('karlsedoide@gmail.com','40sedoide40')
 
-        subject = "Your Message Subject"
-        body   = "Your messae body"
+        # subject = "Your Message Subject"
+        # body   = "Your messae body"
 
-        msg    = f"SubjectL{subject}\n\n{body}"
-        server.sendmail(
-            'karlsedoide@gmail.com',
-            'dzekarlson@gmail.com',
-            msg
-        )
-        print('hey uour message has been sent')
+        # msg    = f"{subject}\n\n{body}"
+        # server.sendmail(
+        #     'karlsedoide@gmail.com',
+        #     'dzekarlson@gmail.com',
+        #     msg
+        # )
+        # print('----- Email Sent Successfully -----')
 
-        server.quit()
+        # server.quit()
 
-        send_mail(
-            "Django Email Test",
-            "Yo, hello from the real world, it just so happens that i am testing out django right now",  # message
-            "karlsedoide@gmail.com",  # from email
-            ['dzekarlson@gmail.com'],  # To mail
-            fail_silently=False
-        )
     else:
         pass
 

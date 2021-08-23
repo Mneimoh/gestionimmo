@@ -81,14 +81,14 @@
         aria-valuenow="45"
         aria-valuemin="0"
         aria-valuemax="100"
-        style="width: 45%"
+        style="width: 0%"
       >
         <span class="sr-only">45% Complete</span>
       </div>
     </div>
     <div class="col-md-12">
       <div class="btn-group pull-right bg-danger" id="templatemo_sort_btn">
-        <button type="button" class="btn btn-default">Type de Client</button>
+        <button id="client_type" type="button" class="btn btn-default">Type de Client</button>
         <button
           type="button"
           class="btn btn-default dropdown-toggle"
@@ -107,7 +107,7 @@
 
       <!-- Client Info Form -->
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" name = "1">
           <h4 class="panel-title">
             <a
               data-toggle="collapse"
@@ -173,7 +173,7 @@
                   id="lieuNaiss"
                   placeholder="Bobo Djoulasso"
                   name="ville_naissance"
-                  value="Bamenda Cameroon"
+                  
                   required
                 />
               </div>
@@ -185,7 +185,7 @@
                   class="form-control"
                   id="email"
                   placeholder="moktar@gmail.com"
-                  value="karlsedoide@gmail.com"
+                 
                   name="email"
                   required
                 />
@@ -210,7 +210,7 @@
                   class="form-control"
                   id="phoneB"
                   name="phone_2"
-                  value="654451039"
+                 
                   placeholder="885577834"
                   required
                 />
@@ -449,7 +449,7 @@
 
       <!-- Client Address Section -->
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" name="2">
           <h4 class="panel-title">
             <a
               data-toggle="collapse"
@@ -902,7 +902,7 @@
 
       <!-- Client Empoyment sectioon -->
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" name="3">
           <h4 class="panel-title">
             <a
               data-toggle="collapse"
@@ -1456,7 +1456,7 @@
 
       <!-- Client Debts section   -->
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" name='4'>
           <h4 class="panel-title">
             <a
               data-toggle="collapse"
@@ -2210,7 +2210,7 @@
         </div>
       </div>
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" name = "5">
           <h4 class="panel-title">
             <a
               data-toggle="collapse"
@@ -2372,7 +2372,7 @@
                             class="form-control"
                             id="agentNotif"
                             name="debiteur_agent"
-
+                            value={{user.nom}}
                             required
                           />
                         </div>
@@ -2485,7 +2485,7 @@
         </div>
       </div>
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" name="6">
           <h4 class="panel-title">
             <a
               data-toggle="collapse"
@@ -2562,7 +2562,7 @@
         </div>
       </div>
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" name="7">
           <h4 class="panel-title">
             <a
               data-toggle="collapse"
@@ -2657,281 +2657,252 @@
 </div>
 {% endblock %} {% block scripts %}
 <script type="text/javascript">
-  // Line chart
-  var randomScalingFactor = function () {
-    return Math.round(Math.random() * 100);
-  };
-  var lineChartData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        label: "My First dataset",
-        fillColor: "rgba(220,220,220,0.2)",
-        strokeColor: "rgba(220,220,220,1)",
-        pointColor: "rgba(220,220,220,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(220,220,220,1)",
-        data: [
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-        ],
-      },
-      {
-        label: "My Second dataset",
-        fillColor: "rgba(151,187,205,0.2)",
-        strokeColor: "rgba(151,187,205,1)",
-        pointColor: "rgba(151,187,205,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(151,187,205,1)",
-        data: [
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-        ],
-      },
-    ],
-  };
 
-  window.onload = function () {
-    var ctx_line = document
-      .getElementById("templatemo-line-chart")
-      .getContext("2d");
-    window.myLine = new Chart(ctx_line).Line(lineChartData, {
-      responsive: true,
-    });
-  };
+// Manipulate the progress of the step bar based on the currently registering client
+function progressMarker(step_size){
 
-  $("#myTab a").click(function (e) {
-    e.preventDefault();
-    $(this).tab("show");
+  let tabs = document.getElementsByClassName('panel-heading');
+
+  $('.panel-heading').on('click', function() {
+    let tab_number = parseInt($(this).attr('name'))
+    let progress_element = $('.progress-bar')[0]
+    progress_element.style.width =    `${tab_number*step_size}%`
   });
 
-
-  var regular = null;
-  var success_messages        = document.getElementById('success')
-  var warning_messages        = document.getElementById('warning')
-  var info_messages           = document.getElementById('info')
-  var error_messages          = document.getElementById('error')
-  var regular_client          = document.getElementById('regular')
-  var irregular_client        = document.getElementById('irregular')
-  var regular_forms           = document.getElementsByClassName('regular')
-  var irregular_forms         = document.getElementsByClassName('irregular')
-
-  success_messages.style.display = 'none'
-  warning_messages.style.display = 'none'
-  error_messages.style.display   = 'none'
-  info_messages.style.display    = 'none'
-
-  // Disable co-signateur fields
-  for(let index=0; index<regular_forms.length; index++){
-      irregular_forms[index].style.display = 'none'
-      regular_forms[index].style.display = 'none'
-    }
-
-  if(!regular){
-    info_messages.style.display = 'inline-block'
-    info_messages.style.width = '100%'
-  }
+}
 
 
-
-  regular_client.onclick =()=>{
-    regular = true
-    console.log('sets regular to true')
-    for(let index=0; index<regular_forms.length; index++){
-      irregular_forms[index].style.display = 'none'
-    } 
-    for(let index=0; index<regular_forms.length; index++){
-      regular_forms[index].style.display = 'block'
-    }
-
-  }
-
-  irregular_client.onclick =()=>{
-    regular = false
-    console.log('sets regular to false')
-    for(let index=0; index<irregular_forms.length; index++){
-      regular_forms[index].style.display = 'none'
-    }
-    for(let index=0; index<irregular_forms.length; index++){
-      irregular_forms[index].style.display = 'block'
-    } 
-  }
-
-  error_messages.innerHTML=`
-        <button type="button" class="close" data-dismiss="alert">
-              <span aria-hidden="true">&times;</span
-              ><span class="sr-only">Close</span>
-            </button>
-            Veuillez corriger les erreurs.
-        `
-       
-
-    $("#loading-example-btn").click(function(){
-
-      if(regular)
-        $(".regular").each(function(){
-          console.log('--  sending regular  --')
-          console.log(this.name)
-          var fd = new FormData($(this)[0]);
-          $.ajax({
-              type: "POST",
-              url: `/transac/register/${this.name}/True/`,
-              data: fd,
-              async: false,
-              processData: false,
-              contentType: false,
-              success: function(data,status) {
-                console.log(data)
-                if(data == 'client_created'){
-                  location.reload(); 
-                }
-                else{
-                  
-                  error_messages.innerHTML=`
-                  <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">&times;</span
-                  ><span class="sr-only">Close</span>
-                  </button>
-                  Veuillez corriger les erreurs.
-                  <br />
-                  ${data}
-                  `
-                  info_messages.style.display  = 'none'
-                  error_messages.style.display = 'block'
-                  error_messages.style.width   = '100%'
-                }
-                  
-              },
-              error: function(data, status) {
-              },
-          });
-        });
-      else
-        $(".irregular").each(function(){  
-            console.log(this.name)
-            console.log('--  sending irregular  --')
-            var fd = new FormData($(this)[0]);
-              $.ajax({
-                  type: "POST",
-                  url: `/transac/register/${this.name}/False/`,
-                  data: fd,
-                  async: false,
-                  processData: false,
-                  contentType: false,
-                  success: function(data,status) {
-
-                    if(data == 'validated'){
-                        console.log('---- client validated -----'); 
-                        success_messages.style.display = 'inline-block'
-                        warning_messages.style.display = 'none'
-                        error_messages.style.display   = 'none'
-                        info_messages.style.display    = 'none'
-                    }else{
-                      error_messages.innerHTML=`
-                      <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span
-                      ><span class="sr-only">Close</span>
-                      </button>
-                      Veuillez corriger les erreurs.
-                      <br />
-                      ${data}
-                      `
-                      // error_messages.appendChild(data)
-                      info_messages.style.display  = 'none'
-                      error_messages.style.display = 'block'
-                      }
-                   
-                    
-                  },
-                  error: function(data, status) {
-                  },
-            });
-          });
-      
+    $("#myTab a").click(function (e) {
+        e.preventDefault();
+        $(this).tab("show");
       });
-  
-      
-  // 
 
-  $('#creditor_message').click(function(){
-    let debitor_form = document.getElementById('debitor_form')
 
-    var fd = new FormData(debitor_form);
-    console.log(fd)
-    $.ajax({
+    var regular = null;
+    var success_messages        = document.getElementById('success')
+    var warning_messages        = document.getElementById('warning')
+    var info_messages           = document.getElementById('info')
+    var error_messages          = document.getElementById('error')
+    var regular_client          = document.getElementById('regular')
+    var irregular_client        = document.getElementById('irregular')
+    var regular_forms           = document.getElementsByClassName('regular')
+    var irregular_forms         = document.getElementsByClassName('irregular')
+    var progress_bar            = document.getElementsByClassName('progress-bar')[0];
+    success_messages.style.display = 'none'
+    warning_messages.style.display = 'none'
+    error_messages.style.display   = 'none'
+    info_messages.style.display    = 'none'
+
+    // Disable co-signateur fields
+    for(let index=0; index<regular_forms.length; index++){
+        irregular_forms[index].style.display = 'none'
+        regular_forms[index].style.display = 'none'
+      }
+
+    if(!regular){
+      info_messages.style.display = 'inline-block'
+      info_messages.style.width = '100%'
+    }
+
+
+
+    regular_client.onclick =()=>{
+      progress_bar.style.width = `0%`
+      progressMarker(25)
+      document.getElementById('client_type').textContent = "Regular Client"
+      regular = true
+      console.log('sets regular to true')
+      for(let index=0; index<regular_forms.length; index++){
+        irregular_forms[index].style.display = 'none'
+      } 
+      for(let index=0; index<regular_forms.length; index++){
+        regular_forms[index].style.display = 'block'
+      }
+
+    }
+
+    irregular_client.onclick =()=>{
+      progress_bar.style.width = `0%`
+      progressMarker(15)
+      document.getElementById('client_type').textContent = "Cosigner Client"
+      regular = false
+      console.log('sets regular to false')
+      for(let index=0; index<irregular_forms.length; index++){
+        regular_forms[index].style.display = 'none'
+      }
+      for(let index=0; index<irregular_forms.length; index++){
+        irregular_forms[index].style.display = 'block'
+      } 
+    }
+
+    error_messages.innerHTML=`
+          <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span
+                ><span class="sr-only">Close</span>
+              </button>
+              Veuillez corriger les erreurs.
+          `
+        
+
+      $("#loading-example-btn").click(function(){
+
+        if(regular)
+          $(".regular").each(function(){
+            console.log('--  sending regular  --')
+            console.log(this.name)
+            var fd = new FormData($(this)[0]);
+            $.ajax({
                 type: "POST",
-                url: `/transac/mail`,
+                url: `/transac/register/${this.name}/True/`,
                 data: fd,
+                async: false,
                 processData: false,
                 contentType: false,
                 success: function(data,status) {
                   console.log(data)
-                  let message = document.createElement('div')
- 
-                  
+                  if(data == 'client_created'){
+                    location.reload(); 
+                  }
+                  else{
+                    
+                    error_messages.innerHTML=`
+                    <button type="button" class="close" data-dismiss="alert">
+                      <span aria-hidden="true">&times;</span
+                    ><span class="sr-only">Close</span>
+                    </button>
+                    Veuillez corriger les erreurs.
+                    <br />
+                    ${data}
+                    `
+                    info_messages.style.display  = 'none'
+                    error_messages.style.display = 'block'
+                    error_messages.style.width   = '100%'
+                  }
+                    
+                },
+                error: function(data, status) {
+                },
+            });
+          });
+        else
+          $(".irregular").each(function(){  
+              console.log(this.name)
+              console.log('--  sending irregular  --')
+              var fd = new FormData($(this)[0]);
+                $.ajax({
+                    type: "POST",
+                    url: `/transac/register/${this.name}/False/`,
+                    data: fd,
+                    async: false,
+                    processData: false,
+                    contentType: false,
+                    success: function(data,status) {
+
+                      if(data == 'validated'){
+                          console.log('---- client validated -----'); 
+                          success_messages.style.display = 'inline-block'
+                          warning_messages.style.display = 'none'
+                          error_messages.style.display   = 'none'
+                          info_messages.style.display    = 'none'
+                      }else{
+                        error_messages.innerHTML=`
+                        <button type="button" class="close" data-dismiss="alert">
+                          <span aria-hidden="true">&times;</span
+                        ><span class="sr-only">Close</span>
+                        </button>
+                        Veuillez corriger les erreurs.
+                        <br />
+                        ${data}
+                        `
+                        // error_messages.appendChild(data)
+                        info_messages.style.display  = 'none'
+                        error_messages.style.display = 'block'
+                        }
+                    
+                      
+                    },
+                    error: function(data, status) {
+                    },
+              });
+            });
+        
+        });
+    
+        
+    // 
+
+    $('#creditor_message').click(function(){
+      let debitor_form = document.getElementById('debitor_form')
+
+      var fd = new FormData(debitor_form);
+      console.log(fd)
+      $.ajax({
+                  type: "POST",
+                  url: `/transac/mail/{{client.pk}}`,
+                  data: fd,
+                  processData: false,
+                  contentType: false,
+                  success: function(data,status) {
+                    console.log(data)
+                    let message = document.createElement('div')
+  
+                    
+                    //this will execute when form is submited without errors
+                },
+                error: function(data, status) {
+                    //this will execute when get any error
+                },
+            });
+  
+    })
+
+    $('#print_autorisation').click(function(){
+      let authorization_form = document.getElementById('authorisation')
+      var fd = new FormData(authorization_form);
+      fd.append('top_info',`Je soussigné ___________________ avoir appliqué pour un
+                          crédit à la consommation et autorise WEND PUIRE
+                          DISTRIBUTION et ses partenaires à faire des recherches
+                          concernant mon passé, mon emploi et d'autres
+                          informations qu'ils jugeront nécessaires., et tout cela
+                          dans le but de mieux évaluer les risques qu'ils
+                          pourraient encourir en octroyant un crédit. Je reconnais
+                          aussi que tout autre institution financière à laquel ils
+                          pourraient faire recours utilisera le même processus.
+                          J'accepte aussi d'être transféré de terrain, de site, de
+                          région, de banque ou di'institution financière, sans
+                          dédommagement si pour des raisons personnelles, WEND
+                          PUIRE DISTRIBUTION en jugeait l'utilité.`)
+
+      fd.append('bottom_info',`L'institution financière sous citée pourrait être celle
+                          qui est responsable du futur contrat de financement
+                          concernant ma cession si WEND PUIRE DISTRIBUTION leur
+                          transmettait mon dossier, et je m'engage par la présente
+                          à me conformer aux normes, conditions et termes de cette
+                          nouvelle institution. Je suis par là notifié que mon
+                          application pour crédit consommateur pourrait leur être
+                          soumise.`)
+
+      console.log(fd)
+              $.ajax({
+                type: "POST",
+                url: `/transac/generatepdf/authorisation/`,
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function(data,status) {
                   //this will execute when form is submited without errors
               },
               error: function(data, status) {
                   //this will execute when get any error
               },
           });
+          
+    })
+
+
+
+
  
-  })
-
-  $('#print_autorisation').click(function(){
-    let authorization_form = document.getElementById('authorisation')
-    var fd = new FormData(authorization_form);
-    fd.append('top_info',`Je soussigné ___________________ avoir appliqué pour un
-                        crédit à la consommation et autorise WEND PUIRE
-                        DISTRIBUTION et ses partenaires à faire des recherches
-                        concernant mon passé, mon emploi et d'autres
-                        informations qu'ils jugeront nécessaires., et tout cela
-                        dans le but de mieux évaluer les risques qu'ils
-                        pourraient encourir en octroyant un crédit. Je reconnais
-                        aussi que tout autre institution financière à laquel ils
-                        pourraient faire recours utilisera le même processus.
-                        J'accepte aussi d'être transféré de terrain, de site, de
-                        région, de banque ou di'institution financière, sans
-                        dédommagement si pour des raisons personnelles, WEND
-                        PUIRE DISTRIBUTION en jugeait l'utilité.`)
-
-    fd.append('bottom_info',`L'institution financière sous citée pourrait être celle
-                        qui est responsable du futur contrat de financement
-                        concernant ma cession si WEND PUIRE DISTRIBUTION leur
-                        transmettait mon dossier, et je m'engage par la présente
-                        à me conformer aux normes, conditions et termes de cette
-                        nouvelle institution. Je suis par là notifié que mon
-                        application pour crédit consommateur pourrait leur être
-                        soumise.`)
-
-    console.log(fd)
-            $.ajax({
-              type: "POST",
-              url: `/transac/generatepdf/authorisation/`,
-              data: fd,
-              processData: false,
-              contentType: false,
-              success: function(data,status) {
-                //this will execute when form is submited without errors
-            },
-            error: function(data, status) {
-                //this will execute when get any error
-            },
-        });
-        
-  })
   
 
 </script>
