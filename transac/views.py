@@ -1,3 +1,4 @@
+from django.db import connections
 import societe
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from accueuil.views import appointment
@@ -64,14 +65,9 @@ def render_to_pdf(template_src, context_dict={}):
 @login_required
 def index(request, nom):
     if(request.user.poste == section):
-        fnom = nom.split('-')[0]
-        prenom = nom.split('-')[1]
-        # prenom  = ' '.join(prenom)
-        print(fnom)
-        print(prenom)
-        client = Appointment.objects.filter(nom=fnom)
-        if client:
-            client = client[0]
+        appointment_id = int(nom)
+        client = Appointment.objects.get(pk=appointment_id)
+        print(client)
         articles = Article.objects.all()
         all_clients = Client.objects.filter(
             societe=request.user.societe, cosigner=None)
@@ -332,7 +328,8 @@ def registerAccount(request, table=None, type=None):
                         print('//////////////////// /////////saving client/////////////////////////////////')
 
                         currentDossier = new_dossier
-                        appointment_to_delete.delete()
+                        appointment_to_delete.status = 'DONE'
+                        appointment_to_delete.save()
                         return HttpResponse('validated')
 
                 new_compte_endettement = CompteEndettement(
@@ -400,28 +397,38 @@ def save_credit(request, dossier):
 
 
 @login_required
-def sendMail(request):
+def sendMail(request,id):
     if(request.method == 'POST' and request.user.poste == section):
         print(request.path)
         print(request.POST)
-        # server = smtplib.SMTP('smtp.gmail.com',587)
-        # server.ehlo()
-        # server.starttls()
-        # server.ehlo()
-        # server.login('karlsedoide@gmail.com','40sedoide40')
+        appointed_user = Appointment.objects.get(pk = int(id))
+        print(appointed_user)
+        name = appointed_user.nom
+        prenom = appointed_user.prenom
+        client = Client.objects.filter(nom=name,prenom=prenom)
+        print('********** client **************')
+        print(client[0])
+        print('********** client **************')
+        cosigner_email = client[0].cosigner.email
+        server = smtplib.SMTP('smtp.gmail.com',587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login('karlsedoide@gmail.com','40sedoide40')
 
-        # subject = "Your Message Subject"
-        # body   = "Your messae body"
+        subject = "Greetings From GestionImmo"
+        body   = f"This is to notify you that our client of name {client.nom} {client.prenom} took a loan from our company called {request.user.societe}"
 
-        # msg    = f"{subject}\n\n{body}"
-        # server.sendmail(
-        #     'karlsedoide@gmail.com',
-        #     'dzekarlson@gmail.com',
-        #     msg
-        # )
-        # print('----- Email Sent Successfully -----')
+        msg    = f"{subject}\n\n{body}"
+        server.sendmail(
+            'karlsedoide@gmail.com',
+            cosigner_email  ,
+            msg
+        )
+        print('----- Email Sent Successfully -----')
 
-        # server.quit()
+        server.quit()
+        return HttpResponse('success')
 
     else:
         pass
@@ -433,7 +440,7 @@ def getPdf(request,name,dossier):
     dossier = Dossier.objects.get(uid=dossier_uid)
     print(dossier)
     print(name)
-    template_path = 'transac/test_template.html'
+    template_path = None
     if name == 'facture':
         template_path = 'transac/vente_facture.html'
     if name == "engagement":

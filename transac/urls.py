@@ -17,7 +17,7 @@ urlpatterns = [
     # path('register/place', views.registerAccount),
     # path('register/emploi',  views.registerAccount),
     # path('register/endettement', views.registerAccount),
-    path('mail', views.sendMail),
+    path('mail/<id>/', views.sendMail),
     path('penalties', views.penalties, name='penalties'),
     path('penalites/api/get_penalites', views.get_penalite),
     path('penalites/api/paginate_penalites', views.paginate_penalite),
