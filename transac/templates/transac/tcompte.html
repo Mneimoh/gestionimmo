@@ -27,7 +27,7 @@
     <div class="templatemo-alerts">
       <div class="row">
         <div class="col-md-12">
-          <div id="success" class=" col-12 alert alert-success alert-dismissible" role="alert">
+          <div id="success" class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert">
               <span aria-hidden="true">&times;</span
               ><span class="sr-only">Fermer</span>
@@ -56,7 +56,7 @@
             </button>
             Vous avez reçu un message du recouvrement.
           </div>
-          <div class="col-12">
+          <div class="col-md-12">
               <div id="error" class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert">
                   <span aria-hidden="true">&times;</span
@@ -2209,7 +2209,7 @@
           </div>
         </div>
       </div>
-      <div class="panel panel-default">
+      <div class="panel panel-default irregular">
         <div class="panel-heading" name = "5">
           <h4 class="panel-title">
             <a
@@ -2484,7 +2484,7 @@
           </div>
         </div>
       </div>
-      <div class="panel panel-default">
+      <div class="panel panel-default irregular">
         <div class="panel-heading" name="6">
           <h4 class="panel-title">
             <a
@@ -2561,7 +2561,7 @@
           </div>
         </div>
       </div>
-      <div class="panel panel-default">
+      <div class="panel panel-default irregular">
         <div class="panel-heading" name="7">
           <h4 class="panel-title">
             <a
@@ -2696,10 +2696,12 @@ function progressMarker(step_size){
     info_messages.style.display    = 'none'
 
     // Disable co-signateur fields
-    for(let index=0; index<regular_forms.length; index++){
-        irregular_forms[index].style.display = 'none'
+    for(let index=0; index<regular_forms.length; index++)
         regular_forms[index].style.display = 'none'
-      }
+
+    for(let index=0; index<irregular_forms.length; index++)
+        irregular_forms[index].style.display = 'none'
+      
 
     if(!regular){
       info_messages.style.display = 'inline-block'
@@ -2714,7 +2716,7 @@ function progressMarker(step_size){
       document.getElementById('client_type').textContent = "Regular Client"
       regular = true
       console.log('sets regular to true')
-      for(let index=0; index<regular_forms.length; index++){
+      for(let index=0; index<irregular_forms.length; index++){
         irregular_forms[index].style.display = 'none'
       } 
       for(let index=0; index<regular_forms.length; index++){
@@ -2729,7 +2731,7 @@ function progressMarker(step_size){
       document.getElementById('client_type').textContent = "Cosigner Client"
       regular = false
       console.log('sets regular to false')
-      for(let index=0; index<irregular_forms.length; index++){
+      for(let index=0; index<regular_forms.length; index++){
         regular_forms[index].style.display = 'none'
       }
       for(let index=0; index<irregular_forms.length; index++){
@@ -2747,7 +2749,6 @@ function progressMarker(step_size){
         
 
       $("#loading-example-btn").click(function(){
-
         if(regular)
           $(".regular").each(function(){
             console.log('--  sending regular  --')
@@ -2799,7 +2800,8 @@ function progressMarker(step_size){
                     processData: false,
                     contentType: false,
                     success: function(data,status) {
-
+                      window.scrollTo({top:0, behaviour: 'smooth'})
+                      
                       if(data == 'validated'){
                           console.log('---- client validated -----'); 
                           success_messages.style.display = 'inline-block'
@@ -2807,6 +2809,8 @@ function progressMarker(step_size){
                           error_messages.style.display   = 'none'
                           info_messages.style.display    = 'none'
                       }else{
+                        window.scrollTo({top:0, behaviour: 'smooth'})
+
                         error_messages.innerHTML=`
                         <button type="button" class="close" data-dismiss="alert">
                           <span aria-hidden="true">&times;</span
@@ -2827,7 +2831,6 @@ function progressMarker(step_size){
                     },
               });
             });
-        
         });
     
         

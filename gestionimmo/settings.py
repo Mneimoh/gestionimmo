@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'societe',
     'main',
     'django_filters',
-    'rest_framework'
+    'rest_framework',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -186,3 +187,7 @@ EMAIL_HOST          = 'smtp.gmail.com'
 EMAIL_PORT          = 587
 EMAIL_USE_TLS       = True
 # EMAIL_USE_TLS       = False
+
+CRONJOBS            = [
+    ('*/1 * * * *','main.cron.Greetings', '>> ' + os.path.join(BASE_DIR,'log/debug7.log' + ' 2>&1 '))
+]

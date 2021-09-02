@@ -255,7 +255,7 @@ class Appointment(models.Model):
     how_connu = models.TextField()
     date_dappel = models.DateField()
     heure_dappel = models.TextField(default='',null=True)
-    date_arrivee = models.DateField(default='12-09-2020',null=True)
+    date_arrivee = models.DateField(default=date.today,null=True)
     article_dinteret = models.TextField()
     date_redezvous = models.DateTimeField()
     heure_redezvous = models.TimeField()
