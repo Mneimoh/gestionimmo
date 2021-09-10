@@ -238,7 +238,9 @@
       <form id="form">
         {% csrf_token %}
       </form>
-
+      <div class="modal-body">
+        Has the client Payed?
+      </div>
       <div class="modal-footer">
         <a onclick="pay_facture()" data-dismiss="modal" class="btn btn-primary">Confirmer</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">

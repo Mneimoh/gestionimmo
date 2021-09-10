@@ -34,8 +34,8 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 AUTH_USER_MODEL = "main.User"
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.AllowAllUsersModelBackend',
-    'main.backend.CaseInsensitiveModelBackend', 
-    )
+    'main.backend.CaseInsensitiveModelBackend',
+)
 
 LOGIN_URL = '/login'
 
@@ -79,7 +79,7 @@ ROOT_URLCONF = 'gestionimmo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates/')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -101,8 +101,8 @@ WSGI_APPLICATION = 'gestionimmo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME','gestionimmo'),
-        'USER': os.environ.get('DB_USER',''),
+        'NAME': os.environ.get('DB_NAME', 'gestionimmo'),
+        'USER': os.environ.get('DB_USER', ''),
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': '5432',
@@ -162,7 +162,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
-
 #  Add configuration for static files storage using whitenoise
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
@@ -182,12 +181,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Email Settings
-EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST          = 'smtp.gmail.com'
-EMAIL_PORT          = 587
-EMAIL_USE_TLS       = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 # EMAIL_USE_TLS       = False
 
-CRONJOBS            = [
-    ('*/1 * * * *','main.cron.Greetings', '>> ' + os.path.join(BASE_DIR,'log/debug7.log' + ' 2>&1 '))
+CRONJOBS = [
+    ('*/1 * * * *', 'main.cron.updateFacture', '>> ' +
+     os.path.join(BASE_DIR, 'log/debug7.log' + ' 2>&1 '))
 ]

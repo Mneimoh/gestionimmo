@@ -145,20 +145,7 @@
             <td>{{ dossier.coeff_recouv }}</td>
             <td>{{ dossier.appele_recouvre }}</td>
             <td>{{ dossier.dernier_appel }}</td>
-            <!-- <td>
-              
-              <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-default"
-                data-toggle="modal"
-                data-target="#modifPaiement"
-              >
-                Modifier
-              </button>
-            </td> -->
             <td>
-              <!-- Split button -->
               <div class="btn-group">
               <button
                 type="button"
@@ -246,7 +233,10 @@
           {% csrf_token %}
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-body">
+         Has the client payed their bills
+      </div>
+      <div class="modal-footer">     
         <a onclick="pay_facture()" data-dismiss="modal" class="btn btn-primary">Confirmer</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">
           Non
@@ -284,76 +274,6 @@
   </div>
 </div>
 {% endblock %} {% block scripts %}
-<script type="text/javascript">
-  // Line chart
-  var randomScalingFactor = function () {
-    return Math.round(Math.random() * 100);
-  };
-  var lineChartData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        label: "My First dataset",
-        fillColor: "rgba(220,220,220,0.2)",
-        strokeColor: "rgba(220,220,220,1)",
-        pointColor: "rgba(220,220,220,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(220,220,220,1)",
-        data: [
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-        ],
-      },
-      {
-        label: "My Second dataset",
-        fillColor: "rgba(151,187,205,0.2)",
-        strokeColor: "rgba(151,187,205,1)",
-        pointColor: "rgba(151,187,205,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(151,187,205,1)",
-        data: [
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-        ],
-      },
-    ],
-  };
-
-  window.onload = function () {
-    var ctx_line = document
-      .getElementById("templatemo-line-chart")
-      .getContext("2d");
-    window.myLine = new Chart(ctx_line).Line(lineChartData, {
-      responsive: true,
-    });
-  };
-
-  $("#myTab a").click(function (e) {
-    e.preventDefault();
-    $(this).tab("show");
-  });
-
-  $("#loading-example-btn").click(function () {
-    var btn = $(this);
-    btn.button("loading");
-    // $.ajax(...).always(function () {
-    //   btn.button('reset');
-    // });
-  });
-</script>
-
 
 <script>
 
@@ -619,7 +539,7 @@
 
         <div style="text-align: center;">
           <span style="font-size: 20px; font-weight: bold; text-align: center;">DATE: </span>
-          <span style="font-size: 20px; text-align: center;">${facture.date}</span>
+          <span style="font-size: 20px; text-align: center;">${ new Date(facture.date).getFullYear() }/${ new Date(facture.date).getMonth() + 1 }/${ new Date(facture.date).getDate() }</span>
         </div>
     `
 

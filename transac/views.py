@@ -1,4 +1,5 @@
 from django.db import connections
+from django.http import response
 import societe
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from accueuil.views import appointment
@@ -79,8 +80,9 @@ def index(request, nom):
 @login_required
 def prequalifList(request):
     if(request.user.poste == section):
-        all_prequalifier = Appointment.objects.filter(societe=request.user.societe).filter(status="PQ")
-        
+        all_prequalifier = Appointment.objects.filter(
+            societe=request.user.societe).filter(status="PQ")
+
         return render(request, 'transac/tprequalifier.html', {'title': 'Liste Prequalifier', "all_prequalifiers": all_prequalifier})
     else:
         return redirect(f"/login?next=/{section}/")
@@ -119,10 +121,10 @@ def registerAccount(request, table=None, type=None):
             globvar = globvar + 1
             nom_banque = request.POST['nom_banque']
             charges = request.POST['charge']
-            compte = request.POST['compte']         
+            compte = request.POST['compte']
             # type_compte = request.POST['type_compte']
             endettementForm = EndettementForm(request.POST)
-            type_compte = request.POST.get('type_compte',None)
+            type_compte = request.POST.get('type_compte', None)
 
         print(globvar)
         if(globvar == 4):
@@ -201,7 +203,7 @@ def registerAccount(request, table=None, type=None):
                 new_place.save()
 
                 # Register either the client or the cosigner
-                print(type=="True")
+                print(type == "True")
                 if type == "True":
                     # Storing a new Client
                     new_client = Client(
@@ -229,14 +231,14 @@ def registerAccount(request, table=None, type=None):
                         endettement=new_endettement,
                         uid=int(random.random()*1000000000)
                     )
-                    print('******************saving new client***********************************')
+                    print(
+                        '******************saving new client***********************************')
                     new_client.save()
-                    print('******************saving new client***********************************')
+                    print(
+                        '******************saving new client***********************************')
 
                     clientData = new_client
                     return HttpResponse('client_created')
-
-                    
 
                 else:
                     # Saving and assigning a clients Cosigner
@@ -267,15 +269,18 @@ def registerAccount(request, table=None, type=None):
                     new_cosigner.save()
 
                     print('******** you are here ***********')
-                    client    =  Client.objects.get(pk=int(client_interet))
+                    client = Client.objects.get(pk=int(client_interet))
                     client.cosigner = new_cosigner
                     client.save()
 
-                    appointment_to_delete = Appointment.objects.filter(nom=client.nom,prenom=client.prenom)[0]
+                    appointment_to_delete = Appointment.objects.filter(
+                        nom=client.nom, prenom=client.prenom)[0]
 
-                    print('************************* apointment to delete  *************************')
+                    print(
+                        '************************* apointment to delete  *************************')
                     print(appointment_to_delete)
-                    print('************************* apointment to delete  *************************')
+                    print(
+                        '************************* apointment to delete  *************************')
 
                     article_interet = appointment_to_delete.article_dinteret
 
@@ -287,14 +292,16 @@ def registerAccount(request, table=None, type=None):
 
                     if article:
                         article = article[0]
-                        print('##################### article found #####################')
+                        print(
+                            '##################### article found #####################')
                         print(article)
-                        print('##################### article found #####################')
-
+                        print(
+                            '##################### article found #####################')
                         # Creating Client forms
                         new_credit = Credit(
                             article=article,
                             societe=request.user.societe,
+                            somme_payee=0.0
                         )
 
                         new_credit.save()
@@ -323,9 +330,11 @@ def registerAccount(request, table=None, type=None):
                             uid=int(random.random()*1000000000)
                         )
 
-                        print('/////////////////////////////saving client/////////////////////////////////')
+                        print(
+                            '/////////////////////////////saving client/////////////////////////////////')
                         new_dossier.save()
-                        print('//////////////////// /////////saving client/////////////////////////////////')
+                        print(
+                            '//////////////////// /////////saving client/////////////////////////////////')
 
                         currentDossier = new_dossier
                         appointment_to_delete.status = 'DONE'
@@ -385,7 +394,7 @@ def save_credit(request, dossier):
         credit = Credit.objects.get(pk=credit_pk)
         credit.accompte = request.POST['accompte']
         credit.taux = request.POST['taux']
-        credit.somme_payee = request.POST['total']
+        credit.total = request.POST['total']
         credit.frais_dossier = request.POST['frais_dossier']
         credit.autre_frais = request.POST['frais_autre']
         credit.montant = request.POST['paiement_mensuel']
@@ -397,32 +406,32 @@ def save_credit(request, dossier):
 
 
 @login_required
-def sendMail(request,id):
+def sendMail(request, id):
     if(request.method == 'POST' and request.user.poste == section):
         print(request.path)
         print(request.POST)
-        appointed_user = Appointment.objects.get(pk = int(id))
+        appointed_user = Appointment.objects.get(pk=int(id))
         print(appointed_user)
         name = appointed_user.nom
         prenom = appointed_user.prenom
-        client = Client.objects.filter(nom=name,prenom=prenom)
+        client = Client.objects.filter(nom=name, prenom=prenom)
         print('********** client **************')
         print(client[0])
         print('********** client **************')
         cosigner_email = client[0].cosigner.email
-        server = smtplib.SMTP('smtp.gmail.com',587)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
         server.starttls()
         server.ehlo()
-        server.login('karlsedoide@gmail.com','40sedoide40')
+        server.login('karlsedoide@gmail.com', '40sedoide40')
 
         subject = "Greetings From GestionImmo"
-        body   = f"This is to notify you that our client of name {client.nom} {client.prenom} took a loan from our company called {request.user.societe}"
+        body = f"This is to notify you that our client of name {request.POST['crediteur_name']} of the town {request.POST['crediteur_adresse']} with POSTal code of  {request.POST['crediteur_code_postal']}  took a loan from our company called {request.user.societe}"
 
-        msg    = f"{subject}\n\n{body}"
+        msg = f"{subject}\n\n{body}"
         server.sendmail(
             'karlsedoide@gmail.com',
-            cosigner_email  ,
+            cosigner_email,
             msg
         )
         print('----- Email Sent Successfully -----')
@@ -435,7 +444,7 @@ def sendMail(request,id):
 
 
 @login_required
-def getPdf(request,name,dossier):
+def getPdf(request, name, dossier):
     dossier_uid = int(dossier)
     dossier = Dossier.objects.get(uid=dossier_uid)
     print(dossier)
@@ -457,7 +466,7 @@ def getPdf(request,name,dossier):
         template_path = "transac/bal_imp.html"
     if name == "ppe_imp":
         template_path = "transac/ppe_imp.html"
-    
+
     context = {'dossier': dossier}
 
     response = HttpResponse(content_type='application/pdf')
@@ -492,9 +501,8 @@ def vente(request):
 
 
 @login_required
-def venteUpdates(request,_type,dossier,article):
+def venteUpdates(request, _type, dossier, article):
     new_facture = None
-
 
     if(request.method == "GET"):
         if _type == "mutation":
@@ -504,83 +512,89 @@ def venteUpdates(request,_type,dossier,article):
             print('********************* mutated **********************')
             dossier_uid = int(dossier)
             dossier = Dossier.objects.filter(uid=dossier_uid)[0]
-            currentDossier = Dossier.objects.get(pk = dossier.pk)
+            currentDossier = Dossier.objects.get(pk=dossier.pk)
             currentDossier.article_interet = interested_article
-            currentDossier.save()     
-            return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier}) 
-        
+            currentDossier.save()
+            return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier})
+
         if _type == "restructure":
             dossier_uid = int(dossier)
             dossier = Dossier.objects.filter(uid=dossier_uid)[0]
-            currentDossier = Dossier.objects.get(pk = dossier.pk)
-            return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier}) 
+            currentDossier = Dossier.objects.get(pk=dossier.pk)
+            return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier})
 
-         
-    if(request.method == "POST"): 
+    if(request.method == "POST"):
 
-        if _type=="mutation":
+        if _type == "mutation":
             print('************************************************')
             print('creating mutation facture')
-            print('************************************************')           
+            print('************************************************')
             # Creating the clients facture after applied
-            dossier_uid         = int(dossier)
-            dossier             = Dossier.objects.filter(uid=dossier_uid)[0]
-            currentDossier      = Dossier.objects.get(pk = dossier.pk)
-            new_facture         = Facture(
-                article         = currentDossier.article_interet,
-                User_editeur    = request.user,
-                statut          = "MT",
-                num_facture     = "",
-                somme           = request.POST['paiement_mensuel']
+            dossier_uid = int(dossier)
+            dossier = Dossier.objects.filter(uid=dossier_uid)[0]
+            currentDossier = Dossier.objects.get(pk=dossier.pk)
+            new_facture = Facture(
+                article=currentDossier.article_interet,
+                User_editeur=request.user,
+                statut="MT",
+                num_facture="",
+                somme=15000
             )
-            new_facture.save()
 
-            credit_pk           = currentDossier.credit.pk
-            credit              = Credit.objects.get(pk=credit_pk)
-            credit.accompte     = request.POST['accompte']
-            credit.taux         = request.POST['taux']
-            credit.somme_payee  = request.POST['total']
+            credit_pk = currentDossier.credit.pk
+            credit = Credit.objects.get(pk=credit_pk)
+            credit.accompte = request.POST['accompte']
+            credit.taux = request.POST['taux']
+            credit.total = int(request.POST['total']) - int(credit.somme_payee)
             credit.frais_dossier = request.POST['frais_dossier']
-            credit.autre_frais  = request.POST['frais_autre']
-            credit.montant      = request.POST['paiement_mensuel']
-            credit.date_fin     = request.POST['date_fin']
-            credit.article      = currentDossier.article_interet
-
+            credit.autre_frais = request.POST['frais_autre']
+            credit.montant = request.POST['paiement_mensuel']
+            credit.date_fin = request.POST['date_fin']
+            credit.article = currentDossier.article_interet
+            new_facture.save()
             credit.save()
-
+            currentDossier.statut = "MT"
             currentDossier.facture = new_facture
-            currentDossier.credit  = credit
-
+            currentDossier.credit = credit
             currentDossier.save()
+            return HttpResponse('success')
 
-                
-        if _type=="restructure":
+        if _type == "restructure":
             print('***********************************************')
             print('creating restructure factore')
             print('***********************************************')
-             # Creating the clients facture after applied
-            dossier_uid             = int(dossier)
-            dossier                 = Dossier.objects.filter(uid=dossier_uid)[0]
-            currentDossier          = Dossier.objects.get(pk = dossier.pk)
+            # Creating the clients facture after applied
+            dossier_uid = int(dossier)
+            dossier = Dossier.objects.filter(uid=dossier_uid)[0]
+            currentDossier = Dossier.objects.get(pk=dossier.pk)
             print(currentDossier)
 
-            new_facture             = Facture(
-                article             = currentDossier.article_interet,
-                User_editeur        = request.user,
-                statut              = "RT",
-                num_facture         = "",
-                somme               = request.POST['paiement_mensuel']
+            new_facture = Facture(
+                article=currentDossier.article_interet,
+                User_editeur=request.user,
+                statut="RT",
+                num_facture="",
+                somme=15000
             )
             new_facture.save()
-
-
-            currentDossier.facture  = new_facture
+            credit_pk = currentDossier.credit.pk
+            credit = Credit.objects.get(pk=credit_pk)
+            credit.accompte = request.POST['accompte']
+            credit.taux = request.POST['taux']
+            credit.total = int(request.POST['total']) - int(credit.somme_payee)
+            credit.frais_dossier = request.POST['frais_dossier']
+            credit.autre_frais = request.POST['frais_autre']
+            credit.montant = request.POST['paiement_mensuel']
+            credit.date_fin = request.POST['date_fin']
+            credit.article = currentDossier.article_interet
+            new_facture.save()
+            credit.save()
+            currentDossier.facture = new_facture
             currentDossier.save()
 
 
-
 @login_required
-def creditFacture(request,dossier):
+def creditFacture(request, dossier):
     matching_dossier = Dossier.objects.filter(uid=int(dossier))
     if matching_dossier:
         client_dossier = matching_dossier[0]
@@ -597,8 +611,9 @@ def creditFacture(request,dossier):
         credit.save()
 
         new_facture = Facture(
-            
+
         )
+
 
 @login_required
 def penalties(request):
@@ -629,11 +644,13 @@ def penalties(request):
 @login_required
 def payments(request):
     if(request.user.poste == section):
-        filterby = Q(statut="PM1") | Q(statut="A")
-        all_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(filterby)
-        
+        filterby = Q(statut="PM1")  # | Q(statut="A")
+        all_info = Dossier.objects.filter(
+            societe__nom=request.user.societe).filter(filterby)
+
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(societe__nom=request.user.societe).filter(filterby)
+        dossier_objects = Dossier.objects.filter(
+            societe__nom=request.user.societe).filter(filterby)
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
 
@@ -655,10 +672,16 @@ def payments(request):
 def mutations(request):
     if(request.user.poste == section):
 
-        all_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')
+        all_info = Dossier.objects.filter(
+            societe__nom=request.user.societe).filter(statut='A')
+        all_articles = Article.objects.filter(societe=request.user.societe)
 
+        print('******* mutation societes  ********')
+        print(all_articles)
+        print('***********************************')
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')
+        dossier_objects = Dossier.objects.filter(
+            societe__nom=request.user.societe).filter(statut='A')
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
 
@@ -671,7 +694,7 @@ def mutations(request):
 
         page_list = all_info.paginator.page_range
 
-        return render(request, 'transac/tmutations.html', {'title': 'Mutations', 'page_list': page_list, 'page': page, "all_dossier": all_info})
+        return render(request, 'transac/tmutations.html', {'title': 'Mutations', 'page_list': page_list, 'page': page, "all_dossier": all_info, 'all_articles': all_articles})
     else:
         return redirect(f"/login?next=/{section}/")
 
@@ -679,10 +702,12 @@ def mutations(request):
 @login_required
 def restructure(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')
+        all_info = Dossier.objects.filter(
+            societe__nom=request.user.societe).filter(statut='A')
 
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')
+        dossier_objects = Dossier.objects.filter(
+            societe__nom=request.user.societe).filter(statut='A')
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
 
@@ -703,10 +728,12 @@ def restructure(request):
 @login_required
 def plan(request):
     if(request.user.poste == section):
-        all_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='FN')
+        all_info = Dossier.objects.filter(
+            societe__nom=request.user.societe).filter(statut='FN')
 
         # CODE FOR PAGINATOR BELLOW
-        dossier_objects = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='FN')
+        dossier_objects = Dossier.objects.filter(
+            societe__nom=request.user.societe).filter(statut='FN')
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
 
@@ -787,7 +814,8 @@ def paginate_penalite(request):
     starting_number = (page-1)*1
     ending_number = page*1
     lookup = Q(statut="PN") | Q(statut='PN1')
-    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)[starting_number:ending_number]
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(
+        lookup)[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -812,7 +840,8 @@ def get_penalite(request):
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
     lookup = Q(statut="PN") | Q(statut='PN1')
-    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)
+    caisse_info = Dossier.objects.filter(
+        societe__nom=request.user.societe).filter(lookup)
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -854,7 +883,8 @@ def paginate_paiement(request):
     starting_number = (page-1)*1
     ending_number = page*1
     lookup = Q(statut="PM1") | Q(statut="A")
-    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)[starting_number:ending_number]
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(
+        lookup)[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -879,7 +909,8 @@ def get_paiement(request):
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
     lookup = Q(statut="PM1") | Q(statut="A")
-    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)
+    caisse_info = Dossier.objects.filter(
+        societe__nom=request.user.societe).filter(lookup)
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -923,8 +954,9 @@ def paginate_mutations(request):
     starting_number = (page-1)*1
     ending_number = page*1
 
-    lookup = Q(statut = 'MT') | Q(statut='A')
-    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)[starting_number:ending_number]
+    lookup = Q(statut='MT') | Q(statut='A')
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(
+        lookup)[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -948,8 +980,9 @@ def get_mutations(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    lookup = Q(statut = 'MT') | Q(statut='A')
-    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)
+    lookup = Q(statut='MT') | Q(statut='A')
+    caisse_info = Dossier.objects.filter(
+        societe__nom=request.user.societe).filter(lookup)
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -993,7 +1026,8 @@ def paginate_restructurations(request):
     starting_number = (page-1)*1
     ending_number = page*1
     lookup = Q(statut='RT') | Q(statut='A')
-    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)[starting_number:ending_number]
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(
+        lookup)[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -1018,7 +1052,8 @@ def get_restructurations(request):
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
     lookup = Q(statut='RT') | Q(statut='A')
-    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(lookup)
+    caisse_info = Dossier.objects.filter(
+        societe__nom=request.user.societe).filter(lookup)
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -1062,7 +1097,8 @@ def paginate_tpml(request):
     starting_number = (page-1)*1
     ending_number = page*1
 
-    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='FN')[starting_number:ending_number]
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(
+        statut='FN')[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -1086,7 +1122,8 @@ def get_tpml(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='FN')
+    caisse_info = Dossier.objects.filter(
+        societe__nom=request.user.societe).filter(statut='FN')
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -1130,7 +1167,8 @@ def paginate_tdcpt(request):
     starting_number = (page-1)*1
     ending_number = page*1
 
-    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='TERRAIN')[starting_number:ending_number]
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(
+        statut='TERRAIN')[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -1154,7 +1192,8 @@ def get_tdcpt(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='TERRAIN')
+    caisse_info = Dossier.objects.filter(
+        societe__nom=request.user.societe).filter(statut='TERRAIN')
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -1198,7 +1237,8 @@ def paginate_tdc(request):
     starting_number = (page-1)*1
     ending_number = page*1
 
-    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')[starting_number:ending_number]
+    results = Dossier.objects.filter(societe__nom=request.user.societe).filter(
+        statut='A')[starting_number:ending_number]
 
     serialized = DossierSerializer(results, many=True)
     # print('SERIALIZED DATA BELLOW')
@@ -1222,7 +1262,8 @@ def get_tdc(request):
     search_table = request.query_params.get('search_table', None)
     print('GOT HERE IN GET CAISSE')
     # print(prenom)
-    caisse_info = Dossier.objects.filter(societe__nom=request.user.societe).filter(statut='A')
+    caisse_info = Dossier.objects.filter(
+        societe__nom=request.user.societe).filter(statut='A')
 
     if search_table:
         lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
@@ -1276,19 +1317,24 @@ def pay_facture(request):
     id = request.POST.get('id', None)
     status = request.POST.get('status', None)
     dossier = Dossier.objects.get(pk=id)
-
-    # facture = Facture.objects.get(pk=dossier.id)
+    print('###################################')
+    print(dossier)
+    print('---  updating payment mensuel   ---')
+    print('###################################')
+    facture = Facture.objects.get(pk=dossier.facture.id)
     # dossier
 
     # GENERATE FACTURE
 
     if(dossier.statut == 'PM1'):
+        print('********confirming pay*********')
         dossier.statut = status
         dossier.save()
 
-    # print('INFO BELLOW')
-    # print(id)
-    # print(status)
+    print('INFO BELLOW')
+    print(facture)
+    print(id)
+    print(status)
 
     return Response({})
 

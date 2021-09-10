@@ -56,8 +56,8 @@
                 <div class="row">
                   <div class="col-md-12">                    
                     <div id="warning" class="alert alert-warning alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-                      Vous avez reçu un message de la direction.
+                      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>                   
+                        Aucun document à afficher.
                     </div>
                     <div id="error" class="alert alert-danger alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -463,8 +463,8 @@
                           <div class="row">
                             <div class="col-md-4 margin-bottom-15">
                               <label class="control-label">Prise en charge</label>
-                              <input type="number" class="form-control" placeholder="100%">
-                              <input type="text" id='prise_en_charge' class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
+                              <input type="number" id='prise_en_charge' class="form-control" placeholder="0%">
+                              <input type="text" id='prise_en_charge_ro' class="form-control" style="background-color:#99ccff; color:#000;" value="0" disabled>
                             </div>
                             <div class="col-md-4 margin-bottom-15">
                               <label class="control-label">DATE</label>
@@ -474,7 +474,7 @@
                           <div class="row">
                             <div class="col-md-4 margin-bottom-15">
                               <label class="control-label">Prix de l'article financé</label>
-                              <input type="text" id="prix_finance" class="form-control" style="background-color:#99ccff; color:#000;" value="3 600 000" disabled>
+                              <input type="text" id="prix_finance" class="form-control" style="background-color:#99ccff; color:#000;"  value={{dossier.article_interet.valeur}} disabled>
                             </div>                       
                           </div>
                           <div class="row">
@@ -1256,6 +1256,7 @@ var year = date.getFullYear();
   var frais_montage    = "{{dossier.article_interet.frais_montage}}"
   var frais_livraison  = "{{dossier.article_interet.frais_livraison}}"
   var frais_autre      = "{{dossier.article_interet.frais_livraison}}"
+  var prise_en_charge  = 0
   var accompte         = 0
   var perte_emploi     = undefined
   var vie_ou_invalidite= perte_emploi
@@ -1291,7 +1292,8 @@ var year = date.getFullYear();
                           parseInt(perte_emploi) + 
                           parseInt(vie_ou_invalidite) + 
                           parseInt(sos_reparation) + 
-                          parseInt(paiement_banque) 
+                          parseInt(paiement_banque) +
+                          parseInt((prise_en_charge * valeur_article))
 
   montant_financer     =  montant_financer + (taux * montant_financer)
 
@@ -1312,7 +1314,7 @@ var year = date.getFullYear();
                          
   document.getElementById('payment_length_read_only').value   = 240
   document.getElementById('valeur_article').value             = parseInt(valeur_article)
-  document.getElementById('prise_en_charge').value            = parseInt(valeur_article)
+  document.getElementById('prise_en_charge').value            = 0
   document.getElementById('prix_finance').value               = parseInt(valeur_article)
   document.getElementById('frais_dossier').value              = parseInt(frais_dossier)
   document.getElementById('numero_de_stock').value            = numero_stock
@@ -1328,8 +1330,6 @@ var year = date.getFullYear();
   document.getElementById('total').value                      = total
   document.getElementById('fin_date').value                   = fin_date
 
-
-$('#{{dossier.client.accompte}}')
 
 $('#payment_length').change(function(e){
   console.log(e.target.value)
@@ -1347,8 +1347,7 @@ $('#payment_length').change(function(e){
   if (month < 10) month = "0" + month;
   if (day < 10) day = "0" + day; 
   fin_date =  year +"-" + month + "-"+ day;  
-
-  document.getElementById('fin_date').value                   = fin_date
+   document.getElementById('fin_date').value  =  fin_date
 
 })
 
@@ -1364,7 +1363,7 @@ $('#accompte').change(function(e){
   montant_financer     =  parseInt(valeur_article) - 
                           parseInt(valeur_reprise) -
                           parseInt(subvention) + 
-                          parseFloat(accompte) + 
+                          parseInt(e.target.value) + 
                           parseInt(tva) + 
                           parseInt(commission) + 
                           parseInt(immatriculation) + 
@@ -1377,7 +1376,41 @@ $('#accompte').change(function(e){
                           parseInt(vie_ou_invalidite) + 
                           parseInt(sos_reparation) + 
                           parseInt(paiement_banque)
+  montant_financer     =  montant_financer + (taux * montant_financer)
+  paiement_mensuel     =  montant_financer/240
 })
+
+$('#prise_en_charge').change(function(e){
+  console.log(montant_financer)
+  montant_financer     =  parseInt(valeur_article) - 
+                          parseInt(valeur_reprise) -
+                          parseInt(subvention) + 
+                          parseInt(accompte) + 
+                          parseInt(tva) + 
+                          parseInt(commission) + 
+                          parseInt(immatriculation) + 
+                          parseInt(transfer_titre) + 
+                          parseInt(frais_autre) + 
+                          parseInt(frais_dossier) + 
+                          parseInt(frais_montage) + 
+                          parseInt(frais_livraison) + 
+                          parseInt(perte_emploi) + 
+                          parseInt(vie_ou_invalidite) + 
+                          parseInt(sos_reparation) + 
+                          parseInt(paiement_banque) +
+                          parseInt(valeur_article*(e.target.value/100))
+                          console.log(montant_financer)
+montant_financer     =  montant_financer + (taux * montant_financer)
+paiement_mensuel     =  montant_financer/240
+
+document.getElementById('prise_en_charge_ro').value = valeur_article*(e.target.value/100)
+document.getElementById('paiement_mensuel').value   = Math.ceil(paiement_mensuel)
+document.getElementById('total').value              = montant_financer
+$('#montant_financer').val(montant_financer)
+$('#paiement_mensuel').val(Math.ceil(paiement_mensuel))
+
+})
+
 
 $('#save_loan').click(function(e){
   let loan_structure = document.getElementById('loan_structure')
@@ -1397,7 +1430,7 @@ $('#save_loan').click(function(e){
   sos_reparation        = document.getElementById('sos_reparation').value 
   perte_emploi          = document.getElementById('perte_emploi').value 
   vie_ou_invalidite     = document.getElementById('vie_ou_invalidite').value 
-  montant_financier     = document.getElementById('montant_financer').value 
+  montant_financer     = document.getElementById('montant_financer').value 
   paiement_mensuel      = document.getElementById('paiement_mensuel').value 
   total                 = document.getElementById('total').value 
 
@@ -1422,9 +1455,7 @@ $('#save_loan').click(function(e){
   // fd.append('',`${}`)
   // fd.append('',`${}`)
   // fd.append('',`${}`)
-
-
-  console.log(fd)
+  // console.log(fd)
   let current_path = window.location.href
   let path_contents = current_path.split('/')
   let url = null
