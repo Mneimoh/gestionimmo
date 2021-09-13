@@ -446,7 +446,10 @@ def sendMail(request, id):
 @login_required
 def getPdf(request, name, dossier):
     dossier_uid = int(dossier)
-    dossier = Dossier.objects.get(uid=dossier_uid)
+    if dossier_uid < 1000000:
+        dossier = Dossier.objects.get(id=dossier_uid)
+    else:
+        dossier = Dossier.objects.get(uid=dossier_uid)
     print(dossier)
     print(name)
     template_path = None
@@ -1329,6 +1332,8 @@ def pay_facture(request):
     if(dossier.statut == 'PM1'):
         print('********confirming pay*********')
         dossier.statut = status
+        if dossier.credit.somme_payee >= dossier.credit.total:
+            dossier.statut = 'FN'
         dossier.save()
 
     print('INFO BELLOW')

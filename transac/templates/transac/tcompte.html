@@ -2546,7 +2546,7 @@
                           data-loading-text="impression en cours"
                           class="btn btn-primary"
                         >
-                        <a href="../generatepdf">
+                        <a id="authorisation_document" target="blank">
                             Imprimer l'autorisation
                         </a>
                         
@@ -2674,10 +2674,10 @@ function progressMarker(step_size){
 }
 
 
-    $("#myTab a").click(function (e) {
-        e.preventDefault();
-        $(this).tab("show");
-      });
+  $("#myTab a").click(function (e) {
+      e.preventDefault();
+      $(this).tab("show");
+    });
 
 
     var regular = null;
@@ -2690,6 +2690,9 @@ function progressMarker(step_size){
     var regular_forms           = document.getElementsByClassName('regular')
     var irregular_forms         = document.getElementsByClassName('irregular')
     var progress_bar            = document.getElementsByClassName('progress-bar')[0];
+    var print_auth              = document.getElementById('authorisation_document')
+    let dossier_id              = window.location.href.split('/').pop()
+    print_auth.setAttribute('href',`/transac/generatepdf/engagement/${dossier_id}/`)
     success_messages.style.display = 'none'
     warning_messages.style.display = 'none'
     error_messages.style.display   = 'none'

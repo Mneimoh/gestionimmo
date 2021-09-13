@@ -94,10 +94,10 @@
             <div class="row">
               <div class="col-md-12 margin-bottom-15">
                 <div class="btn-group pull-right" id="templatemo_sort_btn">
-                  <button type="button" class="btn btn-default">
+                  <!-- <button type="button" class="btn btn-default">
                     Trier par
-                  </button>
-                  <button
+                  </button> -->
+                  <!-- <button
                     type="button"
                     class="btn btn-default dropdown-toggle"
                     data-toggle="dropdown"
@@ -115,10 +115,23 @@
                     <li><a href="#">Dernier Paiement</a></li>
                     <li><a href="#">Coeff recouvr</a></li>
                     <li><a href="#">Appelé & récouvré</a></li>
-                  </ul>
+                  </ul> -->
+
+                  <select onchange="sort_etat(this.value)" style="border: 1px solid #ddd; padding-top: .5rem; padding-bottom: .5rem; padding-left: 1rem; font-size: 1.25rem;" class="form-select">
+                    <option disabled selected value="">Sort By</option>
+                    <option value="">All</option>
+                    <option value="uid">N° client</option>
+                    <option value="phone_1">Téléphone</option>
+                    <option value="nom">Nom</option>
+                    <option value="prenom">Prénom</option>
+                    <option value="statut">Statut</option>
+                    <option value="dernier_appel">Dernier Paiement</option>
+                    <option value="coeff_recouv">Coeff recouvr</option>
+                    <option value="appele_recouvre">Appelé & récouvré</option>
+                  </select>
                 </div>
                 <div class="table-responsive">
-                  <table class="table table-striped table-hover table-bordered">
+                  <table id="etatTable" class="table table-striped table-hover table-bordered">
                     <thead>
                       <tr>
                         <th>N° client</th>
@@ -131,301 +144,64 @@
                         <th>Coeff recouvr</th>
                         <th>Appelé & récouvré</th>
                         <th>Dernier appel</th>
-                        <th>hr</th>
                         <th>Modifier</th>
                         <th>Ouvrir</th>
                         <th>Consulter</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr>
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr class="success">
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr>
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr>
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr class="danger">
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr>
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
+                      {% for dossier in all_dossier %}
+                      <!-- <tr class="danger"> -->
+                      <td>{{ dossier.client.uid }}</td>
+                      <td>{{ dossier.client.phone_1 }}</td>
+                      <td>{{ dossier.client.nom }}</td>
+                      <td>{{ dossier.client.prenom }}</td>
+                      <td>{{ dossier.uid }}</td>
+                      <td>{{ dossier.statut }}</td>
+                      <td>{{ dossier.date_dernier_paiement }}</td>
+                      <td>{{ dossier.coeff_recouv }}</td>
+                      <td>{{ dossier.appele_recouvre }}</td>
+                      <td>{{ dossier.dernier_appel }}</td>
+                      <td>
+                        <!-- Split button -->
+                        <div classbtn-group">
+                        <button
+                          type="button"
+                          class="btn btn-default"
+                          data-toggle="modal"
+                          data-target="#modifPenalite"
+                        >
+                          Modifier
+                        </button>
+                      </td>
+                      <td>
+                       
+                        <div class = "btn-group">
+                        <button
+                          type="button"
+                          class="btn btn-info"
+                          data-toggle="modal"
+                          data-target="#confirmPlan"
+                        >
+                          Ouvrir
+                        </button>
+                        </div>
+                      </td>
+                      <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" class="btn btn-link">Consulter</a></td>
+                    <!-- </tr> -->
+                    {% endfor  %}
                     </tbody>
                   </table>
                 </div>
               </div>
               <ul class="pagination pull-right">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li class="active">
-                  <a href="#">1 <span class="sr-only">(current)</span></a>
+                <li class="disabled" onclick="prev()" id="prev"><a >&laquo;</a></li>
+                {% for i in page_list %}
+                <li class="{% if i == page %}active {% endif %}">
+                  <a class="btn" onclick="paginate_table('{{ i }}')">{{ i }} <span class="sr-only">(current)</span></a>
                 </li>
-                <li>
-                  <a href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li>
-                  <a href="#">3 <span class="sr-only">(current)</span></a>
-                </li>
-                <li>
-                  <a href="#">4 <span class="sr-only">(current)</span></a>
-                </li>
-                <li>
-                  <a href="#">5 <span class="sr-only">(current)</span></a>
-                </li>
-                <li><a href="#">&raquo;</a></li>
+                {% endfor %}
+                <li id="next" onclick="next()"><a >&raquo;</a></li>
               </ul>
             </div>
           </div>
@@ -448,10 +224,10 @@
             <div class="row">
               <div class="col-md-12 margin-bottom-15">
                 <div class="btn-group pull-right" id="templatemo_sort_btn">
-                  <button type="button" class="btn btn-default">
+                  <!-- <button type="button" class="btn btn-default">
                     Trier par
-                  </button>
-                  <button
+                  </button> -->
+                  <!-- <button
                     type="button"
                     class="btn btn-default dropdown-toggle"
                     data-toggle="dropdown"
@@ -469,10 +245,23 @@
                     <li><a href="#">Dernier Paiement</a></li>
                     <li><a href="#">Coeff recouvr</a></li>
                     <li><a href="#">Appelé & récouvré</a></li>
-                  </ul>
+                  </ul> -->
+
+                  <select onchange="sort_etat(this.value)" style="border: 1px solid #ddd; padding-top: .5rem; padding-bottom: .5rem; padding-left: 1rem; font-size: 1.25rem;" class="form-select">
+                    <option disabled selected value="">Sort By</option>
+                    <option value="">All</option>
+                    <option value="uid">N° client</option>
+                    <option value="phone_1">Téléphone</option>
+                    <option value="nom">Nom</option>
+                    <option value="prenom">Prénom</option>
+                    <option value="statut">Statut</option>
+                    <option value="dernier_appel">Dernier Paiement</option>
+                    <option value="coeff_recouv">Coeff recouvr</option>
+                    <option value="appele_recouvre">Appelé & récouvré</option>
+                  </select>
                 </div>
                 <div class="table-responsive">
-                  <table class="table table-striped table-hover table-bordered">
+                  <table id="etatTable" class="table table-striped table-hover table-bordered">
                     <thead>
                       <tr>
                         <th>N° client</th>
@@ -485,301 +274,64 @@
                         <th>Coeff recouvr</th>
                         <th>Appelé & récouvré</th>
                         <th>Dernier appel</th>
-                        <th>hr</th>
                         <th>Modifier</th>
                         <th>Ouvrir</th>
                         <th>Consulter</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr>
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr class="success">
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr>
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr>
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr class="danger">
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
-                      <tr>
-                        <td>35975975</td>
-                        <td>887786455</td>
-                        <td>Wade</td>
-                        <td>Abdou</td>
-                        <td>484084058</td>
-                        <td>R1</td>
-                        <td>15/03/2014</td>
-                        <td>1</td>
-                        <td>non</td>
-                        <td>15/01/2014</td>
-                        <td>12:35</td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-default"
-                            data-toggle="modal"
-                            data-target="#modifPenalite"
-                          >
-                            Modifier
-                          </button>
-                        </td>
-                        <td>
-                          <!-- Split button -->
-                          <div classbtn-group">
-                          <button
-                            type="button"
-                            class="btn btn-info"
-                            data-toggle="modal"
-                            data-target="#openPenalite"
-                          >
-                            OUVRIR
-                          </button>
-                        </td>
-                        <td><a href="#" class="btn btn-link">Consulter</a></td>
-                      </tr>
+                      {% for dossier in all_dossier %}
+                      <!-- <tr class="danger"> -->
+                      <td>{{ dossier.client.uid }}</td>
+                      <td>{{ dossier.client.phone_1 }}</td>
+                      <td>{{ dossier.client.nom }}</td>
+                      <td>{{ dossier.client.prenom }}</td>
+                      <td>{{ dossier.uid }}</td>
+                      <td>{{ dossier.statut }}</td>
+                      <td>{{ dossier.date_dernier_paiement }}</td>
+                      <td>{{ dossier.coeff_recouv }}</td>
+                      <td>{{ dossier.appele_recouvre }}</td>
+                      <td>{{ dossier.dernier_appel }}</td>
+                      <td>
+                        <!-- Split button -->
+                        <div classbtn-group>
+                        <button
+                          type="button"
+                          class="btn btn-default"
+                          data-toggle="modal"
+                          data-target="#modifPenalite"
+                        >
+                          Modifier
+                        </button>
+                      </td>
+                      <td>
+                       
+                        <div class = "btn-group">
+                        <button
+                          type="button"
+                          class="btn btn-info"
+                          data-toggle="modal"
+                          data-target="#confirmPlan"
+                        >
+                          Ouvrir
+                        </button>
+                        </div>
+                      </td>
+                      <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" class="btn btn-link">Consulter</a></td>
+                    <!-- </tr> -->
+                    {% endfor  %}
                     </tbody>
                   </table>
                 </div>
               </div>
               <ul class="pagination pull-right">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li class="active">
-                  <a href="#">1 <span class="sr-only">(current)</span></a>
+                <li class="disabled" onclick="prev()" id="prev"><a >&laquo;</a></li>
+                {% for i in page_list %}
+                <li class="{% if i == page %}active {% endif %}">
+                  <a class="btn" onclick="paginate_table('{{ i }}')">{{ i }} <span class="sr-only">(current)</span></a>
                 </li>
-                <li>
-                  <a href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li>
-                  <a href="#">3 <span class="sr-only">(current)</span></a>
-                </li>
-                <li>
-                  <a href="#">4 <span class="sr-only">(current)</span></a>
-                </li>
-                <li>
-                  <a href="#">5 <span class="sr-only">(current)</span></a>
-                </li>
-                <li><a href="#">&raquo;</a></li>
+                {% endfor %}
+                <li id="next" onclick="next()"><a >&raquo;</a></li>
               </ul>
             </div>
           </div>
@@ -817,182 +369,325 @@
       </div>
     </div>
   </div>
+  <!-- Modal -->
+  <div
+  class="modal fade"
+  id="modifPlan"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Fermer</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-primary">Modifier</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div
+  class="modal fade"
+  id="confirmPlan"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Fermer</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          Ouvrir le plan de masse local
+        </h4>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-primary">Confirmer</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div
+  class="modal fade"
+  id="confirmModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Fermer</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          Voulez vous vraiment vous déconnecter ?
+        </h4>
+      </div>
+      <div class="modal-footer">
+        <a href="../logout" class="btn btn-primary">Oui</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Non
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
   {% endblock %} {% block scripts %}
-  <script type="text/javascript">
-    var randomScalingFactor = function () {
-      return Math.round(Math.random() * 100);
-    };
-    var lineChartData = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      datasets: [
-        {
-          label: "My First dataset",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-          ],
-        },
-        {
-          label: "My Second dataset",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data: [
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-          ],
-        },
-      ],
-    }; // lineChartData
 
-    var pieChartData = [
-      {
-        value: 300,
-        color: "#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red",
-      },
-      {
-        value: 50,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green",
-      },
-      {
-        value: 100,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow",
-      },
-    ]; // pie chart data
+  <script  type="text/javascript">
+    
+// PAGINATOR CODE BELLOW
+  
+  function paginate_table(page,$event) {
+      // document.getElementById('templatemo_search_box').value = '';
+    if(page > 1) {
+      document.getElementById('prev').classList = '';
+    }
+  
+    if(page == 1) {
+      document.getElementById('prev').classList = 'disabled'
+    }
+  
+  
+  
+    //  Write Logic to change current active button
+    
+      all_childrens = event.target.parentElement.parentElement.children
+      for(let i = 0; i < all_childrens.length; i++){
+          if(all_childrens[i].classList.contains('active')){
+            all_childrens[i].classList = '';
+          }
+      }
+     
+      event.target.parentElement.classList = 'active'
+  
+      // Total Pages Calculation Bellow
+      let total = all_childrens.length - 2;
+  
+      if(page == total) {
+        document.getElementById('next').classList = 'disabled'
+      }
+  
+      if(page < total) {
+        document.getElementById('next').classList = ''
+      }
+  
+      let param = `page=${page}`
+      send_paginate_request(param)
+  }
+  function next($event) {
+    let all_childrens = event.target.parentElement.parentElement.children
+    let setactive = 0;
+    prevactive = 0;
+  
+    for(let i = 0; i < all_childrens.length; i++){
+          if(all_childrens[i].classList.contains('active')){
+            prevactive = i;
+            all_childrens[i].classList = '';
+            setactive = i+1;
+          }
+      }
+  
+      
+    let total = all_childrens.length - 2;
+    
+    if(setactive > total) {
+      console.log('SET ACTIVE IS GREATER THAN TOTAL')
+      all_childrens[prevactive].classList = 'active';
+  
+    }else {
+  
+      if(setactive > 1) {
+        document.getElementById('prev').classList = '';
+      }
+  
+  
+      if(setactive == total) {
+        document.getElementById('next').classList = 'disabled'
+      }
+  
+  
+      all_childrens[setactive].classList = 'active';
+      let param = `page=${setactive}`
+      send_paginate_request(param)
+    }
+  
+  }
+  
+  function prev($event) {
+    let all_childrens = event.target.parentElement.parentElement.children
+    let setactive = 0;
+    let prevactive = 0;
+  
+    for(let i = 0; i < all_childrens.length; i++){
+          if(all_childrens[i].classList.contains('active')){
+            prevactive = i;
+            all_childrens[i].classList = '';
+            setactive = i-1;
+          }
+      }
+  
+      
+    let total = all_childrens.length - 2;
+    
+    if(setactive < 1) {
+      console.log('SET ACTIVE IS LESSER THAN ONE')
+      all_childrens[prevactive].classList = 'active';
+  
+    }else {
+  
+      if(setactive < total) {
+        document.getElementById('next').classList = '';
+      }
+  
+      if(setactive == 1) {
+        document.getElementById('prev').classList = 'disabled'
+      }
+  
+  
+      all_childrens[setactive].classList = 'active';
+      let param = `page=${setactive}`
+      send_paginate_request(param)
+    }
+  
+  }
+  
+  function send_paginate_request(param) {
+      $.ajax({
+          method: 'GET',
+          url: 'api/paginate_etat?' + param,
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+  
+          success: function(result) {
+            console.log('after send')
+            console.log(result)
+              update_table_paginate(result);
+              
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+  }
+  
+  function update_table_paginate(data) {
+      let row;
+      let all_rows = '';
+      // console.log('UPDATE TABLE PAGINATE')
+      // console.log(data[0].client)
+      Object.keys(data).forEach((key,index) => {
+     
+          elem = data[key];
+          row = ''
+          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPlan">  Modifier </button> </div> </td>  <td> <div class = "btn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmPlan">  Ouvrir </button> </div> </td>  <td><a href="#" class="btn btn-link">Consulter</a></td>`
+          all_rows = all_rows + row;
+      });
+  
+      $("#etatTable tbody").html(all_rows)
+  }
+  
+// END OF PAGINATOR
 
-    // radar chart
-    var radarChartData = {
-      labels: [
-        "Eating",
-        "Drinking",
-        "Sleeping",
-        "Designing",
-        "Coding",
-        "Cycling",
-        "Running",
-      ],
-      datasets: [
-        {
-          label: "My First dataset",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [65, 59, 90, 81, 56, 55, 40],
-        },
-        {
-          label: "My Second dataset",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data: [28, 48, 40, 19, 96, 27, 100],
-        },
-      ],
-    }; // radar chart
+// TABLE FEATURES
+  
+function sort_etat(sort_type) {
+      let param = `${sort_type}=${sort_type}`
+      send_request(param);
+  }
+  
+  function find_cpml() {
+      let search_query = document.getElementById('templatemo_search_box').value;
+      let param = `search_table=${search_query}`
+      send_request(param);
+  }
 
-    // polar area chart
-    var polarAreaChartData = [
-      {
-        value: 300,
-        color: "#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red",
-      },
-      {
-        value: 50,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green",
-      },
-      {
-        value: 100,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow",
-      },
-      {
-        value: 40,
-        color: "#949FB1",
-        highlight: "#A8B3C5",
-        label: "Grey",
-      },
-      {
-        value: 120,
-        color: "#4D5360",
-        highlight: "#616774",
-        label: "Dark Grey",
-      },
-    ];
+  function send_request(param) {
+      $.ajax({
+          method: 'GET',
+          url: 'api/get_etat?' + param,
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+  
+          success: function(result) {
+              update_table(result);
+              console.log('after send')
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+  }
+  
+  function update_table(data) {
+      console.log('Table Update')
+      let row;
+      let all_rows = '';
+    
+      Object.keys(data).forEach((key,index) => {
+          elem = data[key];
+          console.log('data bellow')
+          console.log(data[index])
+          app = data[index];
+          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPlan">  Modifier </button> </div> </td>  <td> <div class = "btn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmPlan">  Ouvrir </button> </div> </td>  <td><a data-target="#showFacture" onclick="show_facture(${elem['uid']})" data-toggle="modal" class="btn btn-link">Consulter</a></td>`
+          all_rows = all_rows + row;
+      });
+      $("#etatTable tbody").html(all_rows)
+  }
 
-    window.onload = function () {
-      var ctx_line = document
-        .getElementById("templatemo-line-chart")
-        .getContext("2d");
-      var ctx_bar = document
-        .getElementById("templatemo-bar-chart")
-        .getContext("2d");
-      var ctx_pie = document
-        .getElementById("templatemo-pie-chart")
-        .getContext("2d");
-      var ctx_doughnut = document
-        .getElementById("templatemo-doughnut-chart")
-        .getContext("2d");
-      var ctxRadar = document
-        .getElementById("templatemo-radar-chart")
-        .getContext("2d");
-      var ctxPolar = document
-        .getElementById("templatemo-polar-chart")
-        .getContext("2d");
+// END TABLE FEATURES
 
-      window.myLine = new Chart(ctx_line).Line(lineChartData, {
-        responsive: true,
-      });
-      window.myBar = new Chart(ctx_bar).Bar(lineChartData, {
-        responsive: true,
-      });
-      window.myPieChart = new Chart(ctx_pie).Pie(pieChartData, {
-        responsive: true,
-      });
-      window.myDoughnutChart = new Chart(ctx_doughnut).Doughnut(pieChartData, {
-        responsive: true,
-      });
-      var myRadarChart = new Chart(ctxRadar).Radar(radarChartData, {
-        responsive: true,
-      });
-      var myPolarAreaChart = new Chart(ctxPolar).PolarArea(polarAreaChartData, {
-        responsive: true,
-      });
-    };
+  function get_facture(id) {
+    // This is the function that will make the api call and get facture
+    let param = "id="+id
+    let result = null;
+    
+    $.ajax({
+          method: 'GET',
+          url: 'facture/api/get_facture?' + param,
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+  
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            udpate_facture_modal(result.facture)
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+
+  }
+  function show_facture(id) {
+    // CALL GET FACTURE FUNCTION TO GO AND GET FCTURE
+   get_facture(id)
+  }
+
   </script>
   {% endblock %}
 </div>

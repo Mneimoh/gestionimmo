@@ -124,7 +124,7 @@
             <th>Appelé & récouvré</th>
             <th>Dernier appel</th>
             <!-- <th>hr</th> -->
-            <th>Modifier</th>
+            <!-- <th>Modifier</th> -->
             <th>Plan de masse</th>
             <th>Consulter</th>
           </tr>
@@ -142,7 +142,7 @@
             <td>{{ dossier.coeff_recouv }}</td>
             <td>{{ dossier.appele_recouvre }}</td>
             <td>{{ dossier.dernier_appel }}</td>
-            <td>
+            <!-- <td>
               
               <div class="btn-group">
               <button
@@ -154,7 +154,7 @@
                 Modifier
               </button>
               </div>
-            </td>
+            </td> -->
             <td>
              
               <div class = "btn-group">
@@ -623,18 +623,9 @@
 
         <div style="text-align: center;">
           <span style="font-size: 20px; font-weight: bold; text-align: center;">Somme: </span>
-          <span style="font-size: 20px; text-align: center;">${facture.somme}</span>
+          <span style="font-size: 20px; text-align: center;">15000</span>
         </div>
 
-        <div style="text-align: center;">
-          <span style="font-size: 20px; font-weight: bold; text-align: center;">STATUT: </span>
-          <span style="font-size: 20px; text-align: center;">${facture.statut}</span>
-        </div>
-
-        <div style="text-align: center;">
-          <span style="font-size: 20px; font-weight: bold; text-align: center;">DATE: </span>
-          <span style="font-size: 20px; text-align: center;">${facture.date}</span>
-        </div>
     `
 
     document.getElementById('display-facture').innerHTML = data;

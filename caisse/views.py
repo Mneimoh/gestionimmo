@@ -928,14 +928,6 @@ def pay_facture_om(request):
         facture.save()
 
     if facture.statut == "PM":
-        print('paying  payment mensuel')
-        print('###################################')
-        print(facture)
-        print(facture.date)
-        print(facture.statut)
-        print(credit.somme_payee)
-        print('i am paying a facture here and now')
-        print('###################################')
         if credit.somme_payee == credit.total:
             dossier.statue = 'FN'
         else:
@@ -966,9 +958,11 @@ def genarate_facture(request):
     sum = credit.montant
     num_facture = '0'
     end_date = str(credit.date_fin)
+    start_date = credit.date
     print('**************************************')
-    print(credit.somme_payee)
-    print(credit.montant)
+    print("total :" + str(credit.total))
+    print("somme_payee :" + str(credit.somme_payee))
+    print("pmensuel :" + str(credit.montant))
     print('**************************************')
     if credit.somme_payee == 0 and credit.montant == 0:
         number_of_previous_payments = 0
@@ -976,22 +970,21 @@ def genarate_facture(request):
         number_of_previous_payments = int((credit.somme_payee/credit.montant))
 
     print('#######END BELLOW####33')
-    print(credit.date_fin)
-    print(end_date)
     end_year = end_date.split('-')[0]
     end_month = end_date.split('-')[1]
     end_day = end_date.split('-')[2]
-    today_year = date.today().year
-    today_day = date.today().day
-    today_month = int(date.today().month + 1)
+    today_year = start_date.year
+    today_day = start_date.day
+    today_month = int(start_date.month)
 
     # new facture pay date
-    new_pay_date = str(today_year) + "-" + \
-        str(today_month + number_of_previous_payments) + "-" + str(today_day)
+    pay_month = (today_month + number_of_previous_payments+1) % 13
+    if pay_month == 0:
+        today_year = today_year+1
+        pay_month = 1
 
-    if(today_month + number_of_previous_payments) > 12:
-        new_pay_date = str(today_year+1) + "-" + \
-            str(1) + "-" + str(today_day)
+    new_pay_date = str(today_year) + "-" + \
+        str(pay_month) + "-" + str(today_day)
 
     print('GENARATE NEW FACTURE HERE')
     # OLD FACTURE BELLOW
@@ -1006,7 +999,7 @@ def genarate_facture(request):
         date=new_pay_date,
         statut=status
     )
-
+    print(new_pay_date)
     new_facture.save()
 
     # CREATE PAIEMENT WITH OLD FACTURE
