@@ -7,6 +7,8 @@ urlpatterns = [
     #   Direction du recouvrement paths
     path('', views.index, name='recouvrement'),
     path('etat/', views.etat_recouvrements, name='etat_recouvrement'),
+    #   Facture API
+    path('etat/facture/api/get_facture', views.get_facture),
     #   Pagination API
     path('etat/api/get_etat', views.get_etat),
     path('etat/api/paginate_etat', views.paginate_etat),

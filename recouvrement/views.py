@@ -40,8 +40,8 @@ def etat_recouvrements(request):
     if(request.user.poste == section):
         # CODE FOR PAGINATOR BELLOW
         dossier_objects = Dossier.objects.filter(
-            societe__nom=request.user.societe)  # .filter(statut='A') | Q
-        paginator = Paginator(dossier_objects, 1)
+            societe__nom=request.user.societe).filter(statut='R1')  # | Q
+        paginator = Paginator(dossier_objects, 3)
         page = request.GET.get('page', 1)
 
         try:
@@ -129,6 +129,19 @@ def get_etat(request):
         return Response({})
 
 
+@login_required
+@api_view(['GET'])
+def get_facture(request):
+    id = request.query_params.get('id', None)
+    # lookup = Q(uid=id)
+    dossier = Dossier.objects.filter(uid=id)
+
+    serialized = DossierSerializer(dossier, many=True)
+    print('SERIALIZED DATA BELLOW')
+    # print(serialized.data)
+    return Response(serialized.data[0])
+
+
 @ login_required
 def contacts(request):
     if(request.user.poste == section):
@@ -142,7 +155,7 @@ def litiges(request):
     if(request.user.poste == section):
         # CODE FOR PAGINATOR BELLOW
         dossier_objects = Dossier.objects.filter(
-            societe__nom=request.user.societe)  # .filter(statut='A') | Q
+            societe__nom=request.user.societe) .filter(statut='RT')  # | Q
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
 
@@ -233,7 +246,7 @@ def finalisations(request):
     if(request.user.poste == section):
         # CODE FOR PAGINATOR BELLOW
         dossier_objects = Dossier.objects.filter(
-            societe__nom=request.user.societe)  # .filter(statut='A') | Q
+            societe__nom=request.user.societe).filter(statut='FN')  # | Q
         paginator = Paginator(dossier_objects, 1)
         page = request.GET.get('page', 1)
 
@@ -507,7 +520,22 @@ def prop_terriens(request):
 @ login_required
 def modif_restructure(request):
     if(request.user.poste == section):
-        return render(request, 'recouvrement/modif-restructure.html', {'title': "Modification & Restructuration"})
+        # CODE FOR PAGINATOR BELLOW
+        dossier_objects = Dossier.objects.filter(
+            societe__nom=request.user.societe)  # .filter(statut='RT')  # | Q
+        paginator = Paginator(dossier_objects, 1)
+        page = request.GET.get('page', 1)
+
+        try:
+            all_info = paginator.page(page)
+        except PageNotAnInteger:
+            all_info = paginator.page(1)
+        except EmptyPage:
+            all_info = paginator.page(paginator.num_pages)
+
+        page_list = all_info.paginator.page_range
+
+        return render(request, 'recouvrement/modif-restructure.html', {'title': "Modification & Restructuration", 'page_list': page_list, 'page': page, "all_dossier": all_info})
     else:
         return redirect(f"/login?next=/{section}/")
 

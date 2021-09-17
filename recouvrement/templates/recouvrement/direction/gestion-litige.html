@@ -116,29 +116,33 @@
                     </thead>
                     <tbody>
                       {% for dossier in all_dossier %}
-                      <!-- <tr class="danger"> -->
-                      <td>{{ dossier.client.uid }}</td>
-                      <td>{{ dossier.client.phone_1 }}</td>
-                      <td>{{ dossier.client.nom }}</td>
-                      <td>{{ dossier.client.prenom }}</td>
-                      <td>{{ dossier.uid }}</td>
-                      <td>{{ dossier.statut }}</td>
-                      <td>{{ dossier.date_dernier_paiement }}</td>
-                      <td>{{ dossier.coeff_recouv }}</td>
-                      <td>{{ dossier.appele_recouvre }}</td>
-                      <td>{{ dossier.dernier_appel }}</td>
-                      <td>
-                        <!-- Split button -->
-                        <div classbtn-group>
-                        <button
-                          type="button"
-                          class="btn btn-default"
-                          data-toggle="modal"
-                          data-target="#confirmPlan"
-                        >
-                          Changer
-                        </button>
-                      </td>
+
+                        {% if dossier.statut == "RT" %}
+                                                <!-- <tr class="danger"> -->
+                          <td>{{ dossier.client.uid }}</td>
+                          <td>{{ dossier.client.phone_1 }}</td>
+                          <td>{{ dossier.client.nom }}</td>
+                          <td>{{ dossier.client.prenom }}</td>
+                          <td>{{ dossier.uid }}</td>
+                          <td>{{ dossier.statut }}</td>
+                          <td>{{ dossier.date_dernier_paiement }}</td>
+                          <td>{{ dossier.coeff_recouv }}</td>
+                          <td>{{ dossier.appele_recouvre }}</td>
+                          <td>{{ dossier.dernier_appel }}</td>
+                          <td>
+                            <!-- Split button -->
+                            <div classbtn-group>
+                            <button
+                              type="button"
+                              class="btn btn-default"
+                              data-toggle="modal"
+                              data-target="#confirmPlan"
+                            >
+                              Changer
+                            </button>
+                          </td>
+                        {% endif %}
+
                     <!-- </tr> -->
                     {% endfor  %}
                     </tbody>
@@ -795,240 +799,241 @@
     {% endblock %} {% block scripts %}
     
   <script  type="text/javascript">
+    console.log('gestion Ligites')
+  // PAGINATOR CODE BELLOW
+  function paginate_table(page,$event) {
+      document.getElementById('templatemo_search_box').value = '';
+    if(page > 1) {
+      document.getElementById('prev').classList = '';
+    }
+  
+    if(page == 1) {
+      document.getElementById('prev').classList = 'disabled'
+    }
+  
+  
+  
+    //  Write Logic to change current active button
     
-    // PAGINATOR CODE BELLOW
-      
-      function paginate_table(page,$event) {
-          document.getElementById('templatemo_search_box').value = '';
-        if(page > 1) {
-          document.getElementById('prev').classList = '';
-        }
-      
-        if(page == 1) {
-          document.getElementById('prev').classList = 'disabled'
-        }
-      
-      
-      
-        //  Write Logic to change current active button
-        
-          all_childrens = event.target.parentElement.parentElement.children
-          for(let i = 0; i < all_childrens.length; i++){
-              if(all_childrens[i].classList.contains('active')){
-                all_childrens[i].classList = '';
-              }
+      all_childrens = event.target.parentElement.parentElement.children
+      for(let i = 0; i < all_childrens.length; i++){
+          if(all_childrens[i].classList.contains('active')){
+            all_childrens[i].classList = '';
           }
-         
-          event.target.parentElement.classList = 'active'
-      
-          // Total Pages Calculation Bellow
-          let total = all_childrens.length - 2;
-      
-          if(page == total) {
-            document.getElementById('next').classList = 'disabled'
-          }
-      
-          if(page < total) {
-            document.getElementById('next').classList = ''
-          }
-      
-          let param = `page=${page}`
-          send_paginate_request(param)
-      }
-      function next($event) {
-        let all_childrens = event.target.parentElement.parentElement.children
-        let setactive = 0;
-        prevactive = 0;
-      
-        for(let i = 0; i < all_childrens.length; i++){
-              if(all_childrens[i].classList.contains('active')){
-                prevactive = i;
-                all_childrens[i].classList = '';
-                setactive = i+1;
-              }
-          }
-      
-          
-        let total = all_childrens.length - 2;
-        
-        if(setactive > total) {
-          console.log('SET ACTIVE IS GREATER THAN TOTAL')
-          all_childrens[prevactive].classList = 'active';
-      
-        }else {
-      
-          if(setactive > 1) {
-            document.getElementById('prev').classList = '';
-          }
-      
-      
-          if(setactive == total) {
-            document.getElementById('next').classList = 'disabled'
-          }
-      
-      
-          all_childrens[setactive].classList = 'active';
-          let param = `page=${setactive}`
-          send_paginate_request(param)
-        }
-      
       }
       
-      function prev($event) {
-        let all_childrens = event.target.parentElement.parentElement.children
-        let setactive = 0;
-        let prevactive = 0;
-      
-        for(let i = 0; i < all_childrens.length; i++){
-              if(all_childrens[i].classList.contains('active')){
-                prevactive = i;
-                all_childrens[i].classList = '';
-                setactive = i-1;
-              }
-          }
-      
-          
-        let total = all_childrens.length - 2;
-        
-        if(setactive < 1) {
-          console.log('SET ACTIVE IS LESSER THAN ONE')
-          all_childrens[prevactive].classList = 'active';
-      
-        }else {
-      
-          if(setactive < total) {
-            document.getElementById('next').classList = '';
-          }
-      
-          if(setactive == 1) {
-            document.getElementById('prev').classList = 'disabled'
-          }
-      
-      
-          all_childrens[setactive].classList = 'active';
-          let param = `page=${setactive}`
-          send_paginate_request(param)
-        }
-      
+      event.target.parentElement.classList = 'active'
+  
+      // Total Pages Calculation Bellow
+      let total = all_childrens.length - 2;
+  
+      if(page == total) {
+        document.getElementById('next').classList = 'disabled'
       }
-      
-      function send_paginate_request(param) {
-          $.ajax({
-              method: 'GET',
-              url: 'api/paginate_litiges?' + param,
-              beforeSend: function() {
-                  console.log('Before Send')
-              },
-      
-              success: function(result) {
-                console.log('after send')
-                console.log(result)
-                  update_table_paginate(result);
-                  
-              },
-      
-              error: function() {
-                  console.log('error')
-              }
-          })
+  
+      if(page < total) {
+        document.getElementById('next').classList = ''
       }
+  
+      let param = `page=${page}`
+      send_paginate_request(param)
+  }
+ 
+  function next($event) {
+    let all_childrens = event.target.parentElement.parentElement.children
+    let setactive = 0;
+    prevactive = 0;
+  
+    for(let i = 0; i < all_childrens.length; i++){
+          if(all_childrens[i].classList.contains('active')){
+            prevactive = i;
+            all_childrens[i].classList = '';
+            setactive = i+1;
+          }
+      }
+  
       
-      function update_table_paginate(data) {
+    let total = all_childrens.length - 2;
+    
+    if(setactive > total) {
+      console.log('SET ACTIVE IS GREATER THAN TOTAL')
+      all_childrens[prevactive].classList = 'active';
+  
+    }else {
+  
+      if(setactive > 1) {
+        document.getElementById('prev').classList = '';
+      }
+  
+  
+      if(setactive == total) {
+        document.getElementById('next').classList = 'disabled'
+      }
+  
+  
+      all_childrens[setactive].classList = 'active';
+      let param = `page=${setactive}`
+      send_paginate_request(param)
+    }
+  
+  }
+  
+  function prev($event) {
+    let all_childrens = event.target.parentElement.parentElement.children
+    let setactive = 0;
+    let prevactive = 0;
+  
+    for(let i = 0; i < all_childrens.length; i++){
+          if(all_childrens[i].classList.contains('active')){
+            prevactive = i;
+            all_childrens[i].classList = '';
+            setactive = i-1;
+          }
+      }
+  
+      
+    let total = all_childrens.length - 2;
+    
+    if(setactive < 1) {
+      console.log('SET ACTIVE IS LESSER THAN ONE')
+      all_childrens[prevactive].classList = 'active';
+  
+    }else {
+  
+      if(setactive < total) {
+        document.getElementById('next').classList = '';
+      }
+  
+      if(setactive == 1) {
+        document.getElementById('prev').classList = 'disabled'
+      }
+  
+  
+      all_childrens[setactive].classList = 'active';
+      let param = `page=${setactive}`
+      send_paginate_request(param)
+    }
+  
+  }
+  
+  function send_paginate_request(param) {
+      $.ajax({
+          method: 'GET',
+          url: 'api/paginate_litiges?' + param,
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+  
+          success: function(result) {
+            console.log('after send')
+            console.log(result)
+              update_table_paginate(result);
+              
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+  }
+  
+  function update_table_paginate(data) {
           let row;
           let all_rows = '';
           // console.log('UPDATE TABLE PAGINATE')
           // console.log(data[0].client)
           Object.keys(data).forEach((key,index) => {
-         
+            console.log('hrllo  ')
               elem = data[key];
               row = ''
-              row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPlan">  Modifier </button> </div> </td>  <td> <div class = "btn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmPlan">  Ouvrir </button> </div> </td>  <td><a href="#" class="btn btn-link">Consulter</a></td>`
+              row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPlan">  Modifier </button> </div> </td> <td><a href="#" class="btn btn-link">Consulter</a></td>`
               all_rows = all_rows + row;
           });
       
           $("#table tbody").html(all_rows)
       }
       
-    // END OF PAGINATOR
+  // END OF PAGINATOR
+  
+  // TABLE FEATURES     
+  function sort_etat(sort_type) {
+        let param = `${sort_type}=${sort_type}`
+        send_request(param);
+    }
     
-    // TABLE FEATURES     
-    function sort_etat(sort_type) {
-          let param = `${sort_type}=${sort_type}`
-          send_request(param);
-      }
-      
-    function find_cpml() {
-          let search_query = document.getElementById('templatemo_search_box').value;
-          let param = `search_table=${search_query}`
-          send_request(param);
-      }
-    
-    function send_request(param) {
-          $.ajax({
-              method: 'GET',
-              url: 'api/get_litiges?' + param,
-              beforeSend: function() {
-                  console.log('Before Send')
-              },
-      
-              success: function(result) {
-                  update_table(result);
-                  console.log('after send')
-              },
-      
-              error: function() {
-                  console.log('error')
-              }
-          })
-      }
-      
-    function update_table(data) {
-          console.log('Table Update')
-          let row;
-          let all_rows = '';
-        
-          Object.keys(data).forEach((key,index) => {
-              elem = data[key];
-              console.log('data bellow')
-              console.log(data[index])
-              app = data[index];
-              row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPlan">  Modifier </button> </div> </td>  <td> <div class = "btn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmPlan">  Ouvrir </button> </div> </td>  <td><a data-target="#showFacture" onclick="show_facture(${elem['uid']})" data-toggle="modal" class="btn btn-link">Consulter</a></td>`
-              all_rows = all_rows + row;
-          });
-          $("#table tbody").html(all_rows)
-      }
-    
-    // END TABLE FEATURES
-    
-    function get_facture(id) {
-      // This is the function that will make the api call and get facture
-      let param = "id="+id
-      let result = null;
-      
-      $.ajax({
+  function find_cpml() {
+        let search_query = document.getElementById('templatemo_search_box').value;
+        let param = `search_table=${search_query}`
+        send_request(param);
+    }
+  
+  function send_request(param) {
+        $.ajax({
             method: 'GET',
-            url: 'facture/api/get_facture?' + param,
+            url: 'api/get_litiges?' + param,
             beforeSend: function() {
                 console.log('Before Send')
             },
     
             success: function(result) {
-              // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
-              udpate_facture_modal(result.facture)
+                update_table(result);
+                console.log('after send')
             },
     
             error: function() {
                 console.log('error')
             }
         })
+    }
+    
+  function update_table(data) {
+        console.log('Table Update')
+        let row;
+        let all_rows = '';
+        console.log('Updating table')
+        Object.keys(data).forEach((key,index) => {
+            elem = data[key];
+            console.log(elem)
+            console.log('data bellow')
+            console.log(data[index])
+            app = data[index];
+            row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPlan">  Modifier </button> </div> </td>  <td><a data-target="#showFacture" onclick="show_facture(${elem['uid']})" data-toggle="modal" class="btn btn-link">Consulter</a></td>`
+            all_rows = all_rows + row;
+        });
+        $("#table tbody").html(all_rows)
+    }
   
-    }
+  // END TABLE FEATURES
+  
+  function get_facture(id) {
+    // This is the function that will make the api call and get facture
+    let param = "id="+id
+    let result = null;
     
-    function show_facture(id) {
-      // CALL GET FACTURE FUNCTION TO GO AND GET FCTURE
-      get_facture(id)
-    }
-    
+    $.ajax({
+          method: 'GET',
+          url: 'facture/api/get_facture?' + param,
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+  
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            udpate_facture_modal(result.facture)
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+
+  }
+  
+  function show_facture(id) {
+    // CALL GET FACTURE FUNCTION TO GO AND GET FCTURE
+    get_facture(id)
+  }
+  
   </script>
     {% endblock %}
   </div>

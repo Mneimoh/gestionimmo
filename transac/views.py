@@ -426,8 +426,17 @@ def sendMail(request, id):
         server.login('karlsedoide@gmail.com', '40sedoide40')
 
         subject = "Greetings From GestionImmo"
-        body = f"This is to notify you that our client of name {request.POST['crediteur_name']} of the town {request.POST['crediteur_adresse']} with POSTal code of  {request.POST['crediteur_code_postal']}  took a loan from our company called {request.user.societe}"
+        # body = f"This is to notify you that our client of name {request.POST['crediteur_name']} of the town {request.POST['crediteur_adresse']} with POSTal code of  {request.POST['crediteur_code_postal']}  took a loan from our company called {request.user.societe}"
+        body = f"""
+        Nous vous informons que Monsieur/Madamme {request.POST['debiteur_name']}, demeurant au {request.POST['debiteur_adresse']}, vous a ajoute en cosignataire pour la  souscription d'un credit aupres de notre organisme {request.user.societe}
+        Attention, on vous demande de vous porter garant pour un pret. Reflechissez tres bien avant de vous engager. Si l'emprunteur ne paye pas sa dette, vous serez dans l'obligation de le faire a sa place. Soyez sur d'avoir les moyens de le faire, et que vous avez envie de prendre cette responsabilite.
+        Vous pourriez etre obliger de payer la totalite de la dette si l'emprunteur ne paye pas. Vous pourriez aussi payer des dommages et interets plus frais de procedures, et les montants changeraient en consequence.
+        Nous pourrions recuperer nos paiements a votre niveau sans pour autant essayer de recuperer au niveau de l'emprunteur. Nous pourrions utiliser contre vous les memes methodes de recouvrement que nous utiliserions contre l'emprunteur, comme une poursuite judiciaire, coupures de vos salaires a la source, etc....
+        Cette notification n'est pas le contrat qui nous lie.    
 
+        La direction {request.user.societe}         
+
+        """
         msg = f"{subject}\n\n{body}"
         server.sendmail(
             'karlsedoide@gmail.com',
@@ -457,6 +466,8 @@ def getPdf(request, name, dossier):
         template_path = 'transac/vente_facture.html'
     if name == "engagement":
         template_path = 'transac/engagement.html'
+    if name == "recapitulatif":
+        template_path = 'transac/recapitulatif.html'
     if name == "ppe_imp":
         template_path = 'transac/ppe_imp.html'
     if name == "ppr_imp":
@@ -469,6 +480,8 @@ def getPdf(request, name, dossier):
         template_path = "transac/bal_imp.html"
     if name == "ppe_imp":
         template_path = "transac/ppe_imp.html"
+    if name == "authorise":
+        template_path = "transac/authorise.html"
 
     context = {'dossier': dossier}
 
