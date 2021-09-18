@@ -10,7 +10,7 @@ from django.db.models.fields import IntegerField
 # Create your models here.
 
 USER_POSTES = (
-    ("accueuil", "accueuil"),
+    ("accueuil", "accueil"),
     ("transac", "transac"),
     ("caisse", "caisse"),
     ("recouvrement", "recouvrement"),

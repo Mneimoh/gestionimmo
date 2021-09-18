@@ -509,6 +509,52 @@ def vente(request):
             print(request.POST)
             dossier_uid = int(request.POST['dossier_id'])
             currentDossier = Dossier.objects.filter(uid=dossier_uid)[0]
+            # *************************************  Testing  ******************************************
+            uid = request.POST['dossier_id']
+            phone_1 = request.POST['dossier_id']
+            nom = request.POST['dossier_id']
+            prenom = request.POST['dossier_id']
+            statut = request.POST['dossier_id']
+            dernier_appel = request.POST['dossier_id']
+            coeff_recouv = request.POST['dossier_id']
+            appele_recouvre = request.POST['dossier_id']
+
+            # FOR SEARCH FIELD BELLOW
+            search_table = request.POST['dossier_id']
+            print('GOT HERE IN GET CAISSE')
+
+            caisse_info = Dossier.objects.filter(
+                societe__nom=request.user.societe)
+
+            if search_table:
+                lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+                    uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
+                caisse_info = caisse_info.filter(lookups).distinct()
+
+            if uid:
+                caisse_info = caisse_info.all().order_by('client__uid')
+            if phone_1:
+                caisse_info = caisse_info.all().order_by('client__phone_1')
+            if nom:
+                caisse_info = caisse_info.all().order_by('client__nom')
+            if prenom:
+                caisse_info = caisse_info.all().order_by('client__prenom')
+            if statut:
+                caisse_info = caisse_info.all().order_by('statut')
+            if dernier_appel:
+                caisse_info = caisse_info.all().order_by('dernier_appel')
+            if coeff_recouv:
+                caisse_info = caisse_info.all().order_by('coeff_recouv')
+            if appele_recouvre:
+                caisse_info = caisse_info.all().order_by('appele_recouvre')
+
+            # if caisse_info:
+            #     serialized = DossierSerializer(caisse_info, many=True)
+            #     return Response(serialized.data)
+            # else:
+            #     return Response({})
+
             return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier})
 
         return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier})
