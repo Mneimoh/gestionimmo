@@ -9,13 +9,15 @@
         </li>
         <li>
           <form class="navbar-form">
+            {% csrf_token %}
             <input
               type="text"
               class="form-control"
               id="templatemo_search_box"
               placeholder="..."
+              
             />
-            <span class="btn btn-default">Rechercher</span>
+            <span class="btn btn-default" id="rechercher">Rechercher</span>
           </form>
         </li>
       </ul>
@@ -304,7 +306,36 @@
 {% endblock %} {% block scripts %}
 <script type="text/javascript">
   // Search for a specific document
+    // $('#rechercher').click(function(e)
+    document.getElementById("rechercher").onclick = function(e){
+    console.log(e)
+    e.preventDefault()
+    let debitor_form = document.getElementById('navsearch')
 
+    var fd = new FormData(debitor_form);
+    console.log(fd)
+
+    $.ajax({
+                type: "POST",
+                url: `/transac/vente`,
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function(data,status) {
+                  warning_messages.style.display = 'none'
+                  info_messages.style.display    = 'block'
+                  let message = document.createElement('div')
+                  //this will execute when form is submited without errors
+                  location.reload();
+
+              },
+              error: function(data, status) {
+                  //this will execute when get any error
+              },
+          });
+ 
+  }
+  // )
 
 </script>
 {% endblock %}

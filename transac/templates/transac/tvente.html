@@ -5,22 +5,13 @@
                 <form id="navsearch" class="navbar-form">
                   {% csrf_token %}
                   <ul class="nav nav-pills">
-                    <!--<li class="active"><a href="#">Compte ouvert<span class="badge">42</span></a></li>
-                    <li class="active"><a href="#">Non finalisé <span class="badge">26</span></a></li>
-                    <li class="active"><a href="#">Abandonné <span class="badge">14</span></a></li> -->
+
                     <li>
-                        <!-- <select class="form-control margin-bottom-15" id="typeArticle">
-                          <option value="" selected>Type d'article</option>
-                          <option>Immobilier</option>
-                          <option>Moto</option>
-                          <option>Electroménager</option>
-                        </select> -->
                         <select class="form-control margin-bottom-15" name="article_interet" id="articleI">
                           <option>No de dossier</option>
                           <option>Telephone</option>
                           <option>Nom</option>
                         </select>
-                      </form>
                     </li> 
                     <li>
                         &nbsp;&nbsp;<input name='dossier_id' class="form-control" id="templatemo_search_box" placeholder="N° de dossier">

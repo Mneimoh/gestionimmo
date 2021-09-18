@@ -631,6 +631,8 @@ def gestion_rejets(request):
 @ login_required  # repechage routes
 def repechage_auto(request):
     if(request.user.poste == section):
+        if(request.method == "POST"):
+            print(request.POST)
         return render(request, 'recouvrement/repechage/automatique.html', {'title': "Repêchage 1"})
     else:
         return redirect(f"/login?next=/{section}/")
