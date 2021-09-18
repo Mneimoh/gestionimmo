@@ -507,8 +507,32 @@ def vente(request):
     if(request.user.poste == section):
         if request.method == 'POST':
             print(request.POST)
-            dossier_uid = int(request.POST['dossier_id'])
-            currentDossier = Dossier.objects.filter(uid=dossier_uid)[0]
+            if request.POST['article_interet'] == "No de dossier":
+                dossier_uid = int(request.POST['dossier_id'])
+                currentDossier = Dossier.objects.filter(uid=dossier_uid)[0]
+            if request.POST['article_interet'] == "Telephone":
+                phone = int(request.POST['dossier_id'])
+                currentDossier = Dossier.objects.filter(
+                    client__phone_1=phone)[0]
+            if request.POST['article_interet'] == "Nom":
+                name = request.POST['dossier_id']
+                currentDossier = Dossier.objects.filter(client__nom=name)[0]
+
+            return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier})
+
+        return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier})
+    else:
+        return redirect(f"/login?next=/{section}/")
+
+
+@login_required
+def venteSearch(request):
+    if(request.user.poste == section):
+        print('*************** welcome ********************')
+        print('hemmorphine')
+        print('*************** welcome ********************')
+        if request.method == 'POST':
+            print(request.POST)
             # *************************************  Testing  ******************************************
             uid = request.POST['dossier_id']
             phone_1 = request.POST['dossier_id']
@@ -532,34 +556,31 @@ def vente(request):
 
                 caisse_info = caisse_info.filter(lookups).distinct()
 
-            if uid:
-                caisse_info = caisse_info.all().order_by('client__uid')
-            if phone_1:
-                caisse_info = caisse_info.all().order_by('client__phone_1')
-            if nom:
-                caisse_info = caisse_info.all().order_by('client__nom')
-            if prenom:
-                caisse_info = caisse_info.all().order_by('client__prenom')
-            if statut:
-                caisse_info = caisse_info.all().order_by('statut')
-            if dernier_appel:
-                caisse_info = caisse_info.all().order_by('dernier_appel')
-            if coeff_recouv:
-                caisse_info = caisse_info.all().order_by('coeff_recouv')
-            if appele_recouvre:
-                caisse_info = caisse_info.all().order_by('appele_recouvre')
+                # if uid:
+                #     caisse_info = caisse_info.all().order_by('client__uid')
+                # if phone_1:
+                #     caisse_info = caisse_info.all().order_by('client__phone_1')
+                # if nom:
+                #     caisse_info = caisse_info.all().order_by('client__nom')
+                # if prenom:
+                #     caisse_info = caisse_info.all().order_by('client__prenom')
+                # if statut:
+                #     caisse_info = caisse_info.all().order_by('statut')
+                # if dernier_appel:
+                #     caisse_info = caisse_info.all().order_by('dernier_appel')
+                # if coeff_recouv:
+                #     caisse_info = caisse_info.all().order_by('coeff_recouv')
+                # if appele_recouvre:
+                #     caisse_info = caisse_info.all().order_by('appele_recouvre')
 
-            # if caisse_info:
-            #     serialized = DossierSerializer(caisse_info, many=True)
-            #     return Response(serialized.data)
-            # else:
-            #     return Response({})
+                print('****************** just random spot *********************')
+                dossier = caisse_info[0].uid
+                currentDossier = Dossier.objects.get(uid=dossier)
+                print(currentDossier)
+                print(currentDossier.client)
+                print('****************** just random spot *********************')
 
-            return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier})
-
-        return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier})
-    else:
-        return redirect(f"/login?next=/{section}/")
+                return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': currentDossier.client, 'dossier': currentDossier})
 
 
 @login_required

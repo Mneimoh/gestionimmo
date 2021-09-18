@@ -14,13 +14,13 @@ USER_POSTES = (
     ("transac", "transac"),
     ("caisse", "caisse"),
     ("recouvrement", "recouvrement"),
-    ("N/A", "N/A")
+    ("admin", "admin")
 )
 
 
 # Societe Models
 class Societe(models.Model):
-    nom = models.CharField(max_length=60, default="N/A")
+    nom = models.CharField(max_length=60, null=True)
     localisation = models.CharField(max_length=200, null=True)
     active = models.BooleanField(default=False)
     date_created = models.DateTimeField(
@@ -83,9 +83,9 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     username = models.CharField(
-        verbose_name="Name", max_length=255, unique=True)
+        verbose_name="Nom", max_length=255, unique=True)
     email = models.EmailField(
-        verbose_name="Email Address", max_length=60, unique=True, null=True)
+        verbose_name="Email Adresse", max_length=60, unique=True, null=True)
     date_joined = models.DateTimeField(
         verbose_name="Date joined", auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -211,7 +211,7 @@ class Cosignataire(models.Model):
     societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
     User = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.EmailField(
-        verbose_name="Email Address", max_length=60, null=True, blank=True)
+        verbose_name="Email Adresse", max_length=60, null=True, blank=True)
     phone_1 = models.CharField(max_length=60, null=True, blank=True)
     phone_2 = models.CharField(max_length=60, null=True, blank=True)
     nom = models.CharField(max_length=60, null=True, blank=True)
