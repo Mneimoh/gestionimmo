@@ -8,7 +8,7 @@ urlpatterns = [
     path('facture/api/get_facture', views.get_facture),
     path('compte/<nom>', views.index, name="transact list"),
     path('vente', views.vente, name='vente'),
-    path('vente/search', views.venteSearch, name='vente'),
+    # path('vente/search', views.venteSearch, name='vente'),
     path('vente/<_type>/<dossier>/<article>/',
          views.venteUpdates, name='vente'),
     path('register/<table>/<type>/', views.registerAccount),
