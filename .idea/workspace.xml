@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ecda6f0d-c18e-4205-93d4-4ecfebdf5c4f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/images/logo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/transac/templates/transac/images/logo.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestionimmo/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestionimmo/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transac/templates/transac/bal_imp.html" beforeDir="false" afterPath="$PROJECT_DIR$/transac/templates/transac/bal_imp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transac/templates/transac/ct_imp.html" beforeDir="false" afterPath="$PROJECT_DIR$/transac/templates/transac/ct_imp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transac/templates/transac/ppr_imp.html" beforeDir="false" afterPath="$PROJECT_DIR$/transac/templates/transac/ppr_imp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transac/templates/transac/pvi_imp.html" beforeDir="false" afterPath="$PROJECT_DIR$/transac/templates/transac/pvi_imp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transac/templates/transac/vente_facture.html" beforeDir="false" afterPath="$PROJECT_DIR$/transac/templates/transac/vente_facture.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1yF85PnaRNOux3sIkA4w6LB9B5I" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/.env" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/images" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\MNEIMOH\Desktop\GitApplications\DjangoApplications\gestionimmo\images" />
+      <recent name="C:\Users\MNEIMOH\Desktop\GitApplications\DjangoApplications\gestionimmo\transac\templates\transac\images" />
+      <recent name="C:\Users\MNEIMOH\Desktop\GitApplications\DjangoApplications\gestionimmo\transac\static\images" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ecda6f0d-c18e-4205-93d4-4ecfebdf5c4f" name="Default Changelist" comment="" />
+      <created>1631835792345</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1631835792345</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

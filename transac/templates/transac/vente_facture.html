@@ -12,7 +12,7 @@
     
     html {
       font-family: Helvetica;
-      font-size: 11px; 
+      font-size: 12px;
       font-weight: normal;
       color: #000000; 
       background-color: transparent;
@@ -81,8 +81,9 @@
     h4,
     h5,
     h6 {
-      margin: 2.5em 0 1em 0;
+      margin: 2.5em 0 0em 0;
       font-weight: bold;
+      text-decoration: underline;
       -pdf-outline: true;
       -pdf-outline-open: false;
     }
@@ -222,142 +223,136 @@
     padding: 2px;
     border: 1px solid black;
     }
+
+    .page_title {
+      text-align: center;
+      border-bottom: 1px solid #000;
+    }
+
+    .montant_finance {
+      margin-top: 30px;
+    }
+
+    .margin-top {
+    margin-top: 0px;
+    }
     
     </style>
 
 </head>
 
 <body>
-  <h1>IRIC IMMOBILLIER SA</h1>
+  <!--
+  <h1>IRIC IMMOBILLIER SAS</h1>
   <h2>36 BOULEVARD DY RPT</h2>
   <h3>Lome Tep du Togo</h3>
   <h3>+22893295555</h3>
-  <h1 style="text-align: center;">FACTURE NUMERO</h1>
+  -->
+  <h1 class="page_title" >FACTURE NUMERO</h1>
+
+  <table class="content" width="75%">
+    <th>
+      <tr>
+        <td><strong>Date</strong></td>
+        <td><strong>Numero de stock</strong></td>
+        <td style="font-size: 12px; font-weight: bold;">Fichier client numero</td>
+      </tr>
+    </th>
+    <tbody>
+      <tr>
+        <td>Date</td>
+        <td>IRIS IMMOBILIER SA</td>
+        <td>IRIS IMMOBILIER SA</td>
+      </tr>
+    </tbody>
+
+  </table>
 
          
-  <h1 style="text-align: left;">INFORMATION CLIENT</h1>
+  <h1 style="text-align: left;">INFORMATION CO-SIGNITAIRE</h1>
       
   <table class="content" width="100%">
     <tr> 
-      <td><strong>NOM</strong></td>
-      <td colspan="3">IRIS IMMOBILIER SA</td>      
+      <td  colspan="3"><strong>COUT DE L'ARTICLE</strong></td>
+      <td>IRIS IMMOBILIER SA</td>
     </tr>
 
     <tr>
-      <td><strong>ADDRESSE</strong></td>
-      <td  colspan="3">36 BOULEVARD DU RPT</td>
+      <td colspan="3"><strong>FRAIS DE DOSSIERES</strong></td>
+      <td>36 BOULEVARD DU RPT</td>
      
     </tr>
 
     <tr>
-      <td><strong>VILLE</strong></td>
+      <td colspan="3"><strong>FRAIS ASSURANCES OU PROTECTIONS</strong></td>
       <td>St Pourcain/Siou</td>
-      <td><strong>CODE POSTAL</strong></td>
-      <td>03500</td>
     </tr>
 
-
     <tr>
-      <td><strong>PAYS</strong></td>
+      <td colspan="3"><strong>FRAIS DE MONTAGE DE DOSSIERE</strong></td>
       <td>France</td>
-      <td> <strong>TYPE D'IDENTITE</strong></td>
-      <td>REP DU TOGO</td>
     </tr>
 
-
     <tr>
-      <td><strong>CELLULAIRE</strong></td>
+      <td colspan="3"><strong>FRAIS IMMATRICULATION</strong></td>
       <td>654451039</td>
-      <td><strong>NUMERO D'IDENTITE</strong></td>
-      <td>100109100104</td>
     </tr>
 
-
     <tr>
-      <td><strong>TELEPHONE</strong></td>
+      <td  colspan="3"><strong>AUTRES TAXES</strong></td>
       <td>660027896</td>
-      <td><strong>DATE DE NAISSANCE</strong></td>
-      <td>2/26/1977</td>
+    </tr>
+
+    <tr>
+      <td  colspan="3"><strong>FRAIS DESENDETTEMENT REPRISE</strong></td>
+      <td>660027896</td>
+    </tr>
+
+    <tr>
+      <td  colspan="3"><strong>FRAIS DE LIVRAISION</strong></td>
+      <td>660027896</td>
+    </tr>
+
+    <tr>
+      <td  colspan="3"><strong>AUTRES FRAIS</strong></td>
+      <td>660027896</td>
     </tr>
 
 
   </table>
 
-  <h1 style="text-align: left;">INFORMATION PRODUIT CEDE</h1>
+  <h1 style="text-align: left;">DESCRIPTION DES ADVANCES</h1>
   
   <table class="content" width="100%">
-
     <tr>
-      <td><strong>ARTICLE</strong></td>
-      <td>Terrain NU</td>
-      <td><strong>Site</strong>></td>
-      <td>NOEPE</td>
+      <td  colspan="3"><strong>VALEUR REPRISE</strong></td>
+      <td>IRIS IMMOBILIER SA</td>
     </tr>
 
     <tr>
-      <td><strong>DIMENSION</strong></td>
-      <td>250 M2</td>
-      <td>SITUATION</td>
-      <td>0</td>
+      <td colspan="3"><strong>SUBVENTIONS</strong></td>
+      <td>36 BOULEVARD DU RPT</td>
+
     </tr>
 
     <tr>
-      <td><strong>TYPE DOCS</strong></td>
-      <td>second</td>
-      <td>thired</td>
-      <td>Fourth</td>
+      <td colspan="3"><strong>ACOMPTES</strong></td>
+      <td>St Pourcain/Siou</td>
     </tr>
-
-    <tr>
-      <td><strong>No DE STOCK</strong></td>
-      <td>second</td>
-      <td>thired</td>
-      <td>Fourth</td>
-    </tr>
-
 
   </table>
 
-
-  <br />
-
-  <h1 style="text-align: left;">INFORMATION PRODUITE SUBVENTIONNE</h1>
-  
-  <table class="content" width="100%">
-
+  <table class="content montant_finance" width="100%">
     <tr>
-      <td><strong>ARTICLE</strong></td>
-      <td>Terrain Nu</td>
-      <td>thired</td>
-      <td>Fourth</td>
+      <td  colspan="3"><strong>MONTANT FINANCE</strong></td>
+      <td>IRIS IMMOBILIER SA</td>
     </tr>
-
-    <tr>
-      <td><strong>MODELE</strong></td>
-      <td>second</td>
-      <td>thired</td>
-      <td>Fourth</td>
-    </tr>
-
-    <tr>
-      <td><strong>No DE STOCK</strong></td>
-      <td>second</td>
-      <td>thired</td>
-      <td>Fourth</td>
-    </tr>
-
-    <tr>
-      <td><strong>No DE SERIE</strong></td>
-      <td>second</td>
-      <td>thired</td>
-      <td>Fourth</td>
-    </tr>
-
 
   </table>
 
   
-  <h1 style="text-align: left;">INFORMATION CLIENT</h1>
+  <h1 style="text-align: left;">INFROMATION ASSURANCE OU PROTECTION</h1>
+  <h1 class="margin-top" style="text-align: left;">PERTE D'EMPLOI OU REVENU</h1>
   
   <table class="content"  width="100%">
 
@@ -379,27 +374,28 @@
     <tr>
       <td><strong>VILLE</strong></td>
       <td>second</td>
-      <td>thired</td>
+      <td style="text-align: right;"><strong>PAYS</strong></td>
       <td>Fourth</td>
     </tr>
 
     <tr>
       <td><strong>TELELPHONE</strong></td>
       <td>second</td>
-      <td>thired</td>
+      <td style="text-align: right;"><strong>Agent</strong></td>
       <td>Fourth</td>
     </tr>
     
     <tr>
-      <td><strong>CNI</strong></td>
+      <td><strong>No POLICE</strong></td>
       <td>second</td>
-      <td>thired</td>
+      <td style="text-align: right;"><strong>Date Expiration</strong></td>
       <td>Fourth</td>
     </tr>
 
 
   </table>
 
+  <!--
   <br />
   <div>
     EN FOI DE QUOI PRESENT ORDRE DE LIVRAISON EST LIVRE, POUR SERVIR ET VALOIR CE QUE CE DROID 
@@ -423,8 +419,7 @@
       <td>LE CONCESSIONAIRE</td>
     </tr>
  </table>
-
-
+ -->
 
 </body>
 </html>

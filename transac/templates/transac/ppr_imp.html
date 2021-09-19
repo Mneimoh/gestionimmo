@@ -7,8 +7,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+      * {
+          box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
+      /*table, tr {
+
+          margin-left: 30px;
+      }*/
+
+      .container1 .no {
+        border: none;
+      }
+
       table, td {
           border: 1px solid black;
+          padding-top: 2px;
+          margin-left: 2px;
       }
 
       table, th {
@@ -16,21 +37,36 @@
       }
 
       .bordered {
+          margin-left: 30px;
           border: 1px solid black;
       }
 
       table {
+          font-size: 11px;
           width: 50%;
           border-collapse: collapse;
+          margin-top: 0;
       }
+      h1, h2, h3, h4 {
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+      }
+
+      .margin h2 {
+        font-size: 15px;
+        text-decoration: underline;
+      }
+
   </style>
 </head>
 <body>
   <div class="container">
-      <h3 style="text-align: center;">PROTECTION VIEW ET INVALIDITE TERRAIN</h3>
+      <h1 style="text-align: center; font-size: 25px;">PROTECTION PERTE DE REVENUS TERRAIN</h1>
+      <div align="center"><img src="/gestionimmo/images/logo.jpg" alt="Logo"></div>
       <br>
       <br>
-      <table style="width: 80%;">
+
+      <table style="width: 100%;">
           <thead>
               <tr>
                   <th></th>
@@ -53,41 +89,37 @@
               </tr>
           </tbody>
       </table>
-      <div>
+      <br>
+      <table class="container1" width="100%">
+          <tr>
+              <td class="no" width="3%"></td>
+              <td class="no" width="94%">
+      <div class="margin">
           <h2>INFORMATION CLIENT</h2>
-          <table>
-              <thead>
-                  <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                     
-                  </tr>
-              </thead>
+          <table width="100%">
+
               <tbody>     
                   <tr>
-                      <td style="font-weight: bold;">&nbsp; NOM</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp; NOM</td>
                       <td colspan="6">&nbsp; CHARTREUX Stephane</td>
                      
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;ADDRESSE</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;ADDRESSE</td>
                       <td colspan="6">8 Rule du Limon</td>
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;CODE POSTAL</td>
-                      <td>03500</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;CODE POSTAL</td>
+                      <td colspan="2">03500</td>
                       <td style="font-weight: bold;">&nbsp;VILLE</td>
-                      <td>St Pourcain / Sioule</td>
+                      <td colspan="2">St Pourcain / Sioule</td>
                     
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;TELEPHONE</td>
-                      <td>654839898</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;TELEPHONE</td>
+                      <td colspan="2">654839898</td>
                       <td style="font-weight: bold;">&nbsp;PAYS</td>
-                      <td>France</td>
+                      <td colspan="2">France</td>
                  
                   </tr>
               </tbody>
@@ -95,129 +127,109 @@
       </div>
       <br>
 
-      <div>
+      <div class="margin">
           <h2>INFORMATION CO-SIGNATAIRE</h2>
-          <table>
-              <thead>
-                  <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                     
-                  </tr>
-              </thead>
+          <table width="100%">
+
               <tbody>     
                   <tr>
-                      <td style="font-weight: bold;">&nbsp; NOM</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp; NOM</td>
                       <td colspan="6">&nbsp; CHARTREUX Stephane</td>
                      
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;ADDRESSE</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;ADDRESSE</td>
                       <td colspan="6">8 Rule du Limon</td>
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;CODE POSTAL</td>
-                      <td>03500</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;CODE POSTAL</td>
+                      <td colspan="2">03500</td>
                       <td style="font-weight: bold;">&nbsp;VILLE</td>
-                      <td>St Pourcain / Sioule</td>
+                      <td colspan="2">St Pourcain / Sioule</td>
                     
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;TELEPHONE</td>
-                      <td>654839898</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;TELEPHONE</td>
+                      <td colspan="2">654839898</td>
                       <td style="font-weight: bold;">&nbsp;PAYS</td>
-                      <td>France</td>
+                      <td colspan="2">France</td>
                  
                   </tr>
               </tbody>
           </table>
       </div>
+        <br>
 
-
-      <div>
+      <div class="margin">
           <h2>INFORMATION ARTICLE PROTEGE</h2>
-          <table>
-              <thead>
-                  <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                                          
-                  </tr>
-              </thead>
+          <table width="100%">
+
               <tbody>
                   <tr>
-                      <td style="font-weight: bold;" class="bordered">ARTICLE</td>
+                      <td colspan="2" style="font-weight: bold;" class="bordered">ARTICLE</td>
                       <td style="font-weight: bold;" class="bordered">TERRAIN NU</td>
                       <td style="font-weight: bold;" class="bordered">SITE</th>
                       <td style="font-weight: bold;" class="bordered" colspan="2">NOEPE</td>
                       
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp; DIMENSION</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp; DIMENSION</td>
                       <td style="font-weight: bold;">&nbsp; 250 M2</td>
                       <td style="font-weight: bold;">POSITION</td>
                      <td style="font-weight: bold;">0</td>
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;TYPE DOCS</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;TYPE DOCS</td>
                       <td style="font-weight: bold;">TROIS TAMPONS</td>
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;N0 DE STOCK</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;N0 DE STOCK</td>
                       <td style="font-weight: bold;">&nbsp;NPE10021</td>
                   </tr>
               </tbody>
           </table>
       </div>
+       <br>
 
-      <div>
+      <div class="margin">
           <h2>INFORMATION PROTECTEUR</h2>
-          <table>
-              <thead>
-                  <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                  </tr>
-              </thead>
+          <table width="100%">
+
               <tbody>     
                   <tr>
-                      <td style="font-weight: bold;">&nbsp; NOM</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp; NOM</td>
                       <td colspan="6">&nbsp; IRIS IMMOBILIER SA</td>
                      
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;ADDRESSE</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;ADDRESSE</td>
                       <td colspan="6">36 BOULEVARD DU RPT</td>
                   
                       
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;CODE POSTAL</td>
-                      <td>0</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;CODE POSTAL</td>
+                      <td colspan="2">0</td>
                       <td style="font-weight: bold;">&nbsp;VILLE</td>
-                      <td>LOME</td>
+                      <td colspan="2">LOME</td>
                     
                   </tr>
                   <tr>
-                      <td style="font-weight: bold;">&nbsp;TELEPHONE</td>
-                      <td>+228 93 45 32 55</td>
+                      <td colspan="2" style="font-weight: bold;">&nbsp;TELEPHONE</td>
+                      <td colspan="2">+228 93 45 32 55</td>
                       <td style="font-weight: bold;">&nbsp;PAYS</td>
-                      <td>Rep du Togo</td>
+                      <td colspan="2">Rep du Togo</td>
                  
                   </tr>
                
               </tbody>
           </table>
       </div>
+                  </td>
+              <td class="no" width="3%"></td>
+
+          </tr>
+      </table>
 <br>
       <div>
           <table>
@@ -233,7 +245,7 @@
               </thead>
               <tbody>
                   <tr>
-                      <td style="border: none;" colspan="2">&nbsp;COUT DE LA PROTECTION VIE ET INVALIDITE</td>
+                      <td align="right" style="border: none; margin-right: 10px;" colspan="2"><!--&nbsp;-->COUT DE LA PROTECTION VIE ET INVALIDITE</td>
                       <td class="border">600,000</td>
                       <td style="border-bottom: 0; border-right: none; border-top: none;">FCFA</td>
                       <td style="font-weight: bold; border-left: none; border-bottom: none; border-top: none;">&nbsp;DATE DU PRET</td>
@@ -260,7 +272,7 @@
               </thead>
               <tbody>
                   <tr>
-                      <td style="border: none;" colspan="2">&nbsp;MONTANT DU FINANCEMENT </td>
+                      <td align="right" style="border: none; margin-right: 10px;" colspan="2">&nbsp;MONTANT DU FINANCEMENT </td>
                       <td class="border">4,800,000</td>
                       <td style="border-bottom: 0; border-right: none; border-top: none;">FCFA</td>
                       <td style="font-weight: bold; border-left: none; border-bottom: none; border-top: none;">&nbsp;DUREE DE LA PROTECTION EN MOIS</td>
@@ -273,7 +285,7 @@
           </table>
       </div>
       <br>
-      <p style="width: 80%; font-size: 13px;">JE SOUSSIGNE		CHARTREUX Stephane		RECONNAIS QUE LES INFORMATIONS DONNEES CI-DESSUS M’APPARTIENNENT ET SONT 						
+      <p style="width: 80%; font-size: 11px;">JE SOUSSIGNE		CHARTREUX Stephane		RECONNAIS QUE LES INFORMATIONS DONNEES CI-DESSUS M’APPARTIENNENT ET SONT
           VRAIES. J’AI LU TOUTES LES INFORMATIONS CONTENUES DANS CETTE COUVERTURE ET SUIS D’ACCORD AVEC TOUT LE CONTENU.  JE RECONNAIS QUE 										
           L’ACHAT D’UNE PROTECTION PERTE DE REVENUS EST MANDATOIRE POUR L’OBTENTION D’UNE LOCATION CHEZ								IRIS IMMOBILIER SA		
           ET CELA POUR TOUTE SA  DUREE . JE RECONNAIS AUSSI ETRE LIBRE D’OBTENIR UNE COUVERTURE AILLEURS QUE CHEZ									IRIS IMMOBILIER SA	
@@ -297,17 +309,18 @@
                   <tr>
                     
                       <td class="border">09/082021</td>
-                      <td style="border-bottom: 0; border-right: none; border-top: none; font-size: 20px; font-weight: bold;" colspan="3">&nbsp;&nbsp;&nbsp; X___________________________</td>
-                      <td style="font-weight: bold; border-left: none; border-bottom: none; border-top: none; border-right: none;  font-size: 20px; font-weight: bold;">&nbsp;X___________________________</td>
+                      <td style="border-bottom: 0; border-right: none; border-top: none; font-size: 20px; font-weight: bold;" colspan="3">&nbsp;&nbsp;&nbsp; X_________________</td>
+                      <td style="border: none; width: 25%;"></td>
+                      <td colspan="2" style="font-weight: bold; border-left: none; border-bottom: none; border-top: none; border-right: none;  font-size: 20px; font-weight: bold;">&nbsp;X_________________</td>
                       
                       
                   </tr>
                   <tr>
                     
                       <td style="border: none">DATE</td>
-                      <td style="border-bottom: 0; border-right: none; border-left: none; border-top: none; font-size: 10px; font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SIGNATURE CLIENT</td>
-                      <td style="border: none; width: 50%;"></td>
-                      <td colspan="3" style="font-weight: bold; border-left: none; border-right: none; border-bottom: none; border-top: none; font-size: 10px; font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SIGNATURE CO-SIGNATAIRE</td>
+                      <td style="border-bottom: 0; border-right: none; border-left: none; border-top: none; font-size: 10px; font-weight: normal;" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SIGNATURE CLIENT</td>
+                      <td style="border: none; width: 25%;"></td>
+                      <td colspan="2" style="font-weight: bold; border-left: none; border-right: none; border-bottom: none; border-top: none; font-size: 10px; font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SIGNATURE CO-SIGNATAIRE</td>
   
                       
                   </tr>
@@ -316,18 +329,19 @@
           </table>
       </div>
 
+
       <br>
       <br>
-      <h3 style="width: 80%; text-align: center;">PROTECTION</h3>
-      <p style="width: 80%; font-size: 16px;">La personne  ci-nommée est responsable envers				IRIS IMMOBILIER SA		par rapport aux termes et clauses énumérés dans le contrat de location 						
+      <h3 style="width: 80%; text-align: center; font-size: 20px; font-weight: normal;">PROTECTION</h3>
+      <p style="width: 80%; font-size: 11px;">La personne  ci-nommée est responsable envers				IRIS IMMOBILIER SA		par rapport aux termes et clauses énumérés dans le contrat de location
           et dans ce présent contrat de protection. Grace a cette protection signée, lorsque les conditions seront réunies après la perte d'emploi ou de revenus, le client n’aura plus l’obligation  												
           de s’acquitter jusqu’à trois mois de paiements et ne devra que payer un déductible de 10% du montant du par mois pendant cette période, le reliquat étant totalement pris en												
            charge par 	IRIS IMMOBILIER SA			.								
           </p>
 
           <br>
-          <h3 style="width: 80%; text-align: center;">      REFUS DE LA PROTECTION PERTE DE REVENUS </h3>
-          <p style="width: 80%; font-size: 13px;">JE NE CHOISIS PAS D’ACHETER LA PROTECTION PERTE DE REVENUS. JE COMPRENDS PAR AILLEURS QU’EN N’ACCEPTANT PAS CETTE PROTECTION, JE  										
+          <h3 style="width: 80%; text-align: center; font-size: 20px; font-weight: normal;">      REFUS DE LA PROTECTION PERTE DE REVENUS </h3>
+          <p style="width: 80%; font-size: 11px;">JE NE CHOISIS PAS D’ACHETER LA PROTECTION PERTE DE REVENUS. JE COMPRENDS PAR AILLEURS QU’EN N’ACCEPTANT PAS CETTE PROTECTION, JE
               N’AURAI DROIT A AUCUNE COUVERTURE OU ASSISTANCE QUELLE QU’ELLE SOIT EN CAS DE PERTE D'EMPLOI OU DE REVENUS. 										
                   .								
               </p>
@@ -348,17 +362,18 @@
                           <tr>
                             
                               <td class="border">09/082021</td>
-                              <td style="border-bottom: 0; border-right: none; border-top: none; font-size: 20px; font-weight: bold;" colspan="3">&nbsp;&nbsp;&nbsp; ___________________________</td>
-                              <td style="font-weight: bold; border-left: none; border-bottom: none; border-top: none; border-right: none;  font-size: 20px; font-weight: bold;">&nbsp;___________________________</td>
+                              <td style="border-bottom: 0; border-right: none; border-top: none; font-size: 20px; font-weight: bold;" colspan="3">&nbsp;&nbsp;&nbsp; _________________</td>
+                              <td style="border: none; width: 25%;"></td>
+                              <td colspan="2" style="font-weight: bold; border-left: none; border-bottom: none; border-top: none; border-right: none;  font-size: 20px; font-weight: bold;">&nbsp;_________________</td>
                               
                               
                           </tr>
                           <tr>
                             
                               <td style="border: none">DATE</td>
-                              <td style="border-bottom: 0; border-right: none; border-left: none; border-top: none; font-size: 10px; font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SIGNATURE CLIENT</td>
-                              <td style="border: none; width: 50%;"></td>
-                              <td colspan="3" style="font-weight: bold; border-left: none; border-right: none; border-bottom: none; border-top: none; font-size: 10px; font-weight: normal;">&nbsp;&nbsp;&nbsp; SIGNATURE CO-SIGNATAIRE</td>
+                              <td style="border-bottom: 0; border-right: none; border-left: none; border-top: none; font-size: 10px; font-weight: normal;" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SIGNATURE CLIENT</td>
+                              <td style="border: none; width: 25%;"></td>
+                              <td colspan="2" style="font-weight: bold; border-left: none; border-right: none; border-bottom: none; border-top: none; font-size: 10px; font-weight: normal;">&nbsp;&nbsp;&nbsp; SIGNATURE CO-SIGNATAIRE</td>
           
                               
                           </tr>
@@ -382,17 +397,16 @@
               </p>
 
               <h3 style="width: 80%;"> TERMES ET CONDITIONS: </h3>
-              <p style="width: 80%; font-size: 13px;">II/ Condition d’accès										
+              <p style="width: 80%; font-size: 13px;">II/ Condition d’accès<br>
                   Il faut d’abord que le client ait régulièrement et scrupuleusement respecté ses loyers durant la période où il avait ses revenus. Si après un minimum 										
                   de 6 mois de paiements de loyers ce dernier venait à perdre ses revenus, il n’aurait plus l’obligation de s’acquitter des trois mois de loyers suivants car 										
                   il ne paiera qu’un déductible de 10% du montant du par mois pendant cette période, le reliquat étant pris en charge par 										
                   IRIS IMMOBILIER SA			. Cette protection ne peut couvrir qu’une seule perte de revenus.							                                                                                                                 .								
               </p>
 
-              <br>
-              <br>
-              <h3 style="width: 80%;"> III/ Conditions de mise en œuvre </h3>
-              <ul>
+
+              <h3 style="font-size: 13px;" style="width: 80%;"> III/ Conditions de mise en œuvre </h3>
+              <ul style="font-size: 13px;">
                   <li style="list-style-type: lower-alpha;">Avoir payé régulièrement et scrupuleusement ses loyers au minimum six mois (6) avant la perte de revenus </li>
                   <li style="list-style-type: lower-alpha;">S’acquitter d’avance et comptant d’un paiement supplémentaire pour la protection						                    </li>
                   <li style="list-style-type: lower-alpha;">Perdre involontairement son emploi ou ses revenus    </li>
@@ -400,9 +414,30 @@
                   <li style="list-style-type: lower-alpha;">Ne pas être en procédure de licenciement ou de rupture de contrat au moment de la souscription   </li>
                   <li style="list-style-type: lower-alpha;">Ne pas avoir perdu son emploi ou ses revenus au moment de la souscription ou dans les 3 mois ayant suivi le début du contrat      </li>
                   <li style="list-style-type: lower-alpha;">S’être régulièrement acquitté de ses  loyers  durant toute la période d’activité.	</li>
-              </ul>   
-              <br>
-              <br>
+              </ul>
+
+              <p style="width: 80%; font-size: 13px; margin-left: 5px; margin-top: 0px;">#REF!			se réserve la possibilité de solliciter du client toute pièce nécessaire à la vérification de la perte effective de revenus.
+                Elle se réserve également le droit de procéder à toute enquête qu’elle juge nécessaire afin de vérifier que le client n’a pas retrouvé d’emploi rémunéré
+                ou d’autres activités génératrices de revenus durant les 30 jours ayant suivant la perte des derniers revenus.
+                Il reste entendu que si le client parvient à retrouver un autre emploi, business ou d’autres revenus dans les délais ci-dessus indiqués, il devra
+                s’acquitter intégralement des loyers dues.
+              </p>
+
+                <h3 style="width: 80%;"> EFFET DE LA PROTECTION </h3>
+                <p style="width: 80%; font-size: 13px;">Lorsque les conditions ci-dessus énumérées seront réunies, le client n’aura plus l’obligation de s’acquitter des trois mois de loyers suivants car il ne
+                paiera qu’un déductible de 10% du montant du par mois pendant cette période, le reliquat étant pris en charge par									#REF!
+                </p>
+
+                <h3 style="width: 80%;"> EXCLUSIONS </h3>
+                <p style="width: 80%; font-size: 13px;">Cette protection sera sans effet si:
+                    <ol style="font-size: 13px;">
+                         <li style="list-style-type: lower-alpha;">S’il s’avérait qu’il y a eu des fraudes ou des manipulations au niveau des déclarations ou des documents à fournir.</li>
+                         <li style="list-style-type: lower-alpha;">Si le client s’avérait avoir volontairement perdu son emploi, démissionné, rompu son ou ses contrats entrainant la perte de revenus.</li>
+                         <li style="list-style-type: lower-alpha;">Si le client se ré engageait dans un nouvel emploi, business ou contrat dans les 30 jours suivant la perte déclarée de revenus.</li>
+                         <li style="list-style-type: lower-alpha;">S’il s’avérait que le client avait perdu son emploi ou ses revenus lors de la souscription ou dans les 3 mois ayant suivi le début du contrat.</li>
+                    </ol>
+
+                </p>
               <h3 style="font-size: 13px; font-weight: normal;">CAS DE RECLAMMATION </h3>
               <h3 style="font-size: 13px; font-weight: normal; color: black;">DANS LE CAS D’UNE RECLAMMATION, les ayant droit doivent déposer, dans les (10) dix jours suivants la date de l’événement, à</h3>
 
@@ -431,11 +466,11 @@
               </table>
               <br>
 
-              <p style="width: 80%; font-size: 16px;">les documents suivants avant qu’aucun paiement ne puisse être honoré.  Tout défaut de pourvoir ces documents dans les (20) vingt jours suivants la 										
+              <p style="width: 80%; font-size: 13px;">les documents suivants avant qu’aucun paiement ne puisse être honoré.  Tout défaut de pourvoir ces documents dans les (20) vingt jours suivants la
                   date de l’événement résultera en l’annulation pure et simple de tout éventuel remboursement et de la protection en l’occurrence.										
               </p>
 
-              <ol>
+              <ol style="font-size: 13px;">
                   <li>Copie originale du registre de commerce ou photocopie légalisée / Copie originale de l’entreprise signifiant le licenciement ou photocopie légalisée.										
                   </li>
                   <li>Copie originale de l'identification aux impôts ou photocopie légalisée/ Copie originale du certificat de travail délivré par l’employeur au licenciement										
@@ -461,17 +496,13 @@
               </ol>
 
               <br>
-              <p style="width: 80%; font-size: 16px;">
+              <p style="width: 80%; font-size: 13px;">
                   Documentation légalisée de l’inspection du travail prouvant la date de la perte d’emploi.										
-                  VEUILLEZ VOUS ASSURER QUE TOUS LES DOCUMENTS SOIENT TRES LISIBLES, sinon tout paiement sera suspendu jusqu’à 										                    
-              </p>
-
-              <p style="width: 80%; font-size: 16px;">
-                  l’obtention de documents lisibles. Le délai maximal pour ces genres de cas sera de 10 jours à partir de la date de réclamation.																		                    
+                  VEUILLEZ VOUS ASSURER QUE TOUS LES DOCUMENTS SOIENT TRES LISIBLES, sinon tout paiement sera suspendu jusqu’à
+                  l’obtention de documents lisibles. Le délai maximal pour ces genres de cas sera de 10 jours à partir de la date de réclamation.
               </p>
 
   </div>
-  
-  
+
 </body>
 </html>
