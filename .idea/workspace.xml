@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecda6f0d-c18e-4205-93d4-4ecfebdf5c4f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/images/logo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transac/templates/transac/images/logo.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionimmo/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestionimmo/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transac/templates/transac/bal_imp.html" beforeDir="false" afterPath="$PROJECT_DIR$/transac/templates/transac/bal_imp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transac/templates/transac/ct_imp.html" beforeDir="false" afterPath="$PROJECT_DIR$/transac/templates/transac/ct_imp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transac/templates/transac/ppr_imp.html" beforeDir="false" afterPath="$PROJECT_DIR$/transac/templates/transac/ppr_imp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transac/templates/transac/pvi_imp.html" beforeDir="false" afterPath="$PROJECT_DIR$/transac/templates/transac/pvi_imp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transac/templates/transac/vente_facture.html" beforeDir="false" afterPath="$PROJECT_DIR$/transac/templates/transac/vente_facture.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
