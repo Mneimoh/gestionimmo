@@ -94,29 +94,7 @@
             <div class="row">
               <div class="col-md-12 margin-bottom-15">
                 <div class="btn-group pull-right" id="templatemo_sort_btn">
-                  <!-- <button type="button" class="btn btn-default">
-                    Trier par
-                  </button> -->
-                  <!-- <button
-                    type="button"
-                    class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown"
-                  >
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">N° client</a></li>
-                    <li><a href="#">Téléphone</a></li>
-                    <li><a href="#">Nom</a></li>
-                    <li><a href="#">Prénom</a></li>
-                    <li><a href="#">N°dossier</a></li>
-                    <li><a href="#">Statut</a></li>
-                    <li><a href="#">Dernier Paiement</a></li>
-                    <li><a href="#">Coeff recouvr</a></li>
-                    <li><a href="#">Appelé & récouvré</a></li>
-                  </ul> -->
-
+  
                   <select onchange="sort_etat(this.value)" style="border: 1px solid #ddd; padding-top: .5rem; padding-bottom: .5rem; padding-left: 1rem; font-size: 1.25rem;" class="form-select">
                     <option disabled selected value="">Sort By</option>
                     <option value="">All</option>
@@ -145,7 +123,7 @@
                         <th>Appelé & récouvré</th>
                         <th>Dernier appel</th>
                         <th>Modifier</th>
-                        <th>Ouvrir</th>
+                        <!-- <th>Ouvrir</th> -->
                         <th>Consulter</th>
                       </tr>
                     </thead>
@@ -169,24 +147,24 @@
                           type="button"
                           class="btn btn-default"
                           data-toggle="modal"
-                          data-target="#modifPenalite"
+                          data-target="#confirmPlan"
                         >
                           Modifier
                         </button>
                       </td>
-                      <td>
+                      <!-- <td>
                        
                         <div class = "btn-group">
                         <button
                           type="button"
                           class="btn btn-info"
                           data-toggle="modal"
-                          data-target="#confirmPlan"
+                          data-target=""
                         >
                           Ouvrir
                         </button>
                         </div>
-                      </td>
+                      </td> -->
                       <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" class="btn btn-link">Consulter</a></td>
                     <!-- </tr> -->
                     {% endfor  %}
@@ -224,28 +202,6 @@
             <div class="row">
               <div class="col-md-12 margin-bottom-15">
                 <div class="btn-group pull-right" id="templatemo_sort_btn">
-                  <!-- <button type="button" class="btn btn-default">
-                    Trier par
-                  </button> -->
-                  <!-- <button
-                    type="button"
-                    class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown"
-                  >
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">N° client</a></li>
-                    <li><a href="#">Téléphone</a></li>
-                    <li><a href="#">Nom</a></li>
-                    <li><a href="#">Prénom</a></li>
-                    <li><a href="#">N°dossier</a></li>
-                    <li><a href="#">Statut</a></li>
-                    <li><a href="#">Dernier Paiement</a></li>
-                    <li><a href="#">Coeff recouvr</a></li>
-                    <li><a href="#">Appelé & récouvré</a></li>
-                  </ul> -->
 
                   <select onchange="sort_etat(this.value)" style="border: 1px solid #ddd; padding-top: .5rem; padding-bottom: .5rem; padding-left: 1rem; font-size: 1.25rem;" class="form-select">
                     <option disabled selected value="">Sort By</option>
@@ -275,7 +231,7 @@
                         <th>Appelé & récouvré</th>
                         <th>Dernier appel</th>
                         <th>Modifier</th>
-                        <th>Ouvrir</th>
+                        <!-- <th>Ouvrir</th> -->
                         <th>Consulter</th>
                       </tr>
                     </thead>
@@ -299,12 +255,13 @@
                           type="button"
                           class="btn btn-default"
                           data-toggle="modal"
-                          data-target="#modifPenalite"
+                          data-target="#confirmPlan"
+                          onclick="set_id_to_pay('{{ dossier.id }}')""
                         >
                           Modifier
                         </button>
                       </td>
-                      <td>
+                      <!-- <td>
                        
                         <div class = "btn-group">
                         <button
@@ -316,7 +273,7 @@
                           Ouvrir
                         </button>
                         </div>
-                      </td>
+                      </td> -->
                       <td><a data-target="#showFacture" onclick="show_facture('{{ dossier.uid }}')" data-toggle="modal" class="btn btn-link">Consulter</a></td>
                     <!-- </tr> -->
                     {% endfor  %}
@@ -369,7 +326,7 @@
       </div>
     </div>
   </div>
-  <!-- Modal -->
+  
   <div
   class="modal fade"
   id="modifPlan"
@@ -395,6 +352,7 @@
     </div>
   </div>
   </div>
+
   <div
   class="modal fade"
   id="confirmPlan"
@@ -411,11 +369,22 @@
           ><span class="sr-only">Fermer</span>
         </button>
         <h4 class="modal-title" id="myModalLabel">
-          Ouvrir le plan de masse local
+          Modifier Statut
         </h4>
       </div>
+      <div class="modal-body">
+        <select onchange="sort_etat(this.value)" style="border: 1px solid #ddd; padding-top: .5rem; padding-bottom: .5rem; padding-left: 1rem; font-size: 1.25rem;" class="form-select">
+          <option disabled selected value="">Select New Statut</option>
+          <option value="A">A</option>
+          <option value="R1">R1</option>
+          <option value="R2">R2</option>
+          <option value="R3">R3</option>
+          <option value="R4">R4</option>
+        </select>
+
+      </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-primary">Confirmer</a>
+        <a href="#" onclick="pay_facture()"  class="btn btn-primary">Confirmer</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">
           Annuler
         </button>
@@ -423,6 +392,7 @@
     </div>
   </div>
   </div>
+
   <div
   class="modal fade"
   id="confirmModal"
@@ -451,10 +421,42 @@
     </div>
   </div>
   </div>
+
+  <div
+class="modal fade"
+id="showFacture"
+tabindex="-1"
+role="dialog"
+aria-labelledby="myModalLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span
+        ><span class="sr-only">Fermer</span>
+      </button>
+      <h4 class="modal-title" id="myModalLabel" style="text-align: center;">
+       PAIEMENT EN RETARD
+      </h4>
+      <hr>
+    <div id="display-facture">
+      
+    </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>
+ </div>
   {% endblock %} {% block scripts %}
 
   <script  type="text/javascript">
-    
+ let id_to_pay = null;   
 // PAGINATOR CODE BELLOW
   
   function paginate_table(page,$event) {
@@ -601,7 +603,7 @@
      
           elem = data[key];
           row = ''
-          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPlan">  Modifier </button> </div> </td>  <td> <div class = "btn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmPlan">  Ouvrir </button> </div> </td>  <td><a href="#" class="btn btn-link">Consulter</a></td>`
+          row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPlan">  Modifier </button> </div> </td>  <td><a href="#" class="btn btn-link">Consulter</a></td>`
           all_rows = all_rows + row;
       });
   
@@ -659,7 +661,29 @@ function sort_etat(sort_type) {
   }
 
 // END TABLE FEATURES
+ 
+  function update_facture_modal(facture) {
+    console.log('UPDATE FACTURE MODAL')
+    let data = `
+    <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Article Name: </span>
+          <span style="font-size: 20px; text-align: center;">${facture.article.nom}</span>
+        </div>
 
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Statut: ${facture.statut} </span>
+        </div>
+
+        <div style="text-align: center;">
+          <span style="font-size: 20px; font-weight: bold; text-align: center;">Somme: ${facture.somme} </span>
+        </div>
+
+    `
+
+    document.getElementById('display-facture').innerHTML = data;
+  }
+
+ 
   function get_facture(id) {
     // This is the function that will make the api call and get facture
     let param = "id="+id
@@ -674,7 +698,8 @@ function sort_etat(sort_type) {
   
           success: function(result) {
             // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
-            udpate_facture_modal(result.facture)
+            console.log(result.facture)
+            update_facture_modal(result.facture)
           },
   
           error: function() {
@@ -683,11 +708,343 @@ function sort_etat(sort_type) {
       })
 
   }
+ // #########END OF FACTURE SHOWING CODE######### 
+  
   function show_facture(id) {
     // CALL GET FACTURE FUNCTION TO GO AND GET FCTURE
    get_facture(id)
   }
 
+  function pay_facture() {
+    //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
+    // let param = "id=" + id_to_pay & "status="+"A"
+    // var form = document.getElementById('form');
+
+    // csrftoken = form.getElementsByTagName('input')[0].value;
+
+    $.ajax({
+          method: 'POST',
+          url: 'caisse/api/pay_facture',
+          headers: { "X-CSRFTOKEN": csrftoken  },
+          beforeSend: function() {
+              console.log('Before Send')
+          },
+          data: {id: id_to_pay , status: "PM1"},
+          success: function(result) {
+            // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+            console.log('facture paid')
+            genarate_next_facture()
+            // window.location.reload()
+          },
+  
+          error: function() {
+              console.log('error')
+          }
+      })
+  }
+
+  function set_id_to_pay(id) {
+    id_to_pay = id;
+    console.log('ID TO PAY BELLOW')
+    console.log(id)
+  }
+
+  </script>
+
+  <script  type="text/javascript">
+    let id_to_pay_0 = null;   
+  // PAGINATOR CODE BELLOW
+    
+    function paginate_table(page,$event) {
+        // document.getElementById('templatemo_search_box').value = '';
+      if(page > 1) {
+        document.getElementById('prev').classList = '';
+      }
+    
+      if(page == 1) {
+        document.getElementById('prev').classList = 'disabled'
+      }
+    
+    
+    
+      //  Write Logic to change current active button
+      
+        all_childrens = event.target.parentElement.parentElement.children
+        for(let i = 0; i < all_childrens.length; i++){
+            if(all_childrens[i].classList.contains('active')){
+              all_childrens[i].classList = '';
+            }
+        }
+        
+        event.target.parentElement.classList = 'active'
+    
+        // Total Pages Calculation Bellow
+        let total = all_childrens.length - 2;
+    
+        if(page == total) {
+          document.getElementById('next').classList = 'disabled'
+        }
+    
+        if(page < total) {
+          document.getElementById('next').classList = ''
+        }
+    
+        let param = `page=${page}`
+        send_paginate_request(param)
+    }
+    function next($event) {
+      let all_childrens = event.target.parentElement.parentElement.children
+      let setactive = 0;
+      prevactive = 0;
+    
+      for(let i = 0; i < all_childrens.length; i++){
+            if(all_childrens[i].classList.contains('active')){
+              prevactive = i;
+              all_childrens[i].classList = '';
+              setactive = i+1;
+            }
+        }
+    
+        
+      let total = all_childrens.length - 2;
+      
+      if(setactive > total) {
+        console.log('SET ACTIVE IS GREATER THAN TOTAL')
+        all_childrens[prevactive].classList = 'active';
+    
+      }else {
+    
+        if(setactive > 1) {
+          document.getElementById('prev').classList = '';
+        }
+    
+    
+        if(setactive == total) {
+          document.getElementById('next').classList = 'disabled'
+        }
+    
+    
+        all_childrens[setactive].classList = 'active';
+        let param = `page=${setactive}`
+        send_paginate_request(param)
+      }
+    
+    }
+    
+    function prev($event) {
+      let all_childrens = event.target.parentElement.parentElement.children
+      let setactive = 0;
+      let prevactive = 0;
+    
+      for(let i = 0; i < all_childrens.length; i++){
+            if(all_childrens[i].classList.contains('active')){
+              prevactive = i;
+              all_childrens[i].classList = '';
+              setactive = i-1;
+            }
+        }
+    
+        
+      let total = all_childrens.length - 2;
+      
+      if(setactive < 1) {
+        console.log('SET ACTIVE IS LESSER THAN ONE')
+        all_childrens[prevactive].classList = 'active';
+    
+      }else {
+    
+        if(setactive < total) {
+          document.getElementById('next').classList = '';
+        }
+    
+        if(setactive == 1) {
+          document.getElementById('prev').classList = 'disabled'
+        }
+    
+    
+        all_childrens[setactive].classList = 'active';
+        let param = `page=${setactive}`
+        send_paginate_request(param)
+      }
+    
+    }
+    
+    function send_paginate_request(param) {
+        $.ajax({
+            method: 'GET',
+            url: 'api/paginate_etat?' + param,
+            beforeSend: function() {
+                console.log('Before Send')
+            },
+    
+            success: function(result) {
+              console.log('after send')
+              console.log(result)
+                update_table_paginate(result);
+                
+            },
+    
+            error: function() {
+                console.log('error')
+            }
+        })
+    }
+    
+    function update_table_paginate(data) {
+        let row;
+        let all_rows = '';
+        // console.log('UPDATE TABLE PAGINATE')
+        // console.log(data[0].client)
+        Object.keys(data).forEach((key,index) => {
+        
+            elem = data[key];
+            row = ''
+            row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPlan">  Modifier </button> </div> </td>  <td><a href="#" class="btn btn-link">Consulter</a></td>`
+            all_rows = all_rows + row;
+        });
+    
+        $("#etatTable tbody").html(all_rows)
+    }
+    
+  // END OF PAGINATOR
+  
+  // TABLE FEATURES
+    
+  function sort_etat(sort_type) {
+        let param = `${sort_type}=${sort_type}`
+        send_request(param);
+    }
+    
+    function find_cpml() {
+        let search_query = document.getElementById('templatemo_search_box').value;
+        let param = `search_table=${search_query}`
+        send_request(param);
+    }
+  
+    function send_request(param) {
+        $.ajax({
+            method: 'GET',
+            url: 'api/get_etat?' + param,
+            beforeSend: function() {
+                console.log('Before Send')
+            },
+    
+            success: function(result) {
+                update_table(result);
+                console.log('after send')
+            },
+    
+            error: function() {
+                console.log('error')
+            }
+        })
+    }
+    
+    function update_table(data) {
+        console.log('Table Update')
+        let row;
+        let all_rows = '';
+      
+        Object.keys(data).forEach((key,index) => {
+            elem = data[key];
+            console.log('data bellow')
+            console.log(data[index])
+            app = data[index];
+            row = `<tr><td> ${elem.client.uid} </td> <td>${elem.client.phone_1}</td> <td>${elem.client.nom}</td> <td>${elem.client.prenom}</td> <td>${elem['uid']}</td> <td>${elem['statut']}</td> <td> ${elem['date_dernier_paiement']} </td> <td>${elem['coeff_recouv']}</td> <td>${elem['appele_recouvre']}</td> <td>${elem['dernier_appel']}</td> <td> <div class="btn-group"> <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifPlan">  Modifier </button> </div> </td>  <td> <div class = "btn-group"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmPlan">  Ouvrir </button> </div> </td>  <td><a data-target="#showFacture" onclick="show_facture(${elem['uid']})" data-toggle="modal" class="btn btn-link">Consulter</a></td>`
+            all_rows = all_rows + row;
+        });
+        $("#etatTable tbody").html(all_rows)
+    }
+  
+  // END TABLE FEATURES
+    
+    function update_facture_modal(facture) {
+      console.log('UPDATE FACTURE MODAL')
+      let data = `
+      <div style="text-align: center;">
+            <span style="font-size: 20px; font-weight: bold; text-align: center;">Article Name: </span>
+            <span style="font-size: 20px; text-align: center;">${facture.article.nom}</span>
+          </div>
+  
+          <div style="text-align: center;">
+            <span style="font-size: 20px; font-weight: bold; text-align: center;">Statut: ${facture.statut} </span>
+          </div>
+  
+          <div style="text-align: center;">
+            <span style="font-size: 20px; font-weight: bold; text-align: center;">Somme: ${facture.somme} </span>
+          </div>
+  
+      `
+  
+      document.getElementById('display-facture').innerHTML = data;
+    }
+  
+    
+    function get_facture(id) {
+      // This is the function that will make the api call and get facture
+      let param = "id="+id
+      let result = null;
+      
+      $.ajax({
+            method: 'GET',
+            url: 'facture/api/get_facture?' + param,
+            beforeSend: function() {
+                console.log('Before Send')
+            },
+    
+            success: function(result) {
+              // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+              console.log(result.facture)
+              update_facture_modal(result.facture)
+            },
+    
+            error: function() {
+                console.log('error')
+            }
+        })
+  
+    }
+    // #########END OF FACTURE SHOWING CODE######### 
+    
+    function show_facture(id) {
+      // CALL GET FACTURE FUNCTION TO GO AND GET FCTURE
+      get_facture(id)
+    }
+  
+    function pay_facture() {
+      //THIS FUNCTION WILL MAKE API CALL WITH DOSSIER ID TO PAY FACTURE
+      // let param = "id=" + id_to_pay_0 & "status="+"A"
+      // var form = document.getElementById('form');
+  
+      // csrftoken = form.getElementsByTagName('input')[0].value;
+  
+      $.ajax({
+            method: 'POST',
+            url: 'caisse/api/pay_facture',
+            headers: { "X-CSRFTOKEN": csrftoken  },
+            beforeSend: function() {
+                console.log('Before Send')
+            },
+            data: {id: id_to_pay_0 , status: "PM1"},
+            success: function(result) {
+              // CALL FUNCTION BELLOW TO UPDATE MODAL WITH FACTURE DETAILS
+              console.log('facture paid')
+              genarate_next_facture()
+              // window.location.reload()
+            },
+    
+            error: function() {
+                console.log('error')
+            }
+        })
+    }
+  
+    function set_id_to_pay_0(id) {
+      id_to_pay_0 = id;
+      console.log('ID TO PAY BELLOW')
+      console.log(id)
+    }
+  
   </script>
   {% endblock %}
 </div>

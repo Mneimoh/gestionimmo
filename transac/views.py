@@ -426,8 +426,17 @@ def sendMail(request, id):
         server.login('karlsedoide@gmail.com', '40sedoide40')
 
         subject = "Greetings From GestionImmo"
-        body = f"This is to notify you that our client of name {request.POST['crediteur_name']} of the town {request.POST['crediteur_adresse']} with POSTal code of  {request.POST['crediteur_code_postal']}  took a loan from our company called {request.user.societe}"
+        # body = f"This is to notify you that our client of name {request.POST['crediteur_name']} of the town {request.POST['crediteur_adresse']} with POSTal code of  {request.POST['crediteur_code_postal']}  took a loan from our company called {request.user.societe}"
+        body = f"""
+        Nous vous informons que Monsieur/Madamme {request.POST['debiteur_name']}, demeurant au {request.POST['debiteur_adresse']}, vous a ajoute en cosignataire pour la  souscription d'un credit aupres de notre organisme {request.user.societe}
+        Attention, on vous demande de vous porter garant pour un pret. Reflechissez tres bien avant de vous engager. Si l'emprunteur ne paye pas sa dette, vous serez dans l'obligation de le faire a sa place. Soyez sur d'avoir les moyens de le faire, et que vous avez envie de prendre cette responsabilite.
+        Vous pourriez etre obliger de payer la totalite de la dette si l'emprunteur ne paye pas. Vous pourriez aussi payer des dommages et interets plus frais de procedures, et les montants changeraient en consequence.
+        Nous pourrions recuperer nos paiements a votre niveau sans pour autant essayer de recuperer au niveau de l'emprunteur. Nous pourrions utiliser contre vous les memes methodes de recouvrement que nous utiliserions contre l'emprunteur, comme une poursuite judiciaire, coupures de vos salaires a la source, etc....
+        Cette notification n'est pas le contrat qui nous lie.    
 
+        La direction {request.user.societe}         
+
+        """
         msg = f"{subject}\n\n{body}"
         server.sendmail(
             'karlsedoide@gmail.com',
@@ -457,6 +466,8 @@ def getPdf(request, name, dossier):
         template_path = 'transac/vente_facture.html'
     if name == "engagement":
         template_path = 'transac/engagement.html'
+    if name == "recapitulatif":
+        template_path = 'transac/recapitulatif.html'
     if name == "ppe_imp":
         template_path = 'transac/ppe_imp.html'
     if name == "ppr_imp":
@@ -469,6 +480,8 @@ def getPdf(request, name, dossier):
         template_path = "transac/bal_imp.html"
     if name == "ppe_imp":
         template_path = "transac/ppe_imp.html"
+    if name == "authorise":
+        template_path = "transac/authorise.html"
 
     context = {'dossier': dossier}
 
@@ -494,13 +507,80 @@ def vente(request):
     if(request.user.poste == section):
         if request.method == 'POST':
             print(request.POST)
-            dossier_uid = int(request.POST['dossier_id'])
-            currentDossier = Dossier.objects.filter(uid=dossier_uid)[0]
+            if request.POST['article_interet'] == "No de dossier":
+                dossier_uid = int(request.POST['dossier_id'])
+                currentDossier = Dossier.objects.filter(uid=dossier_uid)[0]
+            if request.POST['article_interet'] == "Telephone":
+                phone = int(request.POST['dossier_id'])
+                currentDossier = Dossier.objects.filter(
+                    client__phone_1=phone)[0]
+            if request.POST['article_interet'] == "Nom":
+                name = request.POST['dossier_id']
+                currentDossier = Dossier.objects.filter(client__nom=name)[0]
+
             return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier})
 
         return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': clientData, 'dossier': currentDossier})
     else:
         return redirect(f"/login?next=/{section}/")
+
+
+@login_required
+def venteSearch(request):
+    if(request.user.poste == section):
+        print('*************** welcome ********************')
+        print('hemmorphine')
+        print('*************** welcome ********************')
+        if request.method == 'POST':
+            print(request.POST)
+            # *************************************  Testing  ******************************************
+            uid = request.POST['dossier_id']
+            phone_1 = request.POST['dossier_id']
+            nom = request.POST['dossier_id']
+            prenom = request.POST['dossier_id']
+            statut = request.POST['dossier_id']
+            dernier_appel = request.POST['dossier_id']
+            coeff_recouv = request.POST['dossier_id']
+            appele_recouvre = request.POST['dossier_id']
+
+            # FOR SEARCH FIELD BELLOW
+            search_table = request.POST['dossier_id']
+            print('GOT HERE IN GET CAISSE')
+
+            caisse_info = Dossier.objects.filter(
+                societe__nom=request.user.societe)
+
+            if search_table:
+                lookups = Q(client__uid__icontains=search_table) | Q(client__phone_1__icontains=search_table) | Q(client__nom__icontains=search_table) | Q(client__prenom__icontains=search_table) | Q(
+                    uid__icontains=search_table) | Q(statut__icontains=search_table) | Q(coeff_recouv__icontains=search_table) | Q(appele_recouvre__icontains=search_table) | Q(dernier_appel__icontains=search_table)
+
+                caisse_info = caisse_info.filter(lookups).distinct()
+
+                # if uid:
+                #     caisse_info = caisse_info.all().order_by('client__uid')
+                # if phone_1:
+                #     caisse_info = caisse_info.all().order_by('client__phone_1')
+                # if nom:
+                #     caisse_info = caisse_info.all().order_by('client__nom')
+                # if prenom:
+                #     caisse_info = caisse_info.all().order_by('client__prenom')
+                # if statut:
+                #     caisse_info = caisse_info.all().order_by('statut')
+                # if dernier_appel:
+                #     caisse_info = caisse_info.all().order_by('dernier_appel')
+                # if coeff_recouv:
+                #     caisse_info = caisse_info.all().order_by('coeff_recouv')
+                # if appele_recouvre:
+                #     caisse_info = caisse_info.all().order_by('appele_recouvre')
+
+                print('****************** just random spot *********************')
+                dossier = caisse_info[0].uid
+                currentDossier = Dossier.objects.get(uid=dossier)
+                print(currentDossier)
+                print(currentDossier.client)
+                print('****************** just random spot *********************')
+
+                return render(request, 'transac/tvente.html', {'title': 'Espace vente', 'client': currentDossier.client, 'dossier': currentDossier})
 
 
 @login_required

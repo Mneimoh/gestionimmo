@@ -3,12 +3,14 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('', views.prequalifList , name='transac'),
-    path('transac/api/pay_facture',views.pay_facture),
+    path('', views.prequalifList, name='transac'),
+    path('transac/api/pay_facture', views.pay_facture),
     path('facture/api/get_facture', views.get_facture),
-    path('compte/<nom>',views.index, name="transact list"),
+    path('compte/<nom>', views.index, name="transact list"),
     path('vente', views.vente, name='vente'),
-    path('vente/<_type>/<dossier>/<article>/', views.venteUpdates, name='vente'),
+    # path('vente/search', views.venteSearch, name='vente'),
+    path('vente/<_type>/<dossier>/<article>/',
+         views.venteUpdates, name='vente'),
     path('register/<table>/<type>/', views.registerAccount),
     # path('generatepdf/', views.ViewPDF.as_view(), name="pdf_view"),
     path('generatepdf/<name>/<dossier>/', views.getPdf, name="pdf_view"),
@@ -30,7 +32,8 @@ urlpatterns = [
     path('mutations/api/paginate_mutations', views.paginate_mutations),
     path('restructure', views.restructure, name='restructure'),
     path('restructurations/api/get_restructurations', views.get_restructurations),
-    path('restructurations/api/paginate_restructurations', views.paginate_restructurations),
+    path('restructurations/api/paginate_restructurations',
+         views.paginate_restructurations),
     path('plan', views.plan, name='plan'),
     path('tpml/api/get_tpml', views.get_tpml),
     path('tpml/api/paginate_tpml', views.paginate_tpml),

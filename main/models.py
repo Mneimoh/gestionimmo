@@ -10,17 +10,17 @@ from django.db.models.fields import IntegerField
 # Create your models here.
 
 USER_POSTES = (
-    ("accueuil", "accueuil"),
+    ("accueuil", "accueil"),
     ("transac", "transac"),
     ("caisse", "caisse"),
     ("recouvrement", "recouvrement"),
-    ("N/A", "N/A")
+    ("admin", "admin")
 )
 
 
 # Societe Models
 class Societe(models.Model):
-    nom = models.CharField(max_length=60, default="N/A")
+    nom = models.CharField(max_length=60, null=True)
     localisation = models.CharField(max_length=200, null=True)
     active = models.BooleanField(default=False)
     date_created = models.DateTimeField(
@@ -83,9 +83,9 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     username = models.CharField(
-        verbose_name="Name", max_length=255, unique=True)
+        verbose_name="Nom", max_length=255, unique=True)
     email = models.EmailField(
-        verbose_name="Email Address", max_length=60, unique=True, null=True)
+        verbose_name="Email Adresse", max_length=60, unique=True, null=True)
     date_joined = models.DateTimeField(
         verbose_name="Date joined", auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -211,7 +211,7 @@ class Cosignataire(models.Model):
     societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
     User = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.EmailField(
-        verbose_name="Email Address", max_length=60, null=True, blank=True)
+        verbose_name="Email Adresse", max_length=60, null=True, blank=True)
     phone_1 = models.CharField(max_length=60, null=True, blank=True)
     phone_2 = models.CharField(max_length=60, null=True, blank=True)
     nom = models.CharField(max_length=60, null=True, blank=True)
@@ -276,7 +276,7 @@ class Client(models.Model):
     societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
     User = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.EmailField(
-        verbose_name="Email Address", max_length=60, null=True, blank=True)
+        verbose_name="Email Adresse", max_length=60, null=True, blank=True)
     phone_1 = models.CharField(max_length=60, null=True, blank=True)
     phone_2 = models.CharField(max_length=60, null=True, blank=True)
     nom = models.CharField(max_length=60, null=True, blank=True)
@@ -329,9 +329,12 @@ class Article(models.Model):
     num_stock = models.CharField(max_length=60)
     valeur = models.FloatField(blank=True, null=True)
     societe = models.ForeignKey(Societe, on_delete=PROTECT, null=True)
-    # date_achat               = models.DateField(blank=True, null=True)
-    # date_dernier_paiement    = models.DateField(blank=True, null=True)
-    # accompte                 = models.FloatField(blank=True, null=True)
+    # site,type de docs, dimension,situation
+    # site = models.CharField(max_length=60, blank=True, null=True)
+    # dimension = models.CharField(max_length=60, blank=True, null=True)
+    # type_de_docs = models.CharField(max_length=60, blank=True, null=True)
+    # situation = models.CharField(max_length=60, blank=True, null=True)
+    # description = models.TextField(null=True)
     statut = models.CharField(max_length=60, null=True)
     frais_dossier = models.FloatField(blank=True, null=True)
     frais_montage = models.FloatField(default=60000)
